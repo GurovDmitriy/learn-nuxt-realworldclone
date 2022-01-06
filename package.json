@@ -1,0 +1,54 @@
+{
+  "name": "start-repository-nuxt",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "npm run lint && webpack --mode production",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "jsonserver": "json-server --watch data/db.json -m ./node_modules/json-server-auth -r routes.json",
+    "fakedb": "node ./fakedb.js && prettier --write \"./data/db.json\"",
+    "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
+    "lint:eslint": "eslint --fix --ext \".vue,.js\" --ignore-path .eslintignore .",
+    "lint:stylelint": "stylelint --fix \"**/*.{vue,css,less,scss,html}\" --ignore-path .stylelintignore",
+    "lint:prettier": "prettier --write \"**/*.{vue,js,css,less,scss,html,md}\" --ignore-path .prettierignore",
+    "lint:prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{vue,js}": "eslint --fix",
+    "*.{vue,css,less,scss,html}": "stylelint --fix",
+    "*.{vue,js,css,less,scss,html,md}": "prettier --write"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "core-js": "^3.15.1",
+    "nuxt": "^2.15.7"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.14.7",
+    "@commitlint/cli": "^16.0.1",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@nuxtjs/eslint-config": "^8.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/stylelint-module": "^4.0.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-nuxt": "^3.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "faker": "^5.5.3",
+    "husky": "^7.0.4",
+    "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0",
+    "lint-staged": "^12.1.5",
+    "postcss-html": "^1.2.0",
+    "prettier": "^2.3.2",
+    "stylelint": "^14.0.1",
+    "stylelint-config-html": "^1.0.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-recommended-vue": "^1.0.0",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-order": "^5.0.0"
+  }
+}
