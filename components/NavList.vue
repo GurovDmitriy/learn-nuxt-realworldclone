@@ -27,7 +27,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
 
-  margin: 0 -10px;
+  margin: 0 ($space-s * -1);
   padding: 0;
 
   list-style: none;

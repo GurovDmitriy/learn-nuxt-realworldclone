@@ -15,11 +15,15 @@
 .title__container {
   @include container;
 
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: $space-l;
+  padding-bottom: $space-l;
 }
 
 .title__caption {
+  margin-bottom: $space-m;
+
+  @include caption-h1;
+
   color: $var-color-white;
   text-align: center;
 }

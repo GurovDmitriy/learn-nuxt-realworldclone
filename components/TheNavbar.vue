@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: space-between;
 
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: $space-s;
+  padding-bottom: $space-s;
 }
 </style>

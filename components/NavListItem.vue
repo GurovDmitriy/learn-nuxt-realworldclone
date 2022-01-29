@@ -21,7 +21,7 @@ export default {
 <style lang="scss">
 .nav-list__link {
   display: block;
-  padding: 8px;
+  padding: $space-s;
 
   color: $var-color-grey;
 
