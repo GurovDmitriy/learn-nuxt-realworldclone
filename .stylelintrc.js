@@ -2,7 +2,7 @@ module.exports = {
   extends: [
     "stylelint-config-rational-order",
     "stylelint-config-html",
-    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
     "stylelint-config-recommended-vue",
     "stylelint-config-prettier",
   ],
@@ -27,5 +27,7 @@ module.exports = {
     "max-empty-lines": 1,
     "color-hex-length": "long",
     "color-hex-case": "lower",
+    "selector-class-pattern": /\w+/,
+    "at-rule-no-unknown": null,
   },
 }

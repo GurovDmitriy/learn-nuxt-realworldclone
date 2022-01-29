@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "learn-nuxt-promoapp",
+    title: "learn-nuxt",
     htmlAttrs: {
       lang: "en",
     },
@@ -15,7 +15,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ["normalize.css", "~/assets/styles/main.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -29,7 +29,12 @@ export default {
     "@nuxtjs/eslint-module",
     // https://go.nuxtjs.dev/stylelint
     "@nuxtjs/stylelint-module",
+    "@nuxtjs/style-resources",
   ],
+
+  styleResources: {
+    scss: ["~/assets/styles/_variables.scss", "~/assets/styles/_mixins.scss"],
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
