@@ -1,0 +1,32 @@
+/* color */
+$color-black: #000000;
+$color-white: #ffffff;
+
+/* pallete */
+$color-grey-light: #f8f7f7;
+$color-grey: #9f8299;
+$color-purple: #a35ba7;
+$color-purple-dark: #a35ba7;
+$color-red: #ed5951;
+
+:root {
+  --color-black: #{$color-black};
+  --color-white: #{$color-white};
+  --color-grey-light: #{$color-grey-light};
+  --color-grey: #{$color-grey};
+  --color-purple: #{$color-purple};
+  --color-purple-dark: #{$color-purple-dark};
+  --color-red: #{$color-red};
+}
+
+$var-color-black: var(--color-black, $color-black);
+$var-color-white: var(--color-white, $color-white);
+$var-color-grey-light: var(--color-grey-light, $color-grey-light);
+$var-color-grey: var(--color-grey, $color-grey);
+$var-color-purple: var(--color-purple, $color-purple);
+$var-color-purple-dark: var(--color-purple-dark, $color-purple-dark);
+$var-color-red: var(--color-red, $color-red);
+
+/* container */
+$max-width-container: 1440px;
+$padding-container: 16px;

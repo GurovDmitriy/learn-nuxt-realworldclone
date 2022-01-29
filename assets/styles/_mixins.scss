@@ -1,0 +1,8 @@
+@mixin container {
+  display: block;
+  width: 100%;
+  max-width: $max-width-container;
+  margin: 0 auto;
+  padding-right: $padding-container;
+  padding-left: $padding-container;
+}
