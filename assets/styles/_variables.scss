@@ -1,32 +1,74 @@
-/* color */
+/* stylelint-disable custom-property-pattern */
+/* stylelint-disable scss/dollar-variable-pattern */
+
+/* use */
+@use "sass:math";
+
+/* color sass var */
 $color-black: #000000;
 $color-white: #ffffff;
+$color-grey: #989eb5;
+$color-grey-light: #f6f4f6;
+$color-grey-dark: #96899d;
+$color-purple: #ac8ac3;
+$color-blue: #49597c;
 
-/* pallete */
-$color-grey-light: #f8f7f7;
-$color-grey: #9f8299;
-$color-purple: #a35ba7;
-$color-purple-dark: #a35ba7;
-$color-red: #ed5951;
-
-:root {
-  --color-black: #{$color-black};
-  --color-white: #{$color-white};
-  --color-grey-light: #{$color-grey-light};
-  --color-grey: #{$color-grey};
-  --color-purple: #{$color-purple};
-  --color-purple-dark: #{$color-purple-dark};
-  --color-red: #{$color-red};
-}
-
+/* color css var */
 $var-color-black: var(--color-black, $color-black);
 $var-color-white: var(--color-white, $color-white);
-$var-color-grey-light: var(--color-grey-light, $color-grey-light);
 $var-color-grey: var(--color-grey, $color-grey);
+$var-color-grey-light: var(--color-grey-light, $color-grey-light);
+$var-color-grey-dark: var(--color-grey-dark, $color-grey-dark);
 $var-color-purple: var(--color-purple, $color-purple);
-$var-color-purple-dark: var(--color-purple-dark, $color-purple-dark);
-$var-color-red: var(--color-red, $color-red);
+$var-color-blue: var(--color-blue, $color-blue);
+
+/* min width document */
+$min-width-document: 360px;
 
 /* container */
 $max-width-container: 1440px;
-$padding-container: 16px;
+
+/* viewport */
+$min-width-tablet: 600px;
+$min-width-desktop: 1100px;
+
+/* fonts */
+$font-size-base: 16;
+$font-size-base-mobile: 14px;
+$font-size-base-tablet: 16px;
+$line-height-base: 2;
+$font-family-base: "Open-Sans", "Arial", "Helvetica", sans-serif;
+
+/* rem */
+$rem: (math.div(1, $font-size-base) * 1rem);
+
+/* captions */
+$font-size-h1: (42 * $rem);
+$line-height-h1: 1.7;
+$font-size-h2: (33 * $rem);
+$line-height-h2: 1.7;
+$font-size-h3: (26 * $rem);
+$line-height-h3: 1.8;
+$font-size-h4: (16 * $rem);
+$line-height-h4: $line-height-base;
+$font-size-default: (16 * $rem);
+$line-height-default: $line-height-base;
+$font-size-small: (13 * $rem);
+$line-height-small: 2.2;
+
+/* font-weight */
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+$font-weight-black: 900;
+
+/* spacing */
+$space-xs: (4 * $rem);
+$space-s: (7 * $rem);
+$space-m: (12 * $rem);
+$space-l: (20 * $rem);
+$space-xl: (33 * $rem);
+$space-xxl: (53 * $rem);
