@@ -1,3 +1,3 @@
 <template>
-  <p>hello nuxt</p>
+  <p>login page</p>
 </template>
