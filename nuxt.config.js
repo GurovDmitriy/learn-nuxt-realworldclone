@@ -17,27 +17,27 @@ export default {
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      {
-        rel: "preload",
-        href: "~/assets/fonts/OpenSans-Regular.woff2",
-        as: "font",
-        type: "font/woff2",
-        crossorigin: true,
-      },
-      {
-        rel: "preload",
-        href: "~/assets/fonts/OpenSans-Light.woff2",
-        as: "font",
-        type: "font/woff2",
-        crossorigin: true,
-      },
-      {
-        rel: "preload",
-        href: "~/assets/fonts/OpenSans-Bold.woff2",
-        as: "font",
-        type: "font/woff2",
-        crossorigin: true,
-      },
+      // {
+      //   rel: "preload",
+      //   href: "~/assets/fonts/OpenSans-Regular.woff2",
+      //   as: "font",
+      //   type: "font/woff2",
+      //   crossorigin: true,
+      // },
+      // {
+      //   rel: "preload",
+      //   href: "~/assets/fonts/OpenSans-Light.woff2",
+      //   as: "font",
+      //   type: "font/woff2",
+      //   crossorigin: true,
+      // },
+      // {
+      //   rel: "preload",
+      //   href: "~/assets/fonts/OpenSans-Bold.woff2",
+      //   as: "font",
+      //   type: "font/woff2",
+      //   crossorigin: true,
+      // },
     ],
   },
 
