@@ -4,7 +4,11 @@
     <div class="navbar__container">
       <LogoBlock class="navbar__logo" />
       <TheBurger class="navbar__burger" @clickBurger="toggleMenu" />
-      <NavList class="navbar__nav-list" :class="classNavList" />
+      <NavList
+        :data-item="navListItem"
+        :class="classNavList"
+        class="navbar__nav-list"
+      />
     </div>
   </nav>
 </template>
@@ -14,6 +18,11 @@ export default {
   data() {
     return {
       isMenuShow: false,
+      navListItem: [
+        { content: "Home", path: "/" },
+        { content: "Sign in", path: "/login" },
+        { content: "Sign up", path: "/register" },
+      ],
     }
   },
 
