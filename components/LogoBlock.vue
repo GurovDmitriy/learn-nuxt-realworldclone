@@ -8,5 +8,9 @@
 
   color: $var-color-purple;
   text-decoration: none;
+
+  &:hover {
+    color: $var-color-grey;
+  }
 }
 </style>

@@ -5,7 +5,7 @@
       <LogoBlock class="navbar__logo" />
       <TheBurger class="navbar__burger" @clickBurger="toggleMenu" />
       <NavList
-        :data-item="navListItem"
+        :data-items="navListItems"
         :class="classNavList"
         class="navbar__nav-list"
       />
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       isMenuShow: false,
-      navListItem: [
+      navListItems: [
         { content: "Home", path: "/" },
         { content: "Sign in", path: "/login" },
         { content: "Sign up", path: "/register" },

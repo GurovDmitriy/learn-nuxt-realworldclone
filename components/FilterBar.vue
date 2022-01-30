@@ -1,6 +1,6 @@
 <template>
   <ul class="filter-bar">
-    <li v-for="item in dataItem" :key="item.content" class="filter-bar__item">
+    <li v-for="item in dataItems" :key="item.content" class="filter-bar__item">
       <NuxtLink :to="{ path: item.path }" class="filter-bar__link">{{
         item.content
       }}</NuxtLink>
@@ -11,7 +11,7 @@
 <script>
 export default {
   props: {
-    dataItem: {
+    dataItems: {
       type: Array,
       required: true,
     },
