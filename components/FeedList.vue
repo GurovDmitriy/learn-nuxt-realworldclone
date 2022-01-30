@@ -28,4 +28,10 @@
 .feed-list__item {
   padding: $space-xl 0;
 }
+
+.feed-list__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 </style>
