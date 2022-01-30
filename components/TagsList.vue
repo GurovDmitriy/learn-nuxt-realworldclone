@@ -23,7 +23,7 @@ export default {
     dataItems: {
       type: Array,
       required: false,
-      default: () => [{ content: "notags" }],
+      default: () => [{ content: "no tags" }],
     },
   },
 
@@ -38,13 +38,6 @@ export default {
 </script>
 
 <style lang="scss">
-.tags-list {
-  padding: $space-m;
-
-  background-color: $var-color-grey-light;
-  border-radius: 5px;
-}
-
 .tags-list__box {
   display: flex;
   flex-wrap: wrap;

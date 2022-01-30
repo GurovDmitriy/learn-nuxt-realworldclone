@@ -4,6 +4,7 @@
     <section class="main__section main__section--left">
       <h3 class="main__section-caption visually-hidden">Feed List</h3>
       <FilterBar :data-items="filterBarItemsResult" class="main__filter-bar" />
+      <FeedList class="main__feed-list" />
     </section>
     <aside class="main__section main__section--right">
       <TagsList :data-items="dataTags" class="main__tags-list">
@@ -75,5 +76,12 @@ export default {
 .main__section-caption {
   margin-bottom: $space-s;
   @include text-default;
+}
+
+.main__tags-list {
+  padding: $space-m;
+
+  background-color: $var-color-grey-light;
+  border-radius: 5px;
 }
 </style>
