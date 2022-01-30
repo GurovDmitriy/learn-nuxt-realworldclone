@@ -31,5 +31,9 @@
 .title__text {
   color: $var-color-white;
   text-align: center;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 </style>
