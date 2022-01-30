@@ -3,11 +3,35 @@
     <h2 class="navbar__caption visually-hidden">Navigation</h2>
     <div class="navbar__container">
       <LogoBlock class="navbar__logo" />
-      <NavList class="navbar__nav-list" />
+      <TheBurger class="navbar__burger" @clickBurger="toggleMenu" />
+      <NavList class="navbar__nav-list" :class="classNavList" />
     </div>
   </nav>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      isMenuShow: false,
+    }
+  },
+
+  computed: {
+    classNavList() {
+      return {
+        "navbar__nav-list--active": this.isMenuShow,
+      }
+    },
+  },
+
+  methods: {
+    toggleMenu() {
+      this.isMenuShow = !this.isMenuShow
+    },
+  },
+}
+</script>
 <style lang="scss">
 .navbar__container {
   @include container;
@@ -20,5 +44,30 @@
 
   padding-top: $space-s;
   padding-bottom: $space-s;
+}
+
+.navbar__burger {
+  display: block;
+
+  @media (min-width: $min-width-tablet) {
+    display: none;
+  }
+}
+
+.navbar__nav-list {
+  display: none;
+  width: 100%;
+  margin: 0;
+
+  &--active {
+    display: block;
+  }
+
+  @media (min-width: $min-width-tablet) {
+    display: flex;
+
+    width: auto;
+    margin: 0 ($space-s * -1);
+  }
 }
 </style>

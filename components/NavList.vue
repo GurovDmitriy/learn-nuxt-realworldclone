@@ -24,12 +24,16 @@ export default {
 
 <style lang="scss">
 .nav-list {
-  display: flex;
-  flex-wrap: wrap;
-
-  margin: 0 ($space-s * -1);
+  display: block;
   padding: 0;
 
+  text-align: center;
+
   list-style: none;
+
+  @media (min-width: $min-width-tablet) {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 </style>
