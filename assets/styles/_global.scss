@@ -1,11 +1,20 @@
+:root {
+  --color-black: #{$color-black};
+  --color-white: #{$color-white};
+  --color-grey: #{$color-grey};
+  --color-grey-light: #{$color-grey-light};
+  --color-grey-dark: #{$color-grey-dark};
+  --color-purple: #{$color-purple};
+  --color-blue: #{$color-blue};
+}
+
 html,
 body {
   box-sizing: border-box;
   min-width: $min-width-document;
   min-height: 100%;
 
-  // color: $var-color-black;
-
+  color: $var-color-black;
   font-weight: $font-weight-regular;
   font-size: $font-size-base-mobile;
   font-family: $font-family-base;
@@ -38,4 +47,12 @@ body {
 
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
 }

@@ -2,20 +2,3 @@
 @import "./mixins";
 @import "./fonts";
 @import "./global";
-
-:root {
-  --color-black: #{$color-black};
-  --color-white: #{$color-white};
-  --color-grey: #{$color-grey};
-  --color-grey-light: #{$color-grey-light};
-  --color-grey-dark: #{$color-grey-dark};
-  --color-purple: #{$color-purple};
-  --color-blue: #{$color-blue};
-}
-
-h1,
-h2,
-h3,
-p {
-  margin-top: 0;
-}
