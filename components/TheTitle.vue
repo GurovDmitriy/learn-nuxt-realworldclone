@@ -20,9 +20,9 @@
 }
 
 .title__caption {
-  margin-bottom: $space-m;
-
   @include caption-h1;
+
+  margin-bottom: $space-m;
 
   color: $var-color-white;
   text-align: center;

@@ -54,11 +54,13 @@ export default {
 }
 
 .tags-list__link {
-  padding: $space-xs $space-s;
-
   @include text-small;
 
+  display: block;
+  padding: $space-xs $space-s;
+
   color: $var-color-white;
+  line-height: 1;
   text-transform: lowercase;
   text-decoration: none;
 

@@ -13,10 +13,10 @@
 
 <style lang="scss">
 .like {
+  @include text-small;
+
   display: block;
   padding: $space-xs $space-s;
-
-  @include text-small;
 
   color: $var-color-purple;
   line-height: 1;

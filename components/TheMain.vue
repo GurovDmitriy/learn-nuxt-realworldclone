@@ -74,8 +74,9 @@ export default {
 }
 
 .main__section-caption {
-  margin-bottom: $space-s;
   @include text-default;
+
+  margin-bottom: $space-s;
 }
 
 .main__tags-list {

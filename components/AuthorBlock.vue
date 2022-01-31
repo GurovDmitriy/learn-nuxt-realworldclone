@@ -21,8 +21,6 @@
 <style lang="scss">
 .author {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
 }
 
 .author__img-box {
@@ -48,11 +46,12 @@
 }
 
 .author__time {
-  margin-bottom: 0;
-
   @include text-small;
 
+  margin-bottom: 0;
+
   color: $var-color-grey;
+  font-weight: $font-weight-light;
   line-height: 1;
 }
 </style>

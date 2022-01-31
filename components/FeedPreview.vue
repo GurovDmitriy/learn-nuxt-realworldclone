@@ -8,3 +8,17 @@
     </p>
   </div>
 </template>
+
+<style lang="scss">
+.feed-preview__caption {
+  @include caption-h3;
+
+  margin-bottom: 0;
+}
+
+.feed-preview__description {
+  margin-bottom: 0;
+
+  color: $var-color-grey;
+}
+</style>
