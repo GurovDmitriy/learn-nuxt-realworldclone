@@ -3,8 +3,8 @@
     <slot name="default"></slot>
     <ul class="tags-list__box">
       <li
-        v-for="(item, index) in dataItems"
-        :key="item.content"
+        v-for="(item, index) in dataItemValid"
+        :key="item.id"
         class="tags-list__item"
       >
         <NuxtLink
@@ -20,7 +20,7 @@
 <script>
 export default {
   props: {
-    dataItems: {
+    dataItem: {
       type: Array,
       required: false,
       default: () => [{ content: "no tags" }],
@@ -28,8 +28,13 @@ export default {
   },
 
   computed: {
+    dataItemValid() {
+      if (!this.dataItem.length) return [{ content: "no tags" }]
+      return [...this.dataItem]
+    },
+
     pathTags() {
-      return this.dataItems.map((item) => {
+      return this.dataItemValid.map((item) => {
         return item.content.split(" ").join("-")
       })
     },

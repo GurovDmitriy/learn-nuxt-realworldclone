@@ -3,11 +3,11 @@
     <h2 class="main__caption visually-hidden">Main Content</h2>
     <section class="main__section main__section--left">
       <h3 class="main__section-caption visually-hidden">Feed List</h3>
-      <FilterBar :data-items="filterBarItemsResult" class="main__filter-bar" />
+      <FilterBar :data-item="dataFilterBarResult" class="main__filter-bar" />
       <FeedList class="main__feed-list" />
     </section>
     <aside class="main__section main__section--right">
-      <TagsList :data-items="dataTags" class="main__tags-list">
+      <TagsList :data-item="dataTagsList" class="main__tags-list">
         <template #default
           ><h3 class="main__section-caption">Popular Tags</h3></template
         >
@@ -20,17 +20,19 @@
 export default {
   data() {
     return {
-      filterBarItems: [{ content: "Global Feed", path: "/" }],
-      dataTags: [
-        { content: "welcome", path: "/welcome" },
-        { content: "introduction", path: "/introduction" },
-      ],
+      dataFilterBar: [{ content: "Global Feed", path: "/" }],
+      dataTagsList: [],
     }
   },
 
+  async fetch() {
+    const data = await this.$api.tag.getTags()
+    this.dataTagsList = data
+  },
+
   computed: {
-    filterBarItemsResult({ $route }) {
-      const barItems = [...this.filterBarItems]
+    dataFilterBarResult({ $route }) {
+      const barItems = [...this.dataFilterBar]
 
       if ($route.params.slug) {
         barItems.push({

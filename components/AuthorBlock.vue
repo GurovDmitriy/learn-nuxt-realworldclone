@@ -3,20 +3,48 @@
     <div class="author__img-box">
       <img
         class="author__img"
-        src="https://via.placeholder.com/30x30"
-        alt="author"
+        :src="dataItemValid.avatar"
+        :alt="dataItemValid.name"
         width="30"
         height="30"
       />
     </div>
     <div class="author__info-box">
-      <p class="author__name">Author</p>
-      <time class="author__time" datetime="2022-01-24 00:00"
-        >January 24, 2022</time
-      >
+      <p class="author__name">
+        {{ dataItemValid.name }}
+      </p>
+      <time class="author__time-feed" :datetime="dataItemValid.time">
+        {{ dataItemValid.time }}
+      </time>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    dataItem: {
+      type: Object,
+      required: false,
+      default: () => {},
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const avatar = this.dataItem.avatar || "https://via.placeholder.com/30x30"
+      const name = this.dataItem.name || "Author"
+      const time = this.dataItem.time || "2022-01-24 00:00"
+
+      return {
+        avatar,
+        name,
+        time,
+      }
+    },
+  },
+}
+</script>
 
 <style lang="scss">
 .author {
@@ -45,7 +73,7 @@
   line-height: 1;
 }
 
-.author__time {
+.author__time-feed {
   @include text-small;
 
   margin-bottom: 0;

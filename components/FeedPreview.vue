@@ -1,13 +1,37 @@
 <template>
   <div class="feed-preview">
     <h4 class="feed-preview__caption">
-      Lorem ipsum dolor sit amen consecrator
+      {{ dataItemValid.title }}
     </h4>
     <p class="feed-preview__description">
-      Lorem ipsum dolor, sit amen consecrator Enid, minima
+      {{ dataItemValid.preview }}
     </p>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    dataItem: {
+      type: Object,
+      required: false,
+      default: () => {},
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const title = this.dataItem.title || "No Title"
+      const preview = this.dataItem.preview || "No Preview"
+
+      return {
+        title,
+        preview,
+      }
+    },
+  },
+}
+</script>
 
 <style lang="scss">
 .feed-preview__caption {

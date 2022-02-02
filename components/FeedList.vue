@@ -1,20 +1,39 @@
 <template>
   <ul class="feed-list">
-    <li class="feed-list__item">
-      <div class="feed-list__header">
-        <AuthorBlock class="feed-list__author" />
-        <LikeBlock class="feed-list__like" />
-      </div>
-      <FeedPreview class="feed-list__feed-preview" />
-      <div class="feed-list__footer">
-        <NuxtLink :to="{ path: '/' }" class="feed-list__read-more"
-          >Read more...</NuxtLink
-        >
-        <TagsList class="feed-list__tags-list" />
-      </div>
-    </li>
+    <li v-if="$fetchState.pending">Loading...</li>
+    <li v-else-if="$fetchState.error">Error</li>
+    <template v-else>
+      <li v-for="item in dataFeedList" :key="item.id" class="feed-list__item">
+        <div class="feed-list__header">
+          <AuthorBlock :data-item="item.author" class="feed-list__author" />
+          <LikeBlock :data-item="item.like" class="feed-list__like" />
+        </div>
+        <FeedPreview :data-item="item.feed" class="feed-list__feed-preview" />
+        <div class="feed-list__footer">
+          <NuxtLink :to="{ path: '/' }" class="feed-list__read-more"
+            >Read more...</NuxtLink
+          >
+          <TagsList :data-item="item.tags" class="feed-list__tags-list" />
+        </div>
+      </li>
+    </template>
   </ul>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      dataFeedList: [],
+    }
+  },
+
+  async fetch() {
+    const data = await this.$api.feed.getFeedList()
+    this.dataFeedList = data
+  },
+}
+</script>
 
 <style lang="scss">
 .feed-list {

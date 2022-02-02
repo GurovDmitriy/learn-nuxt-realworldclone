@@ -7,9 +7,27 @@
       width="16"
       height="16"
     />
-    <span class="like__text">777</span>
+    <span class="like__text">{{ dataItemValid }}</span>
   </button>
 </template>
+
+<script>
+export default {
+  props: {
+    dataItem: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      return this.dataItem ? this.dataItem : 0
+    },
+  },
+}
+</script>
 
 <style lang="scss">
 .like {

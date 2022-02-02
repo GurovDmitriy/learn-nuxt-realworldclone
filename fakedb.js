@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 /* eslint-disable no-console */
 const fs = require("fs")
-const faker = require("faker")
+const casual = require("casual")
 const POSTS_COUNT = 10
 const USERS_COUNT = 10
 const data = {
@@ -10,8 +9,9 @@ const data = {
     {
       id: 1,
       userName: "admin",
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
+      firstName: casual.first_name,
+      lastName: casual.last_name,
+      avatar: "https://i.pravatar.cc/100",
       email: "admin@admin.com",
       password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
     },
@@ -23,25 +23,31 @@ function randomInteger(min, max) {
   return Math.round(rand)
 }
 
-for (let i = 1; i <= POSTS_COUNT; i++) {
-  data.posts.push({
-    id: i,
-    userId: randomInteger(1, USERS_COUNT),
-    title: faker.lorem.word(),
-    previewText: faker.lorem.words(),
-    content: faker.lorem.paragraph(),
-    thumbnail: faker.image.image(),
-  })
-}
+// users
 
 for (let i = 2; i <= USERS_COUNT; i++) {
   data.users.push({
     id: i,
-    userName: faker.internet.userName(),
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
+    userName: casual.username,
+    firstName: casual.first_name,
+    lastName: casual.last_name,
+    avatar: "https://i.pravatar.cc/100",
+    email: casual.email,
+    password: casual.password,
+  })
+}
+
+// posts
+
+for (let i = 1; i <= POSTS_COUNT; i++) {
+  data.posts.push({
+    id: i,
+    userId: randomInteger(1, USERS_COUNT),
+    title: casual.title,
+    previewText: casual.short_description,
+    content: casual.text,
+    time: casual.unix_time,
+    like: randomInteger(0, 300),
   })
 }
 
