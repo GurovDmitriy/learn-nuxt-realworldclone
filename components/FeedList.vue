@@ -38,7 +38,12 @@ export default {
   },
 
   async fetch() {
-    this.dataFeedList = await this.$api.feed.getFeedList()
+    const slug = this.$route.params.slug
+    if (slug) {
+      this.dataFeedList = await this.$api.feed.getFeedListByTags(slug)
+    } else {
+      this.dataFeedList = await this.$api.feed.getFeedList()
+    }
   },
 
   fetchDelay: 600,
