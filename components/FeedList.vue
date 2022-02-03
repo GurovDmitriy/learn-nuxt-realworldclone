@@ -1,7 +1,15 @@
 <template>
   <ul class="feed-list">
-    <li v-if="$fetchState.pending">Loading...</li>
-    <li v-else-if="$fetchState.error">Error</li>
+    <template v-if="$fetchState.pending">
+      <li
+        v-for="(item, index) in placeholderCount"
+        :key="index"
+        class="feed-list__item"
+      >
+        <FeedListPlaceholder class="feed-list__feed-list-placeholder" />
+      </li>
+    </template>
+    <li v-else-if="$fetchState.error" class="feed-list__item">Error</li>
     <template v-else>
       <li v-for="item in dataFeedList" :key="item.id" class="feed-list__item">
         <div class="feed-list__header">
@@ -25,12 +33,20 @@ export default {
   data() {
     return {
       dataFeedList: [],
+      placeholderCount: 10,
     }
   },
 
   async fetch() {
-    const data = await this.$api.feed.getFeedList()
-    this.dataFeedList = data
+    this.dataFeedList = await this.$api.feed.getFeedList()
+  },
+
+  fetchDelay: 600,
+
+  activated() {
+    if (this.$fetchState.timestamp <= Date.now() - 30000) {
+      this.$fetch()
+    }
   },
 }
 </script>
