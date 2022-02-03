@@ -3,45 +3,29 @@
     <h2 class="main__caption visually-hidden">Main Content</h2>
     <section class="main__section main__section--left">
       <h3 class="main__section-caption visually-hidden">Feed List</h3>
-      <FilterBar :data-item="dataFilterBarResult" class="main__filter-bar" />
+      <FilterBar :data-item="dataFilterBar" class="main__filter-bar" />
       <FeedList class="main__feed-list" />
     </section>
     <aside class="main__section main__section--right">
-      <TagsList :data-item="dataTagsList" class="main__tags-list">
-        <template #default
-          ><h3 class="main__section-caption">Popular Tags</h3></template
-        >
-      </TagsList>
+      <div class="main__tags-list-box">
+        <h3 class="main__section-caption">Popular Tags</h3>
+        <TagsList :data-item="dataTagsList" class="main__tags-list" />
+      </div>
     </aside>
   </main>
 </template>
 
 <script>
 export default {
+  async asyncData({ $api }) {
+    const dataTagsList = await $api.tag.getTags()
+    return { dataTagsList }
+  },
+
   data() {
     return {
       dataFilterBar: [{ content: "Global Feed", path: "/" }],
-      dataTagsList: [],
     }
-  },
-
-  async fetch() {
-    const data = await this.$api.tag.getTags()
-    this.dataTagsList = data
-  },
-
-  computed: {
-    dataFilterBarResult({ $route }) {
-      const barItems = [...this.dataFilterBar]
-
-      if ($route.params.slug) {
-        barItems.push({
-          content: `# ${$route.params.slug}`,
-          path: `/tags/${$route.params.slug}`,
-        })
-      }
-      return barItems
-    },
   },
 }
 </script>
@@ -81,7 +65,7 @@ export default {
   margin-bottom: $space-s;
 }
 
-.main__tags-list {
+.main__tags-list-box {
   padding: $space-m;
 
   background-color: $var-color-grey-light;
