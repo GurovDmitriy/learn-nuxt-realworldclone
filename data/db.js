@@ -5,11 +5,7 @@ const USERS_COUNT = 10
 
 const dataRWC = {
   feed: [],
-  tags: [
-    { id: 1, content: "welcome" },
-    { id: 2, content: "introduction" },
-    { id: 3, content: "nuxt" },
-  ],
+  tags: ["welcome", "introduction", "nuxt"],
   users: [
     {
       id: 1,
@@ -76,12 +72,11 @@ for (let i = 2; i <= USERS_COUNT; i++) {
 
 for (let i = 1; i <= FEED_COUNT; i++) {
   const userIdRandom = randomInteger(1, USERS_COUNT)
-  const tagsRandom = []
-  const tagsRandomCount = randomInteger(1, dataRWC.tags.length)
+  const tagsRandom = [...dataRWC.tags]
+  const tagsRandomCountDelete = randomInteger(0, dataRWC.tags.length)
 
-  for (let i = 0; i < tagsRandomCount; i++) {
-    const tag = dataRWC.tags[i]
-    tagsRandom.push(tag)
+  for (let i = 0; i < tagsRandomCountDelete; i++) {
+    tagsRandom.splice(randomInteger(0, tagsRandom.length - 1), 1)
   }
 
   dataRWC.feed.push({
