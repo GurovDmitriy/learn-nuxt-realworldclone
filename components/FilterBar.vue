@@ -1,10 +1,11 @@
 <template>
   <ul class="filter-bar">
-    <li v-for="item in dataItem" :key="item.content" class="filter-bar__item">
-      <NuxtLink :to="{ path: item.path }" class="filter-bar__link">{{
-        item.content
-      }}</NuxtLink>
-    </li>
+    <FilterBarItem
+      v-for="item in dataItem"
+      :key="item.id"
+      :data-item="item"
+      class="filter-bar__item"
+    />
   </ul>
 </template>
 
@@ -33,29 +34,5 @@ export default {
   list-style: none;
 
   border-bottom: 2px solid $var-color-grey-light;
-}
-
-.filter-bar__item {
-  margin-bottom: -2px;
-}
-
-.filter-bar__link {
-  display: block;
-  padding: $space-s;
-
-  color: $var-color-grey;
-  text-decoration: none;
-
-  border-bottom: 2px solid transparent;
-
-  &.nuxt-link-exact-active {
-    color: $var-color-purple;
-
-    border-bottom: 2px solid $var-color-purple;
-  }
-
-  &:hover {
-    color: $var-color-black;
-  }
 }
 </style>

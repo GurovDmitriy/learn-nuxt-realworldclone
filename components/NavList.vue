@@ -1,17 +1,18 @@
 <template>
   <ul class="nav-list">
-    <li v-for="item in dataItems" :key="item.content" class="nav-list__item">
-      <NuxtLink :to="{ path: item.path }" class="nav-list__link">{{
-        item.content
-      }}</NuxtLink>
-    </li>
+    <NavListItem
+      v-for="item in dataItem"
+      :key="item.content"
+      :data-item="item"
+      class="nav-list__item"
+    />
   </ul>
 </template>
 
 <script>
 export default {
   props: {
-    dataItems: {
+    dataItem: {
       type: Array,
       required: true,
     },
@@ -31,22 +32,6 @@ export default {
   @media (min-width: $min-width-tablet) {
     display: flex;
     flex-wrap: wrap;
-  }
-}
-
-.nav-list__link {
-  display: block;
-  padding: $space-s;
-
-  color: $var-color-grey;
-  text-decoration: none;
-
-  &.nuxt-link-exact-active {
-    color: $var-color-black;
-  }
-
-  &:hover {
-    color: $var-color-black;
   }
 }
 </style>
