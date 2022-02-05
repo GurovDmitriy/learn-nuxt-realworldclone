@@ -12,7 +12,7 @@ const dataRWC = {
       userName: "admin",
       firstName: casual.first_name,
       lastName: casual.last_name,
-      avatar: "https://i.pravatar.cc/100",
+      avatar: "https://i.pravatar.cc/100?img=1",
       email: "admin@admin.com",
       password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
     },
@@ -54,6 +54,10 @@ function randomInteger(min, max) {
   return Math.round(rand)
 }
 
+// function isEmptyArr(value) {
+//   return value && Array.isArray(value) && !value.length
+// }
+
 // dataUsers
 
 for (let i = 2; i <= USERS_COUNT; i++) {
@@ -62,7 +66,7 @@ for (let i = 2; i <= USERS_COUNT; i++) {
     userName: casual.username,
     firstName: casual.first_name,
     lastName: casual.last_name,
-    avatar: "https://i.pravatar.cc/100",
+    avatar: `https://i.pravatar.cc/100?img=${i}`,
     email: casual.email,
     password: casual.password,
   })
@@ -73,10 +77,10 @@ for (let i = 2; i <= USERS_COUNT; i++) {
 for (let i = 1; i <= FEED_COUNT; i++) {
   const userIdRandom = randomInteger(1, USERS_COUNT)
   const tagsRandom = [...dataRWC.tags]
-  const tagsRandomCountDelete = randomInteger(0, dataRWC.tags.length)
+  const tagsRandomCountDelete = randomInteger(0, dataRWC.tags.length - 1)
 
   for (let i = 0; i < tagsRandomCountDelete; i++) {
-    tagsRandom.splice(randomInteger(0, tagsRandom.length - 1), 1)
+    tagsRandom.splice(randomInteger(0, tagsRandom.length), 1)
   }
 
   dataRWC.feed.push({
