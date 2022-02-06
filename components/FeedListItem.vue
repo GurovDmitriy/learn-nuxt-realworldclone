@@ -21,13 +21,13 @@ export default {
     },
   },
 
-  data() {
-    return {
-      dataFeedListItemHeader: {
+  computed: {
+    dataFeedListItemHeader() {
+      return {
         author: this.dataItem.author,
         like: this.dataItem.like,
-      },
-    }
+      }
+    },
   },
 }
 </script>

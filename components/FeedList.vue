@@ -30,10 +30,11 @@ export default {
 
   async fetch() {
     const slug = this.$route.params.slug
+
     if (slug) {
-      this.dataFeedList = await this.$api.feed.getFeedListByTags(slug)
-    } else {
       this.dataFeedList = await this.$api.feed.getFeedList()
+    } else {
+      this.dataFeedList = await this.$api.feed.getFeedListByTags(slug)
     }
   },
 

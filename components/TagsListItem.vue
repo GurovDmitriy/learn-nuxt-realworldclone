@@ -1,8 +1,10 @@
 <template>
   <li class="tags-list-item">
-    <NuxtLink :to="{ path: `/tags/${pathTag}` }" class="tags-list-item__link">{{
-      dataItem
-    }}</NuxtLink>
+    <NuxtLink
+      :to="{ path: `/tags/${dataItem}` }"
+      class="tags-list-item__link"
+      >{{ dataItem }}</NuxtLink
+    >
   </li>
 </template>
 
@@ -12,12 +14,6 @@ export default {
     dataItem: {
       type: String,
       required: true,
-    },
-  },
-
-  computed: {
-    pathTag() {
-      return this.dataItem.split(" ").join("-")
     },
   },
 }
