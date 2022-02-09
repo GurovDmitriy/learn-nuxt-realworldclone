@@ -3,8 +3,10 @@ import { actionTypes as actionTypesFeed } from "~/store/feed"
 
 export default {
   async fetch() {
-    await this.$store.dispatch(actionTypesTag.fetchTags)
-    await this.$store.dispatch(actionTypesFeed.fetchFeedList)
+    await Promise.all([
+      this.$store.dispatch(actionTypesTag.fetchTags),
+      this.$store.dispatch(actionTypesFeed.fetchFeedList),
+    ])
   },
 
   activated() {
