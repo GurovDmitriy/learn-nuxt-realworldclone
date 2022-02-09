@@ -1,32 +1,47 @@
 <template>
   <aside class="main-column-right">
     <div class="main-column-right__tags-list-box">
-      <h3 class="main-column-right-caption">Popular Tags</h3>
-      <!-- <p v-if="false" class="main-column-right__loading">Loading tags...</p> -->
-      <!-- <template v-else-if="">
-          <p class="main-column-right__error">Something went wrong</p>
-          <button class="main-column-right__refresh" type="button">Refresh</button>
-        </template> -->
-      <TagsList :data-item="tagsList" class="main-column-right__tags-list" />
+      <h3 class="main-column-right__caption">Popular Tags</h3>
+      <LoadingBlock v-if="tagsListIsLoading" class="main-column-right__loading"
+        >Loading tags...</LoadingBlock
+      >
+      <RefreshBlock
+        v-else-if="tagsListErrors"
+        class="main-column-right__refresh"
+        @clickRefresh="refreshTagsList"
+      />
+      <TagsList
+        v-else
+        :data-item="tagsList"
+        class="main-column-right__tags-list"
+      />
     </div>
   </aside>
 </template>
 
 <script>
 import { mapState } from "vuex"
+import { actionTypes as actionTypesTag } from "~/store/tag"
 
 export default {
   computed: {
     ...mapState({
-      tagsList: (state) => state.tag.tagsList,
-      tagsListIsLoading: (state) => state.tag.isLoading,
+      tagsList: ({ tag }) => tag.tagsList,
+      tagsListIsLoading: ({ tag }) => tag.isLoading,
+      tagsListErrors: ({ tag }) => tag.errors,
     }),
+  },
+
+  methods: {
+    async refreshTagsList() {
+      await this.$store.dispatch(actionTypesTag.fetchTags)
+    },
   },
 }
 </script>
 
 <style lang="scss">
-.main-column-right-caption {
+.main-column-right__caption {
   @include text-default;
 
   margin-bottom: $space-s;

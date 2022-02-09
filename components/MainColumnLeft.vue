@@ -2,14 +2,30 @@
   <section class="main-column-left">
     <h3 class="main-column-left__caption visually-hidden">Feed List</h3>
     <FilterBar
-      :data-item="dataFilterBarResult"
+      :data-item="dataFilterBarComp"
       class="main-column-left__filter-bar"
     />
-    <FeedList class="main-column-left__feed-list" />
+    <FeedListPlaceholder
+      v-if="feedListIsLoading"
+      class="main-column-left__placeholder"
+    />
+    <RefreshBlock
+      v-else-if="feedListErrors"
+      class="main-column-left__refresh"
+      @clickRefresh="refreshFeedList"
+    />
+    <FeedList
+      v-else
+      :data-item="feedList"
+      class="main-column-left__feed-list"
+    />
   </section>
 </template>
 
 <script>
+import { mapState } from "vuex"
+import { actionTypes as actionTypesFeed } from "~/store/feed"
+
 export default {
   data() {
     return {
@@ -18,7 +34,13 @@ export default {
   },
 
   computed: {
-    dataFilterBarResult({ $route }) {
+    ...mapState({
+      feedList: ({ feed }) => feed.feedList,
+      feedListIsLoading: ({ feed }) => feed.isLoading,
+      feedListErrors: ({ feed }) => feed.errors,
+    }),
+
+    dataFilterBarComp({ $route }) {
       const barItems = this.dataFilterBar.map((item) => item)
 
       if ($route.params.slug) {
@@ -29,6 +51,12 @@ export default {
       }
 
       return barItems
+    },
+  },
+
+  methods: {
+    async refreshFeedList() {
+      await this.$store.dispatch(actionTypesFeed.fetchFeedList)
     },
   },
 }

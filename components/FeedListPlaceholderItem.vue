@@ -1,28 +1,28 @@
 <template>
-  <li class="feed-list-item-placeholder">
-    <div class="feed-list-item-placeholder__header">
-      <div class="feed-list-item-placeholder__avatar"></div>
-      <div class="feed-list-item-placeholder__name"></div>
+  <li class="feed-list-placeholder-item">
+    <div class="feed-list-placeholder-item__header">
+      <div class="feed-list-placeholder-item__avatar"></div>
+      <div class="feed-list-placeholder-item__name"></div>
     </div>
-    <div class="feed-list-item-placeholder__main"></div>
+    <div class="feed-list-placeholder-item__main"></div>
   </li>
 </template>
 
 <style lang="scss">
-.feed-list-item-placeholder {
+.feed-list-placeholder-item {
   padding: $space-l 0;
 
   border-bottom: 2px solid $var-color-grey-light;
 }
 
-.feed-list-item-placeholder__header {
+.feed-list-placeholder-item__header {
   display: flex;
   align-items: center;
 
   margin-bottom: $space-s;
 }
 
-.feed-list-item-placeholder__avatar {
+.feed-list-placeholder-item__avatar {
   width: 38px;
   height: 38px;
 
@@ -32,7 +32,7 @@
   border-radius: 50%;
 }
 
-.feed-list-item-placeholder__name {
+.feed-list-placeholder-item__name {
   width: 100%;
   max-width: 80px;
   height: 28px;
@@ -41,7 +41,7 @@
   border-radius: 10px;
 }
 
-.feed-list-item-placeholder__main {
+.feed-list-placeholder-item__main {
   width: 100%;
   max-width: 400px;
   height: 50px;
