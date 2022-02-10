@@ -12,10 +12,7 @@ export default {
     error: {
       type: Object,
       required: false,
-      default: () => ({
-        message: "Error: unknown error",
-        statusCode: "000",
-      }),
+      default: () => {},
     },
   },
 

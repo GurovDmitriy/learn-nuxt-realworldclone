@@ -11,7 +11,20 @@ export default {
   props: {
     dataItem: {
       type: Object,
-      required: true,
+      required: false,
+      default: () => {},
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const content = this.dataItem.content || "Unknown feed"
+      const path = this.dataItem.path || "/"
+
+      return {
+        content,
+        path,
+      }
     },
   },
 }

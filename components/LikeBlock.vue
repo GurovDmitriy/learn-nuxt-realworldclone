@@ -23,7 +23,9 @@ export default {
 
   computed: {
     dataItemValid() {
-      return this.dataItem ? this.dataItem : 0
+      const numb = this.dataItem || 0
+
+      return numb
     },
   },
 }
