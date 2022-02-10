@@ -18,7 +18,6 @@ export const state = () => ({
 const mutations = {
   [mutationTypes.setFeedListStart](state) {
     state.isLoading = true
-    state.errors = null
   },
 
   [mutationTypes.setFeedListSuccess](state, payload) {
@@ -40,8 +39,10 @@ const actions = {
       const data = await this.$api.feed.getFeedList()
 
       commit(mutationTypes.setFeedListSuccess, data)
+      return data
     } catch (err) {
       commit(mutationTypes.setFeedListFailure, err)
+      throw new Error(err)
     }
   },
 
@@ -52,8 +53,10 @@ const actions = {
       const data = await this.$api.feed.getFeedListByTags(tag)
 
       commit(mutationTypes.setFeedListSuccess, data)
+      return data
     } catch (err) {
       commit(mutationTypes.setFeedListFailure, err)
+      throw new Error(err)
     }
   },
 }
