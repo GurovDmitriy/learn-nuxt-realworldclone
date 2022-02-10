@@ -41,10 +41,10 @@ export default {
 </script>
 
 <style lang="scss">
-.main-column-right__caption {
-  @include text-default;
-
-  margin-bottom: $space-s;
+.main-column-right {
+  @media (min-width: $min-width-tablet) {
+    position: relative;
+  }
 }
 
 .main-column-right__tags-list-box {
@@ -52,5 +52,17 @@ export default {
 
   background-color: $var-color-grey-light;
   border-radius: 5px;
+
+  @media (min-width: $min-width-tablet) {
+    position: sticky;
+    top: $space-l;
+    left: 0;
+  }
+}
+
+.main-column-right__caption {
+  @include text-default;
+
+  margin-bottom: $space-s;
 }
 </style>
