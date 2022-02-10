@@ -14,7 +14,7 @@
         {{ dataItemValid.name }}
       </p>
       <time class="author__time-feed" :datetime="dataItemValid.time">
-        {{ dataItemValid.time }}
+        {{ dataItemValid.time | dateFormatBase }}
       </time>
     </div>
   </div>
