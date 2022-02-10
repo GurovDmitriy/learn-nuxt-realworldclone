@@ -1,12 +1,6 @@
 <template>
   <button class="like">
-    <img
-      class="like__icon"
-      src="https://via.placeholder.com/30x30"
-      alt="author"
-      width="16"
-      height="16"
-    />
+    <SvgIcon class="like__icon" name="heart-fill" desc="like" />
     <span class="like__text">{{ dataItemValid }}</span>
   </button>
 </template>
@@ -49,7 +43,7 @@ export default {
 .like__icon {
   display: inline-block;
   width: 16px;
-  height: auto;
+  height: 16px;
 
   vertical-align: middle;
 }
