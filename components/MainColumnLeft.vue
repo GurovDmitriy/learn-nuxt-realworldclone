@@ -7,6 +7,7 @@
     />
     <FeedListPlaceholder
       v-if="feedListIsLoading"
+      :data-item="dataFeedListPlaceholder"
       class="main-column-left__placeholder"
     />
     <RefreshBlock
@@ -30,6 +31,7 @@ export default {
   data() {
     return {
       dataFilterBar: [{ content: "Global Feed", path: "/" }],
+      dataFeedListPlaceholder: 10,
     }
   },
 

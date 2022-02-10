@@ -1,9 +1,9 @@
 <template>
   <li class="tags-list-item">
     <NuxtLink
-      :to="{ path: `/tags/${dataItem}` }"
+      :to="{ path: `/tags/${dataItemValid}` }"
       class="tags-list-item__link"
-      >{{ dataItem }}</NuxtLink
+      >{{ dataItemValid }}</NuxtLink
     >
   </li>
 </template>
@@ -13,7 +13,16 @@ export default {
   props: {
     dataItem: {
       type: String,
-      required: true,
+      required: false,
+      default: null,
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const str = this.dataItem || "all"
+
+      return str
     },
   },
 }

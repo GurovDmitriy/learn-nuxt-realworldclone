@@ -1,7 +1,7 @@
 <template>
   <li class="feed-list-item">
     <FeedListItemHeader
-      :data-item="dataFeedListItemHeader"
+      :data-item="feedListItemHeader"
       class="feed-list-item__header"
     />
     <FeedPreview :data-item="dataItem.feed" class="feed-list-item__preview" />
@@ -22,7 +22,7 @@ export default {
   },
 
   computed: {
-    dataFeedListItemHeader() {
+    feedListItemHeader() {
       return {
         author: this.dataItem.author,
         like: this.dataItem.like,

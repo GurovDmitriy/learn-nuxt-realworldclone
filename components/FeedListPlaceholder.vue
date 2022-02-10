@@ -1,7 +1,7 @@
 <template>
   <ul class="feed-list-placeholder">
     <FeedListPlaceholderItem
-      v-for="item in dataFeedListPlaceholder.itemCount"
+      v-for="item in dataItemValid"
       :key="item"
       class="feed-list-placeholder__item"
     />
@@ -10,12 +10,20 @@
 
 <script>
 export default {
-  data() {
-    return {
-      dataFeedListPlaceholder: {
-        itemCount: 10,
-      },
-    }
+  props: {
+    dataItem: {
+      type: Number,
+      required: false,
+      default: null,
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const numb = this.dataItem || 10
+
+      return numb
+    },
   },
 }
 </script>
