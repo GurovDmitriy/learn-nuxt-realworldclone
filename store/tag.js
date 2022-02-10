@@ -17,7 +17,6 @@ export const state = () => ({
 const mutations = {
   [mutationTypes.setTagsStart](state) {
     state.isLoading = true
-    state.errors = null
   },
 
   [mutationTypes.setTagsSuccess](state, payload) {
@@ -39,10 +38,10 @@ const actions = {
       const data = await this.$api.tag.getTags()
 
       commit(mutationTypes.setTagsSuccess, data)
-      return true
+      return data
     } catch (err) {
       commit(mutationTypes.setTagsFailure, err)
-      return false
+      throw new Error(err)
     }
   },
 }

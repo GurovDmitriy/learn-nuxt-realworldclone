@@ -2,13 +2,14 @@ import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 
 export default {
-  async fetch() {
-    const slug = this.$route.params.slug
-    const fetchFeedList = slug ? "fetchFeedListByTag" : "fetchFeedList"
-
-    await Promise.all([
-      this.$store.dispatch(actionTypesTag.fetchTags),
-      this.$store.dispatch(actionTypesFeed[fetchFeedList], slug),
-    ])
+  async asyncData({ params, error, store }) {
+    try {
+      const slug = params.slug
+      const fetchFeedList = slug ? "fetchFeedListByTag" : "fetchFeedList"
+      await Promise.allSettled([
+        store.dispatch(actionTypesTag.fetchTags),
+        store.dispatch(actionTypesFeed[fetchFeedList], slug),
+      ])
+    } catch (err) {}
   },
 }
