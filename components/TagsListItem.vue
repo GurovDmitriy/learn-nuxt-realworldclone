@@ -30,8 +30,8 @@ export default {
 
 <style lang="scss">
 .tags-list-item {
-  margin: $space-xxs;
-  margin-top: 0;
+  margin: 0 $space-xxs;
+  margin-bottom: $space-xs;
 }
 
 .tags-list-item__link {
