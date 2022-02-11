@@ -32,7 +32,7 @@ export default {
 
   computed: {
     dataItemValid() {
-      const avatar = this.dataItem.avatar || "https://via.placeholder.com/30x30"
+      const avatar = this.dataItem.avatar || "/image/placeholder-avatar.png"
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
 

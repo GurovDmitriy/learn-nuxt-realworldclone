@@ -61,12 +61,19 @@ function randomInteger(min, max) {
 // dataUsers
 
 for (let i = 2; i <= USERS_COUNT; i++) {
+
+  let avatar = ""
+
+  if(i % 2) {
+    avatar = `https://i.pravatar.cc/100?img=${i}`
+  }
+
   dataRWC.users.push({
     id: i,
     userName: casual.username,
     firstName: casual.first_name,
     lastName: casual.last_name,
-    avatar: `https://i.pravatar.cc/100?img=${i}`,
+    avatar,
     email: casual.email,
     password: casual.password,
   })

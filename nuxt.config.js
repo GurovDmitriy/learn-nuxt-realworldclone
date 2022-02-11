@@ -70,12 +70,17 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
+    '@nuxt/image',
     "cookie-universal-nuxt",
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: "http://localhost:3005",
+  },
+
+  image: {
+    // Options
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
