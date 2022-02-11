@@ -40,4 +40,9 @@ export default {
 
   margin-bottom: $space-s;
 }
+
+.feed-list-item-header__author {
+  max-width: 70%;
+  margin-right: $space-m;
+}
 </style>
