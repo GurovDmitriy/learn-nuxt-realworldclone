@@ -1,17 +1,29 @@
 <template>
   <div class="refresh">
     <p class="refresh__error">Something went wrong</p>
-    <button class="refresh__btn" type="button" @click="emitClickRefresh">
-      Refresh
-    </button>
+    <ButtonIcon
+      :data-item="dataButtonRefresh"
+      class="refresh__button-icon"
+      @clickBtnIcon="emitRefreshData"
+      >Refresh</ButtonIcon
+    >
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      dataButtonRefresh: {
+        iconName: "arrow-clockwise",
+        iconDesc: "refresh",
+      },
+    }
+  },
+
   methods: {
-    emitClickRefresh() {
-      this.$emit("clickRefresh")
+    emitRefreshData() {
+      this.$emit("refreshData")
     },
   },
 }
@@ -39,5 +51,11 @@ export default {
   background: none;
   border: 1px solid $var-color-grey;
   border-radius: 4px;
+}
+
+.refresh__button-icon {
+  color: $var-color-grey;
+
+  border-color: $var-color-grey;
 }
 </style>

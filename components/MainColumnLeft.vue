@@ -13,7 +13,7 @@
     <RefreshBlock
       v-else-if="feedListErrors"
       class="main-column-left__refresh"
-      @clickRefresh="refreshFeedList"
+      @refreshData="refreshFeedList"
     />
     <FeedList
       v-else

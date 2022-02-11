@@ -8,7 +8,7 @@
       <RefreshBlock
         v-else-if="tagsListErrors"
         class="main-column-right__refresh"
-        @clickRefresh="refreshTagsList"
+        @refreshData="refreshTagsList"
       />
       <TagsList
         v-else

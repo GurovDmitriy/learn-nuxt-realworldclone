@@ -4,7 +4,11 @@
       :data-item="dataItem.author"
       class="feed-list-item-header__author"
     />
-    <LikeBlock :data-item="dataItem.like" class="feed-list-item-header__like" />
+    <ButtonIcon
+      :data-item="dataButtonLike"
+      class="feed-list-item-header__button-icon"
+      >{{ dataItem.like }}</ButtonIcon
+    >
   </div>
 </template>
 
@@ -15,6 +19,15 @@ export default {
       type: Object,
       required: true,
     },
+  },
+
+  data() {
+    return {
+      dataButtonLike: {
+        iconName: "heart-fill",
+        iconDesc: "heart",
+      },
+    }
   },
 }
 </script>
