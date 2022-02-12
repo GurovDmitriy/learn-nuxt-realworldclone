@@ -1,13 +1,7 @@
 <template>
   <div class="author">
     <div class="author__img-box">
-      <ImageBlock
-        class="author__img"
-        :data-item="{
-          imageSrc: dataItemValid.avatar,
-          imageNamePlaceholder: 'placeholder-avatar.png',
-        }"
-      />
+      <ImageBlock class="author__img" :data-item="dataAuthorImgValid" />
     </div>
     <div class="author__info-box">
       <p class="author__name">
@@ -26,13 +20,23 @@ export default {
     dataItem: {
       type: Object,
       required: false,
-      default: () => {},
+      default: () => ({}),
     },
+  },
+
+  data() {
+    return {
+      dataAuthorImg: {
+        imageWidth: 38,
+        imageHeight: 38,
+        imageNamePlaceholder: "placeholder-avatar.png",
+      },
+    }
   },
 
   computed: {
     dataItemValid() {
-      const avatar = this.dataItem.avatar || "placeholder-avatar.png"
+      const avatar = this.dataItem.avatar
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
 
@@ -40,6 +44,16 @@ export default {
         avatar,
         name,
         time,
+      }
+    },
+
+    dataAuthorImgValid() {
+      return {
+        imageSrc: this.dataItemValid.avatar,
+        imageAlt: this.dataItemValid.name,
+        imageWidth: this.dataAuthorImg.imageWidth,
+        imageHeight: this.dataAuthorImg.imageHeight,
+        imageNamePlaceholder: this.dataAuthorImg.imageNamePlaceholder,
       }
     },
   },

@@ -1,16 +1,17 @@
 <template>
-  <div class="image">
-    <img
-      class="image__img"
-      :src="dataItemValid.imageSrc"
-      :alt="dataItemValid.imageAlt"
-      :width="dataItemValid.imageWidth"
-      :height="dataItemValid.imageHeight"
-    />
-  </div>
+  <img
+    class="image"
+    :src="dataItemValid.imageSrc"
+    :alt="dataItemValid.imageAlt"
+    :width="dataItemValid.imageWidth"
+    :height="dataItemValid.imageHeight"
+  />
 </template>
 
 <script>
+import { isExistImageSrc } from "~/helpers/isExist"
+import { isOuterSrcImage } from "~/helpers/isOuter"
+
 export default {
   props: {
     dataItem: {
@@ -22,22 +23,28 @@ export default {
 
   computed: {
     dataItemValid() {
-      const imageSrcIsExist = !!this.dataItem.imageSrc || false
-      const imageSrcIsOuter = /^http/.test(this.dataItem.imageSrc) || false
       const imageNamePlaceholder =
         this.dataItem.imageNamePlaceholder || "placeholder-image.png"
 
-      let imageSrc = require(`~/assets/images/${imageNamePlaceholder}`)
+      let imageSrc = ""
 
-      if (imageSrcIsExist && imageSrcIsOuter) {
+      if (
+        isExistImageSrc(this.dataItem.imageSrc) &&
+        isOuterSrcImage(this.dataItem.imageSrc)
+      ) {
         imageSrc = this.dataItem.imageSrc
-      } else if (imageSrcIsExist && !imageSrcIsOuter) {
+      } else if (
+        isExistImageSrc(this.dataItem.imageSrc) &&
+        !isOuterSrcImage(this.dataItem.imageSrc)
+      ) {
         imageSrc = require(`~/assets/images/${this.dataItem.imageSrc}`)
+      } else {
+        imageSrc = require(`~/assets/images/${imageNamePlaceholder}`)
       }
 
       const imageAlt = this.dataItem.imageAlt || "placeholder"
-      const imageWidth = this.dataItem.imageWidth || "100"
-      const imageHeight = this.dataItem.imageHeight || "100"
+      const imageWidth = this.dataItem.imageWidth || 100
+      const imageHeight = this.dataItem.imageHeight || 100
 
       return {
         imageSrc,
@@ -49,3 +56,13 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  line-height: 0;
+}
+</style>
