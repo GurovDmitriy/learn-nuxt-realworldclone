@@ -1,12 +1,12 @@
 <template>
   <div class="author">
     <div class="author__img-box">
-      <img
+      <ImageBlock
         class="author__img"
-        :src="dataItemValid.avatar"
-        :alt="dataItemValid.name"
-        width="30"
-        height="30"
+        :data-item="{
+          imageSrc: dataItemValid.avatar,
+          imageNamePlaceholder: 'placeholder-avatar.png',
+        }"
       />
     </div>
     <div class="author__info-box">
@@ -32,7 +32,7 @@ export default {
 
   computed: {
     dataItemValid() {
-      const avatar = this.dataItem.avatar || "/image/placeholder-avatar.png"
+      const avatar = this.dataItem.avatar || "placeholder-avatar.png"
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
 

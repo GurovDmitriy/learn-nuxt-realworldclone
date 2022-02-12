@@ -56,7 +56,12 @@ export default {
     "@nuxtjs/stylelint-module",
     "@nuxtjs/style-resources",
     "@nuxtjs/svg-sprite",
+    "@aceforth/nuxt-optimized-images",
   ],
+
+  optimizedImages: {
+    optimizeImages: true,
+  },
 
   svgSprite: {
     // manipulate module options
@@ -70,17 +75,12 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
-    '@nuxt/image',
     "cookie-universal-nuxt",
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: "http://localhost:3005",
-  },
-
-  image: {
-    // Options
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
