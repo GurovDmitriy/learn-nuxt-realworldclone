@@ -17,36 +17,6 @@ const dataRWC = {
       password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
     },
   ],
-
-  get feedList() {
-    const data = this.feed.map((item) => {
-      const id = item.id
-      const like = item.like
-      const time = item.time
-      const title = item.title
-      const tags = item.tags
-      const preview = item.preview
-      const avatar = this.users[item.userId].avatar
-      const name = this.users[item.userId].userName
-
-      return {
-        id,
-        like,
-        tags,
-        author: {
-          avatar,
-          name,
-          time,
-        },
-        feed: {
-          title,
-          preview,
-        },
-      }
-    })
-
-    return data
-  },
 }
 
 function randomInteger(min, max) {
@@ -102,6 +72,38 @@ for (let i = 1; i <= FEED_COUNT; i++) {
     like: randomInteger(0, 300),
   })
 }
+
+Object.defineProperty(dataRWC, "feedList", {
+  get() {
+    const data = this.feed.map((item) => {
+      const id = item.id
+      const like = item.like
+      const time = item.time
+      const title = item.title
+      const tags = item.tags
+      const preview = item.preview
+      const avatar = this.users[item.userId].avatar
+      const name = this.users[item.userId].userName
+
+      return {
+        id,
+        like,
+        tags,
+        author: {
+          avatar,
+          name,
+          time,
+        },
+        feed: {
+          title,
+          preview,
+        },
+      }
+    })
+
+    return data
+  },
+})
 
 module.exports = () => {
   return dataRWC
