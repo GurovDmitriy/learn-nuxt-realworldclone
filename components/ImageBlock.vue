@@ -17,7 +17,13 @@ export default {
     dataItem: {
       type: Object,
       required: false,
-      default: () => ({}),
+      default: () => ({
+        // imageSrc             - string path to image
+        // imageAlt             - string alt img for attr
+        // imageWidth           - number width img for attr
+        // imageHeight          - number height img for attr
+        // imageNamePlaceholder - string name file for placeholder
+      }),
     },
   },
 
@@ -26,21 +32,8 @@ export default {
       const imageNamePlaceholder =
         this.dataItem.imageNamePlaceholder || "placeholder-image.png"
 
-      let imageSrc = ""
-
-      if (
-        isExistImageSrc(this.dataItem.imageSrc) &&
-        isOuterSrcImage(this.dataItem.imageSrc)
-      ) {
-        imageSrc = this.dataItem.imageSrc
-      } else if (
-        isExistImageSrc(this.dataItem.imageSrc) &&
-        !isOuterSrcImage(this.dataItem.imageSrc)
-      ) {
-        imageSrc = require(`~/assets/images/${this.dataItem.imageSrc}`)
-      } else {
-        imageSrc = require(`~/assets/images/${imageNamePlaceholder}`)
-      }
+      const imageSrc =
+        this.getImageSrc || require(`~/assets/images/${imageNamePlaceholder}`)
 
       const imageAlt = this.dataItem.imageAlt || "placeholder"
       const imageWidth = this.dataItem.imageWidth || 100
@@ -51,6 +44,22 @@ export default {
         imageAlt,
         imageWidth,
         imageHeight,
+      }
+    },
+
+    getImageSrc() {
+      if (
+        isExistImageSrc(this.dataItem.imageSrc) &&
+        isOuterSrcImage(this.dataItem.imageSrc)
+      ) {
+        return this.dataItem.imageSrc
+      } else if (
+        isExistImageSrc(this.dataItem.imageSrc) &&
+        !isOuterSrcImage(this.dataItem.imageSrc)
+      ) {
+        return require(`~/assets/images/${this.dataItem.imageSrc}`)
+      } else {
+        return false
       }
     },
   },
