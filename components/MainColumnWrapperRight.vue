@@ -1,19 +1,21 @@
 <template>
-  <aside class="main-column-right">
-    <div class="main-column-right__tags-list-box">
-      <h3 class="main-column-right__caption">Popular Tags</h3>
-      <LoadingBlock v-if="tagsListIsLoading" class="main-column-right__loading"
+  <aside class="main-column-wrapper-right">
+    <div class="main-column-wrapper-right__tags-list-box">
+      <h3 class="main-column-wrapper-right__caption">Popular Tags</h3>
+      <LoadingBlock
+        v-if="tagsListIsLoading"
+        class="main-column-wrapper-right__loading"
         >Loading tags...</LoadingBlock
       >
       <RefreshBlock
         v-else-if="tagsListErrors"
-        class="main-column-right__refresh"
+        class="main-column-wrapper-right__refresh"
         @refreshData="refreshTagsList"
       />
       <TagsList
         v-else
         :data-item="tagsList"
-        class="main-column-right__tags-list"
+        class="main-column-wrapper-right__tags-list"
       />
     </div>
   </aside>
@@ -41,13 +43,13 @@ export default {
 </script>
 
 <style lang="scss">
-.main-column-right {
+.main-column-wrapper-right {
   @media (min-width: $min-width-tablet) {
     position: relative;
   }
 }
 
-.main-column-right__tags-list-box {
+.main-column-wrapper-right__tags-list-box {
   padding: $space-m;
 
   background-color: $var-color-grey-light;
@@ -60,7 +62,7 @@ export default {
   }
 }
 
-.main-column-right__caption {
+.main-column-wrapper-right__caption {
   @include text-default;
 
   margin-bottom: $space-s;

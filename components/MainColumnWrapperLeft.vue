@@ -1,24 +1,24 @@
 <template>
-  <section class="main-column-left">
-    <h3 class="main-column-left__caption visually-hidden">Feed List</h3>
+  <section class="main-column-wrapper-left">
+    <h3 class="main-column-wrapper-left__caption visually-hidden">Feed List</h3>
     <FilterBar
       :data-item="dataFilterBarComp"
-      class="main-column-left__filter-bar"
+      class="main-column-wrapper-left__filter-bar"
     />
     <FeedListPlaceholder
       v-if="feedListIsLoading"
       :data-item="dataFeedListPlaceholder"
-      class="main-column-left__placeholder"
+      class="main-column-wrapper-left__placeholder"
     />
     <RefreshBlock
       v-else-if="feedListErrors"
-      class="main-column-left__refresh"
+      class="main-column-wrapper-left__refresh"
       @refreshData="refreshFeedList"
     />
     <FeedList
       v-else
       :data-item="feedList"
-      class="main-column-left__feed-list"
+      class="main-column-wrapper-left__feed-list"
     />
   </section>
 </template>

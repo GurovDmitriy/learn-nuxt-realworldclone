@@ -12,6 +12,15 @@
 import { isExistImageSrc } from "~/helpers/isExist"
 import { isOuterSrcImage } from "~/helpers/isOuter"
 
+/**
+ * @typedef {Object} DataItem
+ * @property {string} imageSrc - zhopa
+ * @property {string} imageAlt - zhopa
+ * @property {string} imageWidth - zhopa
+ * @property {string} imageHeight - zhopa
+ * @property {string} imageNamePlaceholder - zhopa
+ */
+
 export default {
   props: {
     dataItem: {
@@ -29,6 +38,11 @@ export default {
 
   computed: {
     dataItemValid() {
+          /**
+     * @type {DataItem}
+     */
+      const test = this.dataItem
+
       const imageNamePlaceholder =
         this.dataItem.imageNamePlaceholder || "placeholder-image.png"
 
