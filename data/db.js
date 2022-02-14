@@ -158,11 +158,11 @@ function createFeedCountByTag(state) {
       function getFeedListCountByTag(tag) {
         let count = 0
 
-        for (let i = 0; i < state.feed.length; i++) {
-          if (state.feed[i].tags.findIndex((elem) => elem === tag)) {
+        state.feed.forEach((item) => {
+          if (item.tags.findIndex((elem) => elem === tag) !== -1) {
             count += 1
           }
-        }
+        })
 
         return count
       }
