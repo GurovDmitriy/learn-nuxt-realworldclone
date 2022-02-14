@@ -146,7 +146,7 @@ function createFeedCountByTag(state) {
   Object.defineProperty(state, "feedCountByTag", {
     get() {
       const data = {
-        all: state.feed.length,
+        total: state.feed.length,
       }
 
       state.tags.forEach((item) => {
