@@ -55,8 +55,8 @@ export default {
     "@nuxtjs/eslint-module",
     "@nuxtjs/stylelint-module",
     "@nuxtjs/style-resources",
-    "@nuxtjs/svg-sprite",
     "@aceforth/nuxt-optimized-images",
+    "@nuxtjs/svg-sprite",
   ],
 
   optimizedImages: {
