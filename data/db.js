@@ -5,6 +5,8 @@ const USERS_COUNT = 10
 
 const dataRWC = {
   feed: [],
+  feedCountByTag: {},
+
   tags: ["welcome", "introduction", "nuxt", "learn", "javascript"],
   users: [
     {
@@ -17,16 +19,14 @@ const dataRWC = {
       password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
     },
   ],
+
+  feedList: [],
 }
 
 function randomInteger(min, max) {
   const rand = min - 0.5 + Math.random() * (max - min + 1)
   return Math.round(rand)
 }
-
-// function isEmptyArr(value) {
-//   return value && Array.isArray(value) && !value.length
-// }
 
 // dataUsers
 
@@ -73,6 +73,8 @@ for (let i = 1; i <= FEED_COUNT; i++) {
   })
 }
 
+// feedList
+
 Object.defineProperty(dataRWC, "feedList", {
   get() {
     const data = this.feed.map((item) => {
@@ -105,9 +107,43 @@ Object.defineProperty(dataRWC, "feedList", {
   },
 })
 
+// feedCount
+
+Object.defineProperty(dataRWC, "feedCountByTag", {
+  get() {
+    const data = {
+      all: this.feed.length,
+    }
+
+    this.tags.forEach((item) => {
+      const count = getFeedListCountByTag(item)
+
+      data[item] = count
+    })
+
+    function getFeedListCountByTag(tag) {
+      let count = 0
+
+      for (let i = 0; i < this.feed.length; i++) {
+        if (this.feed[i].tags.findIndex((elem) => elem === tag)) {
+          count += 1
+        }
+      }
+
+      return count
+    }
+
+    return data
+  },
+})
+
+// export data
+
 module.exports = () => {
   return dataRWC
 }
+
+// log successful
 
 console.log(
   `DB successfully created!
