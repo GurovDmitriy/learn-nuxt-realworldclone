@@ -13,4 +13,8 @@ export default (axios) => ({
 
     return axios.$get("/feedList")
   },
+
+  getFeedCountByTag() {
+    return axios.$get("/feedCountByTag")
+  },
 })
