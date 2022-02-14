@@ -124,8 +124,8 @@ Object.defineProperty(dataRWC, "feedCountByTag", {
     function getFeedListCountByTag(tag) {
       let count = 0
 
-      for (let i = 0; i < this.feed.length; i++) {
-        if (this.feed[i].tags.findIndex((elem) => elem === tag)) {
+      for (let i = 0; i < dataRWC.feed.length; i++) {
+        if (dataRWC.feed[i].tags.findIndex((elem) => elem === tag)) {
           count += 1
         }
       }

@@ -12,7 +12,7 @@ export default {
 
   methods: {
     async fetchFeedListCount() {
-      const res = await fetch("http://localhost:3005/feedListCount")
+      const res = await fetch("http://localhost:3005/feedCountByTag")
       const data = await res.json()
       console.log(data)
     },
