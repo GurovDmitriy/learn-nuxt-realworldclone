@@ -8,11 +8,11 @@ export default {
     const pageSlug = route.params.slug
     const pageQuery = route.query
 
-    const fetchFeedList = pageSlug ? "fetchFeedListByTag" : "fetchFeedList"
+    const feedListPayload = `tags_like=${pageSlug}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
-      store.dispatch(actionTypesFeed[fetchFeedList], { pageSlug, pageQuery }),
+      store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
     ])
 

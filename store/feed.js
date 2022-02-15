@@ -6,7 +6,6 @@ export const mutationTypes = {
 
 export const actionTypes = {
   fetchFeedList: "[feed] fetchFeedList",
-  fetchFeedListByTag: "[feed] fetchFeedListByTag",
 }
 
 export const state = () => ({
@@ -32,25 +31,11 @@ const mutations = {
 }
 
 const actions = {
-  async [actionTypes.fetchFeedList]({ commit }) {
+  async [actionTypes.fetchFeedList]({ commit }, payload) {
     commit(mutationTypes.setFeedListStart)
 
     try {
-      const data = await this.$api.feed.getFeedList()
-
-      commit(mutationTypes.setFeedListSuccess, data)
-      return data
-    } catch (err) {
-      commit(mutationTypes.setFeedListFailure, err)
-      throw new Error(err)
-    }
-  },
-
-  async [actionTypes.fetchFeedListByTag]({ commit }, tag) {
-    commit(mutationTypes.setFeedListStart)
-
-    try {
-      const data = await this.$api.feed.getFeedListByTags(tag)
+      const data = await this.$api.feed.getFeedList(payload)
 
       commit(mutationTypes.setFeedListSuccess, data)
       return data

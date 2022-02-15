@@ -1,20 +1,10 @@
-import { isExistArr, isExistStr } from "~/helpers/isExist"
+import { isNotEmptyStr } from "~/helpers/isNotEmpty"
 
 export default (axios) => ({
-  getFeedList(config) {
-    if (config.pagQuery) return axios.$get(`/feedList?${config.pagQuery}`)
+  getFeedList(payload) {
+    const query = isNotEmptyStr(payload) ? `?${payload}` : ""
 
-    return axios.$get(`/feedList`)
-  },
-
-  getFeedListByTags(config) {
-    if (isExistStr(config.slug))
-      return axios.$get(`/feedList?tags_like=${config.slug}`)
-
-    if (isExistArr(config.slug))
-      return axios.$get(`/feedList?tags_like=${[...config.slug].join("&")}`)
-
-    return axios.$get("/feedList")
+    return axios.$get(`/feedList/${query}`)
   },
 
   getFeedCountByTag() {
