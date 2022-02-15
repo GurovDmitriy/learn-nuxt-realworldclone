@@ -4,18 +4,23 @@ import { actionTypes as actionTypesFeed } from "~/store/feed"
 import { actionTypes as actionTypesFeedCountByTag } from "~/store/feedCountByTag"
 
 export default {
-  async asyncData({ params, store }) {
-    const slug = params.slug
-    const fetchFeedList = slug ? "fetchFeedListByTag" : "fetchFeedList"
+  async asyncData({ route, store }) {
+    const pageSlug = route.params.slug
+    const pageQuery = route.query
+
+    const fetchFeedList = pageSlug ? "fetchFeedListByTag" : "fetchFeedList"
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
-      store.dispatch(actionTypesFeed[fetchFeedList], slug),
+      store.dispatch(actionTypesFeed[fetchFeedList], { pageSlug, pageQuery }),
       store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
     ])
 
     return {
-      pageSlug: slug,
+      pageConfig: {
+        pageSlug,
+        pageQuery,
+      },
     }
   },
 
@@ -28,18 +33,18 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      feedCountByTag: ({ feedCountByTag }) => feedCountByTag.feedCountByTag,
+    }),
+
     dataPaginatorListComp() {
       const data = {
-        pageSlug: this.pageSlug,
+        pageSlug: this.pageConfig.pageSlug,
         pageTotal: this.pageTotal,
       }
 
       return data
     },
-
-    ...mapState({
-      feedCountByTag: ({ feedCountByTag }) => feedCountByTag.feedCountByTag,
-    }),
 
     pageTotal() {
       const slug = this.pageSlug

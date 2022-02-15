@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import { isEmptyObj } from "~/helpers/isEmpty"
-
 export default {
   props: {
     dataItem: {
@@ -22,11 +20,15 @@ export default {
 
   computed: {
     dataItemValid() {
-      const data = !isEmptyObj(this.dataItem)
-        ? { ...this.dataItem }
-        : { pageSlug: null, pageTotal: 1, pageNum: 1 }
+      const pageSlug = this.dataItem.pageSlug || null
+      const pageTotal = this.dataItem.pageTotal || 1
+      const pageNum = this.dataItem.pageNum || 1
 
-      return data
+      return {
+        pageSlug,
+        pageTotal,
+        pageNum,
+      }
     },
   },
 }

@@ -1,15 +1,18 @@
 import { isExistArr, isExistStr } from "~/helpers/isExist"
 
 export default (axios) => ({
-  getFeedList() {
-    return axios.$get("/feedList")
+  getFeedList(config) {
+    if (config.pagQuery) return axios.$get(`/feedList?${config.pagQuery}`)
+
+    return axios.$get(`/feedList`)
   },
 
-  getFeedListByTags(value) {
-    if (isExistStr(value)) return axios.$get(`/feedList?tags_like=${value}`)
+  getFeedListByTags(config) {
+    if (isExistStr(config.slug))
+      return axios.$get(`/feedList?tags_like=${config.slug}`)
 
-    if (isExistArr(value))
-      return axios.$get(`/feedList?tags_like=${[...value].join("&")}`)
+    if (isExistArr(config.slug))
+      return axios.$get(`/feedList?tags_like=${[...config.slug].join("&")}`)
 
     return axios.$get("/feedList")
   },
