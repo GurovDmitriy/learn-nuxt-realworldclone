@@ -19,12 +19,19 @@ export default {
     }
   },
 
+  data() {
+    return {
+      dataPaginatorList: {
+        itemPerPage: 2,
+      },
+    }
+  },
+
   computed: {
     dataPaginatorListComp() {
       const data = {
         pageSlug: this.pageSlug,
-        pageTotal:
-          this.feedCountByTag[this.pageSlug] || this.feedCountByTag.total,
+        pageTotal: this.pageTotal,
       }
 
       return data
@@ -33,5 +40,16 @@ export default {
     ...mapState({
       feedCountByTag: ({ feedCountByTag }) => feedCountByTag.feedCountByTag,
     }),
+
+    pageTotal() {
+      const slug = this.pageSlug
+      const delim = this.dataPaginatorList.itemPerPage
+
+      const countItemByTag = slug
+        ? this.feedCountByTag[slug]
+        : this.feedCountByTag.total
+
+      return Math.ceil(countItemByTag / delim)
+    },
   },
 }
