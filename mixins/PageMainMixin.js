@@ -8,11 +8,23 @@ export default {
     const pageSlug = route.params.slug
     const pageQuery = route.query
 
-    const feedListPayload = `tags_like=${pageSlug}`
+    let queryByTag = ""
+    let queryByPage = ""
+    let queryPayload = ""
+
+    if (pageSlug) {
+      queryByTag = `?tags_like=${pageSlug}`
+      queryPayload += queryByTag
+    }
+
+    if (queryByPage) {
+      queryByPage = `tags_like=${pageSlug}`
+      queryPayload += queryByPage
+    }
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
-      store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
+      store.dispatch(actionTypesFeed.fetchFeedList, queryPayload),
       store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
     ])
 
@@ -47,7 +59,7 @@ export default {
     },
 
     pageTotal() {
-      const slug = this.pageSlug
+      const slug = this.pageConfig.pageSlug
       const delim = this.dataPaginatorList.itemPerPage
 
       const countItemByTag = slug

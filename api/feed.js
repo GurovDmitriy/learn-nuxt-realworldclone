@@ -1,10 +1,6 @@
-import { isNotEmptyStr } from "~/helpers/isNotEmpty"
-
 export default (axios) => ({
   getFeedList(payload) {
-    const query = isNotEmptyStr(payload) ? `?${payload}` : ""
-
-    return axios.$get(`/feedList/${query}`)
+    return axios.$get(`/feedList/${payload}`)
   },
 
   getFeedCountByTag() {
