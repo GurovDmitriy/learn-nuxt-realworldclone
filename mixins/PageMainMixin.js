@@ -2,44 +2,24 @@ import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 import { actionTypes as actionTypesFeedCountByTag } from "~/store/feedCountByTag"
+import { pageMainItemPerPage as itemPerPage } from "~/helpers/configPaginatorList"
 
 export default {
-  async asyncData({ route, store }) {
-    const pageSlug = route.params.slug
-    const pageQuery = route.query
-
-    let queryByTag = ""
-    let queryByPage = ""
-    let queryPayload = ""
-
-    if (pageSlug) {
-      queryByTag = `?tags_like=${pageSlug}`
-      queryPayload += queryByTag
-    }
-
-    if (queryByPage) {
-      queryByPage = `tags_like=${pageSlug}`
-      queryPayload += queryByPage
-    }
+  async asyncData({ params, store }) {
+    const pageId = params.id || 1
+    const feedListPayload = `?_page=${pageId}&_limit=${itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
-      store.dispatch(actionTypesFeed.fetchFeedList, queryPayload),
+      store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
     ])
-
-    return {
-      pageConfig: {
-        pageSlug,
-        pageQuery,
-      },
-    }
   },
 
   data() {
     return {
-      dataPaginatorList: {
-        itemPerPage: 2,
+      dataPaginatorListConfig: {
+        itemPerPage,
       },
     }
   },
@@ -51,22 +31,18 @@ export default {
 
     dataPaginatorListComp() {
       const data = {
-        pageSlug: this.pageConfig.pageSlug,
-        pageTotal: this.pageTotal,
+        pagePath: "/page",
+        pageCount: this.pageCount,
       }
 
       return data
     },
 
-    pageTotal() {
-      const slug = this.pageConfig.pageSlug
-      const delim = this.dataPaginatorList.itemPerPage
+    pageCount() {
+      const count = this.feedCountByTag.total
+      const delim = this.dataPaginatorListConfig.itemPerPage
 
-      const countItemByTag = slug
-        ? this.feedCountByTag[slug]
-        : this.feedCountByTag.total
-
-      return Math.ceil(countItemByTag / delim)
+      return Math.ceil(count / delim)
     },
   },
 }
