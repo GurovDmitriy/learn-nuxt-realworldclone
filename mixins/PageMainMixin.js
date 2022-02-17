@@ -7,7 +7,7 @@ import { pageMainItemPerPage as itemPerPage } from "~/helpers/configPaginatorLis
 export default {
   async asyncData({ params, store }) {
     const pageId = params.id || 1
-    const feedListPayload = `?_page=${pageId}&_limit=${itemPerPage}`
+    const feedListPayload = `_page=${pageId}&_limit=${itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),

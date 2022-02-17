@@ -1,15 +1,3 @@
-<template>
-  <main class="main">
-    <h2 class="main__caption visually-hidden">Main Content</h2>
-    <MainColumnWrapper class="main__column-wrapper" />
-    <PaginatorList
-      class="main__paginator-list"
-      :data-item="dataPaginatorListComp"
-    />
-  </main>
-</template>
-
-<script>
 import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
@@ -18,14 +6,21 @@ import { pageMainItemPerPage as itemPerPage } from "~/helpers/configPaginatorLis
 
 export default {
   async asyncData({ params, store }) {
+    const pageSlug = params.slug
     const pageId = params.id || 1
-    const feedListPayload = `?_page=${pageId}&_limit=${itemPerPage}`
+    const feedListPayload = `tags_like=${pageSlug}&_page=${pageId}&_limit=${itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
     ])
+
+    return {
+      asyncDataFeedListConfig: {
+        pageSlug,
+      },
+    }
   },
 
   data() {
@@ -43,7 +38,7 @@ export default {
 
     dataPaginatorListComp() {
       const data = {
-        pagePath: "/page",
+        pagePath: `/tags/${this.asyncDataFeedListConfig.pageSlug}/page`,
         pageCount: this.pageCount,
       }
 
@@ -51,11 +46,10 @@ export default {
     },
 
     pageCount() {
-      const count = this.feedCountByTag.total
+      const count = this.feedCountByTag[this.asyncDataFeedListConfig.pageSlug]
       const delim = this.dataPaginatorListConfig.itemPerPage
 
       return Math.ceil(count / delim)
     },
   },
 }
-</script>
