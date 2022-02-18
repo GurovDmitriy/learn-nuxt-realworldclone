@@ -15,20 +15,6 @@ export default {
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
     ])
-
-    return {
-      asyncDataFeedListConfig: {
-        pageSlug,
-      },
-    }
-  },
-
-  data() {
-    return {
-      dataPaginatorListConfig: {
-        itemPerPage,
-      },
-    }
   },
 
   computed: {
@@ -37,8 +23,9 @@ export default {
     }),
 
     dataPaginatorListComp() {
+      const slug = this.$route.params.slug
       const data = {
-        pagePath: `/tags/${this.asyncDataFeedListConfig.pageSlug}/page`,
+        pagePath: `/tags/${slug}/page`,
         pageCount: this.pageCount,
       }
 
@@ -46,8 +33,9 @@ export default {
     },
 
     pageCount() {
-      const count = this.feedCountByTag[this.asyncDataFeedListConfig.pageSlug]
-      const delim = this.dataPaginatorListConfig.itemPerPage
+      const slug = this.$route.params.slug
+      const count = this.feedCountByTag[slug]
+      const delim = itemPerPage
 
       return Math.ceil(count / delim)
     },
