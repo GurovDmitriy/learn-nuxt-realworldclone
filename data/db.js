@@ -40,7 +40,7 @@ function createDefaultUser(state) {
     userName: "admin",
     firstName: casual.first_name,
     lastName: casual.last_name,
-    // avatar: "https://i.pravatar.cc/100?img=1",
+    avatar: "https://i.pravatar.cc/100?img=1",
     email: "admin@admin.com",
     password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
   }
@@ -110,18 +110,16 @@ function createFeedList(state) {
   Object.defineProperty(state, "feedList", {
     get() {
       const data = this.feed.map((item) => {
+        const user = state.users.filter((elem) => elem.id === item.userId)
+
         const id = item.id
         const like = item.like
         const time = item.time
         const title = item.title
         const tags = item.tags
         const preview = item.preview
-        const avatar = state.users.filter(
-          (elem) => elem.userId === item.userId
-        ).avatar
-        const name = state.users.filter(
-          (elem) => elem.userId === item.userId
-        ).userName
+        const avatar = user[0].avatar
+        const name = user[0].userName
 
         return {
           id,

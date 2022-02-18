@@ -16,14 +16,6 @@ export default {
     ])
   },
 
-  data() {
-    return {
-      dataPaginatorListConfig: {
-        itemPerPage,
-      },
-    }
-  },
-
   computed: {
     ...mapState({
       feedCountByTag: ({ feedCountByTag }) => feedCountByTag.feedCountByTag,
@@ -40,7 +32,7 @@ export default {
 
     pageCount() {
       const count = this.feedCountByTag.total
-      const delim = this.dataPaginatorListConfig.itemPerPage
+      const delim = itemPerPage
 
       return Math.ceil(count / delim)
     },
