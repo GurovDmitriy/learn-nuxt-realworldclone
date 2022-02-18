@@ -1,3 +1,3 @@
 <template>
-  <p>register page</p>
+  <PlaceholderBlock>Register page</PlaceholderBlock>
 </template>

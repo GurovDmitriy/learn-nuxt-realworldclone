@@ -1,3 +1,3 @@
 <template>
-  <p>login page</p>
+  <PlaceholderBlock>Login page</PlaceholderBlock>
 </template>
