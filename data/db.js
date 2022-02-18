@@ -40,7 +40,7 @@ function createDefaultUser(state) {
     userName: "admin",
     firstName: casual.first_name,
     lastName: casual.last_name,
-    avatar: "https://i.pravatar.cc/100?img=1",
+    // avatar: "https://i.pravatar.cc/100?img=1",
     email: "admin@admin.com",
     password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
   }
@@ -116,8 +116,12 @@ function createFeedList(state) {
         const title = item.title
         const tags = item.tags
         const preview = item.preview
-        const avatar = state.users[item.userId].avatar
-        const name = state.users[item.userId].userName
+        const avatar = state.users.filter(
+          (elem) => elem.userId === item.userId
+        ).avatar
+        const name = state.users.filter(
+          (elem) => elem.userId === item.userId
+        ).userName
 
         return {
           id,
