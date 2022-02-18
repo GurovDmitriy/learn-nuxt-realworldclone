@@ -34,3 +34,19 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.paginator-list-item__link {
+  @include text-small;
+
+  display: block;
+  padding: $space-s $space-m;
+
+  color: $var-color-grey;
+  line-height: 1;
+  text-decoration: none;
+
+  background-color: $var-color-grey-light;
+  border-radius: 4px;
+}
+</style>

@@ -35,3 +35,19 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.paginator-list {
+  display: flex;
+  align-items: center;
+
+  margin: 0 ($space-xs * -1);
+  padding: 0;
+
+  list-style: none;
+}
+
+.paginator-list__item {
+  margin: 0 $space-xs;
+}
+</style>

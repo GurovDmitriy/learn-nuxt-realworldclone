@@ -24,4 +24,8 @@ export default {
   padding-top: $space-l;
   padding-bottom: $space-l;
 }
+
+.main__column-wrapper {
+  margin-bottom: $space-l;
+}
 </style>
