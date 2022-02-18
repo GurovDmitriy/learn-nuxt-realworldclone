@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const casual = require("casual")
-const FEED_COUNT = 10
+const FEED_COUNT = 30
 const USERS_COUNT = 10
 
 // global state
