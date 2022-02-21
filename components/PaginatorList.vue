@@ -1,9 +1,9 @@
 <template>
   <ul class="paginator-list">
     <PaginatorListItem
-      v-for="(item, index) in dataItemValid.pageCount"
-      :key="item"
-      :data-item="{ pagePath: dataItemValid.pagePath, pageNum: index + 1 }"
+      v-for="item in dataItemValid"
+      :key="item.pageNum"
+      :data-item="item"
       class="paginator-list__item"
     />
   </ul>
@@ -24,13 +24,19 @@ export default {
 
   computed: {
     dataItemValid() {
-      const pageCount = this.dataItem.pageCount || 1
+      const pageCount = this.dataItem.pageCount || [1]
       const pagePath = this.dataItem.pagePath || "/"
 
-      return {
-        pageCount,
-        pagePath,
-      }
+      const data = pageCount.map((item) => {
+        const pageNum = item
+
+        return {
+          pagePath,
+          pageNum,
+        }
+      })
+
+      return data
     },
   },
 }

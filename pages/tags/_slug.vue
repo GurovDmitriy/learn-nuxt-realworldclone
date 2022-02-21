@@ -18,9 +18,10 @@ import { pageMainItemPerPage as itemPerPage } from "~/helpers/configPaginatorLis
 import { getArrRange } from "~/helpers/utils"
 
 export default {
-  async asyncData({ query, store }) {
-    const pageNum = query.page || 1
-    const feedListPayload = `_page=${pageNum}&_limit=${itemPerPage}`
+  async asyncData({ params, query, store }) {
+    const slug = params.slug
+    const page = query.page || 1
+    const feedListPayload = `tags_like=${slug}&_page=${page}&_limit=${itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
@@ -35,7 +36,8 @@ export default {
     }),
 
     dataPaginatorListComp() {
-      const count = this.feedCountByTag.total
+      const slug = this.$route.params.slug
+      const count = this.feedCountByTag[slug]
       const delim = itemPerPage
 
       const pagePath = this.$route.path
@@ -51,16 +53,3 @@ export default {
   watchQuery: ["page"],
 }
 </script>
-
-<style lang="scss">
-.main {
-  @include container;
-
-  padding-top: $space-l;
-  padding-bottom: $space-l;
-}
-
-.main__column-wrapper {
-  margin-bottom: $space-l;
-}
-</style>

@@ -2,7 +2,10 @@
   <li class="paginator-list-item">
     <NuxtLink
       class="paginator-list-item__link"
-      :to="{ path: `${dataItemValid.pagePath}/${dataItemValid.pageNum}` }"
+      :to="{
+        path: dataItemValid.pagePath,
+        query: dataItemValid.pageQuery,
+      }"
       >{{ dataItemValid.pageNum }}</NuxtLink
     >
   </li>
@@ -16,6 +19,7 @@ export default {
       required: false,
       default: () => ({
         // pagePath
+        // pageQuery
         // pageNum
       }),
     },
@@ -23,11 +27,13 @@ export default {
 
   computed: {
     dataItemValid() {
-      const pagePath = this.dataItem.pagePath || "/"
       const pageNum = this.dataItem.pageNum || 1
+      const pagePath = this.dataItem.pagePath || "/"
+      const pageQuery = { page: pageNum }
 
       return {
         pagePath,
+        pageQuery,
         pageNum,
       }
     },
