@@ -29,10 +29,12 @@ export default {
 
       const data = pageCount.map((item) => {
         const pageNum = item
+        const isClassActive = !this.$route.query.page && item === 1
 
         return {
           pagePath,
           pageNum,
+          isClassActive,
         }
       })
 

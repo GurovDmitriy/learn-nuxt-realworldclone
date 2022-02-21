@@ -42,13 +42,13 @@ export default {
       feedListErrors: ({ feed }) => feed.errors,
     }),
 
-    dataFilterBarComp({ $route }) {
+    dataFilterBarComp() {
       const barItems = this.dataFilterBar.map((item) => item)
 
-      if ($route.params.slug) {
+      if (this.$route.params.slug) {
         barItems.push({
-          content: `# ${$route.params.slug}`,
-          path: `${$route.fullPath}`,
+          content: `# ${this.$route.params.slug}`,
+          path: `${this.$route.path}`,
         })
       }
 

@@ -1,8 +1,8 @@
 <template>
   <ul class="filter-bar">
     <FilterBarItem
-      v-for="item in dataItem"
-      :key="item.id"
+      v-for="item in dataItemValid"
+      :key="item.content"
       :data-item="item"
       class="filter-bar__item"
     />
@@ -14,7 +14,30 @@ export default {
   props: {
     dataItem: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => [{}],
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const data = this.dataItem.map((item) => {
+        const content = item.content || "Unknown feed"
+        const path = item.path || "/"
+        let active = true
+
+        if (this.$route.params.slug) {
+          active = item.content.includes(this.$route.params.slug)
+        }
+
+        return {
+          content,
+          path,
+          active,
+        }
+      })
+
+      return data
     },
   },
 }
@@ -34,5 +57,9 @@ export default {
   list-style: none;
 
   border-bottom: 2px solid $var-color-grey-light;
+}
+
+.filter-bar__item--active {
+  background-color: green;
 }
 </style>

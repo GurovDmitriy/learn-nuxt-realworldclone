@@ -2,6 +2,7 @@
   <li class="paginator-list-item">
     <NuxtLink
       class="paginator-list-item__link"
+      :class="classActive"
       :to="{
         path: dataItemValid.pagePath,
         query: dataItemValid.pageQuery,
@@ -21,6 +22,7 @@ export default {
         // pagePath
         // pageQuery
         // pageNum
+        // isClassActive
       }),
     },
   },
@@ -30,11 +32,19 @@ export default {
       const pageNum = this.dataItem.pageNum || 1
       const pagePath = this.dataItem.pagePath || "/"
       const pageQuery = { page: pageNum }
+      const isClassActive = this.dataItem.isClassActive
 
       return {
         pagePath,
         pageQuery,
         pageNum,
+        isClassActive,
+      }
+    },
+
+    classActive() {
+      return {
+        "paginator-list-item__link--active": this.dataItemValid.isClassActive,
       }
     },
   },
@@ -54,6 +64,12 @@ export default {
 
   background-color: $var-color-grey-light;
   border-radius: 4px;
+
+  &--active {
+    color: $var-color-white;
+
+    background-color: $var-color-grey;
+  }
 
   &:hover {
     color: $var-color-white;

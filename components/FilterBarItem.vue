@@ -1,8 +1,11 @@
 <template>
   <li class="filter-bar-item">
-    <NuxtLink :to="{ path: dataItem.path }" class="filter-bar-item__link">{{
-      dataItem.content
-    }}</NuxtLink>
+    <NuxtLink
+      :to="{ path: dataItem.path }"
+      class="filter-bar-item__link"
+      :class="classActive"
+      >{{ dataItem.content }}</NuxtLink
+    >
   </li>
 </template>
 
@@ -12,7 +15,11 @@ export default {
     dataItem: {
       type: Object,
       required: false,
-      default: () => ({}),
+      default: () => ({
+        // content,
+        // path,
+        // active
+      }),
     },
   },
 
@@ -20,10 +27,18 @@ export default {
     dataItemValid() {
       const content = this.dataItem.content || "Unknown feed"
       const path = this.dataItem.path || "/"
+      const active = this.dataItem.active || false
 
       return {
         content,
         path,
+        active,
+      }
+    },
+
+    classActive() {
+      return {
+        "filter-bar-item__link--active": this.dataItemValid.active,
       }
     },
   },
@@ -44,20 +59,14 @@ export default {
 
   border-bottom: 2px solid transparent;
 
+  &--active {
+    color: $var-color-purple;
+
+    border-bottom: 2px solid $var-color-purple;
+  }
+
   &:hover {
     color: $var-color-black;
   }
-}
-
-.filter-bar-item__link.nuxt-link-active {
-  color: $var-color-purple;
-
-  border-bottom: 2px solid $var-color-purple;
-}
-
-.filter-bar-item__link.nuxt-link-exact-active {
-  color: $var-color-purple;
-
-  border-bottom: 2px solid $var-color-purple;
 }
 </style>
