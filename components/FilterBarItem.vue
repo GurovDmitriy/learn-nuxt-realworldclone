@@ -12,7 +12,7 @@ export default {
     dataItem: {
       type: Object,
       required: false,
-      default: () => {},
+      default: () => ({}),
     },
   },
 
@@ -44,14 +44,20 @@ export default {
 
   border-bottom: 2px solid transparent;
 
-  &.nuxt-link-exact-active {
-    color: $var-color-purple;
-
-    border-bottom: 2px solid $var-color-purple;
-  }
-
   &:hover {
     color: $var-color-black;
   }
+}
+
+// .filter-bar-item__link.nuxt-link-active {
+//   color: $var-color-purple;
+
+//   border-bottom: 2px solid $var-color-purple;
+// }
+
+.filter-bar-item__link.nuxt-link-exact-active {
+  color: $var-color-purple;
+
+  border-bottom: 2px solid $var-color-purple;
 }
 </style>

@@ -39,6 +39,7 @@ export default {
 <style lang="scss">
 .paginator-list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 
   margin: 0 ($space-xs * -1);

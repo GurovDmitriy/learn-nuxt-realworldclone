@@ -12,7 +12,7 @@ export default {
     error: {
       type: Object,
       required: false,
-      default: () => {},
+      default: () => ({}),
     },
   },
 

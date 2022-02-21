@@ -48,5 +48,17 @@ export default {
 
   background-color: $var-color-grey-light;
   border-radius: 4px;
+
+  &:hover {
+    color: $var-color-white;
+
+    background-color: $var-color-grey;
+  }
+}
+
+.paginator-list-item__link.nuxt-link-exact-active {
+  color: $var-color-white;
+
+  background-color: $var-color-grey;
 }
 </style>
