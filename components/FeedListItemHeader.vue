@@ -5,7 +5,7 @@
       class="feed-list-item-header__author"
     />
     <ButtonIcon
-      :data-item="dataButtonLike"
+      :data-item="dataButtonIcon"
       class="feed-list-item-header__button-icon"
       >{{ dataItem.like }}</ButtonIcon
     >
@@ -18,12 +18,14 @@ export default {
     dataItem: {
       type: Object,
       required: true,
+      // author
+      // like
     },
   },
 
   data() {
     return {
-      dataButtonLike: {
+      dataButtonIcon: {
         iconName: "heart-fill",
         iconDesc: "heart",
       },

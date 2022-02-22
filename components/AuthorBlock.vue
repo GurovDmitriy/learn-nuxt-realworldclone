@@ -1,7 +1,7 @@
 <template>
   <div class="author">
     <div class="author__img-box">
-      <ImageBlock class="author__img" :data-item="dataAuthorImgValid" />
+      <ImageBlock class="author__img" :data-item="dataImageBlock" />
     </div>
     <div class="author__info-box">
       <p class="author__name">
@@ -20,7 +20,11 @@ export default {
     dataItem: {
       type: Object,
       required: false,
-      default: () => ({}),
+      default: () => ({
+        // avatar
+        // name
+        // title
+      }),
     },
   },
 
@@ -47,7 +51,7 @@ export default {
       }
     },
 
-    dataAuthorImgValid() {
+    dataImageBlock() {
       return {
         imageSrc: this.dataItemValid.avatar,
         imageAlt: this.dataItemValid.name,
