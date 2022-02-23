@@ -12,7 +12,10 @@ export default {
     dataItem: {
       type: Object,
       required: false,
-      default: () => ({}),
+      default: () => ({
+        // content - string name nav item
+        // path    - string path
+      }),
     },
   },
 

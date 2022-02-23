@@ -4,7 +4,10 @@
       :data-item="feedListItemHeader"
       class="feed-list-item__header"
     />
-    <FeedPreview :data-item="dataItem.feed" class="feed-list-item__preview" />
+    <FeedListItemPreview
+      :data-item="dataItem.feed"
+      class="feed-list-item__preview"
+    />
     <FeedListItemFooter
       :data-item="dataItem.tags"
       class="feed-list-item__footer"

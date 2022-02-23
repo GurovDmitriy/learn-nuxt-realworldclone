@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheMainColumnWrapper class="main__column-wrapper" />
+    <TheMainColumnWrapperUser class="main__column-wrapper" />
     <PaginatorList
       class="main__paginator-list"
       :data-item="dataPaginatorListComp"
@@ -18,10 +18,11 @@ import { pageMainItemPerPage as itemPerPage } from "~/helpers/configPaginatorLis
 import { getArrRange } from "~/helpers/utils"
 
 export default {
-  async asyncData({ params, query, store }) {
-    const slug = params.slug
-    const page = query.page || 1
-    const feedListPayload = `tags_like=${slug}&_page=${page}&_limit=${itemPerPage}`
+  layout: "user",
+
+  async asyncData({ query, store }) {
+    const pageNum = query.page || 1
+    const feedListPayload = `_page=${pageNum}&_limit=${itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
@@ -36,8 +37,7 @@ export default {
     }),
 
     dataPaginatorListComp() {
-      const slug = this.$route.params.slug
-      const count = this.feedCountByTag[slug]
+      const count = this.feedCountByTag.total
       const delim = itemPerPage
 
       const pagePath = this.$route.path
@@ -53,3 +53,16 @@ export default {
   watchQuery: ["page"],
 }
 </script>
+
+<style lang="scss">
+.main {
+  @include container;
+
+  padding-top: $space-l;
+  padding-bottom: $space-l;
+}
+
+.main__column-wrapper {
+  margin-bottom: $space-l;
+}
+</style>

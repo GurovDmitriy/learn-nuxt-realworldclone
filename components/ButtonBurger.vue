@@ -1,21 +1,21 @@
 <template>
-  <button class="burger" @click="emitClickBurger">
-    <span class="burger__text visually-hidden">open/close menu</span>
+  <button class="button-burger" @click="emitClick">
+    <span class="button-burger__text visually-hidden">open/close menu</span>
   </button>
 </template>
 
 <script>
 export default {
   methods: {
-    emitClickBurger() {
-      this.$emit("clickBurger")
+    emitClick() {
+      this.$emit("clickButton")
     },
   },
 }
 </script>
 
 <style lang="scss">
-.burger {
+.button-burger {
   position: relative;
 
   display: none;
@@ -26,19 +26,19 @@ export default {
   border: none;
 
   &::after {
-    @extend %burger-bar;
+    @extend %button-burger-bar;
 
     top: 5px;
   }
 
   &::before {
-    @extend %burger-bar;
+    @extend %button-burger-bar;
 
     bottom: 5px;
   }
 }
 
-%burger-bar {
+%button-burger-bar {
   position: absolute;
   left: 50%;
 

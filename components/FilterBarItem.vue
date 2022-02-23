@@ -16,9 +16,9 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // content,
-        // path,
-        // active
+        // content - string name path
+        // path    - string path
+        // active  - boolean for exact active class
       }),
     },
   },

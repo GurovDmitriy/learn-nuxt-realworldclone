@@ -1,9 +1,9 @@
 <template>
-  <div class="feed-preview">
-    <h4 class="feed-preview__caption">
+  <div class="feed-list-item-preview">
+    <h4 class="feed-list-item-preview__caption">
       {{ dataItemValid.title }}
     </h4>
-    <p class="feed-preview__description">
+    <p class="feed-list-item-preview__description">
       {{ dataItemValid.preview }}
     </p>
   </div>
@@ -34,13 +34,13 @@ export default {
 </script>
 
 <style lang="scss">
-.feed-preview__caption {
+.feed-list-item-preview__caption {
   @include caption-h3;
 
   margin-bottom: 0;
 }
 
-.feed-preview__description {
+.feed-list-item-preview__description {
   margin-bottom: 0;
 
   color: $var-color-grey;

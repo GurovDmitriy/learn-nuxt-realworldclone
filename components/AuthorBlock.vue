@@ -21,21 +21,13 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // avatar
-        // name
-        // title
+        // avatar               - string path to image
+        // name                 - string name author
+        // imageWidth           - number width image
+        // imageHeight          - number height image
+        // imagePlaceholderName - string name file placeholder with ext
       }),
     },
-  },
-
-  data() {
-    return {
-      dataAuthorImg: {
-        imageWidth: 38,
-        imageHeight: 38,
-        imageNamePlaceholder: "placeholder-avatar.png",
-      },
-    }
   },
 
   computed: {
@@ -43,11 +35,18 @@ export default {
       const avatar = this.dataItem.avatar
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
+      const imageWidth = this.dataItem.imageWidth || 38
+      const imageHeight = this.dataItem.imageHeight || 38
+      const imagePlaceholderName =
+        this.dataItem.imagePlaceholderName || "placeholder-avatar.png"
 
       return {
         avatar,
         name,
         time,
+        imageWidth,
+        imageHeight,
+        imagePlaceholderName,
       }
     },
 
@@ -55,9 +54,9 @@ export default {
       return {
         imageSrc: this.dataItemValid.avatar,
         imageAlt: this.dataItemValid.name,
-        imageWidth: this.dataAuthorImg.imageWidth,
-        imageHeight: this.dataAuthorImg.imageHeight,
-        imageNamePlaceholder: this.dataAuthorImg.imageNamePlaceholder,
+        imageWidth: this.dataItemValid.imageWidth,
+        imageHeight: this.dataItemValid.imageHeight,
+        imagePlaceholderName: this.dataItemValid.imagePlaceholderName,
       }
     },
   },

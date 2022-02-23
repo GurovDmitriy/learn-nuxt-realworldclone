@@ -12,15 +12,6 @@
 import { isExistImageSrc } from "~/helpers/isExist"
 import { isOuterSrcImage } from "~/helpers/isOuter"
 
-/**
- * @typedef {Object} DataItem
- * @property {string} imageSrc - zhopa
- * @property {string} imageAlt - zhopa
- * @property {string} imageWidth - zhopa
- * @property {string} imageHeight - zhopa
- * @property {string} imageNamePlaceholder - zhopa
- */
-
 export default {
   props: {
     dataItem: {
@@ -31,23 +22,18 @@ export default {
         // imageAlt             - string alt img for attr
         // imageWidth           - number width img for attr
         // imageHeight          - number height img for attr
-        // imageNamePlaceholder - string name file for placeholder
+        // imagePlaceholderName - string name file for placeholder
       }),
     },
   },
 
   computed: {
     dataItemValid() {
-          /**
-     * @type {DataItem}
-     */
-      const test = this.dataItem
-
-      const imageNamePlaceholder =
-        this.dataItem.imageNamePlaceholder || "placeholder-image.png"
+      const imagePlaceholderName =
+        this.dataItem.imagePlaceholderName || "placeholder-image.png"
 
       const imageSrc =
-        this.getImageSrc || require(`~/assets/images/${imageNamePlaceholder}`)
+        this.getImageSrc || require(`~/assets/images/${imagePlaceholderName}`)
 
       const imageAlt = this.dataItem.imageAlt || "placeholder"
       const imageWidth = this.dataItem.imageWidth || 100

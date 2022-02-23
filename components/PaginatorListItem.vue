@@ -19,10 +19,10 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // pagePath
-        // pageQuery
-        // pageNum
-        // isClassActive
+        // pagePath      - string path
+        // pageQuery     - object {page: numberPage}
+        // pageNum       - number page
+        // isClassActive - boolean for exact active class
       }),
     },
   },

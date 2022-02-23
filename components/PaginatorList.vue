@@ -16,8 +16,8 @@ export default {
       type: Object,
       required: true,
       default: () => ({
-        // pageCount
-        // pagePath
+        // pageCount - array rang page count
+        // pagePath  - string path page
       }),
     },
   },

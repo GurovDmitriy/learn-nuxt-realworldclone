@@ -3,7 +3,7 @@
     <h2 class="navbar__caption visually-hidden">Navigation</h2>
     <div class="navbar__container">
       <LogoBlock class="navbar__logo" />
-      <TheBurger class="navbar__burger" @clickBurger="toggleMenu" />
+      <ButtonBurger class="navbar__burger" @clickButton="toggleMenu" />
       <NavList
         :data-item="dataNavList"
         :class="classNavList"
