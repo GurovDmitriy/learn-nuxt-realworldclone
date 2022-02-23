@@ -29,5 +29,6 @@ module.exports = {
     "color-hex-case": "lower",
     "selector-class-pattern": /\w+/,
     "at-rule-no-unknown": null,
+    "selector-id-pattern": null,
   },
 }
