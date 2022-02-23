@@ -8,11 +8,10 @@
   --color-blue: #{$color-blue};
 }
 
-html,
-body {
+html {
   box-sizing: border-box;
   min-width: $min-width-document;
-  min-height: 100%;
+  min-height: 100vh;
 
   color: $var-color-black;
   font-weight: $font-weight-regular;
@@ -24,6 +23,18 @@ body {
   @media (min-width: $min-width-tablet) {
     font-size: $font-size-base-tablet;
   }
+}
+
+body {
+  min-height: 100vh;
+}
+
+div[id="__nuxt"] {
+  min-height: 100vh;
+}
+
+div[id="__layout"] {
+  min-height: 100vh;
 }
 
 *,
@@ -55,4 +66,10 @@ h3,
 h4,
 p {
   margin-top: 0;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
