@@ -1,12 +1,12 @@
 <template>
   <div class="author">
-    <div class="author__img-box">
+    <NuxtLink class="author__img-box" :to="{ path: pathToUserPage }">
       <ImageBlock class="author__img" :data-item="dataImageBlock" />
-    </div>
+    </NuxtLink>
     <div class="author__info-box">
-      <p class="author__name">
+      <NuxtLink class="author__name" :to="{ path: pathToUserPage }">
         {{ dataItemValid.name }}
-      </p>
+      </NuxtLink>
       <time class="author__time-feed" :datetime="dataItemValid.time">
         {{ dataItemValid.time | dateFormatBase }}
       </time>
@@ -59,6 +59,15 @@ export default {
         imagePlaceholderName: this.dataItemValid.imagePlaceholderName,
       }
     },
+
+    pathToUserPage() {
+      const userName = this.dataItemValid.name
+      const userSlug = userName.split(/\W/).join("-")
+      const userPath = "users"
+      const path = `/${userPath}/${userSlug}`
+
+      return path
+    },
   },
 }
 </script>
@@ -69,6 +78,7 @@ export default {
 }
 
 .author__img-box {
+  display: block;
   width: 38px;
   margin-right: $space-s;
 }
@@ -84,10 +94,12 @@ export default {
 }
 
 .author__name {
+  display: block;
   margin-bottom: 0;
 
   color: $var-color-purple;
   line-height: 1;
+  text-decoration: none;
 }
 
 .author__time-feed {
