@@ -1,5 +1,5 @@
 <template>
-  <button class="button-burger" @click="emitClick">
+  <button class="button-burger" @click="emitClickButton">
     <span class="button-burger__text visually-hidden">open/close menu</span>
   </button>
 </template>
@@ -7,7 +7,7 @@
 <script>
 export default {
   methods: {
-    emitClick() {
+    emitClickButton() {
       this.$emit("clickButton")
     },
   },

@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { placeholder } from "~/helpers/vars"
+
 export default {
   props: {
     dataItem: {
@@ -20,7 +22,7 @@ export default {
 
   computed: {
     dataItemValid() {
-      const numb = this.dataItem || 10
+      const numb = this.dataItem || placeholder.feedListCount
 
       return numb
     },

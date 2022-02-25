@@ -15,7 +15,10 @@ export default {
     dataItem: {
       type: Object,
       required: false,
-      default: () => ({}),
+      default: () => ({
+        // title   - string title feed
+        // preview - string preview feed
+      }),
     },
   },
 

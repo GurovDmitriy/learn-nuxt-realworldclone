@@ -9,8 +9,7 @@
 </template>
 
 <script>
-import { isExistImageSrc } from "~/helpers/isExist"
-import { isOuterSrcImage } from "~/helpers/isOuter"
+import { isExistImageSrc, isOuterSrcImage } from "~/helpers/utils"
 
 export default {
   props: {

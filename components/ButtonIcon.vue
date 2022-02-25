@@ -1,13 +1,11 @@
 <template>
-  <button class="button-icon" @click="emitClickBtn">
+  <button class="button-icon" @click="emitClickButton">
     <SvgIcon
       class="button-icon__icon"
       :name="dataItemValid.iconName"
       :desc="dataItemValid.iconDesc"
     />
-    <span class="button-icon__text" :style="dataItemValid.colorText"
-      ><slot name="default">Click</slot></span
-    >
+    <span class="button-icon__text"><slot name="default">Click</slot></span>
   </button>
 </template>
 
@@ -18,9 +16,8 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // iconName
-        // iconDesc
-        // colorText
+        // iconName    - string name icon
+        // iconDesc    - string icon description
       }),
     },
   },
@@ -29,19 +26,17 @@ export default {
     dataItemValid() {
       const iconName = this.dataItem.iconName || "bug-fill"
       const iconDesc = this.dataItem.iconDesc || "icon"
-      const colorText = this.dataItem.colorText || "$var-color-purple"
 
       return {
         iconName,
         iconDesc,
-        colorText,
       }
     },
   },
 
   methods: {
-    emitClickBtn() {
-      this.$emit("clickBtnIcon")
+    emitClickButton() {
+      this.$emit("clickButton")
     },
   },
 }
@@ -77,6 +72,8 @@ export default {
 .button-icon__text {
   display: inline-block;
   margin: 0 auto;
+
+  color: $var-color-purple;
 
   text-align: center;
   vertical-align: middle;

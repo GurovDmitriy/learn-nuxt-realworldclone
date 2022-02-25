@@ -14,14 +14,14 @@ import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 import { actionTypes as actionTypesFeedCountByTag } from "~/store/feedCountByTag"
-import { pageMainItemPerPage as itemPerPage } from "~/helpers/configPaginatorList"
 import { getArrRange } from "~/helpers/utils"
+import { paginator } from "~/helpers/vars"
 
 export default {
   async asyncData({ params, query, store }) {
     const slug = params.slug
     const page = query.page || 1
-    const feedListPayload = `tags_like=${slug}&_page=${page}&_limit=${itemPerPage}`
+    const feedListPayload = `tags_like=${slug}&_page=${page}&_limit=${paginator.itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
@@ -38,7 +38,7 @@ export default {
     dataPaginatorListComp() {
       const slug = this.$route.params.slug
       const count = this.feedCountByTag[slug]
-      const delim = itemPerPage
+      const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path
       const pageCount = getArrRange(1, Math.ceil(count / delim))

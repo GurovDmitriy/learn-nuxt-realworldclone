@@ -5,7 +5,7 @@
       :class="classActive"
       :to="{
         path: dataItemValid.pagePath,
-        query: dataItemValid.pageQuery,
+        query: { page: dataItemValid.pageNum },
       }"
       >{{ dataItemValid.pageNum }}</NuxtLink
     >
@@ -31,12 +31,10 @@ export default {
     dataItemValid() {
       const pageNum = this.dataItem.pageNum || 1
       const pagePath = this.dataItem.pagePath || "/"
-      const pageQuery = { page: pageNum }
       const isClassActive = this.dataItem.isClassActive
 
       return {
         pagePath,
-        pageQuery,
         pageNum,
         isClassActive,
       }

@@ -2,22 +2,19 @@
   <div class="author">
     <NuxtLink
       class="author__img-box"
-      :to="{ path: dataItemValid.authorBlock.userPagePath }"
+      :to="{ path: dataAuthorBlock.userPagePath }"
     >
-      <ImageBlock class="author__img" :data-item="dataItemValid.imageBlock" />
+      <ImageBlock class="author__img" :data-item="dataImageBlock" />
     </NuxtLink>
     <div class="author__info-box">
       <NuxtLink
         class="author__name"
-        :to="{ path: dataItemValid.authorBlock.userPagePath }"
+        :to="{ path: dataAuthorBlock.userPagePath }"
       >
-        {{ dataItemValid.authorBlock.name }}
+        {{ dataAuthorBlock.name }}
       </NuxtLink>
-      <time
-        class="author__time-feed"
-        :datetime="dataItemValid.authorBlock.time"
-      >
-        {{ dataItemValid.authorBlock.time | dateFormatBase }}
+      <time class="author__time-feed" :datetime="dataAuthorBlock.time">
+        {{ dataAuthorBlock.time | dateFormatBase }}
       </time>
     </div>
   </div>
@@ -42,10 +39,19 @@ export default {
   },
 
   computed: {
-    dataItemValid() {
+    dataAuthorBlock() {
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
       const userPagePath = this.dataItem.userPagePath || "/"
+
+      return {
+        name,
+        time,
+        userPagePath,
+      }
+    },
+
+    dataImageBlock() {
       const imageSrc = this.dataItem.avatar
       const imageWidth = this.dataItem.imageWidth || 38
       const imageHeight = this.dataItem.imageHeight || 38
@@ -53,18 +59,10 @@ export default {
         this.dataItem.imagePlaceholderName || "placeholder-avatar.png"
 
       return {
-        authorBlock: {
-          name,
-          time,
-          userPagePath,
-        },
-
-        imageBlock: {
-          imageSrc,
-          imageWidth,
-          imageHeight,
-          imagePlaceholderName,
-        },
+        imageSrc,
+        imageWidth,
+        imageHeight,
+        imagePlaceholderName,
       }
     },
   },

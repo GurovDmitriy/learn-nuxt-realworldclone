@@ -1,4 +1,4 @@
-import { isNotEmptyStr } from "~/helpers/isNotEmpty"
+import { isNotEmptyStr } from "~/helpers/utils"
 
 export default (axios) => ({
   getFeedList(payload) {

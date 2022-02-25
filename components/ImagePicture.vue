@@ -21,8 +21,7 @@
 </template>
 
 <script>
-import { isExistImageSrc, isExistArr } from "~/helpers/isExist"
-import { isOuterSrcImage } from "~/helpers/isOuter"
+import { isExistImageSrc, isExistArr, isOuterSrcImage } from "~/helpers/utils"
 
 export default {
   props: {
