@@ -1,14 +1,23 @@
 <template>
   <div class="author">
-    <NuxtLink class="author__img-box" :to="{ path: pathToUserPage }">
-      <ImageBlock class="author__img" :data-item="dataImageBlock" />
+    <NuxtLink
+      class="author__img-box"
+      :to="{ path: dataItemValid.authorBlock.userPagePath }"
+    >
+      <ImageBlock class="author__img" :data-item="dataItemValid.imageBlock" />
     </NuxtLink>
     <div class="author__info-box">
-      <NuxtLink class="author__name" :to="{ path: pathToUserPage }">
-        {{ dataItemValid.name }}
+      <NuxtLink
+        class="author__name"
+        :to="{ path: dataItemValid.authorBlock.userPagePath }"
+      >
+        {{ dataItemValid.authorBlock.name }}
       </NuxtLink>
-      <time class="author__time-feed" :datetime="dataItemValid.time">
-        {{ dataItemValid.time | dateFormatBase }}
+      <time
+        class="author__time-feed"
+        :datetime="dataItemValid.authorBlock.time"
+      >
+        {{ dataItemValid.authorBlock.time | dateFormatBase }}
       </time>
     </div>
   </div>
@@ -23,6 +32,8 @@ export default {
       default: () => ({
         // avatar               - string path to image
         // name                 - string name author
+        // time                 - string time create feed
+        // userPagePath         - string path to user page
         // imageWidth           - number width image
         // imageHeight          - number height image
         // imagePlaceholderName - string name file placeholder with ext
@@ -32,41 +43,29 @@ export default {
 
   computed: {
     dataItemValid() {
-      const avatar = this.dataItem.avatar
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
+      const userPagePath = this.dataItem.userPagePath || "/"
+      const imageSrc = this.dataItem.avatar
       const imageWidth = this.dataItem.imageWidth || 38
       const imageHeight = this.dataItem.imageHeight || 38
       const imagePlaceholderName =
         this.dataItem.imagePlaceholderName || "placeholder-avatar.png"
 
       return {
-        avatar,
-        name,
-        time,
-        imageWidth,
-        imageHeight,
-        imagePlaceholderName,
+        authorBlock: {
+          name,
+          time,
+          userPagePath,
+        },
+
+        imageBlock: {
+          imageSrc,
+          imageWidth,
+          imageHeight,
+          imagePlaceholderName,
+        },
       }
-    },
-
-    dataImageBlock() {
-      return {
-        imageSrc: this.dataItemValid.avatar,
-        imageAlt: this.dataItemValid.name,
-        imageWidth: this.dataItemValid.imageWidth,
-        imageHeight: this.dataItemValid.imageHeight,
-        imagePlaceholderName: this.dataItemValid.imagePlaceholderName,
-      }
-    },
-
-    pathToUserPage() {
-      const userName = this.dataItemValid.name
-      const userSlug = userName.split(/\W/).join("-")
-      const userPath = "users"
-      const path = `/${userPath}/${userSlug}`
-
-      return path
     },
   },
 }

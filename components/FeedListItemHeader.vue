@@ -1,7 +1,7 @@
 <template>
   <div class="feed-list-item-header">
     <AuthorBlock
-      :data-item="dataItem.author"
+      :data-item="dataAuthorBlock"
       class="feed-list-item-header__author"
     />
     <ButtonIcon
@@ -18,8 +18,8 @@ export default {
     dataItem: {
       type: Object,
       required: true,
-      // author
-      // like
+      // author - object data for author component
+      // like   - object data for buttonIcon component
     },
   },
 
@@ -29,7 +29,34 @@ export default {
         iconName: "heart-fill",
         iconDesc: "heart",
       },
+
+      dataAuthorBlockConfig: {
+        imageWidth: 38,
+        imageHeight: 38,
+        imagePlaceholderName: "placeholder-avatar.png",
+      },
     }
+  },
+
+  computed: {
+    dataAuthorBlock() {
+      const userSlug = this.dataItem.name.split(/\W/).join("-")
+      const userPath = "users"
+      const userPagePath = `/${userPath}/${userSlug}`
+
+      const imageWidth = this.dataAuthorBlockConfig.imageWidth
+      const imageHeight = this.dataAuthorBlockConfig.imageWidth
+      const imagePlaceholderName =
+        this.dataAuthorBlockConfig.imagePlaceholderName
+
+      return {
+        ...this.dataItem.author,
+        userPagePath,
+        imageWidth,
+        imageHeight,
+        imagePlaceholderName,
+      }
+    },
   },
 }
 </script>
