@@ -28,7 +28,7 @@ export default {
     feedListItemHeader() {
       return {
         author: this.dataItem.author,
-        like: this.dataItem.like,
+        like: this.dataItem.like.length,
       }
     },
   },

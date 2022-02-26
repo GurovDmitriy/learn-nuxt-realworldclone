@@ -120,6 +120,16 @@ function createFeed(state) {
       tagsRandom.push(randomTag)
     }
 
+    const userRandom = []
+    const userRandomCount = randomInteger(0, state.users.length)
+
+    for (let i = 0; i < userRandomCount; i++) {
+      const randomUser = state.users[randomInteger(0, state.users.length - 1)]
+      if (userRandom.findIndex((item) => item === randomUser.id) === -1) {
+        userRandom.push(randomUser.id)
+      }
+    }
+
     state.feed.push({
       id: i,
       userId: userIdRandom,
@@ -128,7 +138,7 @@ function createFeed(state) {
       content: casual.text,
       time: casual.unix_time,
       tags: tagsRandom,
-      like: randomInteger(0, 300),
+      like: userRandom,
     })
   }
 

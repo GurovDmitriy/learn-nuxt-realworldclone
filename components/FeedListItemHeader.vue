@@ -19,7 +19,7 @@ export default {
       type: Object,
       required: true,
       // author - object data for author component
-      // like   - object data for buttonIcon component
+      // like   - array data for buttonIcon component
     },
   },
 
