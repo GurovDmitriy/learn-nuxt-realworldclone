@@ -13,7 +13,7 @@
 import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
-import { actionTypes as actionTypesFeedCountByTag } from "~/store/feedCountByTag"
+import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { getArrRange } from "~/helpers/utils"
 import { paginator } from "~/helpers/vars"
 
@@ -26,18 +26,18 @@ export default {
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
-      store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
+      store.dispatch(actionTypesFeedCount.fetchFeedCount),
     ])
   },
 
   computed: {
     ...mapState({
-      feedCountByTag: ({ feedCountByTag }) => feedCountByTag.feedCountByTag,
+      feedCount: ({ feedCount }) => feedCount.feedCount,
     }),
 
     dataPaginatorListComp() {
       const slug = this.$route.params.slug
-      const count = this.feedCountByTag[slug]
+      const count = this.feedCount.byTag[slug]
       const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path

@@ -13,31 +13,33 @@
 import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
-import { actionTypes as actionTypesFeedCountByTag } from "~/store/feedCountByTag"
+import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { getArrRange } from "~/helpers/utils"
 import { paginator } from "~/helpers/vars"
 
 export default {
   layout: "user",
 
-  async asyncData({ query, store }) {
+  async asyncData({ params, query, store }) {
+    const slug = params.slug
     const pageNum = query.page || 1
-    const feedListPayload = `_page=${pageNum}&_limit=${paginator.itemPerPage}`
+    const feedListPayload = `author.name=${slug}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
-      store.dispatch(actionTypesFeedCountByTag.fetchFeedCountByTag),
+      store.dispatch(actionTypesFeedCount.fetchFeedCount),
     ])
   },
 
   computed: {
     ...mapState({
-      feedCountByTag: ({ feedCountByTag }) => feedCountByTag.feedCountByTag,
+      feedCount: ({ feedCount }) => feedCount.feedCount,
     }),
 
     dataPaginatorListComp() {
-      const count = this.feedCountByTag.total
+      const slug = this.$route.params.slug
+      const count = this.feedCount.byUser[slug]
       const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path

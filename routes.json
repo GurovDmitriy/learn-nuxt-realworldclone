@@ -2,7 +2,7 @@
   "/users*": "/444/users$1",
   "/usersList*": "/444/usersList$1",
   "/feed*": "/444/feed$1",
-  "/feedCountByTag*": "/444/feedCountByTag$1",
+  "/feedCount*": "/444/feedCount$1",
   "/feedList*": "/444/feedList$1",
   "/tags*": "/444/tags$1"
 }

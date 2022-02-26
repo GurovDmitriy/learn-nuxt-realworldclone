@@ -7,7 +7,7 @@ export default (axios) => ({
     return axios.$get(`/feedList${query}`)
   },
 
-  getFeedCountByTag() {
-    return axios.$get("/feedCountByTag")
+  getFeedCount() {
+    return axios.$get("/feedCount")
   },
 })

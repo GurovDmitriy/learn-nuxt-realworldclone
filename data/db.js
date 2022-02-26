@@ -10,7 +10,7 @@ const stateDataBase = {
   tags: [],
   users: [],
   // getters
-  feedCountByTag: {},
+  feedCount: {},
   feedList: [],
   usersList: [],
 }
@@ -80,6 +80,34 @@ function createUsers(state) {
   return Object.assign({}, state)
 }
 
+function createUsersList(state) {
+  Object.defineProperty(state, "usersList", {
+    get() {
+      const data = state.users.map((item) => {
+        const id = item.id
+        const userName = item.userName
+        const firstName = item.firstName
+        const lastName = item.lastName
+        const avatar = item.avatar
+        const email = item.email
+
+        return {
+          id,
+          userName,
+          firstName,
+          lastName,
+          avatar,
+          email,
+        }
+      })
+
+      return data
+    },
+  })
+
+  return Object.assign({}, state)
+}
+
 function createFeed(state) {
   for (let i = 1; i <= FEED_COUNT; i++) {
     const userIdRandom = randomInteger(1, USERS_COUNT)
@@ -145,17 +173,21 @@ function createFeedList(state) {
   return Object.assign({}, state)
 }
 
-function createFeedCountByTag(state) {
-  Object.defineProperty(state, "feedCountByTag", {
+function createFeedCount(state) {
+  Object.defineProperty(state, "feedCount", {
     get() {
       const data = {
         total: state.feed.length,
+        byTag: {},
+        byUser: {},
       }
+
+      // by tag
 
       state.tags.forEach((item) => {
         const count = getFeedListCountByTag(item)
 
-        data[item] = count
+        data.byTag[item] = count
       })
 
       function getFeedListCountByTag(tag) {
@@ -170,33 +202,20 @@ function createFeedCountByTag(state) {
         return count
       }
 
-      return data
-    },
-  })
+      // by user
 
-  return Object.assign({}, state)
-}
+      state.feed.forEach((item) => {
+        const userId = item.userId
+        const user = state.users.find((item) => item.id === userId)
+        const userName = user.userName
 
-function createUsersList(state) {
-  Object.defineProperty(state, "usersList", {
-    get() {
-      const data = state.users.map((item) => {
-        const id = item.id
-        const userName = item.userName
-        const firstName = item.firstName
-        const lastName = item.lastName
-        const avatar = item.avatar
-        const email = item.email
-
-        return {
-          id,
-          userName,
-          firstName,
-          lastName,
-          avatar,
-          email,
-        }
+        data.byUser[userName] = getCountFeedByUser(userId)
       })
+
+      function getCountFeedByUser(id) {
+        const data = state.feed.filter((item) => item.userId === id)
+        return data.length
+      }
 
       return data
     },
@@ -218,10 +237,10 @@ function generateDataBase() {
     createDefaultUser,
     createDefaultTags,
     createUsers,
+    createUsersList,
     createFeed,
     createFeedList,
-    createFeedCountByTag,
-    createUsersList,
+    createFeedCount,
     setResult
   )(Object.assign({}, stateDataBase))
 }
