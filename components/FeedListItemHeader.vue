@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import { getKebabStr } from "~/helpers/utils"
-
 export default {
   props: {
     dataItem: {
@@ -42,7 +40,7 @@ export default {
 
   computed: {
     dataAuthorBlock() {
-      const userSlug = getKebabStr(this.dataItem.author.name)
+      const userSlug = this.dataItem.author.name
       const userPath = "users"
       const userPagePath = `/${userPath}/${userSlug}`
 

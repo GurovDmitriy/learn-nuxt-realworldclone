@@ -4,7 +4,7 @@
     <ButtonIcon
       :data-item="dataButtonRefresh"
       class="refresh__button-icon"
-      @clickBtnIcon="emitRefreshData"
+      @clickButton="emitClickButton"
       >Refresh</ButtonIcon
     >
   </div>
@@ -22,8 +22,8 @@ export default {
   },
 
   methods: {
-    emitRefreshData() {
-      this.$emit("refreshData")
+    emitClickButton() {
+      this.$emit("clickButton")
     },
   },
 }
@@ -35,7 +35,7 @@ export default {
 
   margin-bottom: 0;
 
-  color: $var-color-grey;
+  color: inherit;
   font-weight: $font-weight-light;
 }
 
@@ -44,18 +44,18 @@ export default {
 
   padding: $space-s;
 
-  color: $var-color-grey;
+  color: inherit;
   font-weight: $font-weight-light;
   line-height: 1;
 
   background: none;
-  border: 1px solid $var-color-grey;
+  border: 1px solid currentColor;
   border-radius: 4px;
 }
 
 .refresh__button-icon {
-  color: $var-color-grey;
+  color: inherit;
 
-  border-color: $var-color-grey;
+  border-color: currentColor;
 }
 </style>

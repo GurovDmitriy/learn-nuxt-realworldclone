@@ -1,7 +1,7 @@
 <template>
   <div class="page-container">
     <TheHeaderUser />
-    <Nuxt />
+    <Nuxt keep-alive :keep-alive-props="{ max: 10 }" />
     <TheFooter />
   </div>
 </template>

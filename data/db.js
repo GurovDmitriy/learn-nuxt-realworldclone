@@ -12,6 +12,7 @@ const stateDataBase = {
   // getters
   feedCountByTag: {},
   feedList: [],
+  usersList: [],
 }
 
 // core
@@ -176,6 +177,34 @@ function createFeedCountByTag(state) {
   return Object.assign({}, state)
 }
 
+function createUsersList(state) {
+  Object.defineProperty(state, "usersList", {
+    get() {
+      const data = state.users.map((item) => {
+        const id = item.id
+        const userName = item.userName
+        const firstName = item.firstName
+        const lastName = item.lastName
+        const avatar = item.avatar
+        const email = item.email
+
+        return {
+          id,
+          userName,
+          firstName,
+          lastName,
+          avatar,
+          email,
+        }
+      })
+
+      return data
+    },
+  })
+
+  return Object.assign({}, state)
+}
+
 function setResult(state) {
   Object.assign(stateDataBase, state)
 
@@ -192,6 +221,7 @@ function generateDataBase() {
     createFeed,
     createFeedList,
     createFeedCountByTag,
+    createUsersList,
     setResult
   )(Object.assign({}, stateDataBase))
 }

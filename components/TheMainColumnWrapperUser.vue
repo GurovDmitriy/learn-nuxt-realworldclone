@@ -28,6 +28,7 @@
 <script>
 import { mapState } from "vuex"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
+import { placeholder } from "~/helpers/vars"
 
 export default {
   data() {
@@ -36,7 +37,7 @@ export default {
         { content: "My Feed", path: this.$route.path },
         { content: "Favorites Articles" },
       ],
-      dataFeedListPlaceholder: 10,
+      dataFeedListPlaceholder: placeholder.feedListCount,
     }
   },
 

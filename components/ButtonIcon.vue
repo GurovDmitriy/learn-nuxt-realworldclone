@@ -73,7 +73,7 @@ export default {
   display: inline-block;
   margin: 0 auto;
 
-  color: $var-color-purple;
+  color: inherit;
 
   text-align: center;
   vertical-align: middle;
