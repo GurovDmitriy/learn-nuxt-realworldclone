@@ -1,24 +1,25 @@
 <template>
   <div class="title-user">
-    <LoadingBlock v-if="$fetchState.pending" class="title-user__loading" />
+    <LoadingBlock v-if="userIsLoading" class="title-user__loading" />
     <RefreshBlock
-      v-else-if="$fetchState.error"
+      v-else-if="userErrors"
       class="title-user__error"
       @clickButton="refreshData"
     />
     <template v-else>
       <ImageBlock class="title-user__img" :data-item="dataImageBlock" />
-      <h3 class="title-user__username">{{ dataItemValid.userName }}</h3>
-      <p class="title-user__name">{{ dataItemValid.name }}</p>
+      <h3 class="title-user__username">{{ userDataValid.userName }}</h3>
+      <p class="title-user__name">{{ userDataValid.name }}</p>
     </template>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   data() {
     return {
-      dataItem: {},
       imageBlockConfig: {
         imageWidth: 100,
         imageHeight: 100,
@@ -27,16 +28,16 @@ export default {
     }
   },
 
-  async fetch() {
-    const userName = this.$route.params.slug
-    const data = await this.$api.user.getUser(`userName=${userName}`)
-    this.dataItem = data[0]
-  },
-
   computed: {
-    dataItemValid() {
-      const userName = this.dataItem.userName || "Unknown Author"
-      const name = `${this.dataItem.firstName} ${this.dataItem.lastName}`
+    ...mapState({
+      userData: ({ user }) => user.user,
+      userIsLoading: ({ user }) => user.isLoading,
+      userErrors: ({ user }) => user.errors,
+    }),
+
+    userDataValid() {
+      const userName = this.userData.userName || "Unknown Author"
+      const name = `${this.userData.firstName} ${this.userData.lastName}`
 
       return {
         userName,
@@ -45,8 +46,8 @@ export default {
     },
 
     dataImageBlock() {
-      const imageSrc = this.dataItem.avatar || null
-      const imageAlt = this.dataItem.userName || "Unknown Author"
+      const imageSrc = this.userData.avatar || null
+      const imageAlt = this.userData.userName || "Unknown Author"
       const imageWidth = this.imageBlockConfig.imageWidth
       const imageHeight = this.imageBlockConfig.imageHeight
       const imagePlaceholderName = this.imageBlockConfig.imagePlaceholderName
@@ -61,19 +62,10 @@ export default {
     },
   },
 
-  watch: {
-    "$route.query": "$fetch",
-  },
-
-  activated() {
-    if (this.$fetchState.timestamp <= Date.now() - 3000) {
-      this.$fetch()
-    }
-  },
-
   methods: {
     refreshData() {
-      this.$fetch()
+      // eslint-disable-next-line no-console
+      console.log("refresh")
     },
   },
 }

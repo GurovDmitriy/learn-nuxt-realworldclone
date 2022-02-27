@@ -11,7 +11,7 @@
 
 <script>
 import { mapState } from "vuex"
-import { actionTypes as actionTypesTag } from "~/store/tag"
+import { actionTypes as actionTypesUser } from "~/store/user"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { getArrRange } from "~/helpers/utils"
@@ -21,12 +21,14 @@ export default {
   layout: "user",
 
   async asyncData({ params, query, store }) {
-    const slug = params.slug
+    const userName = params.slug
     const pageNum = query.page || 1
-    const feedListPayload = `author.name=${slug}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
+
+    const userPayload = `userName=${userName}`
+    const feedListPayload = `author.name=${userName}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
 
     await Promise.allSettled([
-      store.dispatch(actionTypesTag.fetchTags),
+      store.dispatch(actionTypesUser.fetchUser, userPayload),
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount),
     ])

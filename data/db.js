@@ -190,6 +190,7 @@ function createFeedCount(state) {
         total: state.feed.length,
         byTag: {},
         byUser: {},
+        byLike: {},
       }
 
       // by tag
@@ -224,6 +225,26 @@ function createFeedCount(state) {
 
       function getCountFeedByUser(id) {
         const data = state.feed.filter((item) => item.userId === id)
+        return data.length
+      }
+
+      // by like
+
+      state.users.forEach((item) => {
+        const userId = item.id
+        const userName = item.userName
+
+        data.byLike[userName] = getCountFeedByLike(userId)
+      })
+
+      function getCountFeedByLike(id) {
+        const data = state.feed.filter((item) => {
+          if (item.like.find((item) => item === id)) {
+            return item
+          }
+          return false
+        })
+
         return data.length
       }
 
