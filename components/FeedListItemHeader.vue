@@ -40,9 +40,9 @@ export default {
 
   computed: {
     dataAuthorBlock() {
-      const userSlug = this.dataItem.author.name
+      const userName = this.dataItem.author.name
       const userPath = "users"
-      const userPagePath = `/${userPath}/${userSlug}`
+      const userPagePath = `/${userPath}/${userName}`
 
       const imageWidth = this.dataAuthorBlockConfig.imageWidth
       const imageHeight = this.dataAuthorBlockConfig.imageWidth

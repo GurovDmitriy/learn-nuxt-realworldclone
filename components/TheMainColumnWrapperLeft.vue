@@ -45,10 +45,10 @@ export default {
     dataFilterBarComp() {
       const barItems = this.dataFilterBar.map((item) => item)
 
-      if (this.$route.params.slug) {
+      if (this.$route.params.tag) {
         barItems.push({
-          content: `# ${this.$route.params.slug}`,
-          path: `${this.$route.path}`,
+          content: `# ${this.$route.params.tag}`,
+          path: this.$route.path,
         })
       }
 

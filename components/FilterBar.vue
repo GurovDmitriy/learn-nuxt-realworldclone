@@ -17,8 +17,9 @@ export default {
       required: false,
       default: () => [
         // {}
-        // content - string name path
-        // path    - string path
+        // content   - string name path
+        // path      - string path
+        // pathExact - string for equal path exact
       ],
     },
   },
@@ -28,10 +29,12 @@ export default {
       const data = this.dataItem.map((item) => {
         const content = item.content || "Unknown feed"
         const path = item.path || "/"
-        let active = true
+        const pathCurrent = this.$route.path
 
-        if (this.$route.params.slug) {
-          active = item.content.includes(this.$route.params.slug)
+        let active = false
+
+        if (pathCurrent === path) {
+          active = true
         }
 
         return {

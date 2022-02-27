@@ -34,10 +34,13 @@ export default {
   data() {
     return {
       dataFilterBar: [
-        { content: "My Feed", path: `/users/${this.$route.params.slug}` },
+        {
+          content: "My Feed",
+          path: `/users/${this.$route.params.user}`,
+        },
         {
           content: "Favorites Feed",
-          path: `/users/${this.$route.params.slug}/favorites`,
+          path: `/users/${this.$route.params.user}/favorites`,
         },
       ],
       dataFeedListPlaceholder: placeholder.feedListCount,
