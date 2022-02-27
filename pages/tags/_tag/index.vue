@@ -19,9 +19,9 @@ import { paginator } from "~/helpers/vars"
 
 export default {
   async asyncData({ params, query, store }) {
-    const slug = params.slug
+    const tag = params.tag
     const page = query.page || 1
-    const feedListPayload = `tags_like=${slug}&_page=${page}&_limit=${paginator.itemPerPage}`
+    const feedListPayload = `tags_like=${tag}&_page=${page}&_limit=${paginator.itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
@@ -36,8 +36,8 @@ export default {
     }),
 
     dataPaginatorListComp() {
-      const slug = this.$route.params.slug
-      const count = this.feedCount.byTag[slug]
+      const tag = this.$route.params.tag
+      const count = this.feedCount.byTag[tag]
       const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path

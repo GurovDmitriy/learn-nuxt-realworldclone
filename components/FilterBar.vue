@@ -19,7 +19,6 @@ export default {
         // {}
         // content - string name path
         // path    - string path
-        // active  - boolean for exact active class
       ],
     },
   },
