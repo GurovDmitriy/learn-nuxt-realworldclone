@@ -20,12 +20,18 @@
       :data-item="feedList"
       class="main-column-wrapper-left__feed-list"
     />
+    <PaginatorList
+      class="main__paginator-list"
+      :data-item="dataPaginatorListComp"
+    />
   </section>
 </template>
 
 <script>
 import { mapState } from "vuex"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
+import { getArrRange } from "~/helpers/utils"
+import { paginator } from "~/helpers/vars"
 
 export default {
   data() {
@@ -40,6 +46,7 @@ export default {
       feedList: ({ feed }) => feed.feedList,
       feedListIsLoading: ({ feed }) => feed.isLoading,
       feedListErrors: ({ feed }) => feed.errors,
+      feedCount: ({ feedCount }) => feedCount.feedCount,
     }),
 
     dataFilterBarComp() {
@@ -54,6 +61,26 @@ export default {
 
       return barItems
     },
+
+    dataPaginatorListComp() {
+      const tag = this.$route.params.tag || "total"
+      const delim = paginator.itemPerPage
+      let count = null
+
+      if(tag === "total") {
+        count = this.feedCount[tag]
+      } else {
+        count = this.feedCount.byTag[tag]
+      }
+
+      const pagePath = this.$route.path
+      const pageCount = getArrRange(1, Math.ceil(count / delim))
+
+      return {
+        pagePath,
+        pageCount,
+      }
+    },
   },
 
   methods: {
@@ -63,3 +90,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.main-column-wrapper-left__feed-list {
+  margin-bottom: $space-l;
+}
+</style>

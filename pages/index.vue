@@ -2,19 +2,13 @@
   <main class="main">
     <h2 class="main__caption visually-hidden">Main Content</h2>
     <TheMainColumnWrapper class="main__column-wrapper" />
-    <PaginatorList
-      class="main__paginator-list"
-      :data-item="dataPaginatorListComp"
-    />
   </main>
 </template>
 
 <script>
-import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
-import { getArrRange } from "~/helpers/utils"
 import { paginator } from "~/helpers/vars"
 
 export default {
@@ -27,25 +21,6 @@ export default {
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount),
     ])
-  },
-
-  computed: {
-    ...mapState({
-      feedCount: ({ feedCount }) => feedCount.feedCount,
-    }),
-
-    dataPaginatorListComp() {
-      const count = this.feedCount.total
-      const delim = paginator.itemPerPage
-
-      const pagePath = this.$route.path
-      const pageCount = getArrRange(1, Math.ceil(count / delim))
-
-      return {
-        pagePath,
-        pageCount,
-      }
-    },
   },
 
   watchQuery: ["page"],
