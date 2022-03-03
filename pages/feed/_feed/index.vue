@@ -6,22 +6,22 @@
 </template>
 
 <script>
-// import { actionTypes as actionTypesUser } from "~/store/user"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
+import { actionTypes as actionTypesUser } from "~/store/user"
 import { getFromKebabStr } from "~/helpers/utils"
 
 export default {
   layout: "feed",
 
   async asyncData({ params, store }) {
-    const feed = getFromKebabStr(params.feed)
+    const feedTitle = getFromKebabStr(params.feed)
 
-    const feedPayload = `title=${feed}`
+    const feedPayload = `title=${feedTitle}`
+    const feed = await store.dispatch(actionTypesFeed.fetchFeed, feedPayload)
+    const userId = feed[0].userId
 
-    await Promise.allSettled([
-      // store.dispatch(actionTypesUser.fetchUser, userPayload),
-      store.dispatch(actionTypesFeed.fetchFeed, feedPayload),
-    ])
+    const userPayload = `id=${userId}`
+    await store.dispatch(actionTypesUser.fetchUser, userPayload)
   },
 }
 </script>
