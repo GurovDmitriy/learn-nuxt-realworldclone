@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheUserColumnWrapper class="main__column-wrapper" />
+    <TheColumnWrapperUser class="main__column-wrapper" />
     <PaginatorList
       class="main__paginator-list"
       :data-item="dataPaginatorListComp"

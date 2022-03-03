@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheArticleColumnWrapper class="main__column-wrapper" />
+    <TheColumnWrapperFeed class="main__column-wrapper" />
   </main>
 </template>
 
