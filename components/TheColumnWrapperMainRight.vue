@@ -1,21 +1,21 @@
 <template>
-  <aside class="main-column-wrapper-right">
-    <div class="main-column-wrapper-right__tags-list-box">
-      <h3 class="main-column-wrapper-right__caption">Popular Tags</h3>
+  <aside class="column-wrapper-main-right">
+    <div class="column-wrapper-main-right__tags-list-box">
+      <h3 class="column-wrapper-main-right__caption">Popular Tags</h3>
       <LoadingBlock
         v-if="tagsListIsLoading"
-        class="main-column-wrapper-right__loading"
+        class="column-wrapper-main-right__loading"
         >Loading tags...</LoadingBlock
       >
       <RefreshBlock
         v-else-if="tagsListErrors"
-        class="main-column-wrapper-right__refresh"
+        class="column-wrapper-main-right__refresh"
         @refreshData="refreshTagsList"
       />
       <TagsList
         v-else
         :data-item="tagsList"
-        class="main-column-wrapper-right__tags-list"
+        class="column-wrapper-main-right__tags-list"
       />
     </div>
   </aside>
@@ -43,13 +43,13 @@ export default {
 </script>
 
 <style lang="scss">
-.main-column-wrapper-right {
+.column-wrapper-main-right {
   @media (min-width: $min-width-tablet) {
     position: relative;
   }
 }
 
-.main-column-wrapper-right__tags-list-box {
+.column-wrapper-main-right__tags-list-box {
   padding: $space-m;
 
   background-color: $var-color-grey-light;
@@ -62,7 +62,7 @@ export default {
   }
 }
 
-.main-column-wrapper-right__caption {
+.column-wrapper-main-right__caption {
   @include text-default;
 
   margin-bottom: $space-s;

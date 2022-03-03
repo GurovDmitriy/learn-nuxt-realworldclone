@@ -2,7 +2,7 @@
   <div class="feed-list-item-footer">
     <NuxtLink
       :to="{
-        path: `/feed/${dataItem.pathFeedDetail}`,
+        path: dataItem.pathFeedDetail,
       }"
       class="feed-list-item-footer__read-more"
       >Read more...</NuxtLink

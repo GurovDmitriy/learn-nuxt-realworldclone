@@ -1,20 +1,13 @@
 <template>
-  <section class="article-column-wrapper">
-    <h3 class="article-column-wrapper__caption visually-hidden">Article</h3>
-    <LoadingBlock
-      v-if="feedIsLoading"
-      class="article-column-wrapper__loading"
-    />
+  <section class="column-wrapper-feed">
+    <h3 class="column-wrapper-feed__caption visually-hidden">Article</h3>
+    <LoadingBlock v-if="feedIsLoading" class="column-wrapper-feed__loading" />
     <RefreshBlock
       v-else-if="feedErrors"
-      class="article-column-wrapper__refresh"
+      class="column-wrapper-feed__refresh"
       @refreshData="refreshFeed"
     />
-    <ArticleBlock
-      v-else
-      :data-item="feed"
-      class="article-column-wrapper__feed-list"
-    />
+    <FeedBlock v-else :data-item="feed" class="column-wrapper-feed__feed" />
   </section>
 </template>
 

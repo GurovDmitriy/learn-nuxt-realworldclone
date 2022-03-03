@@ -1,23 +1,23 @@
 <template>
-  <div class="main-column-wrapper">
+  <div class="column-wrapper-main">
     <TheMainColumnWrapperLeft
-      class="main-column-wrapper__column main-column-wrapper__column--left"
+      class="column-wrapper-main__column column-wrapper-main__column--left"
     />
     <TheMainColumnWrapperRight
-      class="main-column-wrapper__column main-column-wrapper__column--right"
+      class="column-wrapper-main__column column-wrapper-main__column--right"
     />
   </div>
 </template>
 
 <style lang="scss">
-.main-column-wrapper {
+.column-wrapper-main {
   @media (min-width: $min-width-tablet) {
     display: flex;
     justify-content: space-between;
   }
 }
 
-.main-column-wrapper__column--left {
+.column-wrapper-main__column--left {
   margin-bottom: $space-l;
 
   @media (min-width: $min-width-tablet) {
@@ -27,7 +27,7 @@
   }
 }
 
-.main-column-wrapper__column--right {
+.column-wrapper-main__column--right {
   @media (min-width: $min-width-tablet) {
     flex-grow: 1;
   }

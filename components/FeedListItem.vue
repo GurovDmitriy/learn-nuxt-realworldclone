@@ -40,12 +40,12 @@ export default {
     feedListItemFooter() {
       const id = this.dataItem.id
       const tags = this.dataItem.tags
-      const pathFeedDetail = getKebabStr(this.dataItem.feed.title)
+      const feedDetailPath = `/feed/${getKebabStr(this.dataItem.feed.title)}`
 
       return {
         id,
         tags,
-        pathFeedDetail,
+        feedDetailPath,
       }
     },
   },

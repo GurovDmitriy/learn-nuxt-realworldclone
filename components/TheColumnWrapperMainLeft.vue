@@ -1,24 +1,24 @@
 <template>
-  <section class="main-column-wrapper-left">
-    <h3 class="main-column-wrapper-left__caption visually-hidden">Feed List</h3>
+  <section class="column-wrapper-main-left">
+    <h3 class="column-wrapper-main-left__caption visually-hidden">Feed List</h3>
     <FilterBar
       :data-item="dataFilterBarComp"
-      class="main-column-wrapper-left__filter-bar"
+      class="column-wrapper-main-left__filter-bar"
     />
     <FeedListPlaceholder
       v-if="feedListIsLoading"
       :data-item="dataFeedListPlaceholder"
-      class="main-column-wrapper-left__placeholder"
+      class="column-wrapper-main-left__placeholder"
     />
     <RefreshBlock
       v-else-if="feedListErrors"
-      class="main-column-wrapper-left__refresh"
+      class="column-wrapper-main-left__refresh"
       @refreshData="refreshFeedList"
     />
     <FeedList
       v-else
       :data-item="feedList"
-      class="main-column-wrapper-left__feed-list"
+      class="column-wrapper-main-left__feed-list"
     />
     <PaginatorList
       class="main__paginator-list"
@@ -92,7 +92,7 @@ export default {
 </script>
 
 <style lang="scss">
-.main-column-wrapper-left__feed-list {
+.column-wrapper-main-left__feed-list {
   margin-bottom: $space-l;
 }
 </style>
