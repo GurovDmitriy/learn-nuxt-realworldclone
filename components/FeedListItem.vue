@@ -9,13 +9,15 @@
       class="feed-list-item__preview"
     />
     <FeedListItemFooter
-      :data-item="dataItem.tags"
+      :data-item="feedListItemFooter"
       class="feed-list-item__footer"
     />
   </li>
 </template>
 
 <script>
+import { getKebabStr } from "~/helpers/utils"
+
 export default {
   props: {
     dataItem: {
@@ -26,9 +28,24 @@ export default {
 
   computed: {
     feedListItemHeader() {
+      const author = this.dataItem.author
+      const like = this.dataItem.like.length
+
       return {
-        author: this.dataItem.author,
-        like: this.dataItem.like.length,
+        author,
+        like,
+      }
+    },
+
+    feedListItemFooter() {
+      const id = this.dataItem.id
+      const tags = this.dataItem.tags
+      const pathFeedDetail = getKebabStr(this.dataItem.feed.title)
+
+      return {
+        id,
+        tags,
+        pathFeedDetail,
       }
     },
   },

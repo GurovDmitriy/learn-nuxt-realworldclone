@@ -1,9 +1,16 @@
 <template>
   <div class="feed-list-item-footer">
-    <NuxtLink :to="{ path: '/' }" class="feed-list-item-footer__read-more"
+    <NuxtLink
+      :to="{
+        path: `/feed/${dataItem.pathFeedDetail}`,
+      }"
+      class="feed-list-item-footer__read-more"
       >Read more...</NuxtLink
     >
-    <TagsList :data-item="dataItem" class="feed-list-item-footer__tags-list" />
+    <TagsList
+      :data-item="dataItem.tags"
+      class="feed-list-item-footer__tags-list"
+    />
   </div>
 </template>
 
@@ -11,7 +18,7 @@
 export default {
   props: {
     dataItem: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },

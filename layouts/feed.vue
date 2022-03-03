@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <TheHeaderUser />
+    <TheHeaderArticle />
     <Nuxt />
     <TheFooter />
   </div>

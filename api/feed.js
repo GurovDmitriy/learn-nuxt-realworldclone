@@ -7,6 +7,12 @@ export default (axios) => ({
     return axios.$get(`/feedList${query}`)
   },
 
+  getFeed(payload) {
+    const query = isNotEmptyStr(payload) ? `?${payload}` : ""
+
+    return axios.$get(`/feed${query}`)
+  },
+
   getFeedCount() {
     return axios.$get("/feedCount")
   },

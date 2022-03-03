@@ -5,8 +5,13 @@ export function getArrRange(start, end) {
 }
 
 export function getKebabStr(str) {
-  if (typeof str === "string") return str.split(/\W/).join("-")
-  return null
+  if (typeof str === "string") return str.split(" ").join("-")
+  return false
+}
+
+export function getFromKebabStr(str) {
+  if (typeof str === "string") return str.split("-").join(" ")
+  return false
 }
 
 // Boolean

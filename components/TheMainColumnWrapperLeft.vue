@@ -67,7 +67,7 @@ export default {
       const delim = paginator.itemPerPage
       let count = null
 
-      if(tag === "total") {
+      if (tag === "total") {
         count = this.feedCount[tag]
       } else {
         count = this.feedCount.byTag[tag]
