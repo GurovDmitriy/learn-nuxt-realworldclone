@@ -1,9 +1,9 @@
 <template>
   <div class="column-wrapper-main">
-    <TheMainColumnWrapperLeft
+    <TheColumnWrapperMainLeft
       class="column-wrapper-main__column column-wrapper-main__column--left"
     />
-    <TheMainColumnWrapperRight
+    <TheColumnWrapperMainRight
       class="column-wrapper-main__column column-wrapper-main__column--right"
     />
   </div>

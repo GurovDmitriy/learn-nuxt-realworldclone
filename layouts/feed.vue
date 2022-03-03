@@ -1,6 +1,6 @@
 <template>
   <div class="page-container">
-    <TheHeaderArticle />
+    <TheHeaderFeed />
     <Nuxt />
     <TheFooter />
   </div>
