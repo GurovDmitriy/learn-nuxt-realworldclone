@@ -36,9 +36,11 @@ export default {
     }),
 
     dataAuthorBlock() {
-      const userName = this.userData.userName
+      const name = this.userData.userName
+      const avatar = this.userData.avatar
+      const time = this.feed.time
       const userPath = "users"
-      const userPagePath = `/${userPath}/${userName}`
+      const userPagePath = `/${userPath}/${name}`
 
       const imageWidth = this.dataAuthorBlockConfig.imageWidth
       const imageHeight = this.dataAuthorBlockConfig.imageWidth
@@ -46,7 +48,9 @@ export default {
         this.dataAuthorBlockConfig.imagePlaceholderName
 
       return {
-        ...this.userData,
+        avatar,
+        name,
+        time,
         userPagePath,
         imageWidth,
         imageHeight,
