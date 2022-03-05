@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       dataFormRegister: {
+        partBaseName: "TheFormRegisterPart",
         partList: [1, 2],
         partActive: 0,
       },
@@ -22,13 +23,11 @@ export default {
 
   computed: {
     activePartValid() {
-      const baseName = "FormRegisterPart"
-
+      const baseName = this.dataFormRegister.partBaseName
       const active = this.dataFormRegister.partActive
       const activePart = this.dataFormRegister.partList[active]
 
       const name = `${baseName}${activePart}`
-
       return name
     },
   },

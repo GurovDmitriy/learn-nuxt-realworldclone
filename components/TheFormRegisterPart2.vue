@@ -6,11 +6,15 @@
     <div class="form-register-part-2">
       <template v-for="field in dataFormRegisterValid.dataUserAvatar">
         <label
-          :key="field.labelFor"
+          :key="field.labelFor + field.className"
           :for="field.labelFor"
           class="visually-hidden"
         ></label>
-        <AppInput :key="field.id" :class="field.className" :data-item="field" />
+        <AppInput
+          :key="field.name + field.className"
+          :class="field.className"
+          :data-item="field"
+        />
       </template>
     </div>
   </fieldset>

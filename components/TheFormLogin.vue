@@ -5,12 +5,12 @@
       <div class="form-login">
         <template v-for="field in dataFormRegisterValid.dataUserLogin">
           <label
-            :key="field.labelFor"
+            :key="field.labelFor + field.className"
             :for="field.labelFor"
             class="visually-hidden"
           ></label>
           <AppInput
-            :key="field.id"
+            :key="field.name + field.className"
             :class="field.className"
             :data-item="field"
           />

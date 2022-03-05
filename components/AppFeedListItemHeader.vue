@@ -1,6 +1,6 @@
 <template>
   <div class="feed-list-item-header">
-    <AppAuthorBlock
+    <AppAuthor
       :data-item="dataAppAuthor"
       class="feed-list-item-header__author"
     />

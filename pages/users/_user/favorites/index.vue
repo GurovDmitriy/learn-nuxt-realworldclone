@@ -2,7 +2,7 @@
   <main class="main">
     <h2 class="main__caption visually-hidden">Main Content</h2>
     <TheColumnWrapperUser class="main__column-wrapper" />
-    <PaginatorList
+    <AppPaginatorList
       class="main__paginator-list"
       :data-item="dataPaginatorListComp"
     />
