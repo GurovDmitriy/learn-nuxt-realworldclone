@@ -1,13 +1,13 @@
 <template>
   <section class="column-wrapper-feed">
     <h3 class="column-wrapper-feed__caption visually-hidden">Article</h3>
-    <LoadingBlock v-if="feedIsLoading" class="column-wrapper-feed__loading" />
-    <RefreshBlock
+    <AppLoading v-if="feedIsLoading" class="column-wrapper-feed__loading" />
+    <AppRefresh
       v-else-if="feedErrors"
       class="column-wrapper-feed__refresh"
       @refreshData="refreshFeed"
     />
-    <FeedBlock v-else :data-item="feed" class="column-wrapper-feed__feed" />
+    <AppFeed v-else :data-item="feed" class="column-wrapper-feed__feed" />
   </section>
 </template>
 

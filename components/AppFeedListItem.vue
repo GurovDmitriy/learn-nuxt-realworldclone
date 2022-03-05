@@ -1,14 +1,14 @@
 <template>
   <li class="feed-list-item">
-    <FeedListItemHeader
+    <AppFeedListItemHeader
       :data-item="feedListItemHeader"
       class="feed-list-item__header"
     />
-    <FeedListItemPreview
+    <AppFeedListItemPreview
       :data-item="dataItem.feed"
       class="feed-list-item__preview"
     />
-    <FeedListItemFooter
+    <AppFeedListItemFooter
       :data-item="feedListItemFooter"
       class="feed-list-item__footer"
     />

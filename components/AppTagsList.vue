@@ -1,6 +1,6 @@
 <template>
   <ul class="tags-list">
-    <TagsListItem
+    <AppTagsListItem
       v-for="item in dataItem"
       :key="item"
       :data-item="item"

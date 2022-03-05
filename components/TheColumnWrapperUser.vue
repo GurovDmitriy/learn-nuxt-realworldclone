@@ -1,21 +1,21 @@
 <template>
   <section class="column-wrapper-user">
     <h3 class="column-wrapper-user__caption visually-hidden">User Feed List</h3>
-    <FilterBar
+    <AppFilterBar
       :data-item="dataFilterBar"
       class="column-wrapper-user__filter-bar"
     />
-    <FeedListPlaceholder
+    <AppFeedListPlaceholder
       v-if="feedListIsLoading"
       :data-item="dataFeedListPlaceholder"
       class="column-wrapper-user__placeholder"
     />
-    <RefreshBlock
+    <AppRefresh
       v-else-if="feedListErrors"
       class="column-wrapper-user__refresh"
       @refreshData="refreshFeedList"
     />
-    <FeedList
+    <AppFeedList
       v-else
       :data-item="feedList"
       class="column-wrapper-user__feed-list"

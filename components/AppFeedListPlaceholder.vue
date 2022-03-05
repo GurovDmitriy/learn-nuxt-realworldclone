@@ -1,6 +1,6 @@
 <template>
   <ul class="feed-list-placeholder">
-    <FeedListPlaceholderItem
+    <AppFeedListPlaceholderItem
       v-for="item in dataItemValid"
       :key="item"
       class="feed-list-placeholder__item"

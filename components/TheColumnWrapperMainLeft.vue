@@ -1,28 +1,28 @@
 <template>
   <section class="column-wrapper-main-left">
     <h3 class="column-wrapper-main-left__caption visually-hidden">Feed List</h3>
-    <FilterBar
+    <AppFilterBar
       :data-item="dataFilterBarComp"
       class="column-wrapper-main-left__filter-bar"
     />
-    <FeedListPlaceholder
+    <AppFeedListPlaceholder
       v-if="feedListIsLoading"
-      :data-item="dataFeedListPlaceholder"
+      :data-item="dataAppFeedListPlaceholder"
       class="column-wrapper-main-left__placeholder"
     />
-    <RefreshBlock
+    <AppRefresh
       v-else-if="feedListErrors"
       class="column-wrapper-main-left__refresh"
       @refreshData="refreshFeedList"
     />
-    <FeedList
+    <AppFeedList
       v-else
       :data-item="feedList"
       class="column-wrapper-main-left__feed-list"
     />
-    <PaginatorList
+    <AppPaginatorList
       class="main__paginator-list"
-      :data-item="dataPaginatorListComp"
+      :data-item="dataAppPaginatorListComp"
     />
   </section>
 </template>
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       dataFilterBar: [{ content: "Global Feed", path: "/" }],
-      dataFeedListPlaceholder: 10,
+      dataAppFeedListPlaceholder: 10,
     }
   },
 
@@ -62,7 +62,7 @@ export default {
       return barItems
     },
 
-    dataPaginatorListComp() {
+    dataAppPaginatorListComp() {
       const tag = this.$route.params.tag || "total"
       const delim = paginator.itemPerPage
       let count = null

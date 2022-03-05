@@ -1,6 +1,6 @@
 <template>
   <ul class="filter-bar">
-    <FilterBarItem
+    <AppFilterBarItem
       v-for="item in dataItemValid"
       :key="item.content"
       :data-item="item"

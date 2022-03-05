@@ -1,7 +1,7 @@
 <template>
   <div class="feed">
     <p class="feed__content">{{ dataItem.content }}</p>
-    <TagsList
+    <AppTagsList
       :data-item="dataItem.tags"
       class="feed-list-item-footer__tags-list"
     />

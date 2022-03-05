@@ -2,17 +2,17 @@
   <aside class="column-wrapper-main-right">
     <div class="column-wrapper-main-right__tags-list-box">
       <h3 class="column-wrapper-main-right__caption">Popular Tags</h3>
-      <LoadingBlock
+      <AppLoading
         v-if="tagsListIsLoading"
         class="column-wrapper-main-right__loading"
-        >Loading tags...</LoadingBlock
+        >Loading tags...</AppLoading
       >
-      <RefreshBlock
+      <AppRefresh
         v-else-if="tagsListErrors"
         class="column-wrapper-main-right__refresh"
         @refreshData="refreshTagsList"
       />
-      <TagsList
+      <AppTagsList
         v-else
         :data-item="tagsList"
         class="column-wrapper-main-right__tags-list"

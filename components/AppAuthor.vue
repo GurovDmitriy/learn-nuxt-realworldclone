@@ -2,19 +2,16 @@
   <div class="author">
     <NuxtLink
       class="author__img-box"
-      :to="{ path: dataAuthorBlock.userPagePath }"
+      :to="{ path: dataAppAuthor.userPagePath }"
     >
-      <ImageBlock class="author__img" :data-item="dataImageBlock" />
+      <AppImage class="author__img" :data-item="dataAppImage" />
     </NuxtLink>
     <div class="author__info-box">
-      <NuxtLink
-        class="author__name"
-        :to="{ path: dataAuthorBlock.userPagePath }"
-      >
-        {{ dataAuthorBlock.name }}
+      <NuxtLink class="author__name" :to="{ path: dataAppAuthor.userPagePath }">
+        {{ dataAppAuthor.name }}
       </NuxtLink>
-      <time class="author__time-feed" :datetime="dataAuthorBlock.time">
-        {{ dataAuthorBlock.time | dateFormatBase }}
+      <time class="author__time-feed" :datetime="dataAppAuthor.time">
+        {{ dataAppAuthor.time | dateFormatBase }}
       </time>
     </div>
   </div>
@@ -39,7 +36,7 @@ export default {
   },
 
   computed: {
-    dataAuthorBlock() {
+    dataAppAuthor() {
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
       const userPagePath = this.dataItem.userPagePath || "/"
@@ -51,7 +48,7 @@ export default {
       }
     },
 
-    dataImageBlock() {
+    dataAppImage() {
       const imageSrc = this.dataItem.avatar
       const imageWidth = this.dataItem.imageWidth || 38
       const imageHeight = this.dataItem.imageHeight || 38

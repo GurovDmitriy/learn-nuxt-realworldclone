@@ -1,13 +1,13 @@
 <template>
   <div class="title-user">
-    <LoadingBlock v-if="userIsLoading" class="title-user__loading" />
-    <RefreshBlock
+    <AppLoading v-if="userIsLoading" class="title-user__loading" />
+    <AppRefresh
       v-else-if="userErrors"
       class="title-user__error"
       @clickButton="refreshData"
     />
     <template v-else>
-      <ImageBlock class="title-user__img" :data-item="dataImageBlock" />
+      <AppImage class="title-user__img" :data-item="dataAppImage" />
       <h3 class="title-user__username">{{ userDataValid.userName }}</h3>
       <p class="title-user__name">{{ userDataValid.name }}</p>
     </template>
@@ -45,7 +45,7 @@ export default {
       }
     },
 
-    dataImageBlock() {
+    dataAppImage() {
       const imageSrc = this.userData.avatar || null
       const imageAlt = this.userData.userName || "Unknown Author"
       const imageWidth = this.imageBlockConfig.imageWidth

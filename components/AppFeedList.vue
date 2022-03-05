@@ -1,6 +1,6 @@
 <template>
   <ul class="feed-list">
-    <FeedListItem
+    <AppFeedListItem
       v-for="item in dataItem"
       :key="item.id"
       :data-item="item"

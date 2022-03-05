@@ -2,9 +2,9 @@
   <nav class="navbar">
     <h2 class="navbar__caption visually-hidden">Navigation</h2>
     <div class="navbar__container">
-      <LogoBlock class="navbar__logo" />
-      <ButtonBurger class="navbar__burger" @clickButton="toggleMenu" />
-      <NavList
+      <AppLogo class="navbar__logo" />
+      <AppBurger class="navbar__burger" @clickButton="toggleMenu" />
+      <AppNavList
         :data-item="dataNavList"
         :class="classNavList"
         class="navbar__nav-list"

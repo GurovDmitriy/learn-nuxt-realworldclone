@@ -1,13 +1,13 @@
 <template>
   <div class="feed-list-item-header">
-    <AuthorBlock
-      :data-item="dataAuthorBlock"
+    <AppAuthorBlock
+      :data-item="dataAppAuthor"
       class="feed-list-item-header__author"
     />
-    <ButtonIcon
-      :data-item="dataButtonIcon"
+    <AppButtonIcon
+      :data-item="dataAppButtonIcon"
       class="feed-list-item-header__button-icon"
-      >{{ dataItem.like }}</ButtonIcon
+      >{{ dataItem.like }}</AppButtonIcon
     >
   </div>
 </template>
@@ -25,12 +25,12 @@ export default {
 
   data() {
     return {
-      dataButtonIcon: {
+      dataAppButtonIcon: {
         iconName: "heart-fill",
         iconDesc: "heart",
       },
 
-      dataAuthorBlockConfig: {
+      dataAppAuthorConfig: {
         imageWidth: 38,
         imageHeight: 38,
         imagePlaceholderName: "placeholder-avatar.png",
@@ -39,15 +39,14 @@ export default {
   },
 
   computed: {
-    dataAuthorBlock() {
+    dataAppAuthor() {
       const userName = this.dataItem.author.name
       const userPath = "users"
       const userPagePath = `/${userPath}/${userName}`
 
-      const imageWidth = this.dataAuthorBlockConfig.imageWidth
-      const imageHeight = this.dataAuthorBlockConfig.imageWidth
-      const imagePlaceholderName =
-        this.dataAuthorBlockConfig.imagePlaceholderName
+      const imageWidth = this.dataAppAuthorConfig.imageWidth
+      const imageHeight = this.dataAppAuthorConfig.imageWidth
+      const imagePlaceholderName = this.dataAppAuthorConfig.imagePlaceholderName
 
       return {
         ...this.dataItem.author,

@@ -7,7 +7,7 @@
       class="feed-list-item-footer__read-more"
       >Read more...</NuxtLink
     >
-    <TagsList
+    <AppTagsList
       :data-item="dataItem.tags"
       class="feed-list-item-footer__tags-list"
     />

@@ -1,14 +1,14 @@
 <template>
   <div class="title-feed">
-    <LoadingBlock v-if="userIsLoading" class="title-feed__loading" />
-    <RefreshBlock
+    <AppLoading v-if="userIsLoading" class="title-feed__loading" />
+    <AppRefresh
       v-else-if="userErrors"
       class="title-feed__error"
       @clickButton="refreshData"
     />
     <template v-else>
       <h3 class="title-feed__caption">{{ feed.title }}</h3>
-      <AuthorBlock :data-item="dataAuthorBlock" class="title-feed__author" />
+      <AppAuthor :data-item="dataAppAuthor" class="title-feed__author" />
     </template>
   </div>
 </template>
@@ -19,7 +19,7 @@ import { mapState } from "vuex"
 export default {
   data() {
     return {
-      dataAuthorBlockConfig: {
+      dataAppAuthorConfig: {
         imageWidth: 38,
         imageHeight: 38,
         imagePlaceholderName: "placeholder-avatar.png",
@@ -35,17 +35,16 @@ export default {
       userErrors: ({ user }) => user.errors,
     }),
 
-    dataAuthorBlock() {
+    dataAppAuthor() {
       const name = this.userData.userName
       const avatar = this.userData.avatar
       const time = this.feed.time
       const userPath = "users"
       const userPagePath = `/${userPath}/${name}`
 
-      const imageWidth = this.dataAuthorBlockConfig.imageWidth
-      const imageHeight = this.dataAuthorBlockConfig.imageWidth
-      const imagePlaceholderName =
-        this.dataAuthorBlockConfig.imagePlaceholderName
+      const imageWidth = this.dataAppAuthorConfig.imageWidth
+      const imageHeight = this.dataAppAuthorConfig.imageWidth
+      const imagePlaceholderName = this.dataAppAuthorConfig.imagePlaceholderName
 
       return {
         avatar,

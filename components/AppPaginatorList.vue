@@ -1,6 +1,6 @@
 <template>
   <ul class="paginator-list">
-    <PaginatorListItem
+    <AppPaginatorListItem
       v-for="item in dataItemValid"
       :key="item.pageNum"
       :data-item="item"

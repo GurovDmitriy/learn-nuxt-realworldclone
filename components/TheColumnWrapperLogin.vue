@@ -1,7 +1,7 @@
 <template>
   <section class="column-wrapper-login">
     <h3 class="column-wrapper-login__caption">Sign in</h3>
-    <FormLogin class="column-wrapper-login__form" />
+    <TheFormLogin class="column-wrapper-login__form" />
   </section>
 </template>
 

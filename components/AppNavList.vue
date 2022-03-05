@@ -1,6 +1,6 @@
 <template>
   <ul class="nav-list">
-    <NavListItem
+    <AppNavListItem
       v-for="item in dataItem"
       :key="item.content"
       :data-item="item"
