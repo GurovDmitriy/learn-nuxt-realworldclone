@@ -13,6 +13,7 @@
             :key="field.name + field.className"
             :class="field.className"
             :data-item="field"
+            @input="setUserInput"
           />
         </template>
       </div>
@@ -26,6 +27,29 @@ import FormSignMixin from "~/mixins/formSignMixin"
 
 export default {
   mixins: [FormSignMixin],
+
+  data() {
+    return {
+      dataUserInput: {
+        email: "",
+        password: "",
+      },
+    }
+  },
+
+  methods: {
+    formSubmit() {
+      // eslint-disable-next-line no-console
+      console.log(this.dataUserInput)
+    },
+
+    setUserInput(evt) {
+      const name = evt.target.name
+      const value = evt.target.value
+
+      this.dataUserInput[name] = value
+    },
+  },
 }
 </script>
 
