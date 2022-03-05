@@ -1,6 +1,6 @@
 <template>
-  <button class="button-burger" @click="emitClickButton">
-    <span class="button-burger__text visually-hidden">open/close menu</span>
+  <button class="burger" @click="emitClickButton">
+    <span class="burger__text visually-hidden">open/close menu</span>
   </button>
 </template>
 
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss">
-.button-burger {
+.burger {
   position: relative;
 
   display: none;
@@ -26,19 +26,19 @@ export default {
   border: none;
 
   &::after {
-    @extend %button-burger-bar;
+    @extend %burger-bar;
 
     top: 5px;
   }
 
   &::before {
-    @extend %button-burger-bar;
+    @extend %burger-bar;
 
     bottom: 5px;
   }
 }
 
-%button-burger-bar {
+%burger-bar {
   position: absolute;
   left: 50%;
 

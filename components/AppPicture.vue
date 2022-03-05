@@ -1,6 +1,6 @@
 <template>
-  <div class="image-picture">
-    <picture class="image-picture__picture">
+  <div class="picture">
+    <picture class="picture__picture">
       <source
         v-for="item in dataImagePictureSource"
         :key="item.id"
@@ -14,7 +14,7 @@
         :alt="dataItemValid.imageAlt"
         :width="dataItemValid.imageWidth"
         :height="dataItemValid.imageHeight"
-        class="image-picture__img"
+        class="picture__img"
       />
     </picture>
   </div>
