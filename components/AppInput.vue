@@ -43,7 +43,7 @@ export default {
     dataItemValid() {
       const type = this.dataItem.type || "text"
       const placeholder = this.dataItem.placeholder || "Placeholder"
-      const id = this.dataItem.id ? `${this.dataItem.id}-field` : ""
+      const id = this.dataItem.id || ""
       const maxlength = this.dataItem.maxlength || 100
       const required = this.dataItem.required || false
       const iconName = this.dataItem.iconName || "pencil-square"
@@ -76,10 +76,10 @@ export default {
     classItem() {
       return {
         inputBoxIcon: {
-          "input__field--active": this.dataItem.iconName
-        }
+          "input__field--active": this.dataItem.iconName,
+        },
       }
-    }
+    },
   },
 
   methods: {
