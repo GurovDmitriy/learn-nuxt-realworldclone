@@ -7,6 +7,6 @@
 
 <script>
 export default {
-  layout: "register",
+  layout: "sign",
 }
 </script>

@@ -17,10 +17,10 @@
 </template>
 
 <script>
-import FormRegisterPartMixin from "~/mixins/formRegisterPartMixin"
+import FormSignMixin from "~/mixins/formSignMixin"
 
 export default {
-  mixins: [FormRegisterPartMixin],
+  mixins: [FormSignMixin],
 }
 </script>
 

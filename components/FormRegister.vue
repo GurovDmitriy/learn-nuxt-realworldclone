@@ -1,10 +1,11 @@
 <template>
-  <form class="form-register" action="" method="POST">
+  <form class="form-register" method="POST" @submit.prevent="formSubmit">
     <KeepAlive>
       <Component :is="activePartValid" />
     </KeepAlive>
     <button type="button" @click="partPrev">prev</button>
     <button type="button" @click="partNext">next</button>
+    <button type="submit">submit</button>
   </form>
 </template>
 
@@ -46,6 +47,11 @@ export default {
       if (active === partCount - 1) return
 
       this.dataFormRegister.partActive += 1
+    },
+
+    formSubmit() {
+      // eslint-disable-next-line no-console
+      console.log("submit")
     },
   },
 }

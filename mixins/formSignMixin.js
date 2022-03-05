@@ -59,6 +59,26 @@ export default {
             className: "form-register-part-2__input",
           },
         ],
+
+        dataUserLogin: [
+          {
+            name: "email",
+            type: "email",
+            placeholder: "Email",
+            required: true,
+            iconName: "envelope-fill",
+            className: "form-login__input",
+          },
+
+          {
+            name: "password",
+            type: "password",
+            placeholder: "Password",
+            required: true,
+            iconName: "file-lock2",
+            className: "form-login__input",
+          },
+        ],
       },
     }
   },
