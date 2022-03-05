@@ -3,15 +3,15 @@
     <input
       v-bind="$attrs"
       :id="dataItemValid.id"
-      :class="dataItem.className"
       :type="dataItemValid.type"
       :placeholder="dataItemValid.placeholder"
       :maxlength="dataItem.maxlength"
       :required="dataItem.required"
+      :class="classItem.inputBoxIcon"
       class="input__field"
       v-on="listeners"
     />
-    <div class="input__box-icon">
+    <div v-if="dataItem.iconName" class="input__box-icon">
       <SvgIcon
         class="input__icon"
         :name="dataItemValid.iconName"
@@ -72,6 +72,14 @@ export default {
         blur,
       }
     },
+
+    classItem() {
+      return {
+        inputBoxIcon: {
+          "input__field--active": this.dataItem.iconName
+        }
+      }
+    }
   },
 
   methods: {
@@ -102,13 +110,16 @@ export default {
   display: block;
   width: 100%;
   padding: $space-m $space-l;
-  padding-right: $space-xxl;
 
   border: 1px solid $var-color-grey;
   border-radius: 4px;
 
   &::placeholder {
     color: $var-color-grey;
+  }
+
+  &--active {
+    padding-right: $space-xxl;
   }
 }
 
