@@ -121,4 +121,10 @@ export default {
       return data
     },
   },
+
+  methods: {
+    emitUserInput(evt) {
+      this.$emit("userInput", evt)
+    },
+  },
 }

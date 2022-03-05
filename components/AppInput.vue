@@ -4,6 +4,7 @@
       v-bind="$attrs"
       :id="dataItemValid.id"
       :type="dataItemValid.type"
+      :name="dataItemValid.name"
       :placeholder="dataItemValid.placeholder"
       :maxlength="dataItem.maxlength"
       :required="dataItem.required"
@@ -28,6 +29,7 @@ export default {
       type: Object,
       required: false,
       default: () => ({
+        // name        - string name input
         // type        - string type input
         // placeholder - string placeholder
         // id          - string id
@@ -41,6 +43,7 @@ export default {
 
   computed: {
     dataItemValid() {
+      const name = this.dataItem.name || ""
       const type = this.dataItem.type || "text"
       const placeholder = this.dataItem.placeholder || "Placeholder"
       const id = this.dataItem.id || ""
@@ -50,6 +53,7 @@ export default {
       const iconDesc = this.dataItem.iconDesc || "icon"
 
       return {
+        name,
         type,
         placeholder,
         id,
@@ -84,8 +88,8 @@ export default {
 
   methods: {
     updateValue(evt) {
-      const value = evt.target.value
-      this.$emit("input", value)
+      // const value = evt.target.value
+      this.$emit("input", evt)
     },
 
     onFocus(value) {

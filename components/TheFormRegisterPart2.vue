@@ -14,6 +14,7 @@
           :key="field.name + field.className"
           :class="field.className"
           :data-item="field"
+          @input="emitUserInput"
         />
       </template>
     </div>
