@@ -1,5 +1,5 @@
 <template>
-  <button class="button-icon" @click="emitClickButton">
+  <button class="button-icon" @click="emitClickBtn">
     <SvgIcon
       class="button-icon__icon"
       :name="dataItemValid.iconName"
@@ -35,8 +35,8 @@ export default {
   },
 
   methods: {
-    emitClickButton() {
-      this.$emit("clickButton")
+    emitClickBtn() {
+      this.$emit("clickBtn")
     },
   },
 }

@@ -1,14 +1,32 @@
 <template>
-  <button class="burger" @click="emitClickButton">
+  <button class="burger" :type="dataItemValid.type" @click="emitClickBtn">
     <span class="burger__text visually-hidden">open/close menu</span>
   </button>
 </template>
 
 <script>
 export default {
+  props: {
+    dataItem: {
+      type: Object,
+      required: false,
+      default: () => ({}),
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const type = this.dataItem.type || "button"
+
+      return {
+        type,
+      }
+    },
+  },
+
   methods: {
-    emitClickButton() {
-      this.$emit("clickButton")
+    emitClickBtn() {
+      this.$emit("clickBtn")
     },
   },
 }

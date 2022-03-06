@@ -4,11 +4,11 @@
     <AppRefresh
       v-else-if="userErrors"
       class="title-feed__error"
-      @clickButton="refreshData"
+      @clickBtn="refreshData"
     />
     <template v-else>
       <h3 class="title-feed__caption">{{ feed.title }}</h3>
-      <AppAuthor :data-item="dataAppAuthor" class="title-feed__author" />
+      <AppAuthor :data-item="dataAuthor" class="title-feed__author" />
     </template>
   </div>
 </template>
@@ -19,7 +19,7 @@ import { mapState } from "vuex"
 export default {
   data() {
     return {
-      dataAppAuthorConfig: {
+      dataAuthorConfig: {
         imageWidth: 38,
         imageHeight: 38,
         imagePlaceholderName: "placeholder-avatar.png",
@@ -35,16 +35,16 @@ export default {
       userErrors: ({ user }) => user.errors,
     }),
 
-    dataAppAuthor() {
+    dataAuthor() {
       const name = this.userData.userName
       const avatar = this.userData.avatar
       const time = this.feed.time
       const userPath = "users"
       const userPagePath = `/${userPath}/${name}`
 
-      const imageWidth = this.dataAppAuthorConfig.imageWidth
-      const imageHeight = this.dataAppAuthorConfig.imageWidth
-      const imagePlaceholderName = this.dataAppAuthorConfig.imagePlaceholderName
+      const imageWidth = this.dataAuthorConfig.imageWidth
+      const imageHeight = this.dataAuthorConfig.imageWidth
+      const imagePlaceholderName = this.dataAuthorConfig.imagePlaceholderName
 
       return {
         avatar,

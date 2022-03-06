@@ -4,10 +4,10 @@
     <AppRefresh
       v-else-if="userErrors"
       class="title-user__error"
-      @clickButton="refreshData"
+      @clickBtn="refreshData"
     />
     <template v-else>
-      <AppImage class="title-user__img" :data-item="dataAppImage" />
+      <AppImage class="title-user__img" :data-item="dataImage" />
       <h3 class="title-user__username">{{ userDataValid.userName }}</h3>
       <p class="title-user__name">{{ userDataValid.name }}</p>
     </template>
@@ -45,7 +45,7 @@ export default {
       }
     },
 
-    dataAppImage() {
+    dataImage() {
       const imageSrc = this.userData.avatar || null
       const imageAlt = this.userData.userName || "Unknown Author"
       const imageWidth = this.imageBlockConfig.imageWidth

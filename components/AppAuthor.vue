@@ -1,17 +1,14 @@
 <template>
   <div class="author">
-    <NuxtLink
-      class="author__img-box"
-      :to="{ path: dataAppAuthor.userPagePath }"
-    >
-      <AppImage class="author__img" :data-item="dataAppImage" />
+    <NuxtLink class="author__img-box" :to="{ path: dataAuthor.userPagePath }">
+      <AppImage class="author__img" :data-item="dataImage" />
     </NuxtLink>
     <div class="author__info-box">
-      <NuxtLink class="author__name" :to="{ path: dataAppAuthor.userPagePath }">
-        {{ dataAppAuthor.name }}
+      <NuxtLink class="author__name" :to="{ path: dataAuthor.userPagePath }">
+        {{ dataAuthor.name }}
       </NuxtLink>
-      <time class="author__time-feed" :datetime="dataAppAuthor.time">
-        {{ dataAppAuthor.time | dateFormatBase }}
+      <time class="author__time-feed" :datetime="dataAuthor.time">
+        {{ dataAuthor.time | dateFormatBase }}
       </time>
     </div>
   </div>
@@ -36,7 +33,7 @@ export default {
   },
 
   computed: {
-    dataAppAuthor() {
+    dataAuthor() {
       const name = this.dataItem.name || "Author"
       const time = this.dataItem.time || "2022-01-24 00:00"
       const userPagePath = this.dataItem.userPagePath || "/"
@@ -48,7 +45,7 @@ export default {
       }
     },
 
-    dataAppImage() {
+    dataImage() {
       const imageSrc = this.dataItem.avatar
       const imageWidth = this.dataItem.imageWidth || 38
       const imageHeight = this.dataItem.imageHeight || 38

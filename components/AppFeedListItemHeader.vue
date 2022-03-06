@@ -1,11 +1,8 @@
 <template>
   <div class="feed-list-item-header">
-    <AppAuthor
-      :data-item="dataAppAuthor"
-      class="feed-list-item-header__author"
-    />
+    <AppAuthor :data-item="dataAuthor" class="feed-list-item-header__author" />
     <AppButtonIcon
-      :data-item="dataAppButtonIcon"
+      :data-item="dataButtonIcon"
       class="feed-list-item-header__button-icon"
       >{{ dataItem.like }}</AppButtonIcon
     >
@@ -25,12 +22,12 @@ export default {
 
   data() {
     return {
-      dataAppButtonIcon: {
+      dataButtonIcon: {
         iconName: "heart-fill",
         iconDesc: "heart",
       },
 
-      dataAppAuthorConfig: {
+      dataAuthorConfig: {
         imageWidth: 38,
         imageHeight: 38,
         imagePlaceholderName: "placeholder-avatar.png",
@@ -39,14 +36,14 @@ export default {
   },
 
   computed: {
-    dataAppAuthor() {
+    dataAuthor() {
       const userName = this.dataItem.author.name
       const userPath = "users"
       const userPagePath = `/${userPath}/${userName}`
 
-      const imageWidth = this.dataAppAuthorConfig.imageWidth
-      const imageHeight = this.dataAppAuthorConfig.imageWidth
-      const imagePlaceholderName = this.dataAppAuthorConfig.imagePlaceholderName
+      const imageWidth = this.dataAuthorConfig.imageWidth
+      const imageHeight = this.dataAuthorConfig.imageWidth
+      const imagePlaceholderName = this.dataAuthorConfig.imagePlaceholderName
 
       return {
         ...this.dataItem.author,

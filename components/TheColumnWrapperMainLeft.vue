@@ -7,7 +7,7 @@
     />
     <AppFeedListPlaceholder
       v-if="feedListIsLoading"
-      :data-item="dataAppFeedListPlaceholder"
+      :data-item="dataFeedListPlaceholder"
       class="column-wrapper-main-left__placeholder"
     />
     <AppRefresh
@@ -22,7 +22,7 @@
     />
     <AppPaginatorList
       class="main__paginator-list"
-      :data-item="dataAppPaginatorListComp"
+      :data-item="dataPaginatorListComp"
     />
   </section>
 </template>
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       dataFilterBar: [{ content: "Global Feed", path: "/" }],
-      dataAppFeedListPlaceholder: 10,
+      dataFeedListPlaceholder: 10,
     }
   },
 
@@ -62,7 +62,7 @@ export default {
       return barItems
     },
 
-    dataAppPaginatorListComp() {
+    dataPaginatorListComp() {
       const tag = this.$route.params.tag || "total"
       const delim = paginator.itemPerPage
       let count = null

@@ -2,7 +2,7 @@
   <div class="picture">
     <picture class="picture__picture">
       <source
-        v-for="item in dataAppPictureSource"
+        v-for="item in dataPictureSource"
         :key="item.id"
         :type="item.type"
         :media="`(min-width: ${item.viewport}px)`"
@@ -129,7 +129,7 @@ export default {
       }
     },
 
-    dataAppPictureSource() {
+    dataPictureSource() {
       const data = []
       let counter = 0
 
