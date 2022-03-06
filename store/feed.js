@@ -23,6 +23,7 @@ export const state = () => ({
 const mutations = {
   [mutationTypes.setFeedListStart](state) {
     state.isLoading = true
+    state.feedList = null
   },
 
   [mutationTypes.setFeedListSuccess](state, payload) {
@@ -37,6 +38,7 @@ const mutations = {
 
   [mutationTypes.setFeedStart](state) {
     state.isLoading = true
+    state.feed = null
   },
 
   [mutationTypes.setFeedSuccess](state, payload) {

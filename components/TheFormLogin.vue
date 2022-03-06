@@ -18,7 +18,7 @@
         </template>
       </div>
     </fieldset>
-    <button type="submit">login</button>
+    <AppButton :data-item="dataButton.login">Login</AppButton>
   </form>
 </template>
 
@@ -33,6 +33,12 @@ export default {
       dataUserInput: {
         email: "",
         password: "",
+      },
+
+      dataButton: {
+        login: {
+          type: "submit",
+        },
       },
     }
   },

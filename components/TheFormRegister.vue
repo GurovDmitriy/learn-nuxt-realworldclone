@@ -3,9 +3,13 @@
     <KeepAlive>
       <Component :is="activePart" @userInput="setUserInput" />
     </KeepAlive>
-    <button type="button" @click="partPrev">prev</button>
-    <button type="button" @click="partNext">next</button>
-    <button type="submit">submit</button>
+    <AppButton :data-item="dataButton.prev" @clickBtn="partPrev"
+      >Prev</AppButton
+    >
+    <AppButton :data-item="dataButton.next" @clickBtn="partNext"
+      >Next</AppButton
+    >
+    <AppButton :data-item="dataButton.register">Register</AppButton>
   </form>
 </template>
 
@@ -26,6 +30,12 @@ export default {
         firstname: "",
         lastname: "",
         avatar: "",
+      },
+
+      dataButton: {
+        prev: { type: "button" },
+        next: { type: "button" },
+        register: { type: "submit" },
       },
     }
   },
