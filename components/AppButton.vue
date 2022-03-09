@@ -33,3 +33,19 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.button {
+  display: block;
+  padding: $space-m $space-l;
+
+  color: $var-color-white;
+
+  background: none;
+  background-color: $var-color-purple;
+  border: none;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+</style>

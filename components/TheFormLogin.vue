@@ -13,12 +13,15 @@
             :key="field.name + field.className"
             :class="field.className"
             :data-item="field"
+            class="form-login__input"
             @input="setUserInput"
           />
         </template>
       </div>
     </fieldset>
-    <AppButton :data-item="dataButton.login">Login</AppButton>
+    <AppButton :data-item="dataButton.login" class="form-login__button"
+      >Login</AppButton
+    >
   </form>
 </template>
 
@@ -76,6 +79,7 @@ export default {
 
 .form-login__fieldset {
   margin: 0;
+  margin-bottom: $space-l;
   padding: 0;
 
   border: none;
@@ -84,5 +88,9 @@ export default {
 .form-login__legend {
   margin: 0;
   padding: 0;
+}
+
+.form-login__button {
+  margin-left: auto;
 }
 </style>

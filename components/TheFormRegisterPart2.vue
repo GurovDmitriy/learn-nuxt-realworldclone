@@ -40,6 +40,7 @@ export default {
 
 .form-register-part-2__fieldset {
   margin: 0;
+  margin-bottom: $space-l;
   padding: 0;
 
   border: none;

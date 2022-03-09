@@ -1,15 +1,29 @@
 <template>
   <form class="form-register" method="POST" @submit.prevent="formSubmit">
     <KeepAlive>
-      <Component :is="activePart" @userInput="setUserInput" />
+      <Component
+        :is="activePart"
+        class="form-register__fieldset"
+        @userInput="setUserInput"
+      />
     </KeepAlive>
-    <AppButton :data-item="dataButton.prev" @clickBtn="partPrev"
-      >Prev</AppButton
-    >
-    <AppButton :data-item="dataButton.next" @clickBtn="partNext"
-      >Next</AppButton
-    >
-    <AppButton :data-item="dataButton.register">Register</AppButton>
+    <div class="form-register__box-button">
+      <AppButton
+        v-if="showBtns.prev"
+        :data-item="dataButton.prev"
+        @clickBtn="partPrev"
+        >Prev</AppButton
+      >
+      <AppButton
+        v-if="showBtns.next"
+        :data-item="dataButton.next"
+        @clickBtn="partNext"
+        >Next</AppButton
+      >
+      <AppButton v-if="showBtns.register" :data-item="dataButton.register"
+        >Register</AppButton
+      >
+    </div>
   </form>
 </template>
 
@@ -53,6 +67,19 @@ export default {
       const name = `${baseName}${activePart}`
       return name
     },
+
+    showBtns() {
+      const prev = this.dataFormPart.active > 0
+      const next = this.dataFormPart.active < this.dataFormPart.list.length - 1
+      const register =
+        this.dataFormPart.active === this.dataFormPart.list.length - 1
+
+      return {
+        prev,
+        next,
+        register,
+      }
+    },
   },
 
   mounted() {
@@ -94,5 +121,13 @@ export default {
   display: block;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.form-register__box-button {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

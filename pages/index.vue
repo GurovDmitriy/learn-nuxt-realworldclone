@@ -37,5 +37,9 @@ export default {
 
 .main__column-wrapper {
   margin-bottom: $space-l;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 </style>
