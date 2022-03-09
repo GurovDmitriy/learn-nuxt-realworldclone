@@ -76,12 +76,7 @@ export default {
     },
 
     async formSubmit() {
-      const user = await this.$store.dispatch(
-        actionTypesAuth.register,
-        this.dataUserInput
-      )
-      // eslint-disable-next-line no-console
-      console.log("register user", user)
+      await this.$store.dispatch(actionTypesAuth.register, this.dataUserInput)
     },
 
     setUserInput(evt) {

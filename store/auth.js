@@ -2,7 +2,7 @@ import { setItemCO, removeItemCO } from "~/helpers/persistanceCookie"
 import { setItemLC } from "~/helpers/persistanceStorage"
 
 export const getterTypes = {
-  currentUser: "[auth] currentUser",
+  getUser: "[auth] getUser",
   isLoggedIn: "[auth] isLoggedIn",
   isAnonymous: "[auth] isAnonymous",
   isAdmin: "[auth] isAdmin",
@@ -32,7 +32,7 @@ export const state = () => ({
 })
 
 const getters = {
-  [getterTypes.user]: (state) => {
+  [getterTypes.getUser]: (state) => {
     return state.user
   },
 
@@ -54,6 +54,7 @@ const mutations = {
     state.isLoading = true
     state.isSubmitting = true
     state.user = null
+    state.errors = null
   },
 
   [mutationTypes.setUserSuccess](state, payload) {
@@ -65,6 +66,7 @@ const mutations = {
 
   [mutationTypes.setUserFailure](state, payload) {
     state.errors = payload
+    state.isSubmitting = false
     state.isLoading = false
   },
 

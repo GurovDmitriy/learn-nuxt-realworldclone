@@ -24,6 +24,7 @@
 
 <script>
 import FormSignMixin from "~/mixins/formSignMixin"
+import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
   mixins: [FormSignMixin],
@@ -44,9 +45,8 @@ export default {
   },
 
   methods: {
-    formSubmit() {
-      // eslint-disable-next-line no-console
-      console.log(this.dataUserInput)
+    async formSubmit() {
+      await this.$store.dispatch(actionTypesAuth.login, this.dataUserInput)
     },
 
     setUserInput(evt) {

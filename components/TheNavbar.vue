@@ -5,7 +5,8 @@
       <AppLogo class="navbar__logo" />
       <AppBurger class="navbar__burger" @clickBtn="toggleMenu" />
       <AppNavList
-        :data-item="dataNavList"
+        v-if="isAnonymous"
+        :data-item="dataNavListValid"
         :class="classNavList"
         class="navbar__nav-list"
       />
@@ -14,6 +15,9 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+import { getterTypes as getterTypesAuth } from "~/store/auth"
+
 export default {
   data() {
     return {
@@ -29,6 +33,29 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      isAnonymous: getterTypesAuth.isAnonymous,
+      isLoggedIn: getterTypesAuth.isLoggedIn,
+    }),
+
+    dataNavListValid() {
+      let config = []
+      const data = []
+
+      config = ["Home", "Sign in", "Sign up"]
+
+      if (this.isLoggedIn) {
+        config = ["Home", "New Feed", "Settings"]
+      }
+
+      config.forEach((item) => {
+        const elem = this.dataNavList.find((el) => el.content === item)
+        if (elem) data.push(elem)
+      })
+
+      return data
+    },
+
     classNavList() {
       return {
         "navbar__nav-list--active": this.isMenuShow,
