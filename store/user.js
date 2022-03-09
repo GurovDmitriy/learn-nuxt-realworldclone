@@ -17,7 +17,6 @@ export const state = () => ({
 const mutations = {
   [mutationTypes.setUserStart](state) {
     state.isLoading = true
-    state.user = null
   },
 
   [mutationTypes.setUserSuccess](state, payload) {
