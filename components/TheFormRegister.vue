@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { actionTypes as actionTypesAuth } from "~/store/auth"
+
 export default {
   data() {
     return {
@@ -31,6 +33,8 @@ export default {
         lastname: "",
         avatar: "",
       },
+
+      dataUserInputDefault: {},
 
       dataButton: {
         prev: { type: "button" },
@@ -51,6 +55,10 @@ export default {
     },
   },
 
+  mounted() {
+    this.dataUserInputDefault = { ...this.dataUserInput }
+  },
+
   methods: {
     partPrev() {
       const active = this.dataFormPart.active
@@ -67,9 +75,13 @@ export default {
       this.dataFormPart.active += 1
     },
 
-    formSubmit() {
+    async formSubmit() {
+      const user = await this.$store.dispatch(
+        actionTypesAuth.register,
+        this.dataUserInput
+      )
       // eslint-disable-next-line no-console
-      console.log(this.dataUserInput)
+      console.log("register user", user)
     },
 
     setUserInput(evt) {

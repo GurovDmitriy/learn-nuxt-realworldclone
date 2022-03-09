@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PlaceholderBlock />
+    <AppPlaceholder />
   </div>
 </template>
 

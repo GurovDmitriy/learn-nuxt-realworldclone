@@ -22,6 +22,8 @@ export default {
         { content: "Home", path: "/" },
         { content: "Sign in", path: "/login" },
         { content: "Sign up", path: "/register" },
+        { content: "New Feed", path: "/editor" },
+        { content: "Settings", path: "/settings" },
       ],
     }
   },

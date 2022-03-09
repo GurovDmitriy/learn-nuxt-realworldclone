@@ -1,3 +1,4 @@
+import auth from "~/api/auth"
 import feed from "~/api/feed"
 import tag from "~/api/tag"
 import user from "~/api/user"
@@ -7,5 +8,6 @@ export default ({ $axios }, inject) => {
     feed: feed($axios),
     tag: tag($axios),
     user: user($axios),
+    auth: auth($axios),
   })
 }
