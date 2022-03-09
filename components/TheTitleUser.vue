@@ -8,7 +8,7 @@
     />
     <template v-else>
       <AppImage class="title-user__img" :data-item="dataImage" />
-      <h3 class="title-user__username">{{ userDataValid.userName }}</h3>
+      <h3 class="title-user__username">{{ userDataValid.username }}</h3>
       <p class="title-user__name">{{ userDataValid.name }}</p>
     </template>
   </div>
@@ -36,18 +36,18 @@ export default {
     }),
 
     userDataValid() {
-      const userName = this.userData.userName || "Unknown Author"
-      const name = `${this.userData.firstName} ${this.userData.lastName}`
+      const username = this.userData.username || "Unknown Author"
+      const name = `${this.userData.firstname} ${this.userData.lastname}`
 
       return {
-        userName,
+        username,
         name,
       }
     },
 
     dataImage() {
       const imageSrc = this.userData.avatar || null
-      const imageAlt = this.userData.userName || "Unknown Author"
+      const imageAlt = this.userData.username || "Unknown Author"
       const imageWidth = this.imageBlockConfig.imageWidth
       const imageHeight = this.imageBlockConfig.imageHeight
       const imagePlaceholderName = this.imageBlockConfig.imagePlaceholderName

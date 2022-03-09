@@ -38,9 +38,9 @@ function randomInteger(min, max) {
 function createDefaultUser(state) {
   const defaultUser = {
     id: 1,
-    userName: "admin",
-    firstName: casual.first_name,
-    lastName: casual.last_name,
+    username: "admin",
+    firstname: casual.first_name,
+    lastname: casual.last_name,
     avatar: "https://i.pravatar.cc/100?img=1",
     email: "admin@admin.com",
     password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
@@ -48,14 +48,14 @@ function createDefaultUser(state) {
 
   state.users.push(defaultUser)
 
-  return Object.assign({}, state)
+  return state
 }
 
 function createDefaultTags(state) {
   const defaultTags = ["welcome", "introduction", "nuxt", "learn", "javascript"]
   state.tags = defaultTags
 
-  return Object.assign({}, state)
+  return state
 }
 
 function createUsers(state) {
@@ -68,16 +68,16 @@ function createUsers(state) {
 
     state.users.push({
       id: i,
-      userName: casual.username,
-      firstName: casual.first_name,
-      lastName: casual.last_name,
+      username: casual.username,
+      firstname: casual.first_name,
+      lastname: casual.last_name,
       avatar,
       email: casual.email,
       password: casual.password,
     })
   }
 
-  return Object.assign({}, state)
+  return state
 }
 
 function createUsersList(state) {
@@ -85,17 +85,17 @@ function createUsersList(state) {
     get() {
       const data = state.users.map((item) => {
         const id = item.id
-        const userName = item.userName
-        const firstName = item.firstName
-        const lastName = item.lastName
+        const username = item.username
+        const firstname = item.firstname
+        const lastname = item.lastname
         const avatar = item.avatar
         const email = item.email
 
         return {
           id,
-          userName,
-          firstName,
-          lastName,
+          username,
+          firstname,
+          lastname,
           avatar,
           email,
         }
@@ -105,7 +105,7 @@ function createUsersList(state) {
     },
   })
 
-  return Object.assign({}, state)
+  return state
 }
 
 function createFeed(state) {
@@ -142,7 +142,7 @@ function createFeed(state) {
     })
   }
 
-  return Object.assign({}, state)
+  return state
 }
 
 function createFeedList(state) {
@@ -158,7 +158,7 @@ function createFeedList(state) {
         const tags = item.tags
         const preview = item.preview
         const avatar = user[0].avatar
-        const name = user[0].userName
+        const name = user[0].username
 
         return {
           id,
@@ -180,7 +180,7 @@ function createFeedList(state) {
     },
   })
 
-  return Object.assign({}, state)
+  return state
 }
 
 function createFeedCount(state) {
@@ -218,9 +218,9 @@ function createFeedCount(state) {
       state.feed.forEach((item) => {
         const userId = item.userId
         const user = state.users.find((item) => item.id === userId)
-        const userName = user.userName
+        const username = user.username
 
-        data.byUser[userName] = getCountFeedByUser(userId)
+        data.byUser[username] = getCountFeedByUser(userId)
       })
 
       function getCountFeedByUser(id) {
@@ -232,9 +232,9 @@ function createFeedCount(state) {
 
       state.users.forEach((item) => {
         const userId = item.id
-        const userName = item.userName
+        const username = item.username
 
-        data.byLike[userName] = getCountFeedByLike(userId)
+        data.byLike[username] = getCountFeedByLike(userId)
       })
 
       function getCountFeedByLike(id) {
@@ -252,13 +252,11 @@ function createFeedCount(state) {
     },
   })
 
-  return Object.assign({}, state)
+  return state
 }
 
 function setResult(state) {
-  Object.assign(stateDataBase, state)
-
-  return Object.assign({}, state)
+  return state
 }
 
 // run
@@ -273,7 +271,7 @@ function generateDataBase() {
     createFeedList,
     createFeedCount,
     setResult
-  )(Object.assign({}, stateDataBase))
+  )(stateDataBase)
 }
 
 generateDataBase()

@@ -21,11 +21,11 @@ export default {
   layout: "user",
 
   async asyncData({ params, query, store }) {
-    const userName = params.user
+    const username = params.user
     const pageNum = query.page || 1
 
-    const userPayload = `userName=${userName}`
-    const feedListPayload = `author.name=${userName}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
+    const userPayload = `username=${username}`
+    const feedListPayload = `author.name=${username}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesUser.fetchUser, userPayload),
@@ -40,8 +40,8 @@ export default {
     }),
 
     dataPaginatorListComp() {
-      const userName = this.$route.params.user
-      const count = this.feedCount.byUser[userName]
+      const username = this.$route.params.user
+      const count = this.feedCount.byUser[username]
       const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path

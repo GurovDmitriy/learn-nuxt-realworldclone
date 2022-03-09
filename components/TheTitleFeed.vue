@@ -36,7 +36,7 @@ export default {
     }),
 
     dataAuthor() {
-      const name = this.userData.userName
+      const name = this.userData.username
       const avatar = this.userData.avatar
       const time = this.feed.time
       const userPath = "users"

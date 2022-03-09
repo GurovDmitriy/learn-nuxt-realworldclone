@@ -6,7 +6,7 @@ export default {
           {
             name: "username",
             type: "text",
-            placeholder: "Username",
+            placeholder: "username",
             required: true,
             iconName: "person-workspace",
             className: "form-register-part-1__input",

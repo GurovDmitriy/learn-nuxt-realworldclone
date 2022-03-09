@@ -37,9 +37,9 @@ export default {
 
   computed: {
     dataAuthor() {
-      const userName = this.dataItem.author.name
+      const username = this.dataItem.author.name
       const userPath = "users"
-      const userPagePath = `/${userPath}/${userName}`
+      const userPagePath = `/${userPath}/${username}`
 
       const imageWidth = this.dataAuthorConfig.imageWidth
       const imageHeight = this.dataAuthorConfig.imageWidth

@@ -51,10 +51,9 @@ const getters = {
 
 const mutations = {
   [mutationTypes.setUserStart](state) {
-    state.isLoading = true
     state.isSubmitting = true
+    state.isLoading = true
     state.user = null
-    state.errors = null
   },
 
   [mutationTypes.setUserSuccess](state, payload) {
@@ -66,6 +65,7 @@ const mutations = {
 
   [mutationTypes.setUserFailure](state, payload) {
     state.errors = payload
+    state.isLoggedIn = false
     state.isSubmitting = false
     state.isLoading = false
   },
@@ -115,7 +115,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setUserFailure, err)
-      throw new Error(err)
+      // throw new Error(err)
     }
   },
 

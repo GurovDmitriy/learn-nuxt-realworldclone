@@ -8,9 +8,9 @@ const data = {
   users: [
     {
       id: 1,
-      userName: "admin",
-      firstName: casual.first_name,
-      lastName: casual.last_name,
+      username: "admin",
+      firstname: casual.first_name,
+      lastname: casual.last_name,
       avatar: "https://i.pravatar.cc/100",
       email: "admin@admin.com",
       password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
@@ -28,9 +28,9 @@ function randomInteger(min, max) {
 for (let i = 2; i <= USERS_COUNT; i++) {
   data.users.push({
     id: i,
-    userName: casual.username,
-    firstName: casual.first_name,
-    lastName: casual.last_name,
+    username: casual.username,
+    firstname: casual.first_name,
+    lastname: casual.last_name,
     avatar: "https://i.pravatar.cc/100",
     email: casual.email,
     password: casual.password,
@@ -44,7 +44,7 @@ for (let i = 1; i <= POSTS_COUNT; i++) {
     id: i,
     userId: randomInteger(1, USERS_COUNT),
     title: casual.title,
-    previewText: casual.short_description,
+    previewtext: casual.short_description,
     content: casual.text,
     time: casual.unix_time,
     like: randomInteger(0, 300),

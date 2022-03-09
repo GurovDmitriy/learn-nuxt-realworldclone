@@ -8,6 +8,6 @@ export default (axios) => ({
   },
 
   getUser(payload) {
-    return axios.$get(`/users/${payload}`)
+    return axios.$get(`/usersList/${payload}`)
   },
 })

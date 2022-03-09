@@ -5,7 +5,6 @@
       <AppLogo class="navbar__logo" />
       <AppBurger class="navbar__burger" @clickBtn="toggleMenu" />
       <AppNavList
-        v-if="isAnonymous"
         :data-item="dataNavListValid"
         :class="classNavList"
         class="navbar__nav-list"
