@@ -38,6 +38,7 @@ function randomInteger(min, max) {
 function createDefaultUser(state) {
   const defaultUser = {
     id: 1,
+    role: "admin",
     username: "admin",
     firstname: casual.first_name,
     lastname: casual.last_name,
@@ -74,6 +75,7 @@ function createUsers(state) {
       avatar,
       email: casual.email,
       password: casual.password,
+      role: "user",
     })
   }
 
@@ -90,6 +92,7 @@ function createUsersList(state) {
         const lastname = item.lastname
         const avatar = item.avatar
         const email = item.email
+        const role = item.role
 
         return {
           id,
@@ -98,6 +101,7 @@ function createUsersList(state) {
           lastname,
           avatar,
           email,
+          role,
         }
       })
 
