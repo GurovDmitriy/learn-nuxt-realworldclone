@@ -6,6 +6,21 @@
   --color-grey-dark: #{$color-grey-dark};
   --color-purple: #{$color-purple};
   --color-blue: #{$color-blue};
+
+  // palette
+  --color-default: #{$color-default};
+  --color-primary: #{$color-primary};
+  --color-info: #{$color-info};
+  --color-success: #{$color-success};
+  --color-warning: #{$color-warning};
+  --color-danger: #{$color-danger};
+
+  // palette
+  --color-gray-nurse: #{$color-gray-nurse};
+  --color-amethyst-smoke: #{$color-amethyst-smoke};
+  --color-east-side: #{$color-east-side};
+  --color-rum: #{$color-rum};
+  --color-oxford-blue: #{$color-oxford-blue};
 }
 
 html {

@@ -9,6 +9,6 @@
   padding-top: $space-l;
   padding-bottom: $space-l;
 
-  background-color: $var-color-purple;
+  background-color: $var-color-east-side;
 }
 </style>

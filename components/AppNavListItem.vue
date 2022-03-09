@@ -38,15 +38,15 @@ export default {
   display: block;
   padding: $space-s;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-decoration: none;
 
   &.nuxt-link-exact-active {
-    color: $var-color-black;
+    color: $var-color-east-side;
   }
 
   &:hover {
-    color: $var-color-black;
+    color: $var-color-east-side;
   }
 }
 </style>

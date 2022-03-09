@@ -13,6 +13,21 @@ $color-grey-dark: #96899d;
 $color-purple: #ac8ac3;
 $color-blue: #49597c;
 
+// palette
+$color-default: #999999;
+$color-primary: #ac89c4;
+$color-info: #3d435a;
+$color-success: #69a473;
+$color-warning: #e6943b;
+$color-danger: #f44336;
+
+// palette
+$color-gray-nurse: #fbfafb;
+$color-amethyst-smoke: #f5f5f5;
+$color-east-side: #ac8ac3;
+$color-rum: #7c728d;
+$color-oxford-blue: #3c4259;
+
 /* color css var */
 $var-color-black: var(--color-black, $color-black);
 $var-color-white: var(--color-white, $color-white);
@@ -21,6 +36,21 @@ $var-color-grey-light: var(--color-grey-light, $color-grey-light);
 $var-color-grey-dark: var(--color-grey-dark, $color-grey-dark);
 $var-color-purple: var(--color-purple, $color-purple);
 $var-color-blue: var(--color-blue, $color-blue);
+
+// var palette
+$var-color-default: var(--color-default, $color-default);
+$var-color-primary: var(--color-primary, $color-primary);
+$var-color-info: var(--color-info, $color-info);
+$var-color-success: var(--color-success, $color-success);
+$var-color-warning: var(--color-warning, $color-warning);
+$var-color-danger: var(--color-danger, $color-danger);
+
+// var palette
+$var-color-gray-nurse: var(--color-gray-nurse, $color-gray-nurse);
+$var-color-amethyst-smoke: var(--color-amethyst-smoke, $color-amethyst-smoke);
+$var-color-east-side: var(--color-east-side, $color-east-side);
+$var-color-rum: var(--color-rum, $color-rum);
+$var-color-oxford-blue: var(--color-oxford-blue, $color-oxford-blue);
 
 /* min width document */
 $min-width-document: 360px;

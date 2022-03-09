@@ -52,7 +52,7 @@ export default {
 .column-wrapper-main-right__tags-list-box {
   padding: $space-m;
 
-  background-color: $var-color-grey-light;
+  background-color: $var-color-amethyst-smoke;
   border-radius: 5px;
 
   @media (min-width: $min-width-tablet) {

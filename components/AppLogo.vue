@@ -6,11 +6,11 @@
 .logo {
   @include caption-h3;
 
-  color: $var-color-purple;
+  color: $var-color-east-side;
   text-decoration: none;
 
   &:hover {
-    color: $var-color-grey;
+    color: $var-color-default;
   }
 }
 </style>
