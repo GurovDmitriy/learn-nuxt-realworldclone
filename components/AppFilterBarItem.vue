@@ -54,19 +54,19 @@ export default {
   display: block;
   padding: $space-s;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-decoration: none;
 
   border-bottom: 2px solid transparent;
 
   &--active {
-    color: $var-color-purple;
+    color: $var-color-east-side;
 
-    border-bottom: 2px solid $var-color-purple;
+    border-bottom: 2px solid $var-color-east-side;
   }
 
   &:hover {
-    color: $var-color-black;
+    color: $var-color-default;
   }
 }
 </style>

@@ -77,14 +77,14 @@ export default {
 
   margin-bottom: $space-s;
 
-  color: $var-color-white;
+  color: $var-color-amethyst-smoke;
 }
 
 .title-feed__author .author__name {
-  color: $var-color-white;
+  color: $var-color-amethyst-smoke;
 }
 
 .title-feed__author .author__time-feed {
-  color: $var-color-white;
+  color: $var-color-amethyst-smoke;
 }
 </style>

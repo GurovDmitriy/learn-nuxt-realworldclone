@@ -54,6 +54,10 @@ export default {
 
     bottom: 5px;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 %burger-bar {
@@ -64,7 +68,7 @@ export default {
   width: 100%;
   height: 4px;
 
-  background-color: $var-color-grey-dark;
+  background-color: $var-color-east-side;
   transform: translate(-50%, 0%);
 
   content: "";

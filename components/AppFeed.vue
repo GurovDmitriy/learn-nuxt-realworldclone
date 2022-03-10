@@ -23,7 +23,7 @@ export default {
 .feed {
   padding: $space-l 0;
 
-  border-bottom: 2px solid $var-color-grey-light;
+  border-bottom: 2px solid $var-color-amethyst-smoke;
 }
 
 .feed__preview {

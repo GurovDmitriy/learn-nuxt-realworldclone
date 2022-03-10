@@ -63,7 +63,7 @@ export default {
 
   list-style: none;
 
-  border-bottom: 2px solid $var-color-grey-light;
+  border-bottom: 2px solid $var-color-amethyst-smoke;
 }
 
 .filter-bar__item--active {

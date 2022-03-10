@@ -35,22 +35,35 @@ export default {
     ...mapGetters({
       isAnonymous: getterTypesAuth.isAnonymous,
       isLoggedIn: getterTypesAuth.isLoggedIn,
+      currentUser: getterTypesAuth.currentUser,
     }),
 
     dataNavListValid() {
-      let config = []
-      const data = []
+      const configDefault = ["Home", "Sign in", "Sign up"]
+      const configLogged = ["Home", "New Feed", "Settings"]
+      let data = []
 
-      config = ["Home", "Sign in", "Sign up"]
+      const username = this.currentUser?.username
+      const user =
+        { content: `${username}`, path: `/users/${username}` } || null
 
-      if (this.isLoggedIn) {
-        config = ["Home", "New Feed", "Settings"]
+      if (this.isLoggedIn && user) {
+        data = getConfig(configLogged, this.dataNavList)
+        data.push(user)
+      } else {
+        data = getConfig(configDefault, this.dataNavList)
       }
 
-      config.forEach((item) => {
-        const elem = this.dataNavList.find((el) => el.content === item)
-        if (elem) data.push(elem)
-      })
+      function getConfig(config, dataDefault) {
+        const data = []
+
+        config.forEach((item) => {
+          const elem = dataDefault.find((el) => el.content === item)
+          if (elem) data.push(elem)
+        })
+
+        return data
+      }
 
       return data
     },

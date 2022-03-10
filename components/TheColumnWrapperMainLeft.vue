@@ -16,7 +16,7 @@
       @refreshData="refreshFeedList"
     />
     <AppFeedList
-      v-else
+      v-else-if="feedList"
       :data-item="feedList"
       class="column-wrapper-main-left__feed-list"
     />

@@ -49,11 +49,11 @@ export default {
   display: block;
   padding: $space-xs $space-s;
 
-  color: $var-color-purple;
+  color: $var-color-east-side;
   line-height: 1;
 
   background: none;
-  border: 1px solid $var-color-purple;
+  border: 1px solid $var-color-east-side;
   border-radius: 4px;
 
   &:hover {

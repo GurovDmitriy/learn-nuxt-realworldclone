@@ -14,7 +14,7 @@
   padding-top: $space-l;
   padding-bottom: $space-l;
 
-  background-color: $var-color-grey-light;
+  background-color: $var-color-amethyst-smoke;
 }
 
 .footer__section {
@@ -26,7 +26,7 @@
 
   display: block;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-align: center;
   text-decoration: none;
 }

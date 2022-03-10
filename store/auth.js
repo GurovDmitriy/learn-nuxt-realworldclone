@@ -2,7 +2,7 @@ import { setItemCO, removeItemCO } from "~/helpers/persistanceCookie"
 import { setItemLC } from "~/helpers/persistanceStorage"
 
 export const getterTypes = {
-  getUser: "[auth] getUser",
+  currentUser: "[auth] currentUser",
   isLoggedIn: "[auth] isLoggedIn",
   isAnonymous: "[auth] isAnonymous",
   isAdmin: "[auth] isAdmin",
@@ -32,7 +32,7 @@ export const state = () => ({
 })
 
 const getters = {
-  [getterTypes.getUser]: (state) => {
+  [getterTypes.currentUser]: (state) => {
     return state.user
   },
 

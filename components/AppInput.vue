@@ -115,11 +115,11 @@ export default {
   width: 100%;
   padding: $space-m $space-l;
 
-  border: 1px solid $var-color-grey;
+  border: 1px solid $var-color-default;
   border-radius: 4px;
 
   &::placeholder {
-    color: $var-color-grey;
+    color: $var-color-default;
   }
 
   &--active {
@@ -145,7 +145,7 @@ export default {
 
   width: $space-l;
 
-  color: $var-color-grey;
+  color: $var-color-default;
 
   transform: translate(-50%, -50%);
 }

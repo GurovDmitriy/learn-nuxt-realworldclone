@@ -37,7 +37,7 @@ export default {
 
   margin-right: $space-m;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   font-weight: $font-weight-light;
   text-decoration: none;
 }

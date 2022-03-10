@@ -12,7 +12,7 @@
 .feed-list-placeholder-item {
   padding: $space-l 0;
 
-  border-bottom: 2px solid $var-color-grey-light;
+  border-bottom: 2px solid $var-color-amethyst-smoke;
 }
 
 .feed-list-placeholder-item__header {
@@ -28,7 +28,7 @@
 
   margin-right: $space-s;
 
-  background-color: $var-color-grey-light;
+  background-color: $var-color-amethyst-smoke;
   border-radius: 50%;
 }
 
@@ -37,7 +37,7 @@
   max-width: 80px;
   height: 28px;
 
-  background-color: $var-color-grey-light;
+  background-color: $var-color-amethyst-smoke;
   border-radius: 10px;
 }
 
@@ -46,7 +46,7 @@
   max-width: 400px;
   height: 50px;
 
-  background-color: $var-color-grey-light;
+  background-color: $var-color-amethyst-smoke;
   border-radius: 10px;
 }
 </style>

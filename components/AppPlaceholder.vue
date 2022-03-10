@@ -18,7 +18,7 @@
 
   margin-bottom: $space-m;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-align: center;
 }
 
@@ -27,7 +27,7 @@
 
   margin-bottom: $space-s;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-align: center;
 }
 </style>

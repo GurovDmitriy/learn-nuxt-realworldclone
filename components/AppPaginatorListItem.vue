@@ -56,29 +56,29 @@ export default {
   display: block;
   padding: $space-s $space-m;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   line-height: 1;
   text-decoration: none;
 
-  background-color: $var-color-grey-light;
+  background-color: $var-color-amethyst-smoke;
   border-radius: 4px;
 
   &--active {
     color: $var-color-white;
 
-    background-color: $var-color-grey;
+    background-color: $var-color-east-side;
   }
 
   &:hover {
     color: $var-color-white;
 
-    background-color: $var-color-grey;
+    background-color: $var-color-east-side;
   }
 }
 
 .paginator-list-item__link.nuxt-link-exact-active {
   color: $var-color-white;
 
-  background-color: $var-color-grey;
+  background-color: $var-color-east-side;
 }
 </style>

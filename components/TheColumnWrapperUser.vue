@@ -16,10 +16,11 @@
       @refreshData="refreshFeedList"
     />
     <AppFeedList
-      v-else
+      v-else-if="feedList.length"
       :data-item="feedList"
       class="column-wrapper-user__feed-list"
     />
+    <AppNoContent v-else class="column-wrapper-user__no-content" />
   </section>
 </template>
 

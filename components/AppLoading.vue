@@ -10,7 +10,7 @@
 
   margin-bottom: 0;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   font-weight: $font-weight-light;
 }
 </style>

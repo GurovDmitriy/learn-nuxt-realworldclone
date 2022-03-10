@@ -40,7 +40,7 @@ export default {
 
   margin-bottom: $space-m;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-align: center;
 }
 
@@ -49,7 +49,7 @@ export default {
 
   margin-bottom: $space-s;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-align: center;
 }
 
@@ -58,7 +58,7 @@ export default {
 
   margin-bottom: 0;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   text-align: center;
 }
 </style>

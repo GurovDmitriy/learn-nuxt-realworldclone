@@ -88,7 +88,7 @@ export default {
   display: block;
   margin-bottom: 0;
 
-  color: $var-color-purple;
+  color: $var-color-primary;
   line-height: 1;
   text-decoration: none;
 }
@@ -98,7 +98,7 @@ export default {
 
   margin-bottom: 0;
 
-  color: $var-color-grey;
+  color: $var-color-default;
   font-weight: $font-weight-light;
   line-height: 1;
 }

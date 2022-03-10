@@ -41,7 +41,7 @@ export default {
 
     dataPaginatorListComp() {
       const username = this.$route.params.user
-      const count = this.feedCount.byUser[username]
+      const count = this.feedCount.byUser[username] || 1
       const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path

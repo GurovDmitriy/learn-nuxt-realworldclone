@@ -91,7 +91,7 @@ export default {
 
   margin-bottom: $space-s;
 
-  color: $var-color-white;
+  color: $var-color-amethyst-smoke;
   text-align: center;
 }
 
@@ -100,12 +100,12 @@ export default {
 
   margin-bottom: $space-m;
 
-  color: $var-color-white;
+  color: $var-color-amethyst-smoke;
   text-align: center;
 }
 
 .title-user__loading {
-  color: $var-color-white;
+  color: $var-color-amethyst-smoke;
   text-align: center;
 }
 
@@ -114,7 +114,7 @@ export default {
   flex-direction: column;
   align-items: center;
 
-  color: $var-color-white;
+  color: $var-color-amethyst-smoke;
   text-align: center;
 }
 </style>

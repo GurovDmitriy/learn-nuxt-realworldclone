@@ -46,6 +46,6 @@ export default {
 .feed-list-item-preview__description {
   margin-bottom: 0;
 
-  color: $var-color-grey;
+  color: $var-color-default;
 }
 </style>

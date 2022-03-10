@@ -219,12 +219,11 @@ function createFeedCount(state) {
 
       // by user
 
-      state.feed.forEach((item) => {
-        const userId = item.userId
-        const user = state.users.find((item) => item.id === userId)
-        const username = user.username
+      state.users.forEach((item) => {
+        const id = item.id
+        const username = item.username
 
-        data.byUser[username] = getCountFeedByUser(userId)
+        data.byUser[username] = getCountFeedByUser(id)
       })
 
       function getCountFeedByUser(id) {

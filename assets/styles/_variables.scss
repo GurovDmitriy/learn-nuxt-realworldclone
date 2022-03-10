@@ -7,11 +7,6 @@
 /* color sass var */
 $color-black: #000000;
 $color-white: #ffffff;
-$color-grey: #989eb5;
-$color-grey-light: #f6f4f6;
-$color-grey-dark: #96899d;
-$color-purple: #ac8ac3;
-$color-blue: #49597c;
 
 // palette
 $color-default: #999999;
@@ -31,11 +26,6 @@ $color-oxford-blue: #3c4259;
 /* color css var */
 $var-color-black: var(--color-black, $color-black);
 $var-color-white: var(--color-white, $color-white);
-$var-color-grey: var(--color-grey, $color-grey);
-$var-color-grey-light: var(--color-grey-light, $color-grey-light);
-$var-color-grey-dark: var(--color-grey-dark, $color-grey-dark);
-$var-color-purple: var(--color-purple, $color-purple);
-$var-color-blue: var(--color-blue, $color-blue);
 
 // var palette
 $var-color-default: var(--color-default, $color-default);

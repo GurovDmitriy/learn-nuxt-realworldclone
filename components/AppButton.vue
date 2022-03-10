@@ -39,10 +39,10 @@ export default {
   display: block;
   padding: $space-m $space-l;
 
-  color: $var-color-white;
+  color: $var-color-gray-nurse;
 
   background: none;
-  background-color: $var-color-purple;
+  background-color: $var-color-east-side;
   border: none;
   border-radius: 4px;
 
