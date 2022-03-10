@@ -10,6 +10,7 @@
 <style lang="scss">
 .no-content {
   padding-top: $space-xl;
+  padding-bottom: $space-xl;
 }
 
 .no-content__caption {

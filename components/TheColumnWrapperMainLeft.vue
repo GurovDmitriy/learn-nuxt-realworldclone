@@ -16,10 +16,11 @@
       @refreshData="refreshFeedList"
     />
     <AppFeedList
-      v-else-if="feedList"
+      v-else-if="feedList.length"
       :data-item="feedList"
       class="column-wrapper-main-left__feed-list"
     />
+    <AppNoContent v-else class="column-wrapper-main-left__no-content" />
     <AppPaginatorList
       class="main__paginator-list"
       :data-item="dataPaginatorListComp"
@@ -28,9 +29,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState, mapGetters } from "vuex"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
-import { getArrRange } from "~/helpers/utils"
+import { getterTypes as getterTypesFeed } from "~/store/auth"
+import { getArrRange, isNotEmptyObj } from "~/helpers/utils"
 import { paginator } from "~/helpers/vars"
 
 export default {
@@ -49,8 +51,19 @@ export default {
       feedCount: ({ feedCount }) => feedCount.feedCount,
     }),
 
+    ...mapGetters({
+      currentUser: getterTypesFeed.currentUser,
+    }),
+
     dataFilterBarComp() {
       const barItems = this.dataFilterBar.map((item) => item)
+
+      if (isNotEmptyObj(this.currentUser)) {
+        barItems.push({
+          content: "Your Feed",
+          path: "/your",
+        })
+      }
 
       if (this.$route.params.tag) {
         barItems.push({
@@ -63,14 +76,23 @@ export default {
     },
 
     dataPaginatorListComp() {
-      const tag = this.$route.params.tag || "total"
+      let filter = ""
+
+      if (this.$route.path === "/your" && isNotEmptyObj(this.currentUser)) {
+        filter = this.currentUser.username
+      } else {
+        filter = this.$route.params.tag || "total"
+      }
+
       const delim = paginator.itemPerPage
       let count = null
 
-      if (tag === "total") {
-        count = this.feedCount[tag]
+      if (filter === this.currentUser?.username) {
+        count = this.feedCount.byUser[filter] || 1
+      } else if (filter === "total") {
+        count = this.feedCount[filter]
       } else {
-        count = this.feedCount.byTag[tag]
+        count = this.feedCount.byTag[filter]
       }
 
       const pagePath = this.$route.path
