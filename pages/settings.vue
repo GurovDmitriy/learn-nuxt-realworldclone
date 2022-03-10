@@ -1,20 +1,26 @@
 <template>
-  <div>
-    <AppPlaceholder />
-    <AppButton @clickBtn="logout">Logout</AppButton>
-  </div>
+  <main class="page-settings">
+    <h2 class="page-settings__caption">Your Settings</h2>
+    <TheFormSettings class="page-settings__form-settings" />
+  </main>
 </template>
 
 <script>
-import { actionTypes as actionTypesAuth } from "~/store/auth"
-
 export default {
   layout: "sign",
-
-  methods: {
-    async logout() {
-      await this.$store.dispatch(actionTypesAuth.logout)
-    },
-  },
 }
 </script>
+
+<style lang="scss">
+.page-settings {
+  @include container;
+}
+
+.page-settings__caption {
+  @include caption-h3;
+
+  margin-bottom: $space-l;
+
+  text-align: center;
+}
+</style>

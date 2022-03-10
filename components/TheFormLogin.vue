@@ -8,7 +8,8 @@
             :key="field.labelFor + field.className"
             :for="field.labelFor"
             class="visually-hidden"
-          ></label>
+            >{{ field.id }}</label
+          >
           <AppInput
             :key="field.name + field.className"
             :class="field.className"
