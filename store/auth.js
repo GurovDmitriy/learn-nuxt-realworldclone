@@ -138,9 +138,9 @@ const actions = {
     commit(mutationTypes.setUserStart)
 
     try {
-      const data = await this.$api.auth.updateUser(payload)
-
-      console.log(data)
+      const res = await this.$api.auth.updateUser(payload)
+      const { avatar, email, firstname, lastname, username, id } = res
+      const data = { avatar, email, firstname, lastname, username, id }
 
       commit(mutationTypes.setUserSuccess, data)
       return data

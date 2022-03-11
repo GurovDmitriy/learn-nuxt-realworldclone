@@ -12,6 +12,6 @@ export default (axios) => ({
   },
 
   updateUser(payload) {
-    return axios.$put(`/users/${payload.id}`, payload)
+    return axios.$patch(`/users/${payload.id}`, payload)
   },
 })

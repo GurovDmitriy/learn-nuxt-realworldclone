@@ -98,7 +98,7 @@ export default {
           type: "password",
           placeholder: "Password",
           id: "password-field",
-          required: true,
+          required: false,
         },
       },
 
@@ -107,9 +107,6 @@ export default {
       },
 
       dataField: {
-        id: null,
-        firstname: "",
-        lastname: "",
         avatar: "",
         username: "",
         email: "",
@@ -131,7 +128,7 @@ export default {
   methods: {
     async updateSettings() {
       await this.$store.dispatch(actionTypesAuth.updateUser, this.dataField)
-      console.log(this.dataField)
+      this.dataField.password = ""
     },
   },
 }
