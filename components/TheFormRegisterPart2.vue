@@ -3,29 +3,76 @@
     <legend class="form-register-part-2__legend visually-hidden">
       User Avatar Data
     </legend>
-    <div class="form-register-part-2">
-      <template v-for="field in dataFormRegisterValid.dataUserAvatar">
-        <label
-          :key="field.labelFor + field.className"
-          :for="field.labelFor"
-          class="visually-hidden"
-        ></label>
-        <AppInput
-          :key="field.name + field.className"
-          :class="field.className"
-          :data-item="field"
-          @input="emitUserInput"
-        />
-      </template>
-    </div>
+    <label
+      class="form-register-part-2__label visually-hidden"
+      for="first-name-field"
+      >First name</label
+    >
+    <AppInput
+      class="form-register-part-2__input form-register-part-2__input--first-name"
+      :data-item="dataInput.firstname"
+      @input="emitInputUser"
+    />
+    <label
+      class="form-register-part-2__label visually-hidden"
+      for="last-name-field"
+      >Last name</label
+    >
+    <AppInput
+      class="form-register-part-2__input form-register-part-2__input--last-name"
+      :data-item="dataInput.lastname"
+      @input="emitInputUser"
+    />
+    <label
+      class="form-register-part-2__label visually-hidden"
+      for="avatar-field"
+      >Avatar</label
+    >
+    <AppInput
+      class="form-register-part-2__input form-register-part-2__input--avatar"
+      :data-item="dataInput.avatar"
+      @input="emitInputUser"
+    />
   </fieldset>
 </template>
 
 <script>
-import FormSignMixin from "~/mixins/formSignMixin"
-
 export default {
-  mixins: [FormSignMixin],
+  data() {
+    return {
+      dataInput: {
+        firstname: {
+          name: "firstname",
+          type: "text",
+          placeholder: "First name",
+          id: "firstname-field",
+          required: true,
+        },
+
+        lastname: {
+          name: "lastname",
+          type: "text",
+          placeholder: "Last name",
+          id: "lastname-field",
+          required: true,
+        },
+
+        avatar: {
+          name: "avatar",
+          type: "url",
+          placeholder: "Avatar",
+          id: "avatar-field",
+          required: true,
+        },
+      },
+    }
+  },
+
+  methods: {
+    emitInputUser() {
+      this.$emit("inputUser")
+    },
+  },
 }
 </script>
 

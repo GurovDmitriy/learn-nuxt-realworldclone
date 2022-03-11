@@ -1,63 +1,87 @@
 <template>
-  <form class="form-login" method="POST" @submit.prevent="formSubmit">
-    <fieldset class="form-login__fieldset">
-      <legend class="form-login__legend visually-hidden">Login</legend>
-      <div class="form-login">
-        <template v-for="field in dataFormRegisterValid.dataUserLogin">
-          <label
-            :key="field.labelFor + field.className"
-            :for="field.labelFor"
-            class="visually-hidden"
-            >{{ field.id }}</label
-          >
-          <AppInput
-            :key="field.name + field.className"
-            :class="field.className"
-            :data-item="field"
-            class="form-login__input"
-            @input="setUserInput"
-          />
-        </template>
-      </div>
-    </fieldset>
-    <AppButton :data-item="dataButton.login" class="form-login__button"
-      >Login</AppButton
-    >
-  </form>
+  <AppForm class="form-login" :data-item="dataForm" @submitForm="login">
+    <template #default>
+      <fieldset class="form-login__fieldset">
+        <legend class="form-login__legend visually-hidden">Login</legend>
+        <label class="form-login__label visually-hidden" for="email-field"
+          >Email</label
+        >
+        <AppInput
+          class="form-login__input form-login__input--email"
+          :data-item="dataInput.email"
+          @input="setUserInput"
+        />
+        <label class="form-login__label visually-hidden" for="password-field"
+          >Password</label
+        >
+        <AppInput
+          class="form-login__input form-login__input--password"
+          :data-item="dataInput.password"
+          @input="setUserInput"
+        />
+      </fieldset>
+    </template>
+
+    <template #box-btn>
+      <AppButton
+        class="form-login__btn form-login__btn--login"
+        :data-item="dataBtn.login"
+        >Login</AppButton
+      >
+    </template>
+  </AppForm>
 </template>
 
 <script>
-import FormSignMixin from "~/mixins/formSignMixin"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
-  mixins: [FormSignMixin],
-
   data() {
     return {
-      dataUserInput: {
-        email: "",
-        password: "",
+      dataForm: {
+        method: "POST",
+        action: "",
       },
 
-      dataButton: {
-        login: {
-          type: "submit",
+      dataInput: {
+        email: {
+          name: "email",
+          type: "email",
+          placeholder: "Email",
+          id: "email-field",
+          required: true,
         },
+
+        password: {
+          name: "password",
+          type: "password",
+          placeholder: "Password",
+          id: "password-field",
+          required: true,
+        },
+      },
+
+      dataBtn: {
+        login: { type: "submit" },
+      },
+
+      dataField: {
+        email: "",
+        password: "",
       },
     }
   },
 
   methods: {
-    async formSubmit() {
-      await this.$store.dispatch(actionTypesAuth.login, this.dataUserInput)
+    async login() {
+      await this.$store.dispatch(actionTypesAuth.login, this.dataField)
     },
 
     setUserInput(evt) {
       const name = evt.target.name
       const value = evt.target.value
 
-      this.dataUserInput[name] = value
+      this.dataField[name] = value
     },
   },
 }

@@ -3,29 +3,74 @@
     <legend class="form-register-part-1__legend visually-hidden">
       User Personal Data
     </legend>
-    <div class="form-register-part-1">
-      <template v-for="field in dataFormRegisterValid.dataUserPersonal">
-        <label
-          :key="field.labelFor + field.className"
-          :for="field.labelFor"
-          class="visually-hidden"
-        ></label>
-        <AppInput
-          :key="field.name + field.className"
-          :class="field.className"
-          :data-item="field"
-          @input="emitUserInput"
-        />
-      </template>
-    </div>
+    <label
+      class="form-register-part-1__label visually-hidden"
+      for="username-field"
+      >Username</label
+    >
+    <AppInput
+      class="form-register-part-1__input form-register-part-1__input--username"
+      :data-item="dataInput.username"
+      @input="emitInputUser"
+    />
+    <label class="form-register-part-1__label visually-hidden" for="email-field"
+      >Email</label
+    >
+    <AppInput
+      class="form-register-part-1__input form-register-part-1__input--email"
+      :data-item="dataInput.email"
+      @input="emitInputUser"
+    />
+    <label
+      class="form-register-part-1__label visually-hidden"
+      for="password-field"
+      >Password</label
+    >
+    <AppInput
+      class="form-register-part-1__input form-register-part-1__input--password"
+      :data-item="dataInput.password"
+      @input="emitInputUser"
+    />
   </fieldset>
 </template>
 
 <script>
-import FormSignMixin from "~/mixins/formSignMixin"
-
 export default {
-  mixins: [FormSignMixin],
+  data() {
+    return {
+      dataInput: {
+        username: {
+          name: "username",
+          type: "text",
+          placeholder: "Username",
+          id: "username-field",
+          required: true,
+        },
+
+        email: {
+          name: "email",
+          type: "email",
+          placeholder: "Email",
+          id: "email-field",
+          required: true,
+        },
+
+        password: {
+          name: "password",
+          type: "password",
+          placeholder: "Password",
+          id: "password-field",
+          required: true,
+        },
+      },
+    }
+  },
+
+  methods: {
+    emitInputUser() {
+      this.$emit("inputUser")
+    },
+  },
 }
 </script>
 

@@ -1,30 +1,35 @@
 <template>
-  <form class="form-register" method="POST" @submit.prevent="formSubmit">
-    <KeepAlive>
-      <Component
-        :is="activePart"
-        class="form-register__fieldset"
-        @userInput="setUserInput"
-      />
-    </KeepAlive>
-    <div class="form-register__box-button">
-      <AppButton
-        v-if="showBtns.prev"
-        :data-item="dataButton.prev"
-        @clickBtn="partPrev"
-        >Prev</AppButton
-      >
-      <AppButton
-        v-if="showBtns.next"
-        :data-item="dataButton.next"
-        @clickBtn="partNext"
-        >Next</AppButton
-      >
-      <AppButton v-if="showBtns.register" :data-item="dataButton.register"
-        >Register</AppButton
-      >
-    </div>
-  </form>
+  <AppForm class="form-register" :data-item="dataForm" @submitForm="register">
+    <template #default>
+      <KeepAlive>
+        <Component
+          :is="activePart"
+          class="form-register__fieldset"
+          @inputUser="setInputUser"
+        />
+      </KeepAlive>
+    </template>
+
+    <template #box-btn>
+      <div class="form-register__box-button">
+        <AppButton
+          v-if="showBtns.prev"
+          :data-item="dataBtn.prev"
+          @clickBtn="partPrev"
+          >Prev</AppButton
+        >
+        <AppButton
+          v-if="showBtns.next"
+          :data-item="dataBtn.next"
+          @clickBtn="partNext"
+          >Next</AppButton
+        >
+        <AppButton v-if="showBtns.register" :data-item="dataBtn.register"
+          >Register</AppButton
+        >
+      </div>
+    </template>
+  </AppForm>
 </template>
 
 <script>
@@ -33,13 +38,18 @@ import { actionTypes as actionTypesAuth } from "~/store/auth"
 export default {
   data() {
     return {
+      dataForm: {
+        method: "POST",
+        action: "",
+      },
+
       dataFormPart: {
         baseName: "TheFormRegisterPart",
         list: [1, 2],
         active: 0,
       },
 
-      dataUserInput: {
+      dataField: {
         username: "",
         email: "",
         password: "",
@@ -48,9 +58,7 @@ export default {
         avatar: "",
       },
 
-      dataUserInputDefault: {},
-
-      dataButton: {
+      dataBtn: {
         prev: { type: "button" },
         next: { type: "button" },
         register: { type: "submit" },
@@ -82,10 +90,6 @@ export default {
     },
   },
 
-  mounted() {
-    this.dataUserInputDefault = { ...this.dataUserInput }
-  },
-
   methods: {
     partPrev() {
       const active = this.dataFormPart.active
@@ -102,15 +106,15 @@ export default {
       this.dataFormPart.active += 1
     },
 
-    async formSubmit() {
-      await this.$store.dispatch(actionTypesAuth.register, this.dataUserInput)
+    async register() {
+      await this.$store.dispatch(actionTypesAuth.register, this.dataField)
     },
 
-    setUserInput(evt) {
+    setInputUser(evt) {
       const name = evt.target.name
       const value = evt.target.value
 
-      this.dataUserInput[name] = value
+      this.dataField[name] = value
     },
   },
 }
