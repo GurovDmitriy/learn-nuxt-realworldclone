@@ -11,6 +11,7 @@
           >Avatar</label
         >
         <AppInput
+          v-model="dataField.avatar"
           class="form-settings__input form-settings__input--avatar"
           :data-item="dataInput.avatar"
         />
@@ -18,6 +19,7 @@
           >Username</label
         >
         <AppInput
+          v-model="dataField.username"
           class="form-settings__input form-settings__input--username"
           :data-item="dataInput.username"
         />
@@ -25,6 +27,7 @@
           >Email</label
         >
         <AppInput
+          v-model="dataField.email"
           class="form-settings__input form-settings__input--email"
           :data-item="dataInput.email"
         />
@@ -32,6 +35,7 @@
           >Password</label
         >
         <AppInput
+          v-model="dataField.password"
           class="form-settings__input form-settings__input--password"
           :data-item="dataInput.password"
         />
@@ -49,7 +53,11 @@
 </template>
 
 <script>
+import FormMixin from "~/mixins/formMixin"
+
 export default {
+  mixins: [FormMixin],
+
   data() {
     return {
       dataForm: {
@@ -109,6 +117,7 @@ export default {
     updateSettings() {
       // eslint-disable-next-line no-console
       console.log("update settings", this.dataField)
+      this.resetForm()
     },
   },
 }

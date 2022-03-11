@@ -7,17 +7,17 @@
           >Email</label
         >
         <AppInput
+          v-model="dataField.email"
           class="form-login__input form-login__input--email"
           :data-item="dataInput.email"
-          @input="setUserInput"
         />
         <label class="form-login__label visually-hidden" for="password-field"
           >Password</label
         >
         <AppInput
+          v-model="dataField.password"
           class="form-login__input form-login__input--password"
           :data-item="dataInput.password"
-          @input="setUserInput"
         />
       </fieldset>
     </template>
@@ -33,9 +33,12 @@
 </template>
 
 <script>
+import FormMixin from "~/mixins/formMixin"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
+  mixins: [FormMixin],
+
   data() {
     return {
       dataForm: {
@@ -75,13 +78,7 @@ export default {
   methods: {
     async login() {
       await this.$store.dispatch(actionTypesAuth.login, this.dataField)
-    },
-
-    setUserInput(evt) {
-      const name = evt.target.name
-      const value = evt.target.value
-
-      this.dataField[name] = value
+      this.resetForm()
     },
   },
 }
@@ -115,7 +112,9 @@ export default {
   padding: 0;
 }
 
-.form-login__button {
-  margin-left: auto;
+.form-login__btn {
+  &--login {
+    margin-left: auto;
+  }
 }
 </style>

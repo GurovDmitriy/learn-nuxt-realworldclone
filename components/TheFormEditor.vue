@@ -7,6 +7,7 @@
           >Title</label
         >
         <AppInput
+          v-model="dataField.title"
           class="form-editor__input form-editor__input--title"
           :data-item="dataInput.title"
         />
@@ -14,6 +15,7 @@
           >About</label
         >
         <AppInput
+          v-model="dataField.about"
           class="form-editor__input form-editor__input--about"
           :data-item="dataInput.about"
         />
@@ -21,24 +23,34 @@
           >Tags</label
         >
         <AppInput
+          v-model="dataField.tags"
           class="form-editor__input form-editor__input--tags"
           :data-item="dataInput.tags"
+        />
+        <appInputTextarea
+          v-model="dataField.content"
+          class="form-editor__input form-editor__input--content"
+          :data-item="dataInput.content"
         />
       </fieldset>
     </template>
 
     <template #box-btn>
       <AppButton
-        class="form-editor__btn form-editor__btn--update"
-        :data-item="dataBtn.update"
-        >Update</AppButton
+        class="form-editor__btn form-editor__btn--create"
+        :data-item="dataBtn.create"
+        >Create</AppButton
       >
     </template>
   </AppForm>
 </template>
 
 <script>
+import FormMixin from "~/mixins/formMixin"
+
 export default {
+  mixins: [FormMixin],
+
   data() {
     return {
       dataForm: {
@@ -65,9 +77,16 @@ export default {
           required: true,
         },
 
+        content: {
+          name: "content",
+          placeholder: "Content",
+          id: "content-field",
+          required: true,
+        },
+
         tags: {
           name: "tags",
-          type: "tags",
+          type: "text",
           placeholder: "Tags",
           id: "tags-field",
           maxlength: 20,
@@ -76,14 +95,17 @@ export default {
       },
 
       dataBtn: {
-        update: { type: "submit" },
+        create: { type: "submit" },
       },
 
       dataField: {
         title: "",
         about: "",
+        content: "",
         tags: "",
       },
+
+      dataFieldDefault: {},
     }
   },
 
@@ -91,6 +113,7 @@ export default {
     createFeed() {
       // eslint-disable-next-line no-console
       console.log("create feed", this.dataField)
+      this.resetForm()
     },
   },
 }
@@ -110,7 +133,7 @@ export default {
 }
 
 .form-editor__btn {
-  &--update {
+  &--create {
     margin-left: auto;
   }
 }

@@ -11,7 +11,8 @@
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--username"
       :data-item="dataInput.username"
-      @input="emitInputUser"
+      :value="dataItem.username"
+      @input="emitInputUser($event, 'username')"
     />
     <label class="form-register-part-1__label visually-hidden" for="email-field"
       >Email</label
@@ -19,7 +20,8 @@
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--email"
       :data-item="dataInput.email"
-      @input="emitInputUser"
+      :value="dataItem.email"
+      @input="emitInputUser($event, 'email')"
     />
     <label
       class="form-register-part-1__label visually-hidden"
@@ -29,13 +31,21 @@
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--password"
       :data-item="dataInput.password"
-      @input="emitInputUser"
+      :value="dataItem.password"
+      @input="emitInputUser($event, 'password')"
     />
   </fieldset>
 </template>
 
 <script>
 export default {
+  props: {
+    dataItem: {
+      type: Object,
+      required: true,
+    },
+  },
+
   data() {
     return {
       dataInput: {
@@ -67,8 +77,8 @@ export default {
   },
 
   methods: {
-    emitInputUser() {
-      this.$emit("inputUser")
+    emitInputUser(value, nameField) {
+      this.$emit("inputUser", { value, nameField })
     },
   },
 }

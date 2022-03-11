@@ -1,33 +1,22 @@
 <template>
-  <div class="input">
-    <input
-      v-bind="$attrs"
-      :id="dataItemValid.id"
-      :value="value"
-      :type="dataItemValid.type"
-      :name="dataItemValid.name"
-      :placeholder="dataItemValid.placeholder"
-      :maxlength="dataItem.maxlength"
-      :required="dataItem.required"
-      :class="classItem.inputBoxIcon"
-      class="input__field"
-      v-on="listeners"
-    />
-    <div v-if="dataItem.iconName" class="input__box-icon">
-      <SvgIcon
-        class="input__icon"
-        :name="dataItemValid.iconName"
-        :desc="dataItemValid.iconDesc"
-      />
-    </div>
-  </div>
+  <textarea
+    v-bind="$attrs"
+    :id="dataItemValid.id"
+    :value="value"
+    :name="dataItemValid.name"
+    :placeholder="dataItemValid.placeholder"
+    :maxlength="dataItem.maxlength"
+    :required="dataItem.required"
+    class="textarea"
+    v-on="listeners"
+  ></textarea>
 </template>
 
 <script>
 export default {
   props: {
     value: {
-      type: [String, Number],
+      type: String,
       required: false,
       default: "",
     },
@@ -36,15 +25,12 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // value
         // name        - string name input
         // type        - string type input
         // placeholder - string placeholder
         // id          - string id
         // maxlength   - number maxlength value
         // required    - boolean required
-        // iconName    - string name icon
-        // iconDesc    - string icon description
       }),
     },
   },
@@ -52,23 +38,17 @@ export default {
   computed: {
     dataItemValid() {
       const name = this.dataItem.name || ""
-      const type = this.dataItem.type || "text"
       const placeholder = this.dataItem.placeholder || "Placeholder"
       const id = this.dataItem.id || ""
-      const maxlength = this.dataItem.maxlength || 100
+      const maxlength = this.dataItem.maxlength || 500
       const required = this.dataItem.required || false
-      const iconName = this.dataItem.iconName || "pencil-square"
-      const iconDesc = this.dataItem.iconDesc || "icon"
 
       return {
         name,
-        type,
         placeholder,
         id,
         maxlength,
         required,
-        iconName,
-        iconDesc,
       }
     },
 
@@ -82,14 +62,6 @@ export default {
         input,
         focus,
         blur,
-      }
-    },
-
-    classItem() {
-      return {
-        inputBoxIcon: {
-          "input__field--active": this.dataItem.iconName,
-        },
       }
     },
   },
@@ -114,47 +86,21 @@ export default {
 </script>
 
 <style lang="scss">
-.input {
-  position: relative;
-}
-
-.input__field {
+.textarea {
   display: block;
   width: 100%;
+  height: 200px;
+  min-height: 100px;
+  max-height: 300px;
   padding: $space-m $space-l;
 
   border: 1px solid $var-color-default;
   border-radius: 4px;
 
+  resize: vertical;
+
   &::placeholder {
     color: $var-color-default;
   }
-
-  &--active {
-    padding-right: $space-xxl;
-  }
-}
-
-.input__box-icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  width: 50px;
-  height: 100%;
-
-  pointer-events: none;
-}
-
-.input__icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: $space-l;
-
-  color: $var-color-default;
-
-  transform: translate(-50%, -50%);
 }
 </style>

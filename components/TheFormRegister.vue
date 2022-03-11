@@ -4,8 +4,9 @@
       <KeepAlive>
         <Component
           :is="activePart"
+          :data-item="dataField"
           class="form-register__fieldset"
-          @inputUser="setInputUser"
+          @inputUser="setDataField"
         />
       </KeepAlive>
     </template>
@@ -33,9 +34,12 @@
 </template>
 
 <script>
+import FormMixin from "~/mixins/formMixin"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
+  mixins: [FormMixin],
+
   data() {
     return {
       dataForm: {
@@ -108,13 +112,11 @@ export default {
 
     async register() {
       await this.$store.dispatch(actionTypesAuth.register, this.dataField)
+      this.resetForm()
     },
 
-    setInputUser(evt) {
-      const name = evt.target.name
-      const value = evt.target.value
-
-      this.dataField[name] = value
+    setDataField({ value, nameField }) {
+      this.dataField[nameField] = value
     },
   },
 }
