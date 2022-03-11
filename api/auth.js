@@ -10,4 +10,8 @@ export default (axios) => ({
   getUser(payload) {
     return axios.$get(`/usersList/${payload}`)
   },
+
+  updateUser(payload) {
+    return axios.$put(`/users/${payload.id}`, payload)
+  },
 })

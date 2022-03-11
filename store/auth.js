@@ -21,6 +21,7 @@ export const actionTypes = {
   login: "[auth] login",
   logout: "[auth] logout",
   fetchUser: "[auth] fetchUser",
+  updateUser: "[auth] updateUser",
 }
 
 export const state = () => ({
@@ -124,6 +125,22 @@ const actions = {
 
     try {
       const data = await this.$api.auth.getUser(payload)
+
+      commit(mutationTypes.setUserSuccess, data)
+      return data
+    } catch (err) {
+      commit(mutationTypes.setUserFailure, err)
+      // throw new Error(err)
+    }
+  },
+
+  async [actionTypes.updateUser]({ commit }, payload) {
+    commit(mutationTypes.setUserStart)
+
+    try {
+      const data = await this.$api.auth.updateUser(payload)
+
+      console.log(data)
 
       commit(mutationTypes.setUserSuccess, data)
       return data

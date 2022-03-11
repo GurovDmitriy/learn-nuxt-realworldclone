@@ -53,11 +53,13 @@
 </template>
 
 <script>
-import FormMixin from "~/mixins/formMixin"
+import { mapGetters } from "vuex"
+import {
+  getterTypes as getterTypesAuth,
+  actionTypes as actionTypesAuth,
+} from "~/store/auth"
 
 export default {
-  mixins: [FormMixin],
-
   data() {
     return {
       dataForm: {
@@ -105,6 +107,9 @@ export default {
       },
 
       dataField: {
+        id: null,
+        firstname: "",
+        lastname: "",
         avatar: "",
         username: "",
         email: "",
@@ -113,11 +118,20 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters({
+      currentUser: getterTypesAuth.currentUser,
+    }),
+  },
+
+  mounted() {
+    this.dataField = { ...this.currentUser }
+  },
+
   methods: {
-    updateSettings() {
-      // eslint-disable-next-line no-console
-      console.log("update settings", this.dataField)
-      this.resetForm()
+    async updateSettings() {
+      await this.$store.dispatch(actionTypesAuth.updateUser, this.dataField)
+      console.log(this.dataField)
     },
   },
 }
