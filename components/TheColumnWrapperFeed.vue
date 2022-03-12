@@ -3,11 +3,11 @@
     <h3 class="column-wrapper-feed__caption visually-hidden">Article</h3>
     <AppLoading v-if="feedIsLoading" class="column-wrapper-feed__loading" />
     <AppRefresh
-      v-else-if="feedErrors"
+      v-if="feedErrors"
       class="column-wrapper-feed__refresh"
       @refreshData="refreshFeed"
     />
-    <AppFeed v-else :data-item="feed" class="column-wrapper-feed__feed" />
+    <AppFeed v-if="feed" :data-item="feed" class="column-wrapper-feed__feed" />
   </section>
 </template>
 

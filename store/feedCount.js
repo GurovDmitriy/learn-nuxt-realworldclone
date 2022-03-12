@@ -17,6 +17,8 @@ export const state = () => ({
 const mutations = {
   [mutationTypes.setFeedCountStart](state) {
     state.isLoading = true
+    state.feedCount = null
+    state.errors = null
   },
 
   [mutationTypes.setFeedCountSuccess](state, payload) {

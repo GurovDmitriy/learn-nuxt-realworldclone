@@ -9,7 +9,7 @@ export const actionTypes = {
 }
 
 export const state = () => ({
-  user: {},
+  user: null,
   isLoading: false,
   errors: null,
 })
@@ -18,6 +18,7 @@ const mutations = {
   [mutationTypes.setUserStart](state) {
     state.isLoading = true
     state.user = null
+    state.errors = null
   },
 
   [mutationTypes.setUserSuccess](state, payload) {

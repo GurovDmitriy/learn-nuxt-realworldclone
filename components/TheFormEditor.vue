@@ -46,7 +46,9 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
 import FormMixin from "~/mixins/formMixin"
+import { getterTypes as getterTypesAuth } from "~/store/auth"
 
 export default {
   mixins: [FormMixin],
@@ -90,7 +92,7 @@ export default {
           placeholder: "Tags",
           id: "tags-field",
           maxlength: 20,
-          required: true,
+          required: false,
         },
       },
 
@@ -109,10 +111,24 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters({
+      currentUser: getterTypesAuth.currentUser,
+    }),
+  },
+
   methods: {
     createFeed() {
+      const userId = this.currentUser.id
+      const time = Date.now()
+      const tags = []
+      const like = []
+
+      const feed = { userId, time, tags, like }
+      const newFeed = Object.assign({}, this.dataField, feed)
+
       // eslint-disable-next-line no-console
-      console.log("create feed", this.dataField)
+      console.log("create feed", newFeed)
       this.resetForm()
     },
   },

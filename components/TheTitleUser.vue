@@ -1,15 +1,9 @@
 <template>
   <div class="title-user">
-    <AppLoading v-if="userIsLoading" class="title-user__loading" />
-    <AppRefresh
-      v-else-if="userErrors"
-      class="title-user__error"
-      @clickBtn="refreshData"
-    />
-    <template v-else>
+    <template v-if="userData">
       <AppImage class="title-user__img" :data-item="dataImage" />
-      <h3 class="title-user__username">{{ userDataValid.username }}</h3>
-      <p class="title-user__name">{{ userDataValid.name }}</p>
+      <h3 class="title-user__username">{{ userDataComp.username }}</h3>
+      <p class="title-user__name">{{ userDataComp.name }}</p>
     </template>
   </div>
 </template>
@@ -35,8 +29,8 @@ export default {
       userErrors: ({ user }) => user.errors,
     }),
 
-    userDataValid() {
-      const username = this.userData.username || "Unknown Author"
+    userDataComp() {
+      const username = this.userData.username
       const name = `${this.userData.firstname} ${this.userData.lastname}`
 
       return {
@@ -47,7 +41,7 @@ export default {
 
     dataImage() {
       const imageSrc = this.userData.avatar || null
-      const imageAlt = this.userData.username || "Unknown Author"
+      const imageAlt = this.userData.username
       const imageWidth = this.imageBlockConfig.imageWidth
       const imageHeight = this.imageBlockConfig.imageHeight
       const imagePlaceholderName = this.imageBlockConfig.imagePlaceholderName

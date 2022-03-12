@@ -39,7 +39,7 @@ function createDefaultUser(state) {
   const defaultUser = {
     id: 1,
     role: "admin",
-    username: "admin",
+    username: "Admin",
     firstname: casual.first_name,
     lastname: casual.last_name,
     avatar: "https://i.pravatar.cc/100?img=1",

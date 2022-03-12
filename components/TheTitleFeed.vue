@@ -1,12 +1,6 @@
 <template>
   <div class="title-feed">
-    <AppLoading v-if="userIsLoading" class="title-feed__loading" />
-    <AppRefresh
-      v-else-if="userErrors"
-      class="title-feed__error"
-      @clickBtn="refreshData"
-    />
-    <template v-else>
+    <template v-if="feed && userData">
       <h3 class="title-feed__caption">{{ feed.title }}</h3>
       <AppAuthor :data-item="dataAuthor" class="title-feed__author" />
     </template>

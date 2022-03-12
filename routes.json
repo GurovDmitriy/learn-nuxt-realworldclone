@@ -1,8 +1,8 @@
 {
   "/users*": "/644/users$1",
   "/usersList*": "/444/usersList$1",
-  "/feed*": "/444/feed$1",
+  "/feed*": "/664/feed$1",
   "/feedCount*": "/444/feedCount$1",
   "/feedList*": "/444/feedList$1",
-  "/tags*": "/444/tags$1"
+  "/tags*": "/664/tags$1"
 }

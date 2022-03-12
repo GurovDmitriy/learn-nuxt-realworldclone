@@ -17,6 +17,8 @@ export const state = () => ({
 const mutations = {
   [mutationTypes.setTagsStart](state) {
     state.isLoading = true
+    state.tagsList = null
+    state.errors = null
   },
 
   [mutationTypes.setTagsSuccess](state, payload) {

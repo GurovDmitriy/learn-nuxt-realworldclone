@@ -44,8 +44,7 @@ export default {
       let data = []
 
       const username = this.currentUser?.username
-      const user =
-        { content: `${username}`, path: `/users/${username}` } || null
+      const user = { content: `${username}`, path: `/users/${username}` }
 
       if (this.isLoggedIn && user) {
         data = getConfig(configLogged, this.dataNavList)

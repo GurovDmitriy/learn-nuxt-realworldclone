@@ -8,12 +8,12 @@
         >Loading tags...</AppLoading
       >
       <AppRefresh
-        v-else-if="tagsListErrors"
+        v-if="tagsListErrors"
         class="column-wrapper-main-right__refresh"
         @refreshData="refreshTagsList"
       />
       <AppTagsList
-        v-else
+        v-if="tagsList"
         :data-item="tagsList"
         class="column-wrapper-main-right__tags-list"
       />

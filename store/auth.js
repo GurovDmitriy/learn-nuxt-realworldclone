@@ -55,6 +55,7 @@ const mutations = {
     state.isSubmitting = true
     state.isLoading = true
     state.user = null
+    state.errors = null
   },
 
   [mutationTypes.setUserSuccess](state, payload) {
@@ -139,8 +140,8 @@ const actions = {
 
     try {
       const res = await this.$api.auth.updateUser(payload)
-      const { avatar, email, firstname, lastname, username, id } = res
-      const data = { avatar, email, firstname, lastname, username, id }
+      const { avatar, email, firstname, lastname, username, role, id } = res
+      const data = { avatar, email, firstname, lastname, username, role, id }
 
       commit(mutationTypes.setUserSuccess, data)
       return data

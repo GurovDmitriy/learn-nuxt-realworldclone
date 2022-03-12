@@ -3,6 +3,7 @@
     <h2 class="main__caption visually-hidden">Main Content</h2>
     <TheColumnWrapperUser class="main__column-wrapper" />
     <AppPaginatorList
+      v-if="feedCount"
       class="main__paginator-list"
       :data-item="dataPaginatorListComp"
     />

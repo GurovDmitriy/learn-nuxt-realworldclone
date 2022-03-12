@@ -11,20 +11,21 @@
       class="column-wrapper-main-left__placeholder"
     />
     <AppRefresh
-      v-else-if="feedListErrors"
+      v-if="feedListErrors"
       class="column-wrapper-main-left__refresh"
       @refreshData="refreshFeedList"
     />
     <AppFeedList
-      v-else-if="feedList.length"
+      v-if="feedList"
       :data-item="feedList"
       class="column-wrapper-main-left__feed-list"
     />
-    <AppNoContent v-else class="column-wrapper-main-left__no-content" />
     <AppPaginatorList
+      v-if="feedCount && dataPaginatorCount"
       class="main__paginator-list"
       :data-item="dataPaginatorListComp"
     />
+    <AppNoContent v-else class="column-wrapper-main-left__no-content" />
   </section>
 </template>
 
@@ -76,6 +77,18 @@ export default {
     },
 
     dataPaginatorListComp() {
+      const delim = paginator.itemPerPage
+      const count = this.dataPaginatorCount
+      const pagePath = this.$route.path
+      const pageCount = getArrRange(1, Math.ceil(count / delim))
+
+      return {
+        pagePath,
+        pageCount,
+      }
+    },
+
+    dataPaginatorCount() {
       let filter = ""
 
       if (this.$route.path === "/your" && isNotEmptyObj(this.currentUser)) {
@@ -84,24 +97,17 @@ export default {
         filter = this.$route.params.tag || "total"
       }
 
-      const delim = paginator.itemPerPage
       let count = null
 
       if (filter === this.currentUser?.username) {
-        count = this.feedCount.byUser[filter] || 1
+        count = this.feedCount.byUser[filter]
       } else if (filter === "total") {
         count = this.feedCount[filter]
       } else {
         count = this.feedCount.byTag[filter]
       }
 
-      const pagePath = this.$route.path
-      const pageCount = getArrRange(1, Math.ceil(count / delim))
-
-      return {
-        pagePath,
-        pageCount,
-      }
+      return count
     },
   },
 

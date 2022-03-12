@@ -11,12 +11,12 @@
       class="column-wrapper-user__placeholder"
     />
     <AppRefresh
-      v-else-if="feedListErrors"
+      v-if="feedListErrors"
       class="column-wrapper-user__refresh"
       @refreshData="refreshFeedList"
     />
     <AppFeedList
-      v-else-if="feedList.length"
+      v-if="feedList"
       :data-item="feedList"
       class="column-wrapper-user__feed-list"
     />
