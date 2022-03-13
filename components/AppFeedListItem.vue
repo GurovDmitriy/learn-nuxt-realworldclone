@@ -1,7 +1,7 @@
 <template>
   <li class="feed-list-item">
     <AppFeedListItemHeader
-      :data-item="feedListItemHeader"
+      :data-item="dataItem"
       class="feed-list-item__header"
     />
     <AppFeedListItemPreview
@@ -9,44 +9,18 @@
       class="feed-list-item__preview"
     />
     <AppFeedListItemFooter
-      :data-item="feedListItemFooter"
+      :data-item="dataItem"
       class="feed-list-item__footer"
     />
   </li>
 </template>
 
 <script>
-import { getKebabStr } from "~/helpers/utils"
-
 export default {
   props: {
     dataItem: {
       type: Object,
       required: true,
-    },
-  },
-
-  computed: {
-    feedListItemHeader() {
-      const author = this.dataItem.author
-      const like = this.dataItem.like.length
-
-      return {
-        author,
-        like,
-      }
-    },
-
-    feedListItemFooter() {
-      const id = this.dataItem.id
-      const tags = this.dataItem.tags
-      const feedDetailPath = `/feed/${getKebabStr(this.dataItem.feed.title)}`
-
-      return {
-        id,
-        tags,
-        feedDetailPath,
-      }
     },
   },
 }

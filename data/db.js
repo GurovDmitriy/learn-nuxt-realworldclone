@@ -6,13 +6,13 @@ const USERS_COUNT = 10
 // global state
 
 const stateDataBase = {
-  feed: [],
-  tags: [],
   users: [],
+  feeds: [],
+  tags: [],
   // getters
-  feedCount: {},
+  userList: [],
   feedList: [],
-  usersList: [],
+  feedCount: {},
 }
 
 // core
@@ -53,7 +53,15 @@ function createDefaultUser(state) {
 }
 
 function createDefaultTags(state) {
-  const defaultTags = ["welcome", "introduction", "nuxt", "learn", "javascript"]
+  const tagsList = ["welcome", "introduction", "nuxt", "learn", "javascript"]
+  const defaultTags = []
+  tagsList.forEach((item, index) => {
+    defaultTags.push({
+      id: index + 1,
+      tag: item,
+    })
+  })
+
   state.tags = defaultTags
 
   return state
@@ -82,8 +90,8 @@ function createUsers(state) {
   return state
 }
 
-function createUsersList(state) {
-  Object.defineProperty(state, "usersList", {
+function createUserList(state) {
+  Object.defineProperty(state, "userList", {
     get() {
       const data = state.users.map((item) => {
         const id = item.id
@@ -112,14 +120,14 @@ function createUsersList(state) {
   return state
 }
 
-function createFeed(state) {
+function createFeeds(state) {
   for (let i = 1; i <= FEED_COUNT; i++) {
     const userIdRandom = randomInteger(1, USERS_COUNT)
     const tagsRandom = []
     const tagsRandomCount = randomInteger(1, state.tags.length)
 
     for (let i = 0; i < tagsRandomCount; i++) {
-      const randomTag = state.tags[randomInteger(0, state.tags.length - 1)]
+      const randomTag = state.tags[randomInteger(0, state.tags.length - 1)].tag
       if (tagsRandom.findIndex((item) => item === randomTag) !== -1) continue
       tagsRandom.push(randomTag)
     }
@@ -134,7 +142,7 @@ function createFeed(state) {
       }
     }
 
-    state.feed.push({
+    state.feeds.push({
       id: i,
       userId: userIdRandom,
       title: casual.title,
@@ -152,7 +160,7 @@ function createFeed(state) {
 function createFeedList(state) {
   Object.defineProperty(state, "feedList", {
     get() {
-      const data = this.feed.map((item) => {
+      const data = this.feeds.map((item) => {
         const user = state.users.filter((elem) => elem.id === item.userId)
 
         const id = item.id
@@ -191,7 +199,7 @@ function createFeedCount(state) {
   Object.defineProperty(state, "feedCount", {
     get() {
       const data = {
-        total: state.feed.length,
+        total: state.feeds.length,
         byTag: {},
         byUser: {},
         byLike: {},
@@ -200,15 +208,16 @@ function createFeedCount(state) {
       // by tag
 
       state.tags.forEach((item) => {
-        const count = getFeedListCountByTag(item)
+        const tag = item.tag
+        const count = getFeedListCountByTag(tag)
 
-        data.byTag[item] = count
+        data.byTag[tag] = count
       })
 
       function getFeedListCountByTag(tag) {
         let count = 0
 
-        state.feed.forEach((item) => {
+        state.feeds.forEach((item) => {
           if (item.tags.findIndex((elem) => elem === tag) !== -1) {
             count += 1
           }
@@ -227,7 +236,7 @@ function createFeedCount(state) {
       })
 
       function getCountFeedByUser(id) {
-        const data = state.feed.filter((item) => item.userId === id)
+        const data = state.feeds.filter((item) => item.userId === id)
         return data.length
       }
 
@@ -241,7 +250,7 @@ function createFeedCount(state) {
       })
 
       function getCountFeedByLike(id) {
-        const data = state.feed.filter((item) => {
+        const data = state.feeds.filter((item) => {
           if (item.like.find((item) => item === id)) {
             return item
           }
@@ -269,8 +278,8 @@ function generateDataBase() {
     createDefaultUser,
     createDefaultTags,
     createUsers,
-    createUsersList,
-    createFeed,
+    createUserList,
+    createFeeds,
     createFeedList,
     createFeedCount,
     setResult

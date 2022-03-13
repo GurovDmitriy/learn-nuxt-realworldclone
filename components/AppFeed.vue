@@ -1,8 +1,8 @@
 <template>
   <div class="feed">
-    <p class="feed__content">{{ dataItem.content }}</p>
+    <p class="feed__content">{{ dataItemValid.content }}</p>
     <AppTagsList
-      :data-item="dataItem.tags"
+      :data-item="dataItemValid.tags"
       class="feed-list-item-footer__tags-list"
     />
   </div>
@@ -13,7 +13,23 @@ export default {
   props: {
     dataItem: {
       type: Object,
-      required: true,
+      required: false,
+      default: () => ({
+        // content - string content feed
+        // tags    - array tags list
+      }),
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const content = this.dataItem.content || "Nothing here yet..."
+      const tags = this.dataItem.tags || ["no-tag"]
+
+      return {
+        content,
+        tags,
+      }
     },
   },
 }

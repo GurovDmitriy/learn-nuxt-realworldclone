@@ -2,24 +2,38 @@
   <div class="feed-list-item-footer">
     <NuxtLink
       :to="{
-        path: dataItem.feedDetailPath,
+        path: dataItemValid.feedDetailPath,
       }"
       class="feed-list-item-footer__read-more"
       >Read more...</NuxtLink
     >
     <AppTagsList
-      :data-item="dataItem.tags"
+      :data-item="dataItemValid.tags"
       class="feed-list-item-footer__tags-list"
     />
   </div>
 </template>
 
 <script>
+import { getKebabStr } from "~/helpers/utils"
+
 export default {
   props: {
     dataItem: {
       type: Object,
       required: true,
+    },
+  },
+
+  computed: {
+    dataItemValid() {
+      const tags = this.dataItem.tags
+      const feedDetailPath = `/feed/${getKebabStr(this.dataItem.feed.title)}`
+
+      return {
+        tags,
+        feedDetailPath,
+      }
     },
   },
 }

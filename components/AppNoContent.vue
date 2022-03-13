@@ -1,6 +1,6 @@
 <template>
   <div class="no-content">
-    <p class="no-content__caption"><slot name="default">No сontent</slot></p>
+    <p class="no-content__caption"><slot name="default">No content</slot></p>
     <p class="no-content__message">
       <slot name="message">nothing here yet...</slot>
     </p>

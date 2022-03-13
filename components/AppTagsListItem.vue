@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { isNotEmptyStr } from "~/helpers/utils"
+
 export default {
   props: {
     dataItem: {
@@ -20,9 +22,9 @@ export default {
 
   computed: {
     dataItemValid() {
-      const str = this.dataItem || "all"
+      const tag = isNotEmptyStr(this.dataItem) ? this.dataItem : "no-tag"
 
-      return str
+      return tag
     },
   },
 }

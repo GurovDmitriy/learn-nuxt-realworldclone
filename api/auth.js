@@ -8,7 +8,7 @@ export default (axios) => ({
   },
 
   getUser(payload) {
-    return axios.$get(`/usersList/${payload}`)
+    return axios.$get(`/userList/${payload}`)
   },
 
   updateUser(payload) {

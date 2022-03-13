@@ -10,7 +10,7 @@ export default (axios) => ({
   getFeed(payload) {
     const query = isNotEmptyStr(payload) ? `?${payload}` : ""
 
-    return axios.$get(`/feed${query}`)
+    return axios.$get(`/feeds${query}`)
   },
 
   getFeedCount() {

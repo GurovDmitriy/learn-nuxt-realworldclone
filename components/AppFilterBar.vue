@@ -14,13 +14,7 @@ export default {
   props: {
     dataItem: {
       type: Array,
-      required: false,
-      default: () => [
-        // {}
-        // content   - string name path
-        // path      - string path
-        // pathExact - string for equal path exact
-      ],
+      required: true,
     },
   },
 

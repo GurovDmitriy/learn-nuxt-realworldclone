@@ -4,7 +4,7 @@
     <AppButtonIcon
       :data-item="dataButtonIcon"
       class="feed-list-item-header__button-icon"
-      >{{ dataItem.like }}</AppButtonIcon
+      >{{ dataLike }}</AppButtonIcon
     >
   </div>
 </template>
@@ -15,8 +15,6 @@ export default {
     dataItem: {
       type: Object,
       required: true,
-      // author - object data for author component
-      // like   - array data for buttonIcon component
     },
   },
 
@@ -52,6 +50,12 @@ export default {
         imageHeight,
         imagePlaceholderName,
       }
+    },
+
+    dataLike() {
+      const like = this.dataItem.like.length
+
+      return like
     },
   },
 }

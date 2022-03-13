@@ -91,7 +91,7 @@ export default {
           type: "text",
           placeholder: "Tags",
           id: "tags-field",
-          maxlength: 20,
+          maxlength: 100,
           required: false,
         },
       },
@@ -106,8 +106,6 @@ export default {
         content: "",
         tags: "",
       },
-
-      dataFieldDefault: {},
     }
   },
 
@@ -119,13 +117,34 @@ export default {
 
   methods: {
     createFeed() {
-      const userId = this.currentUser.id
-      const time = Date.now()
-      const tags = []
-      const like = []
+      const defaultFeedData = getDefaultFeedData(this.currentUser)
+      const tags = getTags(this.dataField.tags)
+      const newFeed = Object.assign({}, defaultFeedData, tags)
 
-      const feed = { userId, time, tags, like }
-      const newFeed = Object.assign({}, this.dataField, feed)
+      function getDefaultFeedData(user) {
+        const userId = user.id
+        const time = Date.now()
+        const like = []
+
+        return {
+          userId,
+          time,
+          like,
+        }
+      }
+
+      function getTags(str) {
+        const tagsArr = str.split(",")
+        const tags = tagsArr.map((item) => item.trim())
+
+        return {
+          tags,
+        }
+      }
+
+      // check repeat tag in state
+      // dispatch create tags
+      // dispatch fetch tags
 
       // eslint-disable-next-line no-console
       console.log("create feed", newFeed)

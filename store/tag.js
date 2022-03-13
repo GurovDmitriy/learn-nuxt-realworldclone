@@ -9,7 +9,7 @@ export const actionTypes = {
 }
 
 export const state = () => ({
-  tagsList: [],
+  tags: [],
   isLoading: false,
   errors: null,
 })
@@ -17,12 +17,12 @@ export const state = () => ({
 const mutations = {
   [mutationTypes.setTagsStart](state) {
     state.isLoading = true
-    state.tagsList = null
+    state.tags = null
     state.errors = null
   },
 
   [mutationTypes.setTagsSuccess](state, payload) {
-    state.tagsList = payload
+    state.tags = payload
     state.isLoading = false
   },
 

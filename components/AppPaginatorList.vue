@@ -15,10 +15,6 @@ export default {
     dataItem: {
       type: Object,
       required: true,
-      default: () => ({
-        // pageCount - array rang page count
-        // pagePath  - string path page
-      }),
     },
   },
 

@@ -57,21 +57,52 @@ export default {
     }),
 
     dataFilterBarComp() {
-      const barItems = this.dataFilterBar.map((item) => item)
+      const barItemCurrentUser = getBarItemCurrentUser(this.currentUser)
+      const barItemTag = getBarItemTag(this.$route.params.tag, this.$route.path)
 
-      if (isNotEmptyObj(this.currentUser)) {
-        barItems.push({
-          content: "Your Feed",
-          path: "/your",
-        })
+      const barItems = getBarItems(
+        ...this.dataFilterBar,
+        barItemCurrentUser,
+        barItemTag
+      )
+
+      // functions start
+
+      function getBarItemCurrentUser(user) {
+        const userCopy = { ...user }
+
+        if (isNotEmptyObj(userCopy)) {
+          return {
+            content: "Your Feed",
+            path: "/your",
+          }
+        }
+        return null
       }
 
-      if (this.$route.params.tag) {
-        barItems.push({
-          content: `# ${this.$route.params.tag}`,
-          path: this.$route.path,
-        })
+      function getBarItemTag(tag, path) {
+        if (tag) {
+          return {
+            content: `# ${tag}`,
+            path,
+          }
+        }
+        return null
       }
+
+      function getBarItems(...objs) {
+        const data = []
+
+        objs.forEach((item) => {
+          if (item) {
+            data.push(item)
+          }
+        })
+
+        return data
+      }
+
+      // functions end
 
       return barItems
     },
@@ -81,6 +112,10 @@ export default {
       const count = this.dataPaginatorCount
       const pagePath = this.$route.path
       const pageCount = getArrRange(1, Math.ceil(count / delim))
+
+      // functions start
+
+      // funcitons end
 
       return {
         pagePath,
