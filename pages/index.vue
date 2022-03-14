@@ -19,7 +19,7 @@ export default {
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
-      store.dispatch(actionTypesFeedCount.fetchFeedCount),
+      store.dispatch(actionTypesFeedCount.fetchFeedCount, "total"),
     ])
   },
 

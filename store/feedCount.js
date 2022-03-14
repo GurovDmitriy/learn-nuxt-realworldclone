@@ -33,11 +33,25 @@ const mutations = {
 }
 
 const actions = {
-  async [actionTypes.fetchFeedCount]({ commit }) {
+  async [actionTypes.fetchFeedCount]({ commit }, payload) {
     commit(mutationTypes.setFeedCountStart)
 
     try {
-      const data = await this.$api.feed.getFeedCount()
+      let data = null
+
+      switch (payload) {
+        case "tag":
+          data = await this.$api.feedCount.getFeedCountByTag()
+          break
+        case "user":
+          data = await this.$api.feedCount.getFeedCountByUser()
+          break
+        case "like":
+          data = await this.$api.feedCount.getFeedCountByLike()
+          break
+        default:
+          data = await this.$api.feedCount.getFeedCountTotal()
+      }
 
       commit(mutationTypes.setFeedCountSuccess, data)
       return data

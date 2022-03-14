@@ -6,13 +6,17 @@ const USERS_COUNT = 10
 // global state
 
 const stateDataBase = {
+  // static
   users: [],
   feeds: [],
   tags: [],
   // getters
   userList: [],
   feedList: [],
-  feedCount: {},
+  feedCountTotal: {},
+  feedCountByTag: {},
+  feedCountByUser: {},
+  feedCountByLike: {},
 }
 
 // core
@@ -195,23 +199,30 @@ function createFeedList(state) {
   return state
 }
 
-function createFeedCount(state) {
-  Object.defineProperty(state, "feedCount", {
+function createFeedCountTotal(state) {
+  Object.defineProperty(state, "feedCountTotal", {
     get() {
       const data = {
         total: state.feeds.length,
-        byTag: {},
-        byUser: {},
-        byLike: {},
       }
 
-      // by tag
+      return data
+    },
+  })
+
+  return state
+}
+
+function createFeedCountByTag(state) {
+  Object.defineProperty(state, "feedCountByTag", {
+    get() {
+      const data = {}
 
       state.tags.forEach((item) => {
         const tag = item.tag
         const count = getFeedListCountByTag(tag)
 
-        data.byTag[tag] = count
+        data[tag] = count
       })
 
       function getFeedListCountByTag(tag) {
@@ -226,13 +237,23 @@ function createFeedCount(state) {
         return count
       }
 
-      // by user
+      return data
+    },
+  })
+
+  return state
+}
+
+function createFeedCountByUser(state) {
+  Object.defineProperty(state, "feedCountByUser", {
+    get() {
+      const data = {}
 
       state.users.forEach((item) => {
         const id = item.id
         const username = item.username
 
-        data.byUser[username] = getCountFeedByUser(id)
+        data[username] = getCountFeedByUser(id)
       })
 
       function getCountFeedByUser(id) {
@@ -240,13 +261,23 @@ function createFeedCount(state) {
         return data.length
       }
 
-      // by like
+      return data
+    },
+  })
+
+  return state
+}
+
+function createFeedCountByLike(state) {
+  Object.defineProperty(state, "feedCountByLike", {
+    get() {
+      const data = {}
 
       state.users.forEach((item) => {
         const userId = item.id
         const username = item.username
 
-        data.byLike[username] = getCountFeedByLike(userId)
+        data[username] = getCountFeedByLike(userId)
       })
 
       function getCountFeedByLike(id) {
@@ -281,7 +312,10 @@ function generateDataBase() {
     createUserList,
     createFeeds,
     createFeedList,
-    createFeedCount,
+    createFeedCountTotal,
+    createFeedCountByTag,
+    createFeedCountByUser,
+    createFeedCountByLike,
     setResult
   )(stateDataBase)
 }

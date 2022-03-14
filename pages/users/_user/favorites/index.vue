@@ -32,7 +32,7 @@ export default {
 
     await Promise.allSettled([
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
-      store.dispatch(actionTypesFeedCount.fetchFeedCount),
+      store.dispatch(actionTypesFeedCount.fetchFeedCount, "like"),
     ])
   },
 
@@ -42,8 +42,8 @@ export default {
     }),
 
     dataPaginatorListComp() {
-      const username = this.$route.params.user
-      const count = this.feedCount.byLike[username] || 1
+      const filter = this.$route.params.user
+      const count = this.feedCount[filter] || 1
       const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path

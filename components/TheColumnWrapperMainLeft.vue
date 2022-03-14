@@ -21,7 +21,7 @@
       class="column-wrapper-main-left__feed-list"
     />
     <AppPaginatorList
-      v-if="feedCount && dataPaginatorCount"
+      v-if="feedCount"
       class="main__paginator-list"
       :data-item="dataPaginatorListComp"
     />
@@ -109,13 +109,9 @@ export default {
 
     dataPaginatorListComp() {
       const delim = paginator.itemPerPage
-      const count = this.dataPaginatorCount
+      const countItem = this.feedCount[this.getFilter] || 1
       const pagePath = this.$route.path
-      const pageCount = getArrRange(1, Math.ceil(count / delim))
-
-      // functions start
-
-      // funcitons end
+      const pageCount = getArrRange(1, Math.ceil(countItem / delim))
 
       return {
         pagePath,
@@ -123,26 +119,16 @@ export default {
       }
     },
 
-    dataPaginatorCount() {
+    getFilter() {
       let filter = ""
 
       if (this.$route.path === "/your" && isNotEmptyObj(this.currentUser)) {
         filter = this.currentUser.username
+        return filter
       } else {
         filter = this.$route.params.tag || "total"
+        return filter
       }
-
-      let count = null
-
-      if (filter === this.currentUser?.username) {
-        count = this.feedCount.byUser[filter]
-      } else if (filter === "total") {
-        count = this.feedCount[filter]
-      } else {
-        count = this.feedCount.byTag[filter]
-      }
-
-      return count
     },
   },
 

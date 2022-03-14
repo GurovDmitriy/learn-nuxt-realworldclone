@@ -12,8 +12,4 @@ export default (axios) => ({
 
     return axios.$get(`/feeds${query}`)
   },
-
-  getFeedCount() {
-    return axios.$get("/feedCount")
-  },
 })

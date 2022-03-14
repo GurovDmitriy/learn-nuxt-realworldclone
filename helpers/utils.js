@@ -14,6 +14,11 @@ export function getFromKebabStr(str) {
   return false
 }
 
+export function getCapitalizedStr(str) {
+  if (typeof str === "string") return `${str[0]}${str.slice(1)}`
+  return false
+}
+
 // Boolean
 
 // isOuter

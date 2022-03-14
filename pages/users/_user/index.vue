@@ -31,7 +31,7 @@ export default {
     await Promise.allSettled([
       store.dispatch(actionTypesUser.fetchUser, userPayload),
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
-      store.dispatch(actionTypesFeedCount.fetchFeedCount),
+      store.dispatch(actionTypesFeedCount.fetchFeedCount, "user"),
     ])
   },
 
@@ -41,8 +41,8 @@ export default {
     }),
 
     dataPaginatorListComp() {
-      const username = this.$route.params.user
-      const count = this.feedCount.byUser[username] || 1
+      const filter = this.$route.params.user
+      const count = this.feedCount[filter] || 1
       const delim = paginator.itemPerPage
 
       const pagePath = this.$route.path

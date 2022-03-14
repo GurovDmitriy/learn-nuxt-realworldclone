@@ -27,7 +27,7 @@
           class="form-editor__input form-editor__input--tags"
           :data-item="dataInput.tags"
         />
-        <appInputTextarea
+        <AppInputTextarea
           v-model="dataField.content"
           class="form-editor__input form-editor__input--content"
           :data-item="dataInput.content"
@@ -121,6 +121,8 @@ export default {
       const tags = getTags(this.dataField.tags)
       const newFeed = Object.assign({}, defaultFeedData, tags)
 
+      // functions start
+
       function getDefaultFeedData(user) {
         const userId = user.id
         const time = Date.now()
@@ -141,6 +143,8 @@ export default {
           tags,
         }
       }
+
+      // functions end
 
       // check repeat tag in state
       // dispatch create tags

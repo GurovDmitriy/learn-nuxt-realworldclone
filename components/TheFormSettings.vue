@@ -122,7 +122,7 @@ export default {
   },
 
   mounted() {
-    this.dataField = { ...this.currentUser }
+    this.dataField = Object.assign({}, this.dataField, this.currentUser)
   },
 
   methods: {

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapState } from "vuex"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
 
 export default {
@@ -38,22 +38,19 @@ export default {
       currentUser: getterTypesAuth.currentUser,
     }),
 
+    ...mapState({
+      currentUserIsLoading: ({ auth }) => auth.isLoading,
+    }),
+
     dataNavListValid() {
       const configDefault = ["Home", "Sign in", "Sign up"]
       const configLogged = ["Home", "New Feed", "Settings"]
-      let data = []
+      const navDataUser = this.getNavDataUser
 
-      const username = this.currentUser?.username
-      const user = { content: `${username}`, path: `/users/${username}` }
+      const config = this.isLoggedIn ? configLogged : configDefault
+      const data = getConfig(config, this.dataNavList, navDataUser)
 
-      if (this.isLoggedIn && user) {
-        data = getConfig(configLogged, this.dataNavList)
-        data.push(user)
-      } else {
-        data = getConfig(configDefault, this.dataNavList)
-      }
-
-      function getConfig(config, dataDefault) {
+      function getConfig(config, dataDefault, user) {
         const data = []
 
         config.forEach((item) => {
@@ -61,10 +58,30 @@ export default {
           if (elem) data.push(elem)
         })
 
+        if (user) data.push(user)
+
         return data
       }
 
       return data
+    },
+
+    getNavDataUser() {
+      if (this.currentUser) {
+        return {
+          content: `${this.currentUser.username}`,
+          path: `/users/${this.currentUser.username}`,
+        }
+      }
+
+      if (this.currentUserIsLoading) {
+        return {
+          content: "Loading...",
+          path: this.$route.path,
+        }
+      }
+
+      return null
     },
 
     classNavList() {
