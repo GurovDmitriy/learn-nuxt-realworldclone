@@ -2,11 +2,11 @@
   <div class="input">
     <input
       v-bind="$attrs"
-      :id="dataItemValid.id"
+      :id="dataItem.id"
       :value="value"
-      :type="dataItemValid.type"
-      :name="dataItemValid.name"
-      :placeholder="dataItemValid.placeholder"
+      :type="dataItem.type"
+      :name="dataItem.name"
+      :placeholder="dataItem.placeholder"
       :maxlength="dataItem.maxlength"
       :required="dataItem.required"
       :class="classItem.inputBoxIcon"
@@ -16,8 +16,8 @@
     <div v-if="dataItem.iconName" class="input__box-icon">
       <SvgIcon
         class="input__icon"
-        :name="dataItemValid.iconName"
-        :desc="dataItemValid.iconDesc"
+        :name="dataItem.iconName"
+        :desc="dataItem.iconDesc"
       />
     </div>
   </div>
@@ -36,42 +36,20 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // value
-        // name        - string name input
-        // type        - string type input
-        // placeholder - string placeholder
-        // id          - string id
-        // maxlength   - number maxlength value
-        // required    - boolean required
-        // iconName    - string name icon
-        // iconDesc    - string icon description
+        value: "",
+        name: "",
+        type: "text",
+        placeholder: "Placeholder",
+        id: "",
+        maxlength: 100,
+        required: false,
+        iconName: "pencil-square",
+        iconDesc: "icon",
       }),
     },
   },
 
   computed: {
-    dataItemValid() {
-      const name = this.dataItem.name || ""
-      const type = this.dataItem.type || "text"
-      const placeholder = this.dataItem.placeholder || "Placeholder"
-      const id = this.dataItem.id || ""
-      const maxlength = this.dataItem.maxlength || 100
-      const required = this.dataItem.required || false
-      const iconName = this.dataItem.iconName || "pencil-square"
-      const iconDesc = this.dataItem.iconDesc || "icon"
-
-      return {
-        name,
-        type,
-        placeholder,
-        id,
-        maxlength,
-        required,
-        iconName,
-        iconDesc,
-      }
-    },
-
     listeners() {
       const input = this.updateValue
       const focus = this.onFocus

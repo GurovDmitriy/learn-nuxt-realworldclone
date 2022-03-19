@@ -1,7 +1,7 @@
 export const paginator = {
-  itemPerPage: 5,
+  index: 5,
 }
 
 export const placeholder = {
-  feedListCount: 5,
+  index: 5,
 }

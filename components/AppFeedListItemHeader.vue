@@ -4,7 +4,7 @@
     <AppButtonIcon
       :data-item="dataButtonIcon"
       class="feed-list-item-header__button-icon"
-      >{{ dataLike }}</AppButtonIcon
+      >{{ countLike }}</AppButtonIcon
     >
   </div>
 </template>
@@ -52,10 +52,9 @@ export default {
       }
     },
 
-    dataLike() {
-      const like = this.dataItem.like.length
-
-      return like
+    countLike() {
+      const count = this.dataItem.like.length
+      return count
     },
   },
 }

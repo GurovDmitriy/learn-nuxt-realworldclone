@@ -1,5 +1,5 @@
 <template>
-  <button class="button" :type="dataItemValid.type" @click="emitClickBtn">
+  <button class="button" :type="dataItem.type" @click="emitClickBtn">
     <slot name="default">Click</slot>
   </button>
 </template>
@@ -11,18 +11,8 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // type - string type attr for btn
+        type: "button",
       }),
-    },
-  },
-
-  computed: {
-    dataItemValid() {
-      const type = this.dataItem.type || "button"
-
-      return {
-        type,
-      }
     },
   },
 

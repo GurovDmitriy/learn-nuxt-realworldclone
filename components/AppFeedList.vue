@@ -14,7 +14,23 @@ export default {
   props: {
     dataItem: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => [
+        {
+          id: 1,
+          like: [],
+          tags: ["no-tags"],
+          author: {
+            avatar: "",
+            name: "Unknown",
+            time: 1031974583,
+          },
+          feed: {
+            title: "Nothing here yet...",
+            preview: "Nothing here yet...",
+          },
+        },
+      ],
     },
   },
 }

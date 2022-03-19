@@ -1,7 +1,7 @@
 <template>
   <li class="nav-list-item">
-    <NuxtLink :to="{ path: dataItemValid.path }" class="nav-list-item__link">{{
-      dataItemValid.content
+    <NuxtLink :to="{ path: dataItem.path }" class="nav-list-item__link">{{
+      dataItem.content
     }}</NuxtLink>
   </li>
 </template>
@@ -11,23 +11,7 @@ export default {
   props: {
     dataItem: {
       type: Object,
-      required: false,
-      default: () => ({
-        // content - string name nav item
-        // path    - string path
-      }),
-    },
-  },
-
-  computed: {
-    dataItemValid() {
-      const content = this.dataItem.content || "Home"
-      const path = this.dataItem.path || "/"
-
-      return {
-        content,
-        path,
-      }
+      required: true,
     },
   },
 }

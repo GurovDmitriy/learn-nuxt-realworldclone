@@ -1,9 +1,10 @@
 <template>
   <ul class="filter-bar">
     <AppFilterBarItem
-      v-for="item in dataItemValid"
+      v-for="(item, index) in dataItem"
       :key="item.content"
       :data-item="item"
+      :is-active="isActiveBar[index]"
       class="filter-bar__item"
     />
   </ul>
@@ -14,28 +15,25 @@ export default {
   props: {
     dataItem: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => [
+        {
+          content: "Unknown feed",
+          path: "/",
+        },
+      ],
     },
   },
 
   computed: {
-    dataItemValid() {
+    isActiveBar() {
       const data = this.dataItem.map((item) => {
-        const content = item.content || "Unknown feed"
-        const path = item.path || "/"
+        const path = item.path
         const pathCurrent = this.$route.path
 
-        let active = false
+        const isActive = pathCurrent === path
 
-        if (pathCurrent === path) {
-          active = true
-        }
-
-        return {
-          content,
-          path,
-          active,
-        }
+        return isActive
       })
 
       return data

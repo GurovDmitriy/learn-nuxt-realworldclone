@@ -1,9 +1,9 @@
 <template>
-  <button class="button-icon" @click="emitClickBtn">
+  <button class="button-icon" :type="dataItem.type" @click="emitClickBtn">
     <SvgIcon
       class="button-icon__icon"
-      :name="dataItemValid.iconName"
-      :desc="dataItemValid.iconDesc"
+      :name="dataItem.iconName"
+      :desc="dataItem.iconDesc"
     />
     <span class="button-icon__text"><slot name="default">Click</slot></span>
   </button>
@@ -16,21 +16,10 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // iconName    - string name icon
-        // iconDesc    - string icon description
+        type: "button",
+        iconName: "bug-fill",
+        iconDesc: "icon",
       }),
-    },
-  },
-
-  computed: {
-    dataItemValid() {
-      const iconName = this.dataItem.iconName || "bug-fill"
-      const iconDesc = this.dataItem.iconDesc || "icon"
-
-      return {
-        iconName,
-        iconDesc,
-      }
     },
   },
 

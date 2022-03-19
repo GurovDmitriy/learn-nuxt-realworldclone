@@ -1,8 +1,8 @@
 <template>
   <div class="feed">
-    <p class="feed__content">{{ dataItemValid.content }}</p>
+    <p class="feed__content">{{ dataItem.content }}</p>
     <AppTagsList
-      :data-item="dataItemValid.tags"
+      :data-item="dataItem.tags"
       class="feed-list-item-footer__tags-list"
     />
   </div>
@@ -15,21 +15,12 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // content - string content feed
-        // tags    - array tags list
+        content: "Nothing here yet...",
+        tags: ["no-tag"],
       }),
-    },
-  },
-
-  computed: {
-    dataItemValid() {
-      const content = this.dataItem.content || "Nothing here yet..."
-      const tags = this.dataItem.tags || ["no-tag"]
-
-      return {
-        content,
-        tags,
-      }
+      validator: (value) => {
+        return Array.isArray(value.tags)
+      },
     },
   },
 }

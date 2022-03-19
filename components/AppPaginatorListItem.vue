@@ -2,12 +2,12 @@
   <li class="paginator-list-item">
     <NuxtLink
       class="paginator-list-item__link"
-      :class="classActive"
+      :class="getActiveClass"
       :to="{
-        path: dataItemValid.pagePath,
-        query: { page: dataItemValid.pageNum },
+        path: pathPage,
+        query: { page: dataItem },
       }"
-      >{{ dataItemValid.pageNum }}</NuxtLink
+      >{{ dataItem }}</NuxtLink
     >
   </li>
 </template>
@@ -16,33 +16,26 @@
 export default {
   props: {
     dataItem: {
-      type: Object,
-      required: false,
-      default: () => ({
-        // pagePath      - string path
-        // pageQuery     - object {page: numberPage}
-        // pageNum       - number page
-        // isClassActive - boolean for exact active class
-      }),
+      type: Number,
+      required: true,
+    },
+
+    pathPage: {
+      type: String,
+      required: true,
+    },
+
+    isActive: {
+      type: Boolean,
+      require: false,
+      default: false,
     },
   },
 
   computed: {
-    dataItemValid() {
-      const pageNum = this.dataItem.pageNum || 1
-      const pagePath = this.dataItem.pagePath || "/"
-      const isClassActive = this.dataItem.isClassActive
-
+    getActiveClass() {
       return {
-        pagePath,
-        pageNum,
-        isClassActive,
-      }
-    },
-
-    classActive() {
-      return {
-        "paginator-list-item__link--active": this.dataItemValid.isClassActive,
+        "paginator-list-item__link--active": this.isActive,
       }
     },
   },

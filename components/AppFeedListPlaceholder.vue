@@ -16,15 +16,7 @@ export default {
     dataItem: {
       type: Number,
       required: false,
-      default: null,
-    },
-  },
-
-  computed: {
-    dataItemValid() {
-      const numb = this.dataItem || placeholder.feedListCount
-
-      return numb
+      default: placeholder.feedListCount,
     },
   },
 }

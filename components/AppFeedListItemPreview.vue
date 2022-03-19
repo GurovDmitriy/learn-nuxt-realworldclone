@@ -1,10 +1,10 @@
 <template>
   <div class="feed-list-item-preview">
     <h4 class="feed-list-item-preview__caption">
-      {{ dataItemValid.title }}
+      {{ dataItem.title }}
     </h4>
     <p class="feed-list-item-preview__description">
-      {{ dataItemValid.preview }}
+      {{ dataItem.preview }}
     </p>
   </div>
 </template>
@@ -16,21 +16,9 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // title   - string title feed
-        // preview - string preview feed
+        title: "No Title",
+        preview: "No Preview",
       }),
-    },
-  },
-
-  computed: {
-    dataItemValid() {
-      const title = this.dataItem.title || "No Title"
-      const preview = this.dataItem.preview || "No Preview"
-
-      return {
-        title,
-        preview,
-      }
     },
   },
 }

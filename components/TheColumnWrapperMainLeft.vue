@@ -23,7 +23,8 @@
     <AppPaginatorList
       v-if="feedCount"
       class="main__paginator-list"
-      :data-item="dataPaginatorListComp"
+      :data-item="getPageCount"
+      :path-page="$route.path"
     />
     <AppNoContent v-else class="column-wrapper-main-left__no-content" />
   </section>
@@ -107,16 +108,12 @@ export default {
       return barItems
     },
 
-    dataPaginatorListComp() {
+    getPageCount() {
       const delim = paginator.itemPerPage
       const countItem = this.feedCount[this.getFilter] || 1
-      const pagePath = this.$route.path
       const pageCount = getArrRange(1, Math.ceil(countItem / delim))
 
-      return {
-        pagePath,
-        pageCount,
-      }
+      return pageCount
     },
 
     getFilter() {

@@ -1,70 +1,52 @@
 // get
 
+// getArr
+
 export function getArrRange(start, end) {
   return [...Array(end).keys()].map((el) => el + start)
 }
 
-export function getKebabStr(str) {
+// getStr
+
+export function getStrKebab(str) {
   if (typeof str === "string") return str.split(" ").join("-")
   return false
 }
 
-export function getFromKebabStr(str) {
+export function getStrFromKebab(str) {
   if (typeof str === "string") return str.split("-").join(" ")
   return false
 }
 
-export function getCapitalizedStr(str) {
+export function getStrCapitalized(str) {
   if (typeof str === "string") return `${str[0]}${str.slice(1)}`
   return false
 }
 
-// Boolean
+// is
 
 // isOuter
 
-export function isOuterSrcImage(value) {
+export function isOuterSrc(value) {
   return value && /^http/.test(value)
 }
 
 // isEmpty
 
 export function isEmptyStr(value) {
-  return value && typeof value === "string" && value === ""
+  if (!value || typeof value !== "string") return null
+
+  return value === ""
 }
 
 export function isEmptyObj(value) {
-  return value && Object.keys(value).length === 0
+  if (!value || typeof value !== "object") return null
+
+  return Object.keys(value).length === 0
 }
 
 export function isEmptyArr(value) {
-  return value && Array.isArray(value) && value.length === 0
-}
+  if (!value || !Array.isArray(value)) return null
 
-// isNotEmpty
-
-export function isNotEmptyStr(value) {
-  return value && typeof value === "string" && value !== ""
-}
-
-export function isNotEmptyObj(value) {
-  return value && Object.keys(value).length > 0
-}
-
-export function isNotEmptyArr(value) {
-  return value && Array.isArray(value) && value.length > 0
-}
-
-// isExist
-
-export function isExistArr(value) {
-  return value && Array.isArray(value) && value.length
-}
-
-export function isExistStr(value) {
-  return value && typeof value === "string"
-}
-
-export function isExistImageSrc(value) {
-  return value && typeof value === "string"
+  return value.length === 0
 }

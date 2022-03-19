@@ -1,9 +1,11 @@
 <template>
   <ul class="paginator-list">
     <AppPaginatorListItem
-      v-for="item in dataItemValid"
-      :key="item.pageNum"
+      v-for="(item, index) in dataItem.pageCount"
+      :key="item"
       :data-item="item"
+      :path-page="pathPage"
+      :is-active="isActivePage[index]"
       class="paginator-list__item"
     />
   </ul>
@@ -13,25 +15,27 @@
 export default {
   props: {
     dataItem: {
-      type: Object,
-      required: true,
+      type: Array,
+      required: false,
+      default: () => [1],
+      validator: (value) => {
+        return Array.isArray(value)
+      },
+    },
+
+    pathPage: {
+      type: String,
+      required: false,
+      default: "/",
     },
   },
 
   computed: {
-    dataItemValid() {
-      const pageCount = this.dataItem.pageCount || [1]
-      const pagePath = this.dataItem.pagePath || "/"
+    isActivePage() {
+      const data = this.dataItem.pageCount.map((item) => {
+        const isActive = item === this.$route.query.page
 
-      const data = pageCount.map((item) => {
-        const pageNum = item
-        const isClassActive = !this.$route.query.page && item === 1
-
-        return {
-          pagePath,
-          pageNum,
-          isClassActive,
-        }
+        return isActive
       })
 
       return data

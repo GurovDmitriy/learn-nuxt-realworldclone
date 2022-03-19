@@ -14,31 +14,24 @@ export default {
   props: {
     dataItem: {
       type: Object,
-      required: false,
+      required: true,
       default: () => ({
-        // content - string name path
-        // path    - string path
-        // active  - boolean for exact active class
+        content: "Unknown feed",
+        path: "/",
       }),
+    },
+
+    isActive: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 
   computed: {
-    dataItemValid() {
-      const content = this.dataItem.content || "Unknown feed"
-      const path = this.dataItem.path || "/"
-      const active = this.dataItem.active || false
-
-      return {
-        content,
-        path,
-        active,
-      }
-    },
-
     classActive() {
       return {
-        "filter-bar-item__link--active": this.dataItemValid.active,
+        "filter-bar-item__link--active": this.isActive,
       }
     },
   },

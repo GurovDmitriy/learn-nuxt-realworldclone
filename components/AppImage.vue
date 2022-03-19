@@ -1,10 +1,10 @@
 <template>
   <img
     class="image"
-    :src="dataItemValid.imageSrc"
-    :alt="dataItemValid.imageAlt"
-    :width="dataItemValid.imageWidth"
-    :height="dataItemValid.imageHeight"
+    :src="getImageSrc"
+    :alt="dataItem.imageAlt"
+    :width="dataItem.imageWidth"
+    :height="dataItem.imageHeight"
   />
 </template>
 
@@ -17,35 +17,16 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // imageSrc             - string path to image
-        // imageAlt             - string alt img for attr
-        // imageWidth           - number width img for attr
-        // imageHeight          - number height img for attr
-        // imagePlaceholderName - string name file for placeholder
+        imageSrc: require("~/assets/images/placeholder-image.png"),
+        imageAlt: "placeholder",
+        imageWidth: 100,
+        imageHeight: 100,
+        imagePlaceholderName: "placeholder-image.png",
       }),
     },
   },
 
   computed: {
-    dataItemValid() {
-      const imagePlaceholderName =
-        this.dataItem.imagePlaceholderName || "placeholder-image.png"
-
-      const imageSrc =
-        this.getImageSrc || require(`~/assets/images/${imagePlaceholderName}`)
-
-      const imageAlt = this.dataItem.imageAlt || "placeholder"
-      const imageWidth = this.dataItem.imageWidth || 100
-      const imageHeight = this.dataItem.imageHeight || 100
-
-      return {
-        imageSrc,
-        imageAlt,
-        imageWidth,
-        imageHeight,
-      }
-    },
-
     getImageSrc() {
       if (
         isExistImageSrc(this.dataItem.imageSrc) &&
@@ -58,7 +39,7 @@ export default {
       ) {
         return require(`~/assets/images/${this.dataItem.imageSrc}`)
       } else {
-        return false
+        return require(`~/assets/images/${this.dataItem.imagePlaceholderName}`)
       }
     },
   },

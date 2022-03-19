@@ -1,4 +1,4 @@
-export const getItemLC = (key) => {
+export const getItemLS = (key) => {
   try {
     return JSON.parse(localStorage.getItem(key))
   } catch (err) {
@@ -6,7 +6,7 @@ export const getItemLC = (key) => {
   }
 }
 
-export const setItemLC = (key, data) => {
+export const setItemLS = (key, data) => {
   try {
     localStorage.setItem(key, JSON.stringify(data))
   } catch (err) {

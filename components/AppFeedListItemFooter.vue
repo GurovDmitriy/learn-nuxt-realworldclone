@@ -2,13 +2,13 @@
   <div class="feed-list-item-footer">
     <NuxtLink
       :to="{
-        path: dataItemValid.feedDetailPath,
+        path: feedDetailPath,
       }"
       class="feed-list-item-footer__read-more"
       >Read more...</NuxtLink
     >
     <AppTagsList
-      :data-item="dataItemValid.tags"
+      :data-item="dataItem.tags"
       class="feed-list-item-footer__tags-list"
     />
   </div>
@@ -26,14 +26,11 @@ export default {
   },
 
   computed: {
-    dataItemValid() {
-      const tags = this.dataItem.tags
-      const feedDetailPath = `/feed/${getKebabStr(this.dataItem.feed.title)}`
+    feedDetailPath() {
+      const DetailName = getKebabStr(this.dataItem.feed.title)
+      const DetailPath = `/feed/${DetailName}`
 
-      return {
-        tags,
-        feedDetailPath,
-      }
+      return DetailPath
     },
   },
 }

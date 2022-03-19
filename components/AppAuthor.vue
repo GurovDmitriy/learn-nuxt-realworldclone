@@ -1,14 +1,14 @@
 <template>
   <div class="author">
-    <NuxtLink class="author__img-box" :to="{ path: dataAuthor.userPagePath }">
-      <AppImage class="author__img" :data-item="dataImage" />
+    <NuxtLink class="author__img-box" :to="{ path: dataItem.userPagePath }">
+      <AppImage class="author__img" :data-item="dataItem" />
     </NuxtLink>
     <div class="author__info-box">
-      <NuxtLink class="author__name" :to="{ path: dataAuthor.userPagePath }">
-        {{ dataAuthor.name }}
+      <NuxtLink class="author__name" :to="{ path: dataItem.userPagePath }">
+        {{ dataItem.name }}
       </NuxtLink>
-      <time class="author__time-feed" :datetime="dataAuthor.time">
-        {{ dataAuthor.time | dateFormatBase }}
+      <time class="author__time-feed" :datetime="dataItem.time">
+        {{ dataItem.time | dateFormatBase }}
       </time>
     </div>
   </div>
@@ -21,43 +21,13 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // avatar               - string path to image
-        // name                 - string name author
-        // time                 - string time create feed
-        // userPagePath         - string path to user page
-        // imageWidth           - number width image
-        // imageHeight          - number height image
-        // imagePlaceholderName - string name file placeholder with ext
+        name: "Author",
+        time: 1031974583,
+        userPagePath: "/",
+        imageWith: 38,
+        imageHeight: 38,
+        imagePlaceholderName: "placeholder-avatar.png",
       }),
-    },
-  },
-
-  computed: {
-    dataAuthor() {
-      const name = this.dataItem.name || "Author"
-      const time = this.dataItem.time || "2022-01-24 00:00"
-      const userPagePath = this.dataItem.userPagePath || "/"
-
-      return {
-        name,
-        time,
-        userPagePath,
-      }
-    },
-
-    dataImage() {
-      const imageSrc = this.dataItem.avatar
-      const imageWidth = this.dataItem.imageWidth || 38
-      const imageHeight = this.dataItem.imageHeight || 38
-      const imagePlaceholderName =
-        this.dataItem.imagePlaceholderName || "placeholder-avatar.png"
-
-      return {
-        imageSrc,
-        imageWidth,
-        imageHeight,
-        imagePlaceholderName,
-      }
     },
   },
 }

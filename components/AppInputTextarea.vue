@@ -1,10 +1,10 @@
 <template>
   <textarea
     v-bind="$attrs"
-    :id="dataItemValid.id"
+    :id="dataItem.id"
     :value="value"
-    :name="dataItemValid.name"
-    :placeholder="dataItemValid.placeholder"
+    :name="dataItem.name"
+    :placeholder="dataItem.placeholder"
     :maxlength="dataItem.maxlength"
     :required="dataItem.required"
     class="textarea"
@@ -25,33 +25,16 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        // name        - string name input
-        // type        - string type input
-        // placeholder - string placeholder
-        // id          - string id
-        // maxlength   - number maxlength value
-        // required    - boolean required
+        name: "",
+        placeholder: "Placeholder",
+        id: "",
+        maxlength: 500,
+        required: false,
       }),
     },
   },
 
   computed: {
-    dataItemValid() {
-      const name = this.dataItem.name || ""
-      const placeholder = this.dataItem.placeholder || "Placeholder"
-      const id = this.dataItem.id || ""
-      const maxlength = this.dataItem.maxlength || 500
-      const required = this.dataItem.required || false
-
-      return {
-        name,
-        placeholder,
-        id,
-        maxlength,
-        required,
-      }
-    },
-
     listeners() {
       const input = this.updateValue
       const focus = this.onFocus

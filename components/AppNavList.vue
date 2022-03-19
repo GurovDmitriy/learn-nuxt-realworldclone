@@ -14,7 +14,13 @@ export default {
   props: {
     dataItem: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => [
+        {
+          content: "Home",
+          path: "/",
+        },
+      ],
     },
   },
 }

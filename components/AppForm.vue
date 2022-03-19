@@ -15,7 +15,11 @@ export default {
   props: {
     dataItem: {
       type: Object,
-      required: true,
+      required: false,
+      default: () => ({
+        action: "",
+        method: "POST",
+      }),
     },
   },
 
