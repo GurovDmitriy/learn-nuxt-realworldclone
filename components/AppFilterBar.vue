@@ -4,7 +4,7 @@
       v-for="(item, index) in dataItem"
       :key="item.content"
       :data-item="item"
-      :is-active="isActiveBar[index]"
+      :is-active="getActiveBar[index]"
       class="filter-bar__item"
     />
   </ul>
@@ -26,7 +26,7 @@ export default {
   },
 
   computed: {
-    isActiveBar() {
+    getActiveBar() {
       const data = this.dataItem.map((item) => {
         const path = item.path
         const pathCurrent = this.$route.path

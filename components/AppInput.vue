@@ -9,9 +9,9 @@
       :placeholder="dataItem.placeholder"
       :maxlength="dataItem.maxlength"
       :required="dataItem.required"
-      :class="classItem.inputBoxIcon"
+      :class="getClassItem.inputBoxIcon"
       class="input__field"
-      v-on="listeners"
+      v-on="getListeners"
     />
     <div v-if="dataItem.iconName" class="input__box-icon">
       <SvgIcon
@@ -50,10 +50,10 @@ export default {
   },
 
   computed: {
-    listeners() {
-      const input = this.updateValue
-      const focus = this.onFocus
-      const blur = this.onBlur
+    getListeners() {
+      const input = this.emitValue
+      const focus = this.emitFocus
+      const blur = this.emitBlur
 
       return {
         ...this.$listeners,
@@ -63,7 +63,7 @@ export default {
       }
     },
 
-    classItem() {
+    getClassItem() {
       return {
         inputBoxIcon: {
           "input__field--active": this.dataItem.iconName,
@@ -73,17 +73,17 @@ export default {
   },
 
   methods: {
-    updateValue(evt) {
+    emitValue(evt) {
       const value = evt.target.value
       this.$emit("input", value)
     },
 
-    onFocus(value) {
+    emitFocus(value) {
       this.focused = true
       this.$emit("focus", value)
     },
 
-    onBlur(value) {
+    emitBlur(value) {
       this.focused = false
       this.$emit("blur", value)
     },

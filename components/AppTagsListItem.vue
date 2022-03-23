@@ -1,30 +1,19 @@
 <template>
   <li class="tags-list-item">
     <NuxtLink
-      :to="{ path: `/tags/${dataItemValid}` }"
+      :to="{ path: `/tags/${dataItem}` }"
       class="tags-list-item__link"
-      >{{ dataItemValid }}</NuxtLink
+      >{{ dataItem }}</NuxtLink
     >
   </li>
 </template>
 
 <script>
-import { isNotEmptyStr } from "~/helpers/utils"
-
 export default {
   props: {
     dataItem: {
       type: String,
-      required: false,
-      default: null,
-    },
-  },
-
-  computed: {
-    dataItemValid() {
-      const tag = isNotEmptyStr(this.dataItem) ? this.dataItem : "no-tag"
-
-      return tag
+      required: true,
     },
   },
 }

@@ -14,7 +14,8 @@ export default {
   props: {
     dataItem: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => ["no-tags"],
     },
   },
 }

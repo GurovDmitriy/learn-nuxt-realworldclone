@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { isExistImageSrc, isOuterSrcImage } from "~/helpers/utils"
+import { isOuterSrc } from "~/helpers/utils"
 
 export default {
   props: {
@@ -28,18 +28,15 @@ export default {
 
   computed: {
     getImageSrc() {
-      if (
-        isExistImageSrc(this.dataItem.imageSrc) &&
-        isOuterSrcImage(this.dataItem.imageSrc)
-      ) {
-        return this.dataItem.imageSrc
-      } else if (
-        isExistImageSrc(this.dataItem.imageSrc) &&
-        !isOuterSrcImage(this.dataItem.imageSrc)
-      ) {
-        return require(`~/assets/images/${this.dataItem.imageSrc}`)
-      } else {
-        return require(`~/assets/images/${this.dataItem.imagePlaceholderName}`)
+      switch (isOuterSrc(this.dataItem.imageSrc)) {
+        case true:
+          return this.dataItem.imageSrc
+
+        case false:
+          return require(`~/assets/images/${this.dataItem.imageSrc}`)
+
+        default:
+          return require(`~/assets/images/${this.dataItem.imagePlaceholderName}`)
       }
     },
   },

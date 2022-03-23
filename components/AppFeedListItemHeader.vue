@@ -1,10 +1,13 @@
 <template>
   <div class="feed-list-item-header">
-    <AppAuthor :data-item="dataAuthor" class="feed-list-item-header__author" />
+    <AppAuthor
+      :data-item="getDataAuthor"
+      class="feed-list-item-header__author"
+    />
     <AppButtonIcon
       :data-item="dataButtonIcon"
       class="feed-list-item-header__button-icon"
-      >{{ countLike }}</AppButtonIcon
+      >{{ getCountLike }}</AppButtonIcon
     >
   </div>
 </template>
@@ -34,7 +37,7 @@ export default {
   },
 
   computed: {
-    dataAuthor() {
+    getDataAuthor() {
       const username = this.dataItem.author.name
       const userPath = "users"
       const userPagePath = `/${userPath}/${username}`
@@ -52,7 +55,7 @@ export default {
       }
     },
 
-    countLike() {
+    getCountLike() {
       const count = this.dataItem.like.length
       return count
     },

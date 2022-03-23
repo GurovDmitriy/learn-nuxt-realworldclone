@@ -3,7 +3,7 @@
     <NuxtLink
       :to="{ path: dataItem.path }"
       class="filter-bar-item__link"
-      :class="classActive"
+      :class="getClassActive"
       >{{ dataItem.content }}</NuxtLink
     >
   </li>
@@ -29,7 +29,7 @@ export default {
   },
 
   computed: {
-    classActive() {
+    getClassActive() {
       return {
         "filter-bar-item__link--active": this.isActive,
       }

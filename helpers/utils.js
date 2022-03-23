@@ -28,7 +28,9 @@ export function getStrCapitalized(str) {
 // isOuter
 
 export function isOuterSrc(value) {
-  return value && /^http/.test(value)
+  if (!value || typeof value !== "string") return null
+
+  return /^http/.test(value)
 }
 
 // isEmpty

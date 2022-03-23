@@ -8,7 +8,7 @@
     :maxlength="dataItem.maxlength"
     :required="dataItem.required"
     class="textarea"
-    v-on="listeners"
+    v-on="getListeners"
   ></textarea>
 </template>
 
@@ -35,10 +35,10 @@ export default {
   },
 
   computed: {
-    listeners() {
-      const input = this.updateValue
-      const focus = this.onFocus
-      const blur = this.onBlur
+    getListeners() {
+      const input = this.emitValue
+      const focus = this.emitFocus
+      const blur = this.emitBlur
 
       return {
         ...this.$listeners,
@@ -50,17 +50,17 @@ export default {
   },
 
   methods: {
-    updateValue(evt) {
+    emitValue(evt) {
       const value = evt.target.value
       this.$emit("input", value)
     },
 
-    onFocus(value) {
+    emitFocus(value) {
       this.focused = true
       this.$emit("focus", value)
     },
 
-    onBlur(value) {
+    emitBlur(value) {
       this.focused = false
       this.$emit("blur", value)
     },

@@ -5,7 +5,7 @@
       :key="item"
       :data-item="item"
       :path-page="pathPage"
-      :is-active="isActivePage[index]"
+      :is-active="getActivePage[index]"
       class="paginator-list__item"
     />
   </ul>
@@ -31,7 +31,7 @@ export default {
   },
 
   computed: {
-    isActivePage() {
+    getActivePage() {
       const data = this.dataItem.pageCount.map((item) => {
         const isActive = item === this.$route.query.page
 
