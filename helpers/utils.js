@@ -3,24 +3,30 @@
 // getArr
 
 export function getArrRange(start, end) {
+  if (!start || typeof start !== "number") return
+  if (!end || typeof end !== "number") return
+
   return [...Array(end).keys()].map((el) => el + start)
 }
 
 // getStr
 
 export function getStrKebab(str) {
-  if (typeof str === "string") return str.split(" ").join("-")
-  return false
+  if (!str || typeof str !== "string") return null
+
+  return str.split(" ").join("-")
 }
 
 export function getStrFromKebab(str) {
-  if (typeof str === "string") return str.split("-").join(" ")
-  return false
+  if (!str || typeof str !== "string") return null
+
+  return str.split("-").join(" ")
 }
 
 export function getStrCapitalized(str) {
-  if (typeof str === "string") return `${str[0]}${str.slice(1)}`
-  return false
+  if (!str || typeof str === "string") return null
+
+  return `${str[0]}${str.slice(1)}`
 }
 
 // is
