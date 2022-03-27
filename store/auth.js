@@ -1,5 +1,5 @@
 import { setItemCO, removeItemCO } from "~/helpers/persistanceCookie"
-import { setItemLC } from "~/helpers/persistanceStorage"
+import { setItemLS } from "~/helpers/persistanceStorage"
 
 export const getterTypes = {
   currentUser: "[auth] currentUser",
@@ -90,7 +90,7 @@ const actions = {
 
       setItemCO(this.$cookies, "accessToken", accessToken)
       setItemCO(this.$cookies, "userId", userId)
-      setItemLC("credential", { accessToken, userId })
+      setItemLS("credential", { accessToken, userId })
 
       commit(mutationTypes.setUserSuccess, data)
       return data
@@ -111,7 +111,7 @@ const actions = {
 
       setItemCO(this.$cookies, "accessToken", accessToken)
       setItemCO(this.$cookies, "userId", userId)
-      setItemLC("credential", { accessToken, userId })
+      setItemLS("credential", { accessToken, userId })
 
       commit(mutationTypes.setUserSuccess, data)
       return data
@@ -155,7 +155,7 @@ const actions = {
     try {
       removeItemCO(this.$cookies, "accessToken")
       removeItemCO(this.$cookies, "userId")
-      setItemLC("credential", "")
+      setItemLS("credential", "")
 
       await commit(mutationTypes.logoutUser)
     } catch (err) {

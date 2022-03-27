@@ -9,11 +9,16 @@
 </template>
 
 <script>
+import { isNotEmptyStr } from "~/helpers/utils"
+
 export default {
   props: {
     dataItem: {
       type: String,
       required: true,
+      validator: (value) => {
+        return isNotEmptyStr(value)
+      },
     },
   },
 }

@@ -27,7 +27,7 @@ export default {
     const pageNum = query.page || 1
 
     const userPayload = `username=${username}`
-    const feedListPayload = `author.name=${username}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
+    const feedListPayload = `author.name=${username}&_page=${pageNum}&_limit=${paginator.index}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesUser.fetchUser, userPayload),

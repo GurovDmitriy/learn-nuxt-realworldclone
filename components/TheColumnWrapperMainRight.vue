@@ -3,18 +3,18 @@
     <div class="column-wrapper-main-right__tags-list-box">
       <h3 class="column-wrapper-main-right__caption">Popular Tags</h3>
       <AppLoading
-        v-if="tagsIsLoading"
+        v-if="getTagsIsLoading"
         class="column-wrapper-main-right__loading"
         >Loading tags...</AppLoading
       >
       <AppRefresh
-        v-if="tagsErrors"
+        v-if="getTagsErrors"
         class="column-wrapper-main-right__refresh"
-        @refreshData="refreshTags"
+        @refreshData="fetchTags"
       />
       <AppTagsList
-        v-if="tags"
-        :data-item="tagsValid"
+        v-if="getTags"
+        :data-item="getDataTags"
         class="column-wrapper-main-right__tags-list"
       />
     </div>
@@ -28,19 +28,18 @@ import { actionTypes as actionTypesTag } from "~/store/tag"
 export default {
   computed: {
     ...mapState({
-      tags: ({ tag }) => tag.tags,
-      tagsIsLoading: ({ tag }) => tag.isLoading,
-      tagsErrors: ({ tag }) => tag.errors,
+      getTags: ({ tag }) => tag.tags,
+      getTagsIsLoading: ({ tag }) => tag.isLoading,
+      getTagsErrors: ({ tag }) => tag.errors,
     }),
 
-    tagsValid() {
-      const tagList = this.tags.map((item) => item.tag)
-      return tagList
+    getDataTags() {
+      return this.getTags.map((item) => item.tag)
     },
   },
 
   methods: {
-    async refreshTags() {
+    async fetchTags() {
       await this.$store.dispatch(actionTypesTag.fetchTags)
     },
   },

@@ -5,13 +5,15 @@
       :key="item"
       :data-item="item"
       :path-page="pathPage"
-      :is-active="getActivePage[index]"
+      :is-active="getIsActivePage[index]"
       class="paginator-list__item"
     />
   </ul>
 </template>
 
 <script>
+import { isNotEmptyArr } from "~/helpers/utils"
+
 export default {
   props: {
     dataItem: {
@@ -19,7 +21,7 @@ export default {
       required: false,
       default: () => [1],
       validator: (value) => {
-        return Array.isArray(value)
+        return isNotEmptyArr(value)
       },
     },
 
@@ -31,14 +33,10 @@ export default {
   },
 
   computed: {
-    getActivePage() {
-      const data = this.dataItem.pageCount.map((item) => {
-        const isActive = item === this.$route.query.page
-
-        return isActive
+    getIsActivePage() {
+      return this.dataItem.pageCount.map((item) => {
+        return this.$route.query.page === item
       })
-
-      return data
     },
   },
 }

@@ -1,13 +1,10 @@
 <template>
   <div class="feed-list-item-header">
-    <AppAuthor
-      :data-item="getDataAuthor"
-      class="feed-list-item-header__author"
-    />
+    <AppAuthor :data-item="getAuthor" class="feed-list-item-header__author" />
     <AppButtonIcon
-      :data-item="dataButtonIcon"
+      :data-item="configButton"
       class="feed-list-item-header__button-icon"
-      >{{ getCountLike }}</AppButtonIcon
+      >{{ dataItem.like }}</AppButtonIcon
     >
   </div>
 </template>
@@ -23,41 +20,29 @@ export default {
 
   data() {
     return {
-      dataButtonIcon: {
+      configButton: {
         iconName: "heart-fill",
         iconDesc: "heart",
-      },
-
-      dataAuthorConfig: {
-        imageWidth: 38,
-        imageHeight: 38,
-        imagePlaceholderName: "placeholder-avatar.png",
       },
     }
   },
 
   computed: {
-    getDataAuthor() {
-      const username = this.dataItem.author.name
-      const userPath = "users"
-      const userPagePath = `/${userPath}/${username}`
-
-      const imageWidth = this.dataAuthorConfig.imageWidth
-      const imageHeight = this.dataAuthorConfig.imageWidth
-      const imagePlaceholderName = this.dataAuthorConfig.imagePlaceholderName
+    getAuthor() {
+      const pathLink = `/users/${this.dataItem.userName}`
+      const width = 38
+      const height = 38
+      const placeholder = "placeholder-avatar.png"
+      const alt = this.dataItem.userName
 
       return {
-        ...this.dataItem.author,
-        userPagePath,
-        imageWidth,
-        imageHeight,
-        imagePlaceholderName,
+        ...this.dataItem,
+        pathLink,
+        width,
+        height,
+        alt,
+        placeholder,
       }
-    },
-
-    getCountLike() {
-      const count = this.dataItem.like.length
-      return count
     },
   },
 }

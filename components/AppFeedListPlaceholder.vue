@@ -1,7 +1,7 @@
 <template>
   <ul class="feed-list-placeholder">
     <AppFeedListPlaceholderItem
-      v-for="item in dataItemValid"
+      v-for="item in dataItem"
       :key="item"
       class="feed-list-placeholder__item"
     />
@@ -16,7 +16,7 @@ export default {
     dataItem: {
       type: Number,
       required: false,
-      default: placeholder.feedListCount,
+      default: placeholder.index,
     },
   },
 }

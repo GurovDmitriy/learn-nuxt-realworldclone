@@ -6,18 +6,18 @@
       class="column-wrapper-user__filter-bar"
     />
     <AppFeedListPlaceholder
-      v-if="feedListIsLoading"
-      :data-item="dataFeedListPlaceholder"
+      v-if="getFeedListIsLoading"
+      :data-item="configFeedListPlaceholder"
       class="column-wrapper-user__placeholder"
     />
     <AppRefresh
-      v-if="feedListErrors"
+      v-if="getFeedListErrors"
       class="column-wrapper-user__refresh"
-      @refreshData="refreshFeedList"
+      @refreshData="fetchFeedList"
     />
     <AppFeedList
-      v-if="feedList"
-      :data-item="feedList"
+      v-if="getFeedList"
+      :data-item="getFeedList"
       class="column-wrapper-user__feed-list"
     />
     <AppNoContent v-else class="column-wrapper-user__no-content" />
@@ -42,20 +42,20 @@ export default {
           path: `/users/${this.$route.params.user}/favorites`,
         },
       ],
-      dataFeedListPlaceholder: placeholder.feedListCount,
+      configFeedListPlaceholder: placeholder.feedListCount,
     }
   },
 
   computed: {
     ...mapState({
-      feedList: ({ feed }) => feed.feedList,
-      feedListIsLoading: ({ feed }) => feed.isLoading,
-      feedListErrors: ({ feed }) => feed.errors,
+      getFeedList: ({ feed }) => feed.feedList,
+      getFeedListIsLoading: ({ feed }) => feed.isLoading,
+      getFeedListErrors: ({ feed }) => feed.errors,
     }),
   },
 
   methods: {
-    async refreshFeedList() {
+    async fetchFeedList() {
       await this.$store.dispatch(actionTypesFeed.fetchFeedList)
     },
   },

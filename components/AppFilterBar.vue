@@ -4,7 +4,7 @@
       v-for="(item, index) in dataItem"
       :key="item.content"
       :data-item="item"
-      :is-active="getActiveBar[index]"
+      :is-active="getIsActiveBar[index]"
       class="filter-bar__item"
     />
   </ul>
@@ -18,7 +18,7 @@ export default {
       required: false,
       default: () => [
         {
-          content: "Unknown feed",
+          content: "Global Feed",
           path: "/",
         },
       ],
@@ -26,17 +26,10 @@ export default {
   },
 
   computed: {
-    getActiveBar() {
-      const data = this.dataItem.map((item) => {
-        const path = item.path
-        const pathCurrent = this.$route.path
-
-        const isActive = pathCurrent === path
-
-        return isActive
+    getIsActiveBar() {
+      return this.dataItem.map((item) => {
+        return this.$route.path === item.path
       })
-
-      return data
     },
   },
 }

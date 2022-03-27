@@ -5,8 +5,8 @@
       <AppLogo class="navbar__logo" />
       <AppBurger class="navbar__burger" @clickBtn="toggleMenu" />
       <AppNavList
-        :data-item="dataNavListValid"
-        :class="classNavList"
+        :data-item="getNavList"
+        :class="getClassActiveNavList"
         class="navbar__nav-list"
       />
     </div>
@@ -21,10 +21,13 @@ export default {
   data() {
     return {
       isMenuShow: false,
-      dataNavList: [
+      dataNavListDefault: [
         { content: "Home", path: "/" },
         { content: "Sign in", path: "/login" },
         { content: "Sign up", path: "/register" },
+      ],
+      dataNavListLogged: [
+        { content: "Home", path: "/" },
         { content: "New Feed", path: "/editor" },
         { content: "Settings", path: "/settings" },
       ],
@@ -33,48 +36,31 @@ export default {
 
   computed: {
     ...mapGetters({
-      isAnonymous: getterTypesAuth.isAnonymous,
-      isLoggedIn: getterTypesAuth.isLoggedIn,
-      currentUser: getterTypesAuth.currentUser,
+      getIsAnonymous: getterTypesAuth.isAnonymous,
+      getIsLoggedIn: getterTypesAuth.isLoggedIn,
+      getCurrentUser: getterTypesAuth.currentUser,
     }),
 
     ...mapState({
-      currentUserIsLoading: ({ auth }) => auth.isLoading,
+      getCurrentUserIsLoading: ({ auth }) => auth.isLoading,
     }),
 
-    dataNavListValid() {
-      const configDefault = ["Home", "Sign in", "Sign up"]
-      const configLogged = ["Home", "New Feed", "Settings"]
-      const navDataUser = this.getNavDataUser
-
-      const config = this.isLoggedIn ? configLogged : configDefault
-      const data = getConfig(config, this.dataNavList, navDataUser)
-
-      function getConfig(config, dataDefault, user) {
-        const data = []
-
-        config.forEach((item) => {
-          const elem = dataDefault.find((el) => el.content === item)
-          if (elem) data.push(elem)
-        })
-
-        if (user) data.push(user)
-
-        return data
+    getNavList() {
+      if (this.getIsLoggedIn) {
+        return [...this.dataNavListLogged, ...this.getNavLinkUser]
       }
-
-      return data
+      return [...this.dataNavListDefault]
     },
 
-    getNavDataUser() {
-      if (this.currentUser) {
+    getNavLinkUser() {
+      if (this.getCurrentUser) {
         return {
-          content: `${this.currentUser.username}`,
-          path: `/users/${this.currentUser.username}`,
+          content: `${this.getCurrentUser.userName}`,
+          path: `/users/${this.getCurrentUser.userName}`,
         }
       }
 
-      if (this.currentUserIsLoading) {
+      if (this.getCurrentUserIsLoading) {
         return {
           content: "Loading...",
           path: this.$route.path,
@@ -84,7 +70,7 @@ export default {
       return null
     },
 
-    classNavList() {
+    getClassActiveNavList() {
       return {
         "navbar__nav-list--active": this.isMenuShow,
       }

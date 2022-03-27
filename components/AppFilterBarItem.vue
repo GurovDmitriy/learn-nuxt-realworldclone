@@ -15,10 +15,6 @@ export default {
     dataItem: {
       type: Object,
       required: true,
-      default: () => ({
-        content: "Unknown feed",
-        path: "/",
-      }),
     },
 
     isActive: {

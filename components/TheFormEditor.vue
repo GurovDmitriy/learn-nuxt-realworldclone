@@ -1,5 +1,5 @@
 <template>
-  <AppForm class="form-editor" :data-item="dataForm" @submitForm="createFeed">
+  <AppForm class="form-editor" :data-item="configForm" @submitForm="createFeed">
     <template #default>
       <fieldset class="form-editor__fieldset">
         <legend class="form-editor__legend visually-hidden">Create Feed</legend>
@@ -9,7 +9,7 @@
         <AppInput
           v-model="dataField.title"
           class="form-editor__input form-editor__input--title"
-          :data-item="dataInput.title"
+          :data-item="configInput.title"
         />
         <label class="form-editor__label visually-hidden" for="about-field"
           >About</label
@@ -17,7 +17,7 @@
         <AppInput
           v-model="dataField.about"
           class="form-editor__input form-editor__input--about"
-          :data-item="dataInput.about"
+          :data-item="configInput.about"
         />
         <label class="form-editor__label visually-hidden" for="tags-field"
           >Tags</label
@@ -25,12 +25,12 @@
         <AppInput
           v-model="dataField.tags"
           class="form-editor__input form-editor__input--tags"
-          :data-item="dataInput.tags"
+          :data-item="configInput.tags"
         />
         <AppInputTextarea
           v-model="dataField.content"
           class="form-editor__input form-editor__input--content"
-          :data-item="dataInput.content"
+          :data-item="configInput.content"
         />
       </fieldset>
     </template>
@@ -38,7 +38,7 @@
     <template #box-btn>
       <AppButton
         class="form-editor__btn form-editor__btn--create"
-        :data-item="dataBtn.create"
+        :data-item="configBtn.create"
         >Create</AppButton
       >
     </template>
@@ -55,12 +55,12 @@ export default {
 
   data() {
     return {
-      dataForm: {
+      configForm: {
         method: "POST",
         action: "",
       },
 
-      dataInput: {
+      configInput: {
         title: {
           name: "title",
           type: "text",
@@ -96,7 +96,7 @@ export default {
         },
       },
 
-      dataBtn: {
+      configBtn: {
         create: { type: "submit" },
       },
 
@@ -111,40 +111,17 @@ export default {
 
   computed: {
     ...mapGetters({
-      currentUser: getterTypesAuth.currentUser,
+      getCurrentUser: getterTypesAuth.currentUser,
     }),
   },
 
   methods: {
     createFeed() {
-      const defaultFeedData = getDefaultFeedData(this.currentUser)
-      const tags = getTags(this.dataField.tags)
-      const newFeed = Object.assign({}, defaultFeedData, tags)
-
-      // functions start
-
-      function getDefaultFeedData(user) {
-        const userId = user.id
-        const time = Date.now()
-        const like = []
-
-        return {
-          userId,
-          time,
-          like,
-        }
-      }
-
-      function getTags(str) {
-        const tagsArr = str.split(",")
-        const tags = tagsArr.map((item) => item.trim())
-
-        return {
-          tags,
-        }
-      }
-
-      // functions end
+      const newFeed = Object.assign(
+        {},
+        this.createDataFeedDefault(),
+        this.createTags()
+      )
 
       // check repeat tag in state
       // dispatch create tags
@@ -153,6 +130,23 @@ export default {
       // eslint-disable-next-line no-console
       console.log("create feed", newFeed)
       this.resetForm()
+    },
+
+    createDataFeedDefault() {
+      const userId = this.getCurrentUser.id
+      const time = Date.now()
+      const like = []
+
+      return {
+        userId,
+        time,
+        like,
+      }
+    },
+
+    createTags() {
+      const tagsArr = this.dataField.tags.split(",")
+      return tagsArr.map((item) => item.trim())
     },
   },
 }

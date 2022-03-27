@@ -5,7 +5,7 @@
       class="feed-list-item__header"
     />
     <AppFeedListItemPreview
-      :data-item="dataItem.feed"
+      :data-item="dataItem"
       class="feed-list-item__preview"
     />
     <AppFeedListItemFooter

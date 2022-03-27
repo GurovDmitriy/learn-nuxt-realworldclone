@@ -1,8 +1,8 @@
 <template>
   <div class="title-feed">
-    <template v-if="feed && userData">
-      <h3 class="title-feed__caption">{{ feed.title }}</h3>
-      <AppAuthor :data-item="dataAuthor" class="title-feed__author" />
+    <template v-if="getFeed && getUserData">
+      <h3 class="title-feed__caption">{{ getFeed.title }}</h3>
+      <AppAuthor :data-item="getAuthor" class="title-feed__author" />
     </template>
   </div>
 </template>
@@ -11,43 +11,28 @@
 import { mapState } from "vuex"
 
 export default {
-  data() {
-    return {
-      dataAuthorConfig: {
-        imageWidth: 38,
-        imageHeight: 38,
-        imagePlaceholderName: "placeholder-avatar.png",
-      },
-    }
-  },
-
   computed: {
     ...mapState({
-      feed: ({ feed }) => feed.feed,
-      userData: ({ user }) => user.user,
-      userIsLoading: ({ user }) => user.isLoading,
-      userErrors: ({ user }) => user.errors,
+      getFeed: ({ feed }) => feed.feed,
+      getUserData: ({ user }) => user.user,
+      getUserIsLoading: ({ user }) => user.isLoading,
+      getUserErrors: ({ user }) => user.errors,
     }),
 
-    dataAuthor() {
-      const name = this.userData.username
-      const avatar = this.userData.avatar
-      const time = this.feed.time
-      const userPath = "users"
-      const userPagePath = `/${userPath}/${name}`
-
-      const imageWidth = this.dataAuthorConfig.imageWidth
-      const imageHeight = this.dataAuthorConfig.imageWidth
-      const imagePlaceholderName = this.dataAuthorConfig.imagePlaceholderName
+    getAuthor() {
+      const pathLink = `/users/${this.getUserData.userName}`
+      const width = 38
+      const height = 38
+      const placeholder = "placeholder-avatar.png"
+      const alt = this.getUserData.userName
 
       return {
-        avatar,
-        name,
-        time,
-        userPagePath,
-        imageWidth,
-        imageHeight,
-        imagePlaceholderName,
+        ...this.getUserData,
+        pathLink,
+        width,
+        height,
+        alt,
+        placeholder,
       }
     },
   },

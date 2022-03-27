@@ -1,7 +1,7 @@
 <template>
   <AppForm
     class="form-settings"
-    :data-item="dataForm"
+    :data-item="configForm"
     @submitForm="updateSettings"
   >
     <template #default>
@@ -11,17 +11,17 @@
           >Avatar</label
         >
         <AppInput
-          v-model="dataField.avatar"
+          v-model="dataField.image"
           class="form-settings__input form-settings__input--avatar"
-          :data-item="dataInput.avatar"
+          :data-item="configInput.image"
         />
         <label class="form-settings__label visually-hidden" for="username-field"
           >Username</label
         >
         <AppInput
-          v-model="dataField.username"
+          v-model="dataField.userName"
           class="form-settings__input form-settings__input--username"
-          :data-item="dataInput.username"
+          :data-item="configInput.userName"
         />
         <label class="form-settings__label visually-hidden" for="email-field"
           >Email</label
@@ -29,7 +29,7 @@
         <AppInput
           v-model="dataField.email"
           class="form-settings__input form-settings__input--email"
-          :data-item="dataInput.email"
+          :data-item="configInput.email"
         />
         <label class="form-settings__label visually-hidden" for="password-field"
           >Password</label
@@ -37,7 +37,7 @@
         <AppInput
           v-model="dataField.password"
           class="form-settings__input form-settings__input--password"
-          :data-item="dataInput.password"
+          :data-item="configInput.password"
         />
       </fieldset>
     </template>
@@ -45,7 +45,7 @@
     <template #box-btn>
       <AppButton
         class="form-settings__btn form-settings__btn--update"
-        :data-item="dataBtn.update"
+        :data-item="configBtn.update"
         >Update</AppButton
       >
     </template>
@@ -62,13 +62,13 @@ import {
 export default {
   data() {
     return {
-      dataForm: {
+      configForm: {
         method: "POST",
         action: "",
       },
 
-      dataInput: {
-        avatar: {
+      configInput: {
+        image: {
           name: "avatar",
           type: "url",
           placeholder: "Avatar",
@@ -77,7 +77,7 @@ export default {
           required: false,
         },
 
-        username: {
+        userName: {
           name: "username",
           type: "text",
           placeholder: "Username",
@@ -102,13 +102,13 @@ export default {
         },
       },
 
-      dataBtn: {
+      configBtn: {
         update: { type: "submit" },
       },
 
       dataField: {
-        avatar: "",
-        username: "",
+        image: "",
+        userName: "",
         email: "",
         password: "",
       },
@@ -117,12 +117,12 @@ export default {
 
   computed: {
     ...mapGetters({
-      currentUser: getterTypesAuth.currentUser,
+      getCurrentUser: getterTypesAuth.currentUser,
     }),
   },
 
   mounted() {
-    this.dataField = Object.assign({}, this.dataField, this.currentUser)
+    this.dataField = Object.assign({}, this.dataField, this.getCurrentUser)
   },
 
   methods: {

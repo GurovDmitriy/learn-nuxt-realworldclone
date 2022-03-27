@@ -18,17 +18,13 @@ export default {
       default: () => [
         {
           id: 1,
-          like: [],
+          image: "",
+          userName: "Unknown",
+          time: 1031974583,
+          like: 0,
           tags: ["no-tags"],
-          author: {
-            avatar: "",
-            name: "Unknown",
-            time: 1031974583,
-          },
-          feed: {
-            title: "Nothing here yet...",
-            preview: "Nothing here yet...",
-          },
+          title: "Nothing here yet...",
+          preview: "Nothing here yet...",
         },
       ],
     },

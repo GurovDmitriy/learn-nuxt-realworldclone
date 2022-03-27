@@ -29,7 +29,7 @@ export default {
     const userPayload = `username=${username}`
     const user = await store.dispatch(actionTypesUser.fetchUser, userPayload)
 
-    const feedListPayload = `like_like=${user.id}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
+    const feedListPayload = `like_like=${user.id}&_page=${pageNum}&_limit=${paginator.index}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
@@ -45,7 +45,7 @@ export default {
     getPageCount() {
       const filter = this.$route.params.user
       const count = this.feedCount[filter] || 1
-      const delim = paginator.itemPerPage
+      const delim = paginator.index
       const pageCount = getArrRange(1, Math.ceil(count / delim))
 
       return pageCount

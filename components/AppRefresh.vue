@@ -2,7 +2,7 @@
   <div class="refresh">
     <p class="refresh__error">Something went wrong</p>
     <AppButtonIcon
-      :data-item="dataRefresh"
+      :data-item="configButton"
       class="refresh__button-icon"
       @clickBtn="emitClickBtn"
       >Refresh</AppButtonIcon
@@ -14,7 +14,7 @@
 export default {
   data() {
     return {
-      dataRefresh: {
+      configButton: {
         iconName: "arrow-clockwise",
         iconDesc: "refresh",
       },

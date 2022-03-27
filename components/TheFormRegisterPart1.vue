@@ -10,16 +10,16 @@
     >
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--username"
-      :data-item="dataInput.username"
-      :value="dataItem.username"
-      @input="emitInputUser($event, 'username')"
+      :data-item="configInput.userName"
+      :value="dataItem.userName"
+      @input="emitInputUser($event, 'userName')"
     />
     <label class="form-register-part-1__label visually-hidden" for="email-field"
       >Email</label
     >
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--email"
-      :data-item="dataInput.email"
+      :data-item="configInput.email"
       :value="dataItem.email"
       @input="emitInputUser($event, 'email')"
     />
@@ -30,7 +30,7 @@
     >
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--password"
-      :data-item="dataInput.password"
+      :data-item="configInput.password"
       :value="dataItem.password"
       @input="emitInputUser($event, 'password')"
     />
@@ -48,8 +48,8 @@ export default {
 
   data() {
     return {
-      dataInput: {
-        username: {
+      configInput: {
+        userName: {
           name: "username",
           type: "text",
           placeholder: "Username",

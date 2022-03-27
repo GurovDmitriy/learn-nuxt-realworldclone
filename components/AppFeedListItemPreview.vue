@@ -14,11 +14,7 @@ export default {
   props: {
     dataItem: {
       type: Object,
-      required: false,
-      default: () => ({
-        title: "No Title",
-        preview: "No Preview",
-      }),
+      required: true,
     },
   },
 }

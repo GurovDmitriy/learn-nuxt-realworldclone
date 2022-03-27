@@ -16,7 +16,7 @@ export default {
       required: false,
       default: () => ({
         content: "Nothing here yet...",
-        tags: ["no-tag"],
+        tags: ["no-tags"],
       }),
       validator: (value) => {
         return Array.isArray(value.tags)

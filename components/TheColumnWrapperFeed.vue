@@ -1,13 +1,17 @@
 <template>
   <section class="column-wrapper-feed">
     <h3 class="column-wrapper-feed__caption visually-hidden">Article</h3>
-    <AppLoading v-if="feedIsLoading" class="column-wrapper-feed__loading" />
+    <AppLoading v-if="getFeedIsLoading" class="column-wrapper-feed__loading" />
     <AppRefresh
-      v-if="feedErrors"
+      v-if="getFeedErrors"
       class="column-wrapper-feed__refresh"
       @refreshData="refreshFeed"
     />
-    <AppFeed v-if="feed" :data-item="feed" class="column-wrapper-feed__feed" />
+    <AppFeed
+      v-if="getFeed"
+      :data-item="getFeed"
+      class="column-wrapper-feed__feed"
+    />
   </section>
 </template>
 
@@ -18,9 +22,9 @@ import { actionTypes as actionTypesFeed } from "~/store/feed"
 export default {
   computed: {
     ...mapState({
-      feed: ({ feed }) => feed.feed,
-      feedIsLoading: ({ feed }) => feed.isLoading,
-      feedErrors: ({ feed }) => feed.errors,
+      getFeed: ({ feed }) => feed.feed,
+      getFeedIsLoading: ({ feed }) => feed.isLoading,
+      getFeedErrors: ({ feed }) => feed.errors,
     }),
   },
 

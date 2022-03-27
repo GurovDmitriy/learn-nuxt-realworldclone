@@ -10,9 +10,9 @@
     >
     <AppInput
       class="form-register-part-2__input form-register-part-2__input--first-name"
-      :data-item="dataInput.firstname"
-      :value="dataItem.firstname"
-      @input="emitInputUser($event, 'firstname')"
+      :data-item="configInput.firstName"
+      :value="dataItem.firstName"
+      @input="emitInputUser($event, 'firstName')"
     />
     <label
       class="form-register-part-2__label visually-hidden"
@@ -21,9 +21,9 @@
     >
     <AppInput
       class="form-register-part-2__input form-register-part-2__input--last-name"
-      :data-item="dataInput.lastname"
-      :value="dataItem.lastname"
-      @input="emitInputUser($event, 'lastname')"
+      :data-item="configInput.lastName"
+      :value="dataItem.lastName"
+      @input="emitInputUser($event, 'lastName')"
     />
     <label
       class="form-register-part-2__label visually-hidden"
@@ -32,9 +32,9 @@
     >
     <AppInput
       class="form-register-part-2__input form-register-part-2__input--avatar"
-      :data-item="dataInput.avatar"
-      :value="dataItem.avatar"
-      @input="emitInputUser($event, 'avatar')"
+      :data-item="configInput.image"
+      :value="dataItem.image"
+      @input="emitInputUser($event, 'image')"
     />
   </fieldset>
 </template>
@@ -50,8 +50,8 @@ export default {
 
   data() {
     return {
-      dataInput: {
-        firstname: {
+      configInput: {
+        firstName: {
           name: "firstname",
           type: "text",
           placeholder: "First name",
@@ -59,7 +59,7 @@ export default {
           required: true,
         },
 
-        lastname: {
+        lastName: {
           name: "lastname",
           type: "text",
           placeholder: "Last name",
@@ -67,7 +67,7 @@ export default {
           required: true,
         },
 
-        avatar: {
+        image: {
           name: "avatar",
           type: "url",
           placeholder: "Avatar",

@@ -16,7 +16,7 @@ export default {
   async asyncData({ query, store }) {
     const username = store.getters[getterTypesAuth.currentUser].username
     const pageNum = query.page || 1
-    const feedListPayload = `author.name=${username}&_page=${pageNum}&_limit=${paginator.itemPerPage}`
+    const feedListPayload = `author.name=${username}&_page=${pageNum}&_limit=${paginator.index}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),

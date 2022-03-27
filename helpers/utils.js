@@ -39,22 +39,22 @@ export function isOuterSrc(value) {
   return /^http/.test(value)
 }
 
-// isEmpty
+// isNotEmpty
 
-export function isEmptyStr(value) {
+export function isNotEmptyStr(value) {
   if (!value || typeof value !== "string") return null
 
-  return value === ""
+  return value !== ""
 }
 
-export function isEmptyObj(value) {
+export function isNotEmptyObj(value) {
   if (!value || typeof value !== "object") return null
 
-  return Object.keys(value).length === 0
+  return Object.keys(value).length > 0
 }
 
-export function isEmptyArr(value) {
+export function isNotEmptyArr(value) {
   if (!value || !Array.isArray(value)) return null
 
-  return value.length === 0
+  return value.length > 0
 }

@@ -1,10 +1,10 @@
 <template>
   <img
     class="image"
-    :src="getImageSrc"
-    :alt="dataItem.imageAlt"
-    :width="dataItem.imageWidth"
-    :height="dataItem.imageHeight"
+    :src="getImage"
+    :width="dataItem.width"
+    :height="dataItem.height"
+    :alt="dataItem.alt"
   />
 </template>
 
@@ -17,26 +17,26 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        imageSrc: require("~/assets/images/placeholder-image.png"),
-        imageAlt: "placeholder",
-        imageWidth: 100,
-        imageHeight: 100,
-        imagePlaceholderName: "placeholder-image.png",
+        image: "placeholder-image.png",
+        width: 100,
+        height: 100,
+        alt: "placeholder",
+        placeholder: "placeholder-image.png",
       }),
     },
   },
 
   computed: {
-    getImageSrc() {
-      switch (isOuterSrc(this.dataItem.imageSrc)) {
+    getImage() {
+      switch (isOuterSrc(this.dataItem.image)) {
         case true:
-          return this.dataItem.imageSrc
+          return this.dataItem.image
 
         case false:
-          return require(`~/assets/images/${this.dataItem.imageSrc}`)
+          return require(`~/assets/images/${this.dataItem.image}`)
 
         default:
-          return require(`~/assets/images/${this.dataItem.imagePlaceholderName}`)
+          return require(`~/assets/images/${this.dataItem.placeholder}`)
       }
     },
   },

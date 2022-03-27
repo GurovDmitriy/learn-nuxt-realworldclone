@@ -2,7 +2,7 @@
   <div class="feed-list-item-footer">
     <NuxtLink
       :to="{
-        path: getFeedPath,
+        path: getPathFeed,
       }"
       class="feed-list-item-footer__read-more"
       >Read more...</NuxtLink
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { getKebabStr } from "~/helpers/utils"
+import { getStrKebab } from "~/helpers/utils"
 
 export default {
   props: {
@@ -26,11 +26,9 @@ export default {
   },
 
   computed: {
-    getFeedPath() {
-      const DetailName = getKebabStr(this.dataItem.feed.title)
-      const DetailPath = `/feed/${DetailName}`
-
-      return DetailPath
+    getPathFeed() {
+      const name = getStrKebab(this.dataItem.title)
+      return `/feed/${name}`
     },
   },
 }

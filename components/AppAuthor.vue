@@ -1,11 +1,11 @@
 <template>
   <div class="author">
-    <NuxtLink class="author__img-box" :to="{ path: dataItem.userPagePath }">
+    <NuxtLink class="author__img-box" :to="{ path: dataItem.pathLink }">
       <AppImage class="author__img" :data-item="dataItem" />
     </NuxtLink>
     <div class="author__info-box">
-      <NuxtLink class="author__name" :to="{ path: dataItem.userPagePath }">
-        {{ dataItem.name }}
+      <NuxtLink class="author__name" :to="{ path: dataItem.pathLink }">
+        {{ dataItem.userName }}
       </NuxtLink>
       <time class="author__time-feed" :datetime="dataItem.time">
         {{ dataItem.time | dateFormatBase }}
@@ -21,12 +21,14 @@ export default {
       type: Object,
       required: false,
       default: () => ({
-        name: "Author",
+        width: 38,
+        height: 38,
         time: 1031974583,
-        userPagePath: "/",
-        imageWith: 38,
-        imageHeight: 38,
-        imagePlaceholderName: "placeholder-avatar.png",
+        pathLink: "/",
+        userName: "Author",
+        image: "placeholder-avatar.png",
+        alt: "placeholder",
+        placeholder: "placeholder-avatar.png",
       }),
     },
   },

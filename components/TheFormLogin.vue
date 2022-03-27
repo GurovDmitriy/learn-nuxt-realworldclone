@@ -1,5 +1,5 @@
 <template>
-  <AppForm class="form-login" :data-item="dataForm" @submitForm="login">
+  <AppForm class="form-login" :data-item="configForm" @submitForm="login">
     <template #default>
       <fieldset class="form-login__fieldset">
         <legend class="form-login__legend visually-hidden">Login</legend>
@@ -9,7 +9,7 @@
         <AppInput
           v-model="dataField.email"
           class="form-login__input form-login__input--email"
-          :data-item="dataInput.email"
+          :data-item="configInput.email"
         />
         <label class="form-login__label visually-hidden" for="password-field"
           >Password</label
@@ -17,7 +17,7 @@
         <AppInput
           v-model="dataField.password"
           class="form-login__input form-login__input--password"
-          :data-item="dataInput.password"
+          :data-item="configInput.password"
         />
       </fieldset>
     </template>
@@ -25,7 +25,7 @@
     <template #box-btn>
       <AppButton
         class="form-login__btn form-login__btn--login"
-        :data-item="dataBtn.login"
+        :data-item="configBtn.login"
         >Login</AppButton
       >
     </template>
@@ -41,12 +41,12 @@ export default {
 
   data() {
     return {
-      dataForm: {
+      configForm: {
         method: "POST",
         action: "",
       },
 
-      dataInput: {
+      configInput: {
         email: {
           name: "email",
           type: "email",
@@ -64,7 +64,7 @@ export default {
         },
       },
 
-      dataBtn: {
+      configBtn: {
         login: { type: "submit" },
       },
 

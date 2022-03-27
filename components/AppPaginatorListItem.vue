@@ -2,7 +2,7 @@
   <li class="paginator-list-item">
     <NuxtLink
       class="paginator-list-item__link"
-      :class="getActiveClass"
+      :class="getClassActive"
       :to="{
         path: pathPage,
         query: { page: dataItem },
@@ -33,7 +33,7 @@ export default {
   },
 
   computed: {
-    getActiveClass() {
+    getClassActive() {
       return {
         "paginator-list-item__link--active": this.isActive,
       }

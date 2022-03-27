@@ -43,10 +43,10 @@ function createDefaultUser(state) {
   const defaultUser = {
     id: 1,
     role: "admin",
-    username: "Admin",
-    firstname: casual.first_name,
-    lastname: casual.last_name,
-    avatar: "https://i.pravatar.cc/100?img=1",
+    userName: "Admin",
+    firstName: casual.first_name,
+    lastName: casual.last_name,
+    image: "https://i.pravatar.cc/100?img=1",
     email: "admin@admin.com",
     password: "$2a$12$JNh1yuTk1nIWukvZZMoPPOMEG1BL2ggA8VXjB9h3uUs1zXgGgofO.",
   }
@@ -73,21 +73,21 @@ function createDefaultTags(state) {
 
 function createUsers(state) {
   for (let i = 2; i <= USERS_COUNT; i++) {
-    let avatar = ""
+    let image = ""
 
     if (i % 2) {
-      avatar = `https://i.pravatar.cc/100?img=${i}`
+      image = `https://i.pravatar.cc/100?img=${i}`
     }
 
     state.users.push({
       id: i,
-      username: casual.username,
-      firstname: casual.first_name,
-      lastname: casual.last_name,
-      avatar,
+      role: "user",
+      userName: casual.username,
+      firstName: casual.first_name,
+      lastName: casual.last_name,
+      image,
       email: casual.email,
       password: casual.password,
-      role: "user",
     })
   }
 
@@ -98,23 +98,10 @@ function createUserList(state) {
   Object.defineProperty(state, "userList", {
     get() {
       const data = state.users.map((item) => {
-        const id = item.id
-        const username = item.username
-        const firstname = item.firstname
-        const lastname = item.lastname
-        const avatar = item.avatar
-        const email = item.email
-        const role = item.role
+        const user = { ...item }
+        delete user.password
 
-        return {
-          id,
-          username,
-          firstname,
-          lastname,
-          avatar,
-          email,
-          role,
-        }
+        return user
       })
 
       return data
@@ -165,30 +152,26 @@ function createFeedList(state) {
   Object.defineProperty(state, "feedList", {
     get() {
       const data = this.feeds.map((item) => {
-        const user = state.users.filter((elem) => elem.id === item.userId)
+        const user = state.users.find((elem) => elem.id === item.userId)
 
         const id = item.id
-        const like = item.like
+        const like = item.like.length
         const time = item.time
         const title = item.title
         const tags = item.tags
         const preview = item.preview
-        const avatar = user[0].avatar
-        const name = user[0].username
+        const image = user.image
+        const userName = user.userName
 
         return {
           id,
           like,
           tags,
-          author: {
-            avatar,
-            name,
-            time,
-          },
-          feed: {
-            title,
-            preview,
-          },
+          image,
+          userName,
+          time,
+          title,
+          preview,
         }
       })
 

@@ -14,7 +14,7 @@ import { paginator } from "~/helpers/vars"
 export default {
   async asyncData({ query, store }) {
     const pageNum = query.page || 1
-    const feedListPayload = `_page=${pageNum}&_limit=${paginator.itemPerPage}`
+    const feedListPayload = `_page=${pageNum}&_limit=${paginator.index}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),

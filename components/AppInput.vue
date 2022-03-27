@@ -9,8 +9,8 @@
       :placeholder="dataItem.placeholder"
       :maxlength="dataItem.maxlength"
       :required="dataItem.required"
-      :class="getClassItem.inputBoxIcon"
-      class="input__field"
+      :class="getClassIcon.inputBoxIcon"
+      class="input__input"
       v-on="getListeners"
     />
     <div v-if="dataItem.iconName" class="input__box-icon">
@@ -36,15 +36,15 @@ export default {
       type: Object,
       required: false,
       default: () => ({
+        id: "",
         value: "",
         name: "",
         type: "text",
         placeholder: "Placeholder",
-        id: "",
-        maxlength: 100,
-        required: false,
         iconName: "pencil-square",
         iconDesc: "icon",
+        required: false,
+        maxlength: 100,
       }),
     },
   },
@@ -63,11 +63,9 @@ export default {
       }
     },
 
-    getClassItem() {
+    getClassIcon() {
       return {
-        inputBoxIcon: {
-          "input__field--active": this.dataItem.iconName,
-        },
+        "input__field--icon": this.dataItem.iconName,
       }
     },
   },
@@ -96,7 +94,7 @@ export default {
   position: relative;
 }
 
-.input__field {
+.input__input {
   display: block;
   width: 100%;
   padding: $space-m $space-l;
@@ -108,7 +106,7 @@ export default {
     color: $var-color-default;
   }
 
-  &--active {
+  &--icon {
     padding-right: $space-xxl;
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <div class="title-user">
-    <template v-if="userData">
-      <AppImage class="title-user__img" :data-item="dataImage" />
-      <h3 class="title-user__username">{{ userDataComp.username }}</h3>
-      <p class="title-user__name">{{ userDataComp.name }}</p>
+    <template v-if="getUser">
+      <AppImage class="title-user__img" :data-item="getDataImage" />
+      <h3 class="title-user__username">{{ getUser.username }}</h3>
+      <p class="title-user__name">{{ getUserFullName }}</p>
     </template>
   </div>
 </template>
@@ -12,46 +12,24 @@
 import { mapState } from "vuex"
 
 export default {
-  data() {
-    return {
-      imageBlockConfig: {
-        imageWidth: 100,
-        imageHeight: 100,
-        imagePlaceholderName: "placeholder-avatar.png",
-      },
-    }
-  },
-
   computed: {
     ...mapState({
-      userData: ({ user }) => user.user,
-      userIsLoading: ({ user }) => user.isLoading,
-      userErrors: ({ user }) => user.errors,
+      getUser: ({ user }) => user.user,
+      getUserIsLoading: ({ user }) => user.isLoading,
+      getUserErrors: ({ user }) => user.errors,
     }),
 
-    userDataComp() {
-      const username = this.userData.username
-      const name = `${this.userData.firstname} ${this.userData.lastname}`
-
-      return {
-        username,
-        name,
-      }
+    getUserFullName() {
+      return `${this.getUser.firstName} ${this.getUser.lastName}`
     },
 
-    dataImage() {
-      const imageSrc = this.userData.avatar || null
-      const imageAlt = this.userData.username
-      const imageWidth = this.imageBlockConfig.imageWidth
-      const imageHeight = this.imageBlockConfig.imageHeight
-      const imagePlaceholderName = this.imageBlockConfig.imagePlaceholderName
-
+    getDataImage() {
       return {
-        imageSrc,
-        imageAlt,
-        imageWidth,
-        imageHeight,
-        imagePlaceholderName,
+        image: this.getUser.image,
+        width: 100,
+        height: 100,
+        alt: this.getUser.userName,
+        placeholder: "placeholder-avatar.png",
       }
     },
   },

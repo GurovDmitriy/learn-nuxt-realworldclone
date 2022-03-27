@@ -15,7 +15,7 @@ export default {
   async asyncData({ params, query, store }) {
     const tag = params.tag
     const page = query.page || 1
-    const feedListPayload = `tags_like=${tag}&_page=${page}&_limit=${paginator.itemPerPage}`
+    const feedListPayload = `tags_like=${tag}&_page=${page}&_limit=${paginator.index}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),

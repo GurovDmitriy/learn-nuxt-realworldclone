@@ -1,9 +1,9 @@
 <template>
-  <AppForm class="form-register" :data-item="dataForm" @submitForm="register">
+  <AppForm class="form-register" :data-item="configForm" @submitForm="register">
     <template #default>
       <KeepAlive>
         <Component
-          :is="activePart"
+          :is="getActivePart"
           :data-item="dataField"
           class="form-register__fieldset"
           @inputUser="setDataField"
@@ -14,18 +14,20 @@
     <template #box-btn>
       <div class="form-register__box-button">
         <AppButton
-          v-if="showBtns.prev"
-          :data-item="dataBtn.prev"
-          @clickBtn="partPrev"
+          v-if="getVisibleBtns.prev"
+          :data-item="configBtn.prev"
+          @clickBtn="setPartPrev"
           >Prev</AppButton
         >
         <AppButton
-          v-if="showBtns.next"
-          :data-item="dataBtn.next"
-          @clickBtn="partNext"
+          v-if="getVisibleBtns.next"
+          :data-item="configBtn.next"
+          @clickBtn="setPartNext"
           >Next</AppButton
         >
-        <AppButton v-if="showBtns.register" :data-item="dataBtn.register"
+        <AppButton
+          v-if="getVisibleBtns.register"
+          :data-item="configBtn.register"
           >Register</AppButton
         >
       </div>
@@ -42,27 +44,27 @@ export default {
 
   data() {
     return {
-      dataForm: {
+      configForm: {
         method: "POST",
         action: "",
       },
 
-      dataFormPart: {
+      configFormPart: {
         baseName: "TheFormRegisterPart",
         list: [1, 2],
         active: 0,
       },
 
       dataField: {
-        username: "",
+        userName: "",
+        lastName: "",
+        image: "",
         email: "",
         password: "",
-        firstname: "",
-        lastname: "",
-        avatar: "",
+        firstName: "",
       },
 
-      dataBtn: {
+      configBtn: {
         prev: { type: "button" },
         next: { type: "button" },
         register: { type: "submit" },
@@ -71,20 +73,20 @@ export default {
   },
 
   computed: {
-    activePart() {
-      const baseName = this.dataFormPart.baseName
-      const active = this.dataFormPart.active
-      const activePart = this.dataFormPart.list[active]
+    getActivePart() {
+      const baseName = this.configFormPart.baseName
+      const active = this.configFormPart.active
+      const activePart = this.configFormPart.list[active]
 
-      const name = `${baseName}${activePart}`
-      return name
+      return `${baseName}${activePart}`
     },
 
-    showBtns() {
-      const prev = this.dataFormPart.active > 0
-      const next = this.dataFormPart.active < this.dataFormPart.list.length - 1
+    getVisibleBtns() {
+      const prev = this.configFormPart.active > 0
+      const next =
+        this.configFormPart.active < this.configFormPart.list.length - 1
       const register =
-        this.dataFormPart.active === this.dataFormPart.list.length - 1
+        this.configFormPart.active === this.configFormPart.list.length - 1
 
       return {
         prev,
@@ -95,28 +97,24 @@ export default {
   },
 
   methods: {
-    partPrev() {
-      const active = this.dataFormPart.active
-      if (active === 0) return
-
-      this.dataFormPart.active -= 1
+    setPartPrev() {
+      if (this.configFormPart.active === 0) return
+      this.configFormPart.active -= 1
     },
 
-    partNext() {
-      const active = this.dataFormPart.active
-      const partCount = this.dataFormPart.list.length
-      if (active === partCount - 1) return
+    setPartNext() {
+      if (this.configFormPart.active === this.configFormPart.list.length - 1)
+        return
+      this.configFormPart.active += 1
+    },
 
-      this.dataFormPart.active += 1
+    setDataField({ value, nameField }) {
+      this.dataField[nameField] = value
     },
 
     async register() {
       await this.$store.dispatch(actionTypesAuth.register, this.dataField)
       this.resetForm()
-    },
-
-    setDataField({ value, nameField }) {
-      this.dataField[nameField] = value
     },
   },
 }
