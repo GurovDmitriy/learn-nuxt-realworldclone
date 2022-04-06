@@ -36,12 +36,9 @@
 </template>
 
 <script>
-import FormMixin from "~/mixins/formMixin"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
-  mixins: [FormMixin],
-
   data() {
     return {
       configForm: {
@@ -114,7 +111,7 @@ export default {
 
     async register() {
       await this.$store.dispatch(actionTypesAuth.register, this.dataField)
-      this.resetForm()
+      this.$router.push({ path: "/" })
     },
   },
 }

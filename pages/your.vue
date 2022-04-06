@@ -13,6 +13,8 @@ import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
 
 export default {
+  middleware: ["auth"],
+
   async asyncData({ query, store }) {
     const userName = store.getters[getterTypesAuth.currentUser].userName
     const pageNum = query.page || 1
