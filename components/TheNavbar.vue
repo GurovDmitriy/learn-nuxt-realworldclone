@@ -46,10 +46,15 @@ export default {
     }),
 
     getNavList() {
+      let data = []
+
       if (this.getIsLoggedIn) {
-        return [...this.dataNavListLogged, ...this.getNavLinkUser]
+        data = [...this.dataNavListLogged, this.getNavLinkUser]
+      } else {
+        data = [...this.dataNavListDefault]
       }
-      return [...this.dataNavListDefault]
+
+      return data
     },
 
     getNavLinkUser() {

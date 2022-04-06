@@ -26,14 +26,14 @@
       :data-item="getCountPage"
       :path-page="$route.path"
     />
-    <AppNoContent v-else class="column-wrapper-main-left__no-content" />
+    <!-- <AppNoContent v-else class="column-wrapper-main-left__no-content" /> -->
   </section>
 </template>
 
 <script>
 import { mapState, mapGetters } from "vuex"
-import { actionTypes as actionTypesFeed } from "~/store/feed"
-import { getterTypes as getterTypesFeed } from "~/store/auth"
+import { actionTypes as actionTypesFeedList } from "~/store/feedList"
+import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { getArrRange, isNotEmptyObj } from "~/helpers/utils"
 import { paginator, placeholder } from "~/helpers/vars"
 
@@ -47,14 +47,14 @@ export default {
 
   computed: {
     ...mapState({
-      getFeedList: ({ feed }) => feed.feedList,
-      getFeedListIsLoading: ({ feed }) => feed.isLoading,
-      getFeedListErrors: ({ feed }) => feed.errors,
+      getFeedList: ({ feedList }) => feedList.feedList,
+      getFeedListIsLoading: ({ feedList }) => feedList.isLoading,
+      getFeedListErrors: ({ feedList }) => feedList.errors,
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
     }),
 
     ...mapGetters({
-      getCurrentUser: getterTypesFeed.currentUser,
+      getCurrentUser: getterTypesAuth.currentUser,
     }),
 
     getDataFilterBar() {
@@ -98,7 +98,7 @@ export default {
 
     getFilter() {
       if (this.$route.path === "/your" && isNotEmptyObj(this.getCurrentUser)) {
-        return this.getCurrentUser.username
+        return this.getCurrentUser.userName
       } else {
         return this.$route.params.tag || "total"
       }
@@ -107,7 +107,7 @@ export default {
 
   methods: {
     async fetchFeedList() {
-      await this.$store.dispatch(actionTypesFeed.fetchFeedList)
+      await this.$store.dispatch(actionTypesFeedList.fetchFeedList)
     },
   },
 }

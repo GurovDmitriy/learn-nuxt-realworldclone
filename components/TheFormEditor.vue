@@ -15,7 +15,7 @@
           >About</label
         >
         <AppInput
-          v-model="dataField.about"
+          v-model="dataField.preview"
           class="form-editor__input form-editor__input--about"
           :data-item="configInput.about"
         />
@@ -47,8 +47,10 @@
 
 <script>
 import { mapGetters } from "vuex"
+import { getStrCamelCase } from "~/helpers/utils"
 import FormMixin from "~/mixins/formMixin"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
+import { actionTypes as actionTypesFeed } from "~/store/feed"
 
 export default {
   mixins: [FormMixin],
@@ -102,7 +104,7 @@ export default {
 
       dataField: {
         title: "",
-        about: "",
+        preview: "",
         content: "",
         tags: "",
       },
@@ -116,16 +118,15 @@ export default {
   },
 
   methods: {
-    createFeed() {
+    async createFeed() {
       const newFeed = Object.assign(
         {},
+        this.dataField,
         this.createDataFeedDefault(),
-        this.createTags()
+        { tags: this.createTags() }
       )
 
-      // check repeat tag in state
-      // dispatch create tags
-      // dispatch fetch tags
+      await this.$store.dispatch(actionTypesFeed.createFeed, newFeed)
 
       // eslint-disable-next-line no-console
       console.log("create feed", newFeed)
@@ -145,8 +146,8 @@ export default {
     },
 
     createTags() {
-      const tagsArr = this.dataField.tags.split(",")
-      return tagsArr.map((item) => item.trim())
+      const tags = this.dataField.tags.split(",")
+      return tags.map((item) => getStrCamelCase(item))
     },
   },
 }

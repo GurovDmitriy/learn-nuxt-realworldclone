@@ -8,13 +8,13 @@
 <script>
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 import { actionTypes as actionTypesUser } from "~/store/user"
-import { getStrFromKebab } from "~/helpers/utils"
+import { getStrFromKebabCase } from "~/helpers/utils"
 
 export default {
   layout: "feed",
 
   async asyncData({ params, store }) {
-    const feedTitle = getStrFromKebab(params.feed)
+    const feedTitle = getStrFromKebabCase(params.feed)
 
     const feedPayload = `title=${feedTitle}`
     const feed = await store.dispatch(actionTypesFeed.fetchFeed, feedPayload)

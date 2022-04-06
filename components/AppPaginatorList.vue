@@ -1,7 +1,7 @@
 <template>
   <ul class="paginator-list">
     <AppPaginatorListItem
-      v-for="(item, index) in dataItem.pageCount"
+      v-for="(item, index) in dataItem"
       :key="item"
       :data-item="item"
       :path-page="pathPage"
@@ -34,7 +34,7 @@ export default {
 
   computed: {
     getIsActivePage() {
-      return this.dataItem.pageCount.map((item) => {
+      return this.dataItem.map((item) => {
         return this.$route.query.page === item
       })
     },

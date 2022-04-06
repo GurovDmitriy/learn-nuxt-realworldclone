@@ -11,13 +11,25 @@ export function getArrRange(start, end) {
 
 // getStr
 
-export function getStrKebab(str) {
+export function getStrKebabCase(str) {
   if (!str || typeof str !== "string") return null
 
   return str.split(" ").join("-")
 }
 
-export function getStrFromKebab(str) {
+export function getStrCamelCase(str) {
+  if (!str || typeof str !== "string") return null
+
+  const strArr = str.trim().split(" ")
+
+  strArr.forEach((item, index, arr) => {
+    if (index > 0) arr[index] = item[0].toUpperCase() + item.slice(1)
+  })
+
+  return strArr.join("")
+}
+
+export function getStrFromKebabCase(str) {
   if (!str || typeof str !== "string") return null
 
   return str.split("-").join(" ")

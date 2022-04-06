@@ -8,19 +8,19 @@
 <script>
 import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { actionTypes as actionTypesTag } from "~/store/tag"
-import { actionTypes as actionTypesFeed } from "~/store/feed"
+import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
 
 export default {
   async asyncData({ query, store }) {
-    const username = store.getters[getterTypesAuth.currentUser].username
+    const userName = store.getters[getterTypesAuth.currentUser].userName
     const pageNum = query.page || 1
-    const feedListPayload = `author.name=${username}&_page=${pageNum}&_limit=${paginator.index}`
+    const feedListPayload = `userName=${userName}&_page=${pageNum}&_limit=${paginator.index}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
-      store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
+      store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "user"),
     ])
   },

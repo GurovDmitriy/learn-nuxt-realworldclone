@@ -155,7 +155,7 @@ function createFeedList(state) {
         const user = state.users.find((elem) => elem.id === item.userId)
 
         const id = item.id
-        const like = item.like.length
+        const like = item.like
         const time = item.time
         const title = item.title
         const tags = item.tags

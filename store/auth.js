@@ -140,8 +140,8 @@ const actions = {
 
     try {
       const res = await this.$api.auth.updateUser(payload)
-      const { avatar, email, firstname, lastname, username, role, id } = res
-      const data = { avatar, email, firstname, lastname, username, role, id }
+      const { image, email, firstName, lastName, userName, role, id } = res
+      const data = { image, email, firstName, lastName, userName, role, id }
 
       commit(mutationTypes.setUserSuccess, data)
       return data
@@ -165,6 +165,8 @@ const actions = {
 
   async nuxtServerInit({ dispatch }) {
     const userId = this.$cookies.get("userId")
+    if (!userId) return
+
     await dispatch(actionTypes.fetchUser, userId)
   },
 }

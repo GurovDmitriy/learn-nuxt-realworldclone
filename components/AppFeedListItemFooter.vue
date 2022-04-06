@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { getStrKebab } from "~/helpers/utils"
+import { getStrKebabCase } from "~/helpers/utils"
 
 export default {
   props: {
@@ -27,7 +27,7 @@ export default {
 
   computed: {
     getPathFeed() {
-      const name = getStrKebab(this.dataItem.title)
+      const name = getStrKebabCase(this.dataItem.title)
       return `/feed/${name}`
     },
   },

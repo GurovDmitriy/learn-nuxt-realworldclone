@@ -7,7 +7,7 @@
 
 <script>
 import { actionTypes as actionTypesTag } from "~/store/tag"
-import { actionTypes as actionTypesFeed } from "~/store/feed"
+import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
 
@@ -18,7 +18,7 @@ export default {
 
     await Promise.allSettled([
       store.dispatch(actionTypesTag.fetchTags),
-      store.dispatch(actionTypesFeed.fetchFeedList, feedListPayload),
+      store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "total"),
     ])
   },

@@ -21,7 +21,7 @@ export default {
           image: "",
           userName: "Unknown",
           time: 1031974583,
-          like: 0,
+          like: [],
           tags: ["no-tags"],
           title: "Nothing here yet...",
           preview: "Nothing here yet...",

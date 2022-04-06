@@ -1,42 +1,26 @@
 export const mutationTypes = {
-  setFeedListStart: "[feed] setFeedListStart",
-  setFeedListSuccess: "[feed] setFeedListSuccess",
-  setFeedListFailure: "[feed] setFeedListFailure",
-
   setFeedStart: "[feed] setFeedStart",
   setFeedSuccess: "[feed] setFeedSuccess",
   setFeedFailure: "[feed] setFeedFailure",
+
+  deleteFeedStart: "[feed] deleteFeedStart",
+  deleteFeedSuccess: "[feed] deleteFeedSuccess",
+  deleteFeedFailure: "[feed] deleteFeedFailure",
 }
 
 export const actionTypes = {
-  fetchFeedList: "[feed] fetchFeedList",
   fetchFeed: "[feed] fetchFeed",
+  createFeed: "[feed] createFeed",
+  deleteFeed: "[feed] deleteFeed",
 }
 
 export const state = () => ({
-  feedList: [],
   feed: {},
   isLoading: false,
   errors: null,
 })
 
 const mutations = {
-  [mutationTypes.setFeedListStart](state) {
-    state.isLoading = true
-    state.feedList = null
-    state.errors = null
-  },
-
-  [mutationTypes.setFeedListSuccess](state, payload) {
-    state.feedList = payload
-    state.isLoading = false
-  },
-
-  [mutationTypes.setFeedListFailure](state, payload) {
-    state.errors = payload
-    state.isLoading = false
-  },
-
   [mutationTypes.setFeedStart](state) {
     state.isLoading = true
     state.feed = null
@@ -52,33 +36,53 @@ const mutations = {
     state.errors = payload
     state.isLoading = false
   },
+
+  [mutationTypes.deleteFeedStart](state) {
+    state.isLoading = true
+    state.feed = null
+    state.errors = null
+  },
+
+  [mutationTypes.deleteFeedSuccess](state, payload) {
+    state.isLoading = false
+  },
+
+  [mutationTypes.deleteFeedFailure](state, payload) {
+    state.errors = payload
+    state.isLoading = false
+  },
 }
 
 const actions = {
-  async [actionTypes.fetchFeedList]({ commit }, payload) {
-    commit(mutationTypes.setFeedListStart)
-
-    try {
-      const data = await this.$api.feed.getFeedList(payload)
-
-      commit(mutationTypes.setFeedListSuccess, data)
-      return data
-    } catch (err) {
-      commit(mutationTypes.setFeedListFailure, err)
-      throw new Error(err)
-    }
-  },
-
   async [actionTypes.fetchFeed]({ commit }, payload) {
     commit(mutationTypes.setFeedStart)
-
     try {
       const data = await this.$api.feed.getFeed(payload)
-
       commit(mutationTypes.setFeedSuccess, data[0])
       return data
     } catch (err) {
       commit(mutationTypes.setFeedFailure, err)
+      throw new Error(err)
+    }
+  },
+  async [actionTypes.createFeed]({ commit }, payload) {
+    commit(mutationTypes.setFeedStart)
+    try {
+      const data = await this.$api.feed.createFeed(payload)
+      commit(mutationTypes.setFeedSuccess, data)
+      return data
+    } catch (err) {
+      commit(mutationTypes.setFeedFailure, err)
+      throw new Error(err)
+    }
+  },
+  async [actionTypes.deleteFeed]({ commit }, payload) {
+    commit(mutationTypes.deleteFeedStart)
+    try {
+      const data = await this.$api.feed.deleteFeed(payload)
+      commit(mutationTypes.deleteFeedSuccess, data)
+    } catch (err) {
+      commit(mutationTypes.deleteFeedFailure, err)
       throw new Error(err)
     }
   },

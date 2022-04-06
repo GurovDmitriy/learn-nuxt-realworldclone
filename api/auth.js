@@ -8,6 +8,7 @@ export default (axios) => ({
   },
 
   getUser(payload) {
+    if (!payload) return null
     return axios.$get(`/userList/${payload}`)
   },
 

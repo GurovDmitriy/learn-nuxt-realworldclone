@@ -26,7 +26,7 @@
 
 <script>
 import { mapState } from "vuex"
-import { actionTypes as actionTypesFeed } from "~/store/feed"
+import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { placeholder } from "~/helpers/vars"
 
 export default {
@@ -48,15 +48,15 @@ export default {
 
   computed: {
     ...mapState({
-      getFeedList: ({ feed }) => feed.feedList,
-      getFeedListIsLoading: ({ feed }) => feed.isLoading,
-      getFeedListErrors: ({ feed }) => feed.errors,
+      getFeedList: ({ feedList }) => feedList.feedList,
+      getFeedListIsLoading: ({ feedList }) => feedList.isLoading,
+      getFeedListErrors: ({ feedList }) => feedList.errors,
     }),
   },
 
   methods: {
     async fetchFeedList() {
-      await this.$store.dispatch(actionTypesFeed.fetchFeedList)
+      await this.$store.dispatch(actionTypesFeedList.fetchFeedList)
     },
   },
 }
