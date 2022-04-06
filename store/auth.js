@@ -13,7 +13,9 @@ export const mutationTypes = {
   setUserSuccess: "[auth] setUserSuccess",
   setUserFailure: "[auth] setUserFailure",
 
-  logoutUser: "[auth] logoutUser",
+  logoutStart: "[auth] logoutStart",
+  logoutSuccess: "[auth] logoutSuccess",
+  logoutFailure: "[auth] logoutFailure",
 }
 
 export const actionTypes = {
@@ -72,9 +74,22 @@ const mutations = {
     state.isLoading = false
   },
 
-  [mutationTypes.logoutUser](state) {
+  [mutationTypes.logoutStart](state) {
+    state.isSubmitting = true
+    state.isLoading = true
+    state.errors = null
+  },
+
+  [mutationTypes.logoutStart](state) {
     state.user = null
     state.isLoggedIn = false
+  },
+
+  [mutationTypes.logoutStart](state, payload) {
+    state.errors = payload
+    state.isLoggedIn = false
+    state.isSubmitting = false
+    state.isLoading = false
   },
 }
 
@@ -152,13 +167,16 @@ const actions = {
   },
 
   async [actionTypes.logout]({ commit }) {
+    await commit(mutationTypes.logoutStart)
+
     try {
       removeItemCO(this.$cookies, "accessToken")
       removeItemCO(this.$cookies, "userId")
       setItemLS("credential", "")
 
-      await commit(mutationTypes.logoutUser)
+      await commit(mutationTypes.logoutSuccess)
     } catch (err) {
+      await commit(mutationTypes.logoutFailure, err)
       throw new Error(err)
     }
   },

@@ -43,11 +43,19 @@
     </template>
 
     <template #box-btn>
-      <AppButton
-        class="form-settings__btn form-settings__btn--update"
-        :data-item="configBtn.update"
-        >Update</AppButton
-      >
+      <div class="form-settings__box-btn">
+        <AppButton
+          class="form-settings__btn form-settings__btn--logout"
+          :data-item="configBtn.logout"
+          @clickBtn="logout"
+          >Logout</AppButton
+        >
+        <AppButton
+          class="form-settings__btn form-settings__btn--update"
+          :data-item="configBtn.update"
+          >Update</AppButton
+        >
+      </div>
     </template>
   </AppForm>
 </template>
@@ -103,6 +111,7 @@ export default {
       },
 
       configBtn: {
+        logout: { type: "button" },
         update: { type: "submit" },
       },
 
@@ -130,6 +139,11 @@ export default {
       await this.$store.dispatch(actionTypesAuth.updateUser, this.dataField)
       this.dataField.password = ""
     },
+
+    async logout() {
+      await this.$store.dispatch(actionTypesAuth.logout)
+      this.$router.push({ path: "/login" })
+    },
   },
 }
 </script>
@@ -147,9 +161,10 @@ export default {
   }
 }
 
-.form-settings__btn {
-  &--update {
-    margin-left: auto;
-  }
+.form-settings__box-btn {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
