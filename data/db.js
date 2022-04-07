@@ -234,9 +234,9 @@ function createFeedCountByUser(state) {
 
       state.users.forEach((item) => {
         const id = item.id
-        const username = item.username
+        const userName = item.userName
 
-        data[username] = getCountFeedByUser(id)
+        data[userName] = getCountFeedByUser(id)
       })
 
       function getCountFeedByUser(id) {
@@ -258,9 +258,9 @@ function createFeedCountByLike(state) {
 
       state.users.forEach((item) => {
         const userId = item.id
-        const username = item.username
+        const userName = item.userName
 
-        data[username] = getCountFeedByLike(userId)
+        data[userName] = getCountFeedByLike(userId)
       })
 
       function getCountFeedByLike(id) {
@@ -316,7 +316,7 @@ module.exports = () => {
 console.log(
   `DB successfully created!
     ---
-    default username: admin
+    default userName: admin
             email: admin@admin.com
             password: 123456`
 )

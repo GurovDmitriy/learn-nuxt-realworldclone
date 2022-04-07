@@ -80,12 +80,12 @@ const mutations = {
     state.errors = null
   },
 
-  [mutationTypes.logoutStart](state) {
+  [mutationTypes.logoutSuccess](state) {
     state.user = null
     state.isLoggedIn = false
   },
 
-  [mutationTypes.logoutStart](state, payload) {
+  [mutationTypes.logoutFailure](state, payload) {
     state.errors = payload
     state.isLoggedIn = false
     state.isSubmitting = false
