@@ -1,5 +1,9 @@
 // get
 
+export function getObjClone(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
 // getArr
 
 export function getArrRange(start, end) {

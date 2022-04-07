@@ -1,52 +1,52 @@
 <template>
-  <AppForm class="form-editor" :data-item="configForm" @submitForm="createFeed">
+  <AppForm class="form-update" :data-item="configForm" @submitForm="updateFeed">
     <template #default>
-      <fieldset class="form-editor__fieldset">
-        <legend class="form-editor__legend visually-hidden">Create Feed</legend>
-        <label class="form-editor__label visually-hidden" for="title-field"
+      <fieldset class="form-update__fieldset">
+        <legend class="form-update__legend visually-hidden">Update Feed</legend>
+        <label class="form-update__label visually-hidden" for="title-field"
           >Title</label
         >
         <AppInput
           v-model="dataField.title"
-          class="form-editor__input form-editor__input--title"
+          class="form-update__input form-update__input--title"
           :data-item="configInput.title"
         />
-        <label class="form-editor__label visually-hidden" for="about-field"
+        <label class="form-update__label visually-hidden" for="about-field"
           >About</label
         >
         <AppInput
           v-model="dataField.preview"
-          class="form-editor__input form-editor__input--about"
+          class="form-update__input form-update__input--about"
           :data-item="configInput.about"
         />
-        <label class="form-editor__label visually-hidden" for="tags-field"
+        <label class="form-update__label visually-hidden" for="tags-field"
           >Tags</label
         >
         <AppInput
           v-model="dataField.tags"
-          class="form-editor__input form-editor__input--tags"
+          class="form-update__input form-update__input--tags"
           :data-item="configInput.tags"
         />
         <AppInputTextarea
           v-model="dataField.content"
-          class="form-editor__input form-editor__input--content"
+          class="form-update__input form-update__input--content"
           :data-item="configInput.content"
         />
       </fieldset>
     </template>
 
     <template #box-btn>
-      <div class="form-editor__box-btn">
+      <div class="form-update__box-btn">
         <AppButton
-          class="form-editor__btn form-editor__btn--reset"
+          class="form-update__btn form-update__btn--reset"
           :data-item="configBtn.reset"
           @clickBtn="resetField"
           >Reset</AppButton
         >
         <AppButton
-          class="form-editor__btn form-editor__btn--create"
-          :data-item="configBtn.create"
-          >Create</AppButton
+          class="form-update__btn form-update__btn--create"
+          :data-item="configBtn.update"
+          >Update</AppButton
         >
       </div>
     </template>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapState } from "vuex"
 import { getStrCamelCase, getStrKebabCase } from "~/helpers/utils"
 import FormMixin from "~/mixins/formMixin"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
@@ -108,7 +108,7 @@ export default {
 
       configBtn: {
         reset: { type: "button" },
-        create: { type: "submit" },
+        update: { type: "submit" },
       },
 
       dataField: {
@@ -124,10 +124,18 @@ export default {
     ...mapGetters({
       getCurrentUser: getterTypesAuth.currentUser,
     }),
+
+    ...mapState({
+      getFeed: ({ feed }) => feed.feed,
+    }),
+  },
+
+  mounted() {
+    this.setDataField()
   },
 
   methods: {
-    async createFeed() {
+    async updateFeed() {
       const newFeed = Object.assign(
         {},
         this.dataField,
@@ -136,8 +144,7 @@ export default {
       )
 
       const slugFeed = getStrKebabCase(newFeed.title)
-
-      await this.$store.dispatch(actionTypesFeed.createFeed, newFeed)
+      await this.$store.dispatch(actionTypesFeed.updateFeed, newFeed)
 
       this.$router.push({ path: `/feed/${slugFeed}` })
     },
@@ -159,6 +166,13 @@ export default {
       return tags.map((item) => getStrCamelCase(item))
     },
 
+    setDataField() {
+      const feed = { ...this.getFeed }
+      const tags = feed.tags.join(", ")
+
+      this.dataField = Object.assign({}, this.dataField, feed, { tags })
+    },
+
     resetField() {
       this.resetForm()
     },
@@ -167,11 +181,11 @@ export default {
 </script>
 
 <style lang="scss">
-.form-editor {
+.form-update {
   margin-bottom: $space-xxl;
 }
 
-.form-editor__input {
+.form-update__input {
   margin-bottom: $space-l;
 
   &:last-child {
@@ -179,7 +193,7 @@ export default {
   }
 }
 
-.form-editor__box-btn {
+.form-update__box-btn {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

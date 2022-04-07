@@ -94,8 +94,7 @@ export default {
     editFeed() {
       if (!this.getIsOwnerFeed) return false
 
-      // eslint-disable-next-line no-console
-      console.log("edit feed")
+      this.$router.push({ path: "/update" })
     },
 
     async deleteFeed() {
