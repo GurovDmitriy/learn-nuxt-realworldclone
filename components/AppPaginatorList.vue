@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { isNotEmptyArr } from "~/helpers/utils"
+import { isNotEmptyArr, isNotEmptyObj } from "~/helpers/utils"
 
 export default {
   props: {
@@ -34,8 +34,12 @@ export default {
 
   computed: {
     getIsActivePage() {
-      return this.dataItem.map((item) => {
-        return this.$route.query.page === item
+      return this.dataItem.map((item, index) => {
+        if (index === 0 && !isNotEmptyObj(this.$route.query)) {
+          return true
+        }
+
+        return this.$route.query.page === item || this.$route.query.page === 1
       })
     },
   },
