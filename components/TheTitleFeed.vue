@@ -72,8 +72,16 @@ export default {
       }
     },
 
+    getIsOwnerFeed() {
+      if (this.getCurrentUser && this.getFeed) {
+        return this.getFeed.userId === this.getCurrentUser.id
+      }
+      return false
+    },
+
     getIsVisibleBtn() {
-      return this.getUserData.id === this.getCurrentUser.id
+      if (this.getIsOwnerFeed) return true
+      return false
     },
   },
 
@@ -84,12 +92,19 @@ export default {
     },
 
     editFeed() {
+      if (!this.getIsOwnerFeed) return false
+
       // eslint-disable-next-line no-console
       console.log("edit feed")
     },
 
     async deleteFeed() {
+      if (!this.getIsOwnerFeed) return false
+
+      const userName = this.getCurrentUser.userName
+
       await this.$store.dispatch(actionTypesFeed.deleteFeed, this.getFeed.id)
+      this.$router.push({ path: `/users/${userName}` })
     },
   },
 }

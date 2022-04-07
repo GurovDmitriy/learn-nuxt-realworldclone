@@ -47,7 +47,7 @@
 
 <script>
 import { mapGetters } from "vuex"
-import { getStrCamelCase } from "~/helpers/utils"
+import { getStrCamelCase, getStrKebabCase } from "~/helpers/utils"
 import FormMixin from "~/mixins/formMixin"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
@@ -126,11 +126,11 @@ export default {
         { tags: this.createTags() }
       )
 
+      const slugFeed = getStrKebabCase(newFeed.title)
+
       await this.$store.dispatch(actionTypesFeed.createFeed, newFeed)
 
-      // eslint-disable-next-line no-console
-      console.log("create feed", newFeed)
-      this.resetForm()
+      this.$router.push({ path: `/feed/${slugFeed}` })
     },
 
     createDataFeedDefault() {
