@@ -8,7 +8,7 @@
 <script>
 export default {
   layout: "sign",
-  middleware: ["auth"],
+  middleware: ["auth", "update"],
 }
 </script>
 
