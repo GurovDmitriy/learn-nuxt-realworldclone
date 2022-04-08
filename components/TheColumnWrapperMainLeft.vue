@@ -19,6 +19,7 @@
       v-if="getFeedList"
       :data-item="getFeedList"
       class="column-wrapper-main-left__feed-list"
+      @toggleLike="toggleLike"
     />
     <AppPaginatorList
       v-if="getFeedCount"
@@ -55,6 +56,7 @@ export default {
 
     ...mapGetters({
       getCurrentUser: getterTypesAuth.currentUser,
+      isLoggedIn: getterTypesAuth.isLoggedIn,
     }),
 
     getDataFilterBar() {
@@ -108,6 +110,12 @@ export default {
   methods: {
     async fetchFeedList() {
       await this.$store.dispatch(actionTypesFeedList.fetchFeedList)
+    },
+
+    toggleLike() {
+      if (!this.isLoggedIn) return
+      // eslint-disable-next-line no-console
+      console.log("toggle like")
     },
   },
 }

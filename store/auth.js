@@ -27,7 +27,7 @@ export const actionTypes = {
 }
 
 export const state = () => ({
-  user: null,
+  user: {},
   isLoggedIn: null,
   isSubmitting: false,
   isLoading: false,
@@ -36,7 +36,7 @@ export const state = () => ({
 
 const getters = {
   [getterTypes.currentUser]: (state) => {
-    return state.user
+    return state.user || null
   },
 
   [getterTypes.isLoggedIn]: (state) => {
@@ -48,7 +48,8 @@ const getters = {
   },
 
   [getterTypes.isAdmin]: (state) => {
-    return state?.user?.role === "admin"
+    if (state.user) return state.user.role === "admin"
+    return null
   },
 }
 
@@ -56,8 +57,8 @@ const mutations = {
   [mutationTypes.setUserStart](state) {
     state.isSubmitting = true
     state.isLoading = true
-    state.user = null
     state.errors = null
+    state.user = null
   },
 
   [mutationTypes.setUserSuccess](state, payload) {
@@ -81,7 +82,7 @@ const mutations = {
   },
 
   [mutationTypes.logoutSuccess](state) {
-    state.user = null
+    state.user = {}
     state.isLoggedIn = false
   },
 

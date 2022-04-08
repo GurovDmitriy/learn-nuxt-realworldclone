@@ -1,6 +1,6 @@
 <template>
   <div class="title-user">
-    <template v-if="getUser">
+    <template v-if="getIsVisibleTitleUser">
       <AppImage class="title-user__img" :data-item="getDataImage" />
       <h3 class="title-user__username">{{ getUser.userName }}</h3>
       <p class="title-user__name">{{ getUserFullName }}</p>
@@ -10,6 +10,7 @@
 
 <script>
 import { mapState } from "vuex"
+import { isNotEmptyObj } from "~/helpers/utils"
 
 export default {
   computed: {
@@ -31,6 +32,10 @@ export default {
         alt: this.getUser.userName,
         placeholder: "placeholder-avatar.png",
       }
+    },
+
+    getIsVisibleTitleUser() {
+      return isNotEmptyObj(this.getUser)
     },
   },
 

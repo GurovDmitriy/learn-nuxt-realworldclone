@@ -5,6 +5,7 @@
       :key="item.id"
       :data-item="item"
       class="feed-list__item"
+      @toggleLike="emitToggleLike"
     />
   </ul>
 </template>
@@ -27,6 +28,12 @@ export default {
           preview: "Nothing here yet...",
         },
       ],
+    },
+  },
+
+  methods: {
+    emitToggleLike() {
+      this.$emit("toggleLike")
     },
   },
 }

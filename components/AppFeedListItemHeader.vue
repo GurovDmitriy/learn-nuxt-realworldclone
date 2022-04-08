@@ -4,6 +4,7 @@
     <AppButtonIcon
       :data-item="configButton"
       class="feed-list-item-header__button-icon"
+      @clickBtn="emitToggleLike"
       >{{ getCountLike }}</AppButtonIcon
     >
   </div>
@@ -47,6 +48,12 @@ export default {
 
     getCountLike() {
       return this.dataItem.like.length
+    },
+  },
+
+  methods: {
+    emitToggleLike() {
+      this.$emit("toggleLike")
     },
   },
 }

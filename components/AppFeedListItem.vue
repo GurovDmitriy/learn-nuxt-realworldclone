@@ -3,6 +3,7 @@
     <AppFeedListItemHeader
       :data-item="dataItem"
       class="feed-list-item__header"
+      @toggleLike="emitToggleLike"
     />
     <AppFeedListItemPreview
       :data-item="dataItem"
@@ -21,6 +22,12 @@ export default {
     dataItem: {
       type: Object,
       required: true,
+    },
+  },
+
+  methods: {
+    emitToggleLike() {
+      this.$emit("toggleLike")
     },
   },
 }
