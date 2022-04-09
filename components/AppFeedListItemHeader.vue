@@ -53,7 +53,7 @@ export default {
 
   methods: {
     emitToggleLike() {
-      this.$emit("toggleLike")
+      this.$emit("toggleLike", this.dataItem.id)
     },
   },
 }

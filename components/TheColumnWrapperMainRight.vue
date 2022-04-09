@@ -13,8 +13,8 @@
         @refreshData="fetchTags"
       />
       <AppTagsList
-        v-if="getTags"
-        :data-item="getDataTags"
+        v-if="getTagsPopular"
+        :data-item="getTagsPopular"
         class="column-wrapper-main-right__tags-list"
       />
     </div>
@@ -28,19 +28,15 @@ import { actionTypes as actionTypesTag } from "~/store/tag"
 export default {
   computed: {
     ...mapState({
-      getTags: ({ tag }) => tag.tags,
+      getTagsPopular: ({ tag }) => tag.tagsPopular,
       getTagsIsLoading: ({ tag }) => tag.isLoading,
       getTagsErrors: ({ tag }) => tag.errors,
     }),
-
-    getDataTags() {
-      return this.getTags.map((item) => item.tag)
-    },
   },
 
   methods: {
     async fetchTags() {
-      await this.$store.dispatch(actionTypesTag.fetchTags)
+      await this.$store.dispatch(actionTypesTag.fetchTagsPopular)
     },
   },
 }

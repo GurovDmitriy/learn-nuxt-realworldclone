@@ -1,48 +1,48 @@
 export const mutationTypes = {
-  setTagsStart: "[tag] setTagsStart",
-  setTagsSuccess: "[tag] setTagsSuccess",
-  setTagsFailure: "[tag] setTagsFailure",
+  setTagsPopularStart: "[tag] setTagsPopularStart",
+  setTagsPopularSuccess: "[tag] setTagsPopularSuccess",
+  setTagsPopularFailure: "[tag] setTagsPopularFailure",
 }
 
 export const actionTypes = {
-  fetchTags: "[tag] fetchTags",
+  fetchTagsPopular: "[tag] fetchTagsPopular",
 }
 
 export const state = () => ({
-  tags: [],
+  tagsPopular: [],
   isLoading: false,
   errors: null,
 })
 
 const mutations = {
-  [mutationTypes.setTagsStart](state) {
+  [mutationTypes.setTagsPopularStart](state) {
     state.isLoading = true
-    state.tags = null
+    state.tagsPopular = null
     state.errors = null
   },
 
-  [mutationTypes.setTagsSuccess](state, payload) {
-    state.tags = payload
+  [mutationTypes.setTagsPopularSuccess](state, payload) {
+    state.tagsPopular = payload
     state.isLoading = false
   },
 
-  [mutationTypes.setTagsFailure](state, payload) {
+  [mutationTypes.setTagsPopularFailure](state, payload) {
     state.errors = payload
     state.isLoading = false
   },
 }
 
 const actions = {
-  async [actionTypes.fetchTags]({ commit }) {
-    commit(mutationTypes.setTagsStart)
+  async [actionTypes.fetchTagsPopular]({ commit }) {
+    commit(mutationTypes.setTagsPopularStart)
 
     try {
-      const data = await this.$api.tag.getTags()
+      const data = await this.$api.tag.getTagsPopular()
 
-      commit(mutationTypes.setTagsSuccess, data)
+      commit(mutationTypes.setTagsPopularSuccess, data)
       return data
     } catch (err) {
-      commit(mutationTypes.setTagsFailure, err)
+      commit(mutationTypes.setTagsPopularFailure, err)
       throw new Error(err)
     }
   },

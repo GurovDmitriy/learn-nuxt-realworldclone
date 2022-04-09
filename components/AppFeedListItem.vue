@@ -26,8 +26,8 @@ export default {
   },
 
   methods: {
-    emitToggleLike() {
-      this.$emit("toggleLike")
+    emitToggleLike(feedId) {
+      this.$emit("toggleLike", feedId)
     },
   },
 }

@@ -18,7 +18,7 @@ export default {
     const feedListPayload = `tags_like=${tag}&_page=${page}&_limit=${paginator.index}`
 
     await Promise.allSettled([
-      store.dispatch(actionTypesTag.fetchTags),
+      store.dispatch(actionTypesTag.fetchTagsPopular),
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "tag"),
     ])

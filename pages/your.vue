@@ -21,7 +21,7 @@ export default {
     const feedListPayload = `userName=${userName}&_page=${pageNum}&_limit=${paginator.index}`
 
     await Promise.allSettled([
-      store.dispatch(actionTypesTag.fetchTags),
+      store.dispatch(actionTypesTag.fetchTagsPopular),
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "user"),
     ])

@@ -9,10 +9,11 @@ const stateDataBase = {
   // static
   users: [],
   feeds: [],
-  tags: [],
   // getters
   userList: [],
   feedList: [],
+  tags: [],
+  tagsPopular: [],
   feedCountTotal: {},
   feedCountByTag: {},
   feedCountByUser: {},
@@ -52,21 +53,6 @@ function createDefaultUser(state) {
   }
 
   state.users.push(defaultUser)
-
-  return state
-}
-
-function createDefaultTags(state) {
-  const tagsList = ["welcome", "introduction", "nuxt", "learn", "javascript"]
-  const defaultTags = []
-  tagsList.forEach((item, index) => {
-    defaultTags.push({
-      id: index + 1,
-      tag: item,
-    })
-  })
-
-  state.tags = defaultTags
 
   return state
 }
@@ -112,13 +98,15 @@ function createUserList(state) {
 }
 
 function createFeeds(state) {
+  const tags = ["welcome", "introduction", "nuxt", "learn", "javascript"]
+
   for (let i = 1; i <= FEED_COUNT; i++) {
     const userIdRandom = randomInteger(1, USERS_COUNT)
     const tagsRandom = []
-    const tagsRandomCount = randomInteger(1, state.tags.length)
+    const tagsRandomCount = randomInteger(1, tags.length)
 
     for (let i = 0; i < tagsRandomCount; i++) {
-      const randomTag = state.tags[randomInteger(0, state.tags.length - 1)].tag
+      const randomTag = tags[randomInteger(0, tags.length - 1)]
       if (tagsRandom.findIndex((item) => item === randomTag) !== -1) continue
       tagsRandom.push(randomTag)
     }
@@ -202,10 +190,7 @@ function createFeedCountByTag(state) {
       const data = {}
 
       state.tags.forEach((item) => {
-        const tag = item.tag
-        const count = getFeedListCountByTag(tag)
-
-        data[tag] = count
+        data[item] = getFeedListCountByTag(item)
       })
 
       function getFeedListCountByTag(tag) {
@@ -281,6 +266,62 @@ function createFeedCountByLike(state) {
   return state
 }
 
+function createTags(state) {
+  Object.defineProperty(state, "tags", {
+    get() {
+      const data = []
+
+      state.feeds.forEach((item) => {
+        createTag(item.tags)
+      })
+
+      function createTag(tags) {
+        tags.forEach((item) => {
+          if (data.findIndex((el) => el === item) === -1) {
+            data.push(item)
+          }
+        })
+      }
+
+      return data
+    },
+  })
+
+  return state
+}
+
+function createTagsPopular(state) {
+  Object.defineProperty(state, "tagsPopular", {
+    get() {
+      const data = []
+      const countTags = {}
+
+      state.feeds.forEach((item) => {
+        createCountTags(item.tags)
+      })
+
+      function createCountTags(tags) {
+        tags.forEach((item) => {
+          if (!countTags[item]) {
+            countTags[item] = 1
+          }
+          countTags[item] += 1
+        })
+      }
+
+      for (const key in countTags) {
+        if (countTags[key] > 10) {
+          data.push(key)
+        }
+      }
+
+      return data
+    },
+  })
+
+  return state
+}
+
 function setResult(state) {
   return state
 }
@@ -290,11 +331,12 @@ function setResult(state) {
 function generateDataBase() {
   pipeRunner(
     createDefaultUser,
-    createDefaultTags,
     createUsers,
-    createUserList,
     createFeeds,
+    createUserList,
     createFeedList,
+    createTags,
+    createTagsPopular,
     createFeedCountTotal,
     createFeedCountByTag,
     createFeedCountByUser,

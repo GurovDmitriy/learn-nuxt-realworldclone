@@ -1,5 +1,5 @@
 export default (axios) => ({
-  getTags() {
-    return axios.$get("/tags")
+  getTagsPopular() {
+    return axios.$get("/tagsPopular")
   },
 })

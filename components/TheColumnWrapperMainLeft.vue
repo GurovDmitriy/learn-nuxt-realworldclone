@@ -19,7 +19,7 @@
       v-if="getFeedList"
       :data-item="getFeedList"
       class="column-wrapper-main-left__feed-list"
-      @toggleLike="toggleLike"
+      @toggleLike="toggleLike($event)"
     />
     <AppPaginatorList
       v-if="getFeedCount"
@@ -112,10 +112,14 @@ export default {
       await this.$store.dispatch(actionTypesFeedList.fetchFeedList)
     },
 
-    toggleLike() {
-      if (!this.isLoggedIn) return
+    toggleLike(id) {
+      // if (!this.isLoggedIn) return
+      // const like = this.$store.state.feedList.feedList[0].like
+      // const newLike = [...like, 1]
+      // await this.$axios.$patch("/feeds/1", { like: newLike })
+
       // eslint-disable-next-line no-console
-      console.log("toggle like")
+      console.log("toggle like", id)
     },
   },
 }
