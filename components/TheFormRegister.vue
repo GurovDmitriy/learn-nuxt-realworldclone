@@ -1,12 +1,16 @@
 <template>
-  <AppForm class="form-register" :data-item="configForm" @submitForm="register">
+  <AppForm
+    class="form-register"
+    :data-item="config.form"
+    @submitForm="register"
+  >
     <template #default>
       <KeepAlive>
         <Component
           :is="getActivePart"
-          :data-item="dataField"
+          :data-item="field"
           class="form-register__fieldset"
-          @inputUser="setDataField"
+          @inputUser="setField"
         />
       </KeepAlive>
     </template>
@@ -14,20 +18,20 @@
     <template #box-btn>
       <div class="form-register__box-button">
         <AppButton
-          v-if="getVisibleBtns.prev"
-          :data-item="configBtn.prev"
+          v-if="getVisibleBtn.prev"
+          :data-item="config.btn.prev"
           @clickBtn="setPartPrev"
           >Prev</AppButton
         >
         <AppButton
-          v-if="getVisibleBtns.next"
-          :data-item="configBtn.next"
+          v-if="getVisibleBtn.next"
+          :data-item="config.btn.next"
           @clickBtn="setPartNext"
           >Next</AppButton
         >
         <AppButton
-          v-if="getVisibleBtns.register"
-          :data-item="configBtn.register"
+          v-if="getVisibleBtn.register"
+          :data-item="config.btn.register"
           >Register</AppButton
         >
       </div>
@@ -41,18 +45,26 @@ import { actionTypes as actionTypesAuth } from "~/store/auth"
 export default {
   data() {
     return {
-      configForm: {
-        method: "POST",
-        action: "",
+      config: {
+        form: {
+          method: "POST",
+          action: "",
+        },
+
+        formPart: {
+          baseName: "TheFormRegisterPart",
+          list: [1, 2],
+          active: 0,
+        },
+
+        btn: {
+          prev: { type: "button" },
+          next: { type: "button" },
+          register: { type: "submit" },
+        },
       },
 
-      configFormPart: {
-        baseName: "TheFormRegisterPart",
-        list: [1, 2],
-        active: 0,
-      },
-
-      dataField: {
+      field: {
         userName: "",
         lastName: "",
         image: "",
@@ -60,30 +72,25 @@ export default {
         password: "",
         firstName: "",
       },
-
-      configBtn: {
-        prev: { type: "button" },
-        next: { type: "button" },
-        register: { type: "submit" },
-      },
     }
   },
 
   computed: {
     getActivePart() {
-      const baseName = this.configFormPart.baseName
-      const active = this.configFormPart.active
-      const activePart = this.configFormPart.list[active]
+      const baseName = this.config.formPart.baseName
+      const active = this.config.formPart.active
+      const activePart = this.config.formPart.list[active]
 
       return `${baseName}${activePart}`
     },
 
-    getVisibleBtns() {
-      const prev = this.configFormPart.active > 0
-      const next =
-        this.configFormPart.active < this.configFormPart.list.length - 1
-      const register =
-        this.configFormPart.active === this.configFormPart.list.length - 1
+    getVisibleBtn() {
+      const active = this.config.formPart.active
+      const countPart = this.config.formPart.list.length - 1
+
+      const prev = active > 0
+      const next = active < countPart
+      const register = active === countPart
 
       return {
         prev,
@@ -95,23 +102,23 @@ export default {
 
   methods: {
     setPartPrev() {
-      if (this.configFormPart.active === 0) return
-      this.configFormPart.active -= 1
+      if (this.config.formPart.active === 0) return
+      this.config.formPart.active -= 1
     },
 
     setPartNext() {
-      if (this.configFormPart.active === this.configFormPart.list.length - 1)
+      if (this.config.formPart.active === this.config.formPart.list.length - 1)
         return
-      this.configFormPart.active += 1
+      this.config.formPart.active += 1
     },
 
-    setDataField({ value, nameField }) {
-      this.dataField[nameField] = value
+    setField({ value, nameField }) {
+      this.field[nameField] = value
     },
 
     async register() {
-      await this.$store.dispatch(actionTypesAuth.register, this.dataField)
-      this.$router.push({ path: "/" })
+      await this.$store.dispatch(actionTypesAuth.register, this.field)
+      return this.$router.push({ path: "/" })
     },
   },
 }

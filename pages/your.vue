@@ -16,7 +16,7 @@ export default {
   middleware: ["auth"],
 
   async asyncData({ query, store }) {
-    const userName = store.getters[getterTypesAuth.currentUser].userName
+    const userName = store.getters[getterTypesAuth.getCurrentUser].userName
     const pageNum = query.page || 1
     const feedListPayload = `userName=${userName}&_page=${pageNum}&_limit=${paginator.index}`
 

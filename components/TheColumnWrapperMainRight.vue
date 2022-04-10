@@ -3,12 +3,12 @@
     <div class="column-wrapper-main-right__tags-list-box">
       <h3 class="column-wrapper-main-right__caption">Popular Tags</h3>
       <AppLoading
-        v-if="getTagsIsLoading"
+        v-if="getIsLoadingTagsPopular"
         class="column-wrapper-main-right__loading"
         >Loading tags...</AppLoading
       >
       <AppRefresh
-        v-if="getTagsErrors"
+        v-if="getErrorsTagsPopular"
         class="column-wrapper-main-right__refresh"
         @refreshData="fetchTags"
       />
@@ -29,8 +29,8 @@ export default {
   computed: {
     ...mapState({
       getTagsPopular: ({ tag }) => tag.tagsPopular,
-      getTagsIsLoading: ({ tag }) => tag.isLoading,
-      getTagsErrors: ({ tag }) => tag.errors,
+      getIsLoadingTagsPopular: ({ tag }) => tag.isLoading,
+      getErrorsTagsPopular: ({ tag }) => tag.errors,
     }),
   },
 

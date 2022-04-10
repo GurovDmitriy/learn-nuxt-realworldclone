@@ -1,5 +1,9 @@
 <template>
-  <AppForm class="form-update" :data-item="configForm" @submitForm="updateFeed">
+  <AppForm
+    class="form-update"
+    :data-item="config.form"
+    @submitForm="updateFeed"
+  >
     <template #default>
       <fieldset class="form-update__fieldset">
         <legend class="form-update__legend visually-hidden">Update Feed</legend>
@@ -7,30 +11,30 @@
           >Title</label
         >
         <AppInput
-          v-model="dataField.title"
+          v-model="field.title"
           class="form-update__input form-update__input--title"
-          :data-item="configInput.title"
+          :data-item="config.input.title"
         />
         <label class="form-update__label visually-hidden" for="about-field"
           >About</label
         >
         <AppInput
-          v-model="dataField.preview"
+          v-model="field.preview"
           class="form-update__input form-update__input--about"
-          :data-item="configInput.about"
+          :data-item="config.input.about"
         />
         <label class="form-update__label visually-hidden" for="tags-field"
           >Tags</label
         >
         <AppInput
-          v-model="dataField.tags"
+          v-model="field.tags"
           class="form-update__input form-update__input--tags"
-          :data-item="configInput.tags"
+          :data-item="config.input.tags"
         />
         <AppInputTextarea
-          v-model="dataField.content"
+          v-model="field.content"
           class="form-update__input form-update__input--content"
-          :data-item="configInput.content"
+          :data-item="config.input.content"
         />
       </fieldset>
     </template>
@@ -39,13 +43,13 @@
       <div class="form-update__box-btn">
         <AppButton
           class="form-update__btn form-update__btn--reset"
-          :data-item="configBtn.reset"
+          :data-item="config.btn.reset"
           @clickBtn="resetField"
           >Reset</AppButton
         >
         <AppButton
           class="form-update__btn form-update__btn--create"
-          :data-item="configBtn.update"
+          :data-item="config.btn.update"
           >Update</AppButton
         >
       </div>
@@ -55,63 +59,66 @@
 
 <script>
 import { mapGetters, mapState } from "vuex"
-import { getStrCamelCase, getStrKebabCase } from "~/helpers/utils"
-import FormMixin from "~/mixins/formMixin"
+import { getStrKebabCase } from "~/helpers/utils"
+import FormCreateFeed from "~/mixins/formCreateFeed"
+import FormReset from "~/mixins/formReset"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 
 export default {
-  mixins: [FormMixin],
+  mixins: [FormCreateFeed, FormReset],
 
   data() {
     return {
-      configForm: {
-        method: "POST",
-        action: "",
+      config: {
+        form: {
+          method: "POST",
+          action: "",
+        },
+
+        input: {
+          title: {
+            name: "title",
+            type: "text",
+            placeholder: "Title",
+            id: "title-field",
+            maxlength: 10,
+            required: true,
+          },
+
+          about: {
+            name: "about",
+            type: "text",
+            placeholder: "About",
+            id: "about-field",
+            maxlength: 20,
+            required: true,
+          },
+
+          content: {
+            name: "content",
+            placeholder: "Content",
+            id: "content-field",
+            required: true,
+          },
+
+          tags: {
+            name: "tags",
+            type: "text",
+            placeholder: "Tags",
+            id: "tags-field",
+            maxlength: 100,
+            required: false,
+          },
+        },
+
+        btn: {
+          reset: { type: "button" },
+          update: { type: "submit" },
+        },
       },
 
-      configInput: {
-        title: {
-          name: "title",
-          type: "text",
-          placeholder: "Title",
-          id: "title-field",
-          maxlength: 10,
-          required: true,
-        },
-
-        about: {
-          name: "about",
-          type: "text",
-          placeholder: "About",
-          id: "about-field",
-          maxlength: 20,
-          required: true,
-        },
-
-        content: {
-          name: "content",
-          placeholder: "Content",
-          id: "content-field",
-          required: true,
-        },
-
-        tags: {
-          name: "tags",
-          type: "text",
-          placeholder: "Tags",
-          id: "tags-field",
-          maxlength: 100,
-          required: false,
-        },
-      },
-
-      configBtn: {
-        reset: { type: "button" },
-        update: { type: "submit" },
-      },
-
-      dataField: {
+      field: {
         title: "",
         preview: "",
         content: "",
@@ -122,7 +129,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      getCurrentUser: getterTypesAuth.currentUser,
+      getCurrentUser: getterTypesAuth.getCurrentUser,
     }),
 
     ...mapState({
@@ -131,50 +138,31 @@ export default {
   },
 
   mounted() {
-    this.setDataField()
+    this.setField()
   },
 
   methods: {
     async updateFeed() {
-      const newFeed = Object.assign(
-        {},
-        this.dataField,
-        this.createDataFeedDefault(),
-        { tags: this.createTags() }
-      )
+      const field = this.field
+      const fieldDefault = this.createFieldDefault()
+      const tags = { tags: this.createTags() }
+      const idFeed = this.getFeed.id
 
-      const slugFeed = getStrKebabCase(newFeed.title)
-      await this.$store.dispatch(actionTypesFeed.updateFeed, newFeed)
+      const feedNew = Object.assign({}, field, fieldDefault, tags, {
+        id: idFeed,
+      })
 
-      this.$router.push({ path: `/feed/${slugFeed}` })
+      const slugFeed = getStrKebabCase(feedNew.title)
+      await this.$store.dispatch(actionTypesFeed.updateFeed, feedNew)
+
+      return this.$router.push({ path: `/feed/${slugFeed}` })
     },
 
-    createDataFeedDefault() {
-      const userId = this.getCurrentUser.id
-      const time = Date.now()
-      const like = []
-
-      return {
-        userId,
-        time,
-        like,
-      }
-    },
-
-    createTags() {
-      const tags = this.dataField.tags.split(",")
-      return tags.map((item) => getStrCamelCase(item))
-    },
-
-    setDataField() {
+    setField() {
       const feed = { ...this.getFeed }
       const tags = feed.tags.join(", ")
 
-      this.dataField = Object.assign({}, this.dataField, feed, { tags })
-    },
-
-    resetField() {
-      this.resetForm()
+      this.field = Object.assign({}, this.field, feed, { tags })
     },
   },
 }

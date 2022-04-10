@@ -2,16 +2,16 @@ import { setItemCO, removeItemCO } from "~/helpers/persistanceCookie"
 import { setItemLS } from "~/helpers/persistanceStorage"
 
 export const getterTypes = {
-  currentUser: "[auth] currentUser",
-  isLoggedIn: "[auth] isLoggedIn",
-  isAnonymous: "[auth] isAnonymous",
-  isAdmin: "[auth] isAdmin",
+  getCurrentUser: "[auth] getCurrentUser",
+  getIsLoggedIn: "[auth] getIsLoggedIn",
+  getIsAnonymous: "[auth] getIsAnonymous",
+  getIsAdmin: "[auth] getIsAdmin",
 }
 
 export const mutationTypes = {
-  setUserStart: "[auth] setUserStart",
-  setUserSuccess: "[auth] setUserSuccess",
-  setUserFailure: "[auth] setUserFailure",
+  setCurrentUserStart: "[auth] setCurrentUserStart",
+  setCurrentUserSuccess: "[auth] setCurrentUserSuccess",
+  setCurrentUserFailure: "[auth] setCurrentUserFailure",
 
   logoutStart: "[auth] logoutStart",
   logoutSuccess: "[auth] logoutSuccess",
@@ -19,15 +19,15 @@ export const mutationTypes = {
 }
 
 export const actionTypes = {
+  fetchCurrentUser: "[auth] fetchCurrentUser",
+  updateCurrentUser: "[auth] updateCurrentUser",
   register: "[auth] register",
   login: "[auth] login",
   logout: "[auth] logout",
-  fetchUser: "[auth] fetchUser",
-  updateUser: "[auth] updateUser",
 }
 
 export const state = () => ({
-  user: {},
+  currentUser: {},
   isLoggedIn: null,
   isSubmitting: false,
   isLoading: false,
@@ -35,40 +35,40 @@ export const state = () => ({
 })
 
 const getters = {
-  [getterTypes.currentUser]: (state) => {
-    return state.user || null
+  [getterTypes.getCurrentUser]: (state) => {
+    return state.currentUser || null
   },
 
-  [getterTypes.isLoggedIn]: (state) => {
+  [getterTypes.getIsLoggedIn]: (state) => {
     return Boolean(state.isLoggedIn)
   },
 
-  [getterTypes.isAnonymous]: (state) => {
+  [getterTypes.getIsAnonymous]: (state) => {
     return state.isLoggedIn === false
   },
 
-  [getterTypes.isAdmin]: (state) => {
-    if (state.user) return state.user.role === "admin"
+  [getterTypes.getIsAdmin]: (state) => {
+    if (state.currentUser) return state.currentUser.role === "admin"
     return null
   },
 }
 
 const mutations = {
-  [mutationTypes.setUserStart](state) {
+  [mutationTypes.setCurrentUserStart](state) {
     state.isSubmitting = true
     state.isLoading = true
     state.errors = null
-    state.user = null
+    state.currentUser = null
   },
 
-  [mutationTypes.setUserSuccess](state, payload) {
-    state.user = payload
+  [mutationTypes.setCurrentUserSuccess](state, payload) {
+    state.currentUser = payload
     state.isLoggedIn = true
     state.isSubmitting = false
     state.isLoading = false
   },
 
-  [mutationTypes.setUserFailure](state, payload) {
+  [mutationTypes.setCurrentUserFailure](state, payload) {
     state.errors = payload
     state.isLoggedIn = false
     state.isSubmitting = false
@@ -82,7 +82,7 @@ const mutations = {
   },
 
   [mutationTypes.logoutSuccess](state) {
-    state.user = {}
+    state.currentUser = {}
     state.isLoggedIn = false
   },
 
@@ -96,7 +96,7 @@ const mutations = {
 
 const actions = {
   async [actionTypes.register]({ commit }, payload) {
-    commit(mutationTypes.setUserStart)
+    commit(mutationTypes.setCurrentUserStart)
 
     try {
       const res = await this.$api.auth.register(payload)
@@ -108,16 +108,16 @@ const actions = {
       setItemCO(this.$cookies, "userId", userId)
       setItemLS("credential", { accessToken, userId })
 
-      commit(mutationTypes.setUserSuccess, data)
+      commit(mutationTypes.setCurrentUserSuccess, data)
       return data
     } catch (err) {
-      commit(mutationTypes.setUserFailure, err)
+      commit(mutationTypes.setCurrentUserFailure, err)
       throw new Error(err)
     }
   },
 
   async [actionTypes.login]({ commit }, payload) {
-    commit(mutationTypes.setUserStart)
+    commit(mutationTypes.setCurrentUserStart)
 
     try {
       const res = await this.$api.auth.login(payload)
@@ -129,40 +129,38 @@ const actions = {
       setItemCO(this.$cookies, "userId", userId)
       setItemLS("credential", { accessToken, userId })
 
-      commit(mutationTypes.setUserSuccess, data)
+      commit(mutationTypes.setCurrentUserSuccess, data)
       return data
     } catch (err) {
-      commit(mutationTypes.setUserFailure, err)
+      commit(mutationTypes.setCurrentUserFailure, err)
       // throw new Error(err)
     }
   },
 
-  async [actionTypes.fetchUser]({ commit }, payload) {
-    commit(mutationTypes.setUserStart)
+  async [actionTypes.fetchCurrentUser]({ commit }, payload) {
+    commit(mutationTypes.setCurrentUserStart)
 
     try {
       const data = await this.$api.auth.getUser(payload)
 
-      commit(mutationTypes.setUserSuccess, data)
+      commit(mutationTypes.setCurrentUserSuccess, data)
       return data
     } catch (err) {
-      commit(mutationTypes.setUserFailure, err)
+      commit(mutationTypes.setCurrentUserFailure, err)
       // throw new Error(err)
     }
   },
 
-  async [actionTypes.updateUser]({ commit }, payload) {
-    commit(mutationTypes.setUserStart)
+  async [actionTypes.updateCurrentUser]({ commit }, payload) {
+    commit(mutationTypes.setCurrentUserStart)
 
     try {
-      const res = await this.$api.auth.updateUser(payload)
-      const { image, email, firstName, lastName, userName, role, id } = res
-      const data = { image, email, firstName, lastName, userName, role, id }
+      const data = await this.$api.auth.updateUser(payload)
 
-      commit(mutationTypes.setUserSuccess, data)
+      commit(mutationTypes.setCurrentUserSuccess, data)
       return data
     } catch (err) {
-      commit(mutationTypes.setUserFailure, err)
+      commit(mutationTypes.setCurrentUserFailure, err)
       // throw new Error(err)
     }
   },
@@ -186,7 +184,7 @@ const actions = {
     const userId = this.$cookies.get("userId")
     if (!userId) return
 
-    await dispatch(actionTypes.fetchUser, userId)
+    await dispatch(actionTypes.fetchCurrentUser, userId)
   },
 }
 

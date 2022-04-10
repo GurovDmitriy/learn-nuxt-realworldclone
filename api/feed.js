@@ -16,12 +16,18 @@ export default (axios) => ({
   updateFeed(payload) {
     if (!isNotEmptyObj(payload)) return null
 
-    return axios.$put(`/feeds/${payload.id}`, payload)
+    return axios.$patch(`/feeds/${payload.id}`, payload)
   },
 
   deleteFeed(payload) {
     if (!payload || typeof payload !== "number") return null
 
     return axios.$delete(`/feeds/${payload}`)
+  },
+
+  toggleLikeFeed(payload) {
+    if (!isNotEmptyObj(payload)) return null
+
+    return axios.$patch(`/feeds/${payload.id}`, payload.data)
   },
 })

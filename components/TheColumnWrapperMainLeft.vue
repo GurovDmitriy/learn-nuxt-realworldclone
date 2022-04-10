@@ -6,12 +6,12 @@
       class="column-wrapper-main-left__filter-bar"
     />
     <AppFeedListPlaceholder
-      v-if="getFeedListIsLoading"
-      :data-item="configFeedListPlaceholder"
+      v-if="getIsLoadingFeedList"
+      :data-item="config.feedListPlaceholder"
       class="column-wrapper-main-left__placeholder"
     />
     <AppRefresh
-      v-if="getFeedListErrors"
+      v-if="getErrorsFeedList"
       class="column-wrapper-main-left__refresh"
       @refreshData="fetchFeedList"
     />
@@ -41,26 +41,32 @@ import { paginator, placeholder } from "~/helpers/vars"
 export default {
   data() {
     return {
-      dataFilterBar: [{ content: "Global Feed", path: "/" }],
-      configFeedListPlaceholder: placeholder.index,
+      filterBar: [{ content: "Global Feed", path: "/" }],
+
+      config: {
+        feedListPlaceholder: placeholder.index,
+      },
     }
   },
 
   computed: {
     ...mapState({
       getFeedList: ({ feedList }) => feedList.feedList,
-      getFeedListIsLoading: ({ feedList }) => feedList.isLoading,
-      getFeedListErrors: ({ feedList }) => feedList.errors,
+      getErrorsFeedList: ({ feedList }) => feedList.errors,
+      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
+
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
+      getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
+      getErrorsFeedCount: ({ feedCount }) => feedCount.errors,
     }),
 
     ...mapGetters({
-      getCurrentUser: getterTypesAuth.currentUser,
-      isLoggedIn: getterTypesAuth.isLoggedIn,
+      getCurrentUser: getterTypesAuth.getCurrentUser,
+      getIsLoggedIn: getterTypesAuth.getIsLoggedIn,
     }),
 
     getDataFilterBar() {
-      const data = [...this.dataFilterBar]
+      const data = [...this.filterBar]
       setBars(this.getBarItemCurrentUser, this.getBarItemTag)
 
       function setBars(...args) {
@@ -112,14 +118,28 @@ export default {
       await this.$store.dispatch(actionTypesFeedList.fetchFeedList)
     },
 
-    toggleLike(id) {
-      // if (!this.isLoggedIn) return
-      // const like = this.$store.state.feedList.feedList[0].like
-      // const newLike = [...like, 1]
-      // await this.$axios.$patch("/feeds/1", { like: newLike })
+    async toggleLike(feedId) {
+      if (!this.getIsLoggedIn) return this.$router.push({ path: "/login" })
 
-      // eslint-disable-next-line no-console
-      console.log("toggle like", id)
+      const userId = this.getCurrentUser.id
+      const index = this.getFeedList.findIndex((item) => item.id === feedId)
+      const like = this.getFeedList[index].like
+
+      const likeNew = getNewLike()
+
+      function getNewLike() {
+        if (like.findIndex((item) => item === userId) === -1) {
+          return [...like, userId]
+        } else {
+          return like.filter((item) => item !== userId)
+        }
+      }
+
+      await this.$store.dispatch(actionTypesFeedList.toggleLikeFeed, {
+        id: feedId,
+        indexFeed: index,
+        data: { like: likeNew },
+      })
     },
   },
 }

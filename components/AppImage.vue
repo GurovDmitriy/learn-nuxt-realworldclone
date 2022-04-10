@@ -28,15 +28,18 @@ export default {
 
   computed: {
     getImage() {
-      switch (isOuterSrc(this.dataItem.image)) {
+      const pathImage = this.dataItem.image
+      const placeholder = this.dataItem.placeholder
+
+      switch (isOuterSrc(pathImage)) {
         case true:
-          return this.dataItem.image
+          return pathImage
 
         case false:
-          return require(`~/assets/images/${this.dataItem.image}`)
+          return require(`~/assets/images/${pathImage}`)
 
         default:
-          return require(`~/assets/images/${this.dataItem.placeholder}`)
+          return require(`~/assets/images/${placeholder}`)
       }
     },
   },

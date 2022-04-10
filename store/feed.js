@@ -40,11 +40,11 @@ const mutations = {
 
   [mutationTypes.deleteFeedStart](state) {
     state.isLoading = true
-    state.feed = null
     state.errors = null
   },
 
-  [mutationTypes.deleteFeedSuccess](state, payload) {
+  [mutationTypes.deleteFeedSuccess](state) {
+    state.feed = null
     state.isLoading = false
   },
 

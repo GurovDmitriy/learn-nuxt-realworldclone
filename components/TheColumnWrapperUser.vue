@@ -2,16 +2,16 @@
   <section class="column-wrapper-user">
     <h3 class="column-wrapper-user__caption visually-hidden">User Feed List</h3>
     <AppFilterBar
-      :data-item="dataFilterBar"
+      :data-item="filterBar"
       class="column-wrapper-user__filter-bar"
     />
     <AppFeedListPlaceholder
-      v-if="getFeedListIsLoading"
-      :data-item="configFeedListPlaceholder"
+      v-if="getIsLoadingFeedList"
+      :data-item="config.feedListPlaceholder"
       class="column-wrapper-user__placeholder"
     />
     <AppRefresh
-      v-if="getFeedListErrors"
+      v-if="getErrorsFeedList"
       class="column-wrapper-user__refresh"
       @refreshData="fetchFeedList"
     />
@@ -32,7 +32,7 @@ import { placeholder } from "~/helpers/vars"
 export default {
   data() {
     return {
-      dataFilterBar: [
+      filterBar: [
         {
           content: "My Feed",
           path: `/users/${this.$route.params.user}`,
@@ -42,15 +42,18 @@ export default {
           path: `/users/${this.$route.params.user}/favorites`,
         },
       ],
-      configFeedListPlaceholder: placeholder.feedListCount,
+
+      config: {
+        feedListPlaceholder: placeholder.index,
+      },
     }
   },
 
   computed: {
     ...mapState({
       getFeedList: ({ feedList }) => feedList.feedList,
-      getFeedListIsLoading: ({ feedList }) => feedList.isLoading,
-      getFeedListErrors: ({ feedList }) => feedList.errors,
+      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
+      getErrorsFeedList: ({ feedList }) => feedList.errors,
     }),
   },
 

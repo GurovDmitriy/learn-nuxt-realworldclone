@@ -1,5 +1,9 @@
 <template>
-  <AppForm class="form-editor" :data-item="configForm" @submitForm="createFeed">
+  <AppForm
+    class="form-editor"
+    :data-item="config.form"
+    @submitForm="createFeed"
+  >
     <template #default>
       <fieldset class="form-editor__fieldset">
         <legend class="form-editor__legend visually-hidden">Create Feed</legend>
@@ -7,30 +11,30 @@
           >Title</label
         >
         <AppInput
-          v-model="dataField.title"
+          v-model="field.title"
           class="form-editor__input form-editor__input--title"
-          :data-item="configInput.title"
+          :data-item="config.input.title"
         />
         <label class="form-editor__label visually-hidden" for="about-field"
           >About</label
         >
         <AppInput
-          v-model="dataField.preview"
+          v-model="field.preview"
           class="form-editor__input form-editor__input--about"
-          :data-item="configInput.about"
+          :data-item="config.input.about"
         />
         <label class="form-editor__label visually-hidden" for="tags-field"
           >Tags</label
         >
         <AppInput
-          v-model="dataField.tags"
+          v-model="field.tags"
           class="form-editor__input form-editor__input--tags"
-          :data-item="configInput.tags"
+          :data-item="config.input.tags"
         />
         <AppInputTextarea
-          v-model="dataField.content"
+          v-model="field.content"
           class="form-editor__input form-editor__input--content"
-          :data-item="configInput.content"
+          :data-item="config.input.content"
         />
       </fieldset>
     </template>
@@ -39,13 +43,13 @@
       <div class="form-editor__box-btn">
         <AppButton
           class="form-editor__btn form-editor__btn--reset"
-          :data-item="configBtn.reset"
+          :data-item="config.btn.reset"
           @clickBtn="resetField"
           >Reset</AppButton
         >
         <AppButton
           class="form-editor__btn form-editor__btn--create"
-          :data-item="configBtn.create"
+          :data-item="config.btn.create"
           >Create</AppButton
         >
       </div>
@@ -55,63 +59,66 @@
 
 <script>
 import { mapGetters } from "vuex"
-import { getStrCamelCase, getStrKebabCase } from "~/helpers/utils"
-import FormMixin from "~/mixins/formMixin"
+import { getStrKebabCase } from "~/helpers/utils"
+import FormCreateFeed from "~/mixins/formCreateFeed"
+import FormReset from "~/mixins/formReset"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 
 export default {
-  mixins: [FormMixin],
+  mixins: [FormCreateFeed, FormReset],
 
   data() {
     return {
-      configForm: {
-        method: "POST",
-        action: "",
+      config: {
+        form: {
+          method: "POST",
+          action: "",
+        },
+
+        input: {
+          title: {
+            name: "title",
+            type: "text",
+            placeholder: "Title",
+            id: "title-field",
+            maxlength: 10,
+            required: true,
+          },
+
+          about: {
+            name: "about",
+            type: "text",
+            placeholder: "About",
+            id: "about-field",
+            maxlength: 20,
+            required: true,
+          },
+
+          content: {
+            name: "content",
+            placeholder: "Content",
+            id: "content-field",
+            required: true,
+          },
+
+          tags: {
+            name: "tags",
+            type: "text",
+            placeholder: "Tags",
+            id: "tags-field",
+            maxlength: 100,
+            required: false,
+          },
+        },
+
+        btn: {
+          reset: { type: "button" },
+          create: { type: "submit" },
+        },
       },
 
-      configInput: {
-        title: {
-          name: "title",
-          type: "text",
-          placeholder: "Title",
-          id: "title-field",
-          maxlength: 10,
-          required: true,
-        },
-
-        about: {
-          name: "about",
-          type: "text",
-          placeholder: "About",
-          id: "about-field",
-          maxlength: 20,
-          required: true,
-        },
-
-        content: {
-          name: "content",
-          placeholder: "Content",
-          id: "content-field",
-          required: true,
-        },
-
-        tags: {
-          name: "tags",
-          type: "text",
-          placeholder: "Tags",
-          id: "tags-field",
-          maxlength: 100,
-          required: false,
-        },
-      },
-
-      configBtn: {
-        reset: { type: "button" },
-        create: { type: "submit" },
-      },
-
-      dataField: {
+      field: {
         title: "",
         preview: "",
         content: "",
@@ -122,45 +129,22 @@ export default {
 
   computed: {
     ...mapGetters({
-      getCurrentUser: getterTypesAuth.currentUser,
+      getCurrentUser: getterTypesAuth.getCurrentUser,
     }),
   },
 
   methods: {
     async createFeed() {
-      const newFeed = Object.assign(
-        {},
-        this.dataField,
-        this.createDataFeedDefault(),
-        { tags: this.createTags() }
-      )
+      const field = this.field
+      const fieldDefault = this.createFieldDefault()
+      const tags = { tags: this.createTags() }
 
-      const slugFeed = getStrKebabCase(newFeed.title)
+      const feedNew = Object.assign({}, field, fieldDefault, tags)
 
-      await this.$store.dispatch(actionTypesFeed.createFeed, newFeed)
+      const slugFeed = getStrKebabCase(feedNew.title)
+      await this.$store.dispatch(actionTypesFeed.createFeed, feedNew)
 
-      this.$router.push({ path: `/feed/${slugFeed}` })
-    },
-
-    createDataFeedDefault() {
-      const userId = this.getCurrentUser.id
-      const time = Date.now()
-      const like = []
-
-      return {
-        userId,
-        time,
-        like,
-      }
-    },
-
-    createTags() {
-      const tags = this.dataField.tags.split(",")
-      return tags.map((item) => getStrCamelCase(item))
-    },
-
-    resetField() {
-      this.resetForm()
+      return this.$router.push({ path: `/feed/${slugFeed}` })
     },
   },
 }

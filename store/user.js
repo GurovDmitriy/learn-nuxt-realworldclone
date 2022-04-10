@@ -9,7 +9,7 @@ export const actionTypes = {
 }
 
 export const state = () => ({
-  user: null,
+  user: {},
   isLoading: false,
   errors: null,
 })

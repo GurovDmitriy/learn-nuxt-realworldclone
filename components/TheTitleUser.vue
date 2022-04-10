@@ -3,7 +3,7 @@
     <template v-if="getIsVisibleTitleUser">
       <AppImage class="title-user__img" :data-item="getDataImage" />
       <h3 class="title-user__username">{{ getUser.userName }}</h3>
-      <p class="title-user__name">{{ getUserFullName }}</p>
+      <p class="title-user__name">{{ getFullNameUser }}</p>
     </template>
   </div>
 </template>
@@ -16,21 +16,30 @@ export default {
   computed: {
     ...mapState({
       getUser: ({ user }) => user.user,
-      getUserIsLoading: ({ user }) => user.isLoading,
-      getUserErrors: ({ user }) => user.errors,
+      getIsLoadingUser: ({ user }) => user.isLoading,
+      getErrorsUser: ({ user }) => user.errors,
     }),
 
-    getUserFullName() {
-      return `${this.getUser.firstName} ${this.getUser.lastName}`
+    getFullNameUser() {
+      const firstName = this.getUser.firstName
+      const lastName = this.getUser.lastName
+
+      return `${firstName} ${lastName}`
     },
 
     getDataImage() {
+      const image = this.getUser.image
+      const alt = this.getUser.userName
+      const width = 100
+      const height = 100
+      const placeholder = "placeholder-avatar.png"
+
       return {
-        image: this.getUser.image,
-        width: 100,
-        height: 100,
-        alt: this.getUser.userName,
-        placeholder: "placeholder-avatar.png",
+        image,
+        width,
+        height,
+        alt,
+        placeholder,
       }
     },
 

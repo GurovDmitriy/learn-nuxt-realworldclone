@@ -10,7 +10,7 @@
     >
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--username"
-      :data-item="configInput.userName"
+      :data-item="config.input.userName"
       :value="dataItem.userName"
       @input="emitInputUser($event, 'userName')"
     />
@@ -19,7 +19,7 @@
     >
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--email"
-      :data-item="configInput.email"
+      :data-item="config.input.email"
       :value="dataItem.email"
       @input="emitInputUser($event, 'email')"
     />
@@ -30,7 +30,7 @@
     >
     <AppInput
       class="form-register-part-1__input form-register-part-1__input--password"
-      :data-item="configInput.password"
+      :data-item="config.input.password"
       :value="dataItem.password"
       @input="emitInputUser($event, 'password')"
     />
@@ -48,29 +48,31 @@ export default {
 
   data() {
     return {
-      configInput: {
-        userName: {
-          name: "username",
-          type: "text",
-          placeholder: "Username",
-          id: "username-field",
-          required: true,
-        },
+      config: {
+        input: {
+          userName: {
+            name: "username",
+            type: "text",
+            placeholder: "Username",
+            id: "username-field",
+            required: true,
+          },
 
-        email: {
-          name: "email",
-          type: "email",
-          placeholder: "Email",
-          id: "email-field",
-          required: true,
-        },
+          email: {
+            name: "email",
+            type: "email",
+            placeholder: "Email",
+            id: "email-field",
+            required: true,
+          },
 
-        password: {
-          name: "password",
-          type: "password",
-          placeholder: "Password",
-          id: "password-field",
-          required: true,
+          password: {
+            name: "password",
+            type: "password",
+            placeholder: "Password",
+            id: "password-field",
+            required: true,
+          },
         },
       },
     }

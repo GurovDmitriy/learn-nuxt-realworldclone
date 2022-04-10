@@ -10,7 +10,7 @@
     >
     <AppInput
       class="form-register-part-2__input form-register-part-2__input--first-name"
-      :data-item="configInput.firstName"
+      :data-item="config.input.firstName"
       :value="dataItem.firstName"
       @input="emitInputUser($event, 'firstName')"
     />
@@ -21,7 +21,7 @@
     >
     <AppInput
       class="form-register-part-2__input form-register-part-2__input--last-name"
-      :data-item="configInput.lastName"
+      :data-item="config.input.lastName"
       :value="dataItem.lastName"
       @input="emitInputUser($event, 'lastName')"
     />
@@ -32,7 +32,7 @@
     >
     <AppInput
       class="form-register-part-2__input form-register-part-2__input--avatar"
-      :data-item="configInput.image"
+      :data-item="config.input.image"
       :value="dataItem.image"
       @input="emitInputUser($event, 'image')"
     />
@@ -50,29 +50,31 @@ export default {
 
   data() {
     return {
-      configInput: {
-        firstName: {
-          name: "firstname",
-          type: "text",
-          placeholder: "First name",
-          id: "firstname-field",
-          required: true,
-        },
+      config: {
+        input: {
+          firstName: {
+            name: "firstname",
+            type: "text",
+            placeholder: "First name",
+            id: "firstname-field",
+            required: true,
+          },
 
-        lastName: {
-          name: "lastname",
-          type: "text",
-          placeholder: "Last name",
-          id: "lastname-field",
-          required: true,
-        },
+          lastName: {
+            name: "lastname",
+            type: "text",
+            placeholder: "Last name",
+            id: "lastname-field",
+            required: true,
+          },
 
-        image: {
-          name: "avatar",
-          type: "url",
-          placeholder: "Avatar",
-          id: "avatar-field",
-          required: true,
+          image: {
+            name: "avatar",
+            type: "url",
+            placeholder: "Avatar",
+            id: "avatar-field",
+            required: true,
+          },
         },
       },
     }

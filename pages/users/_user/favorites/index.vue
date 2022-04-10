@@ -3,9 +3,9 @@
     <h2 class="main__caption visually-hidden">Main Content</h2>
     <TheColumnWrapperUser class="main__column-wrapper" />
     <AppPaginatorList
-      v-if="feedCount"
+      v-if="getFeedCount"
       class="main__paginator-list"
-      :data-item="getPageCount"
+      :data-item="getCountPage"
       :path-page="$route.path"
     />
   </main>
@@ -39,12 +39,12 @@ export default {
 
   computed: {
     ...mapState({
-      feedCount: ({ feedCount }) => feedCount.feedCount,
+      getFeedCount: ({ feedCount }) => feedCount.feedCount,
     }),
 
-    getPageCount() {
+    getCountPage() {
       const filter = this.$route.params.user
-      const count = this.feedCount[filter] || 1
+      const count = this.getFeedCount[filter] || 1
       const delim = paginator.index
       const pageCount = getArrRange(1, Math.ceil(count / delim))
 

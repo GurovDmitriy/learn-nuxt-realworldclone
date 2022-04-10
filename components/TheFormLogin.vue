@@ -1,5 +1,5 @@
 <template>
-  <AppForm class="form-login" :data-item="configForm" @submitForm="login">
+  <AppForm class="form-login" :data-item="config.form" @submitForm="login">
     <template #default>
       <fieldset class="form-login__fieldset">
         <legend class="form-login__legend visually-hidden">Login</legend>
@@ -7,17 +7,17 @@
           >Email</label
         >
         <AppInput
-          v-model="dataField.email"
+          v-model="field.email"
           class="form-login__input form-login__input--email"
-          :data-item="configInput.email"
+          :data-item="config.input.email"
         />
         <label class="form-login__label visually-hidden" for="password-field"
           >Password</label
         >
         <AppInput
-          v-model="dataField.password"
+          v-model="field.password"
           class="form-login__input form-login__input--password"
-          :data-item="configInput.password"
+          :data-item="config.input.password"
         />
       </fieldset>
     </template>
@@ -25,7 +25,7 @@
     <template #box-btn>
       <AppButton
         class="form-login__btn form-login__btn--login"
-        :data-item="configBtn.login"
+        :data-item="config.btn.login"
         >Login</AppButton
       >
     </template>
@@ -38,34 +38,36 @@ import { actionTypes as actionTypesAuth } from "~/store/auth"
 export default {
   data() {
     return {
-      configForm: {
-        method: "POST",
-        action: "",
-      },
-
-      configInput: {
-        email: {
-          name: "email",
-          type: "email",
-          placeholder: "Email",
-          id: "email-field",
-          required: true,
+      config: {
+        form: {
+          method: "POST",
+          action: "",
         },
 
-        password: {
-          name: "password",
-          type: "password",
-          placeholder: "Password",
-          id: "password-field",
-          required: true,
+        input: {
+          email: {
+            name: "email",
+            type: "email",
+            placeholder: "Email",
+            id: "email-field",
+            required: true,
+          },
+
+          password: {
+            name: "password",
+            type: "password",
+            placeholder: "Password",
+            id: "password-field",
+            required: true,
+          },
+        },
+
+        btn: {
+          login: { type: "submit" },
         },
       },
 
-      configBtn: {
-        login: { type: "submit" },
-      },
-
-      dataField: {
+      field: {
         email: "",
         password: "",
       },
@@ -74,8 +76,8 @@ export default {
 
   methods: {
     async login() {
-      await this.$store.dispatch(actionTypesAuth.login, this.dataField)
-      this.$router.push({ path: "/" })
+      await this.$store.dispatch(actionTypesAuth.login, this.field)
+      return this.$router.push({ path: "/" })
     },
   },
 }

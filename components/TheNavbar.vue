@@ -20,41 +20,46 @@ import { getterTypes as getterTypesAuth } from "~/store/auth"
 export default {
   data() {
     return {
-      isMenuShow: false,
-      dataNavListDefault: [
-        { content: "Home", path: "/" },
-        { content: "Sign in", path: "/login" },
-        { content: "Sign up", path: "/register" },
-      ],
-      dataNavListLogged: [
-        { content: "Home", path: "/" },
-        { content: "New Feed", path: "/editor" },
-        { content: "Settings", path: "/settings" },
-      ],
+      navList: {
+        default: [
+          { content: "Home", path: "/" },
+          { content: "Sign in", path: "/login" },
+          { content: "Sign up", path: "/register" },
+        ],
+
+        logged: [
+          { content: "Home", path: "/" },
+          { content: "New Feed", path: "/editor" },
+          { content: "Settings", path: "/settings" },
+        ],
+      },
+
+      isShowMenu: false,
     }
   },
 
   computed: {
     ...mapGetters({
-      getIsAnonymous: getterTypesAuth.isAnonymous,
-      getIsLoggedIn: getterTypesAuth.isLoggedIn,
-      getCurrentUser: getterTypesAuth.currentUser,
+      getIsAnonymous: getterTypesAuth.getIsAnonymous,
+      getIsLoggedIn: getterTypesAuth.getIsLoggedIn,
+      getCurrentUser: getterTypesAuth.getCurrentUser,
     }),
 
     ...mapState({
-      getCurrentUserIsLoading: ({ auth }) => auth.isLoading,
+      getIsLoadingCurrentUser: ({ auth }) => auth.isLoading,
     }),
 
     getNavList() {
-      let data = []
+      const listLogged = this.navList.logged
+      const listDefault = this.navList.default
+      const listUser = this.getNavLinkUser
 
-      if (this.getIsLoggedIn) {
-        data = [...this.dataNavListLogged, this.getNavLinkUser]
-      } else {
-        data = [...this.dataNavListDefault]
+      switch (this.getIsLoggedIn) {
+        case true:
+          return [...listLogged, listUser]
+        default:
+          return [...listDefault]
       }
-
-      return data
     },
 
     getNavLinkUser() {
@@ -65,7 +70,7 @@ export default {
         }
       }
 
-      if (this.getCurrentUserIsLoading) {
+      if (this.getIsLoadingCurrentUser) {
         return {
           content: "Loading...",
           path: this.$route.path,
@@ -77,14 +82,14 @@ export default {
 
     getClassActiveNavList() {
       return {
-        "navbar__nav-list--active": this.isMenuShow,
+        "navbar__nav-list--active": this.isShowMenu,
       }
     },
   },
 
   methods: {
     toggleMenu() {
-      this.isMenuShow = !this.isMenuShow
+      this.isShowMenu = !this.isShowMenu
     },
   },
 }

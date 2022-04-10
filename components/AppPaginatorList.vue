@@ -34,12 +34,12 @@ export default {
 
   computed: {
     getIsActivePage() {
-      return this.dataItem.map((item, index) => {
-        if (index === 0 && !isNotEmptyObj(this.$route.query)) {
-          return true
-        }
+      const query = this.$route.query
+      const queryPage = this.$route.query.page
 
-        return this.$route.query.page === item || this.$route.query.page === 1
+      return this.dataItem.map((item, index) => {
+        if (index === 0 && !isNotEmptyObj(query)) return true
+        return queryPage === item || queryPage === 1
       })
     },
   },

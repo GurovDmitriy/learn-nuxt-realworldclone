@@ -1,17 +1,17 @@
 <template>
   <div class="title-feed">
-    <template v-if="getFeed && getUserData">
+    <template v-if="getIsVisibleTitleFeed">
       <h3 class="title-feed__caption">{{ getFeed.title }}</h3>
-      <AppAuthor :data-item="getAuthor" class="title-feed__author" />
+      <AppAuthor :data-item="getDataAuthor" class="title-feed__author" />
       <div v-if="getIsVisibleBtn" class="title-feed__box-btn">
         <AppButtonIcon
-          :data-item="configBtn.delete"
+          :data-item="config.btn.delete"
           class="title-feed__btn title-feed__btn--delete"
           @clickBtn="deleteFeed"
           >Delete</AppButtonIcon
         >
         <AppButtonIcon
-          :data-item="configBtn.edit"
+          :data-item="config.btn.edit"
           class="title-feed__btn title-feed__btn--edit"
           @clickBtn="editFeed"
           >Edit</AppButtonIcon
@@ -28,17 +28,19 @@ import { actionTypes as actionTypesFeed } from "~/store/feed"
 export default {
   data() {
     return {
-      configBtn: {
-        edit: {
-          type: "button",
-          iconName: "pencil-fill",
-          iconDesc: "icon",
-        },
+      config: {
+        btn: {
+          edit: {
+            type: "button",
+            iconName: "pencil-fill",
+            iconDesc: "icon",
+          },
 
-        delete: {
-          type: "button",
-          iconName: "trash-fill",
-          iconDesc: "icon",
+          delete: {
+            type: "button",
+            iconName: "trash-fill",
+            iconDesc: "icon",
+          },
         },
       },
     }
@@ -47,22 +49,28 @@ export default {
   computed: {
     ...mapState({
       getFeed: ({ feed }) => feed.feed,
-      getUserData: ({ user }) => user.user,
-      getUserIsLoading: ({ user }) => user.isLoading,
-      getUserErrors: ({ user }) => user.errors,
-      getCurrentUser: ({ auth }) => auth.user,
+      getIsLoadingFeed: ({ feed }) => feed.isLoading,
+      getErrorsFeed: ({ feed }) => feed.errors,
+
+      getUser: ({ user }) => user.user,
+      getIsLoadingUser: ({ user }) => user.isLoading,
+      getErrorsUser: ({ user }) => user.errors,
+
+      getCurrentUser: ({ auth }) => auth.currentUser,
+      getIsLoadingCurrentUser: ({ auth }) => auth.isLoading,
+      getErrorsCurrentUser: ({ auth }) => auth.errors,
     }),
 
-    getAuthor() {
-      const pathLink = `/users/${this.getUserData.userName}`
+    getDataAuthor() {
+      const pathLink = `/users/${this.getUser.userName}`
       const time = this.getFeed.time
       const width = 38
       const height = 38
       const placeholder = "placeholder-avatar.png"
-      const alt = this.getUserData.userName
+      const alt = this.getUser.userName
 
       return {
-        ...this.getUserData,
+        ...this.getUser,
         pathLink,
         time,
         width,
@@ -73,15 +81,21 @@ export default {
     },
 
     getIsOwnerFeed() {
-      if (this.getCurrentUser && this.getFeed) {
-        return this.getFeed.userId === this.getCurrentUser.id
+      const dataCurrentUser = this.getCurrentUser
+      const dataFeed = this.getFeed
+
+      if (dataCurrentUser && dataFeed) {
+        return dataFeed.userId === dataCurrentUser.id
       }
       return false
     },
 
     getIsVisibleBtn() {
-      if (this.getIsOwnerFeed) return true
-      return false
+      return this.getIsOwnerFeed
+    },
+
+    getIsVisibleTitleFeed() {
+      return this.getFeed && this.getUser
     },
   },
 
@@ -94,16 +108,17 @@ export default {
     editFeed() {
       if (!this.getIsOwnerFeed) return false
 
-      this.$router.push({ path: "/update" })
+      return this.$router.push({ path: "/update" })
     },
 
     async deleteFeed() {
       if (!this.getIsOwnerFeed) return false
 
-      const userName = this.getCurrentUser.userName
+      const currentUserName = this.getCurrentUser.userName
+      const idFeed = this.getFeed.id
 
-      await this.$store.dispatch(actionTypesFeed.deleteFeed, this.getFeed.id)
-      this.$router.push({ path: `/users/${userName}` })
+      await this.$store.dispatch(actionTypesFeed.deleteFeed, idFeed)
+      return this.$router.push({ path: `/users/${currentUserName}` })
     },
   },
 }

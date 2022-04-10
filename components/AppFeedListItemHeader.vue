@@ -2,7 +2,7 @@
   <div class="feed-list-item-header">
     <AppAuthor :data-item="getAuthor" class="feed-list-item-header__author" />
     <AppButtonIcon
-      :data-item="configButton"
+      :data-item="config.button"
       class="feed-list-item-header__button-icon"
       @clickBtn="emitToggleLike"
       >{{ getCountLike }}</AppButtonIcon
@@ -21,9 +21,11 @@ export default {
 
   data() {
     return {
-      configButton: {
-        iconName: "heart-fill",
-        iconDesc: "heart",
+      config: {
+        button: {
+          iconName: "heart-fill",
+          iconDesc: "heart",
+        },
       },
     }
   },
@@ -47,7 +49,7 @@ export default {
     },
 
     getCountLike() {
-      return this.dataItem.like.length
+      return this.dataItem.like ? this.dataItem.like.length : null
     },
   },
 

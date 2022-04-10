@@ -5,7 +5,7 @@
     <AppPaginatorList
       v-if="getFeedCount"
       class="main__paginator-list"
-      :data-item="getPageCount"
+      :data-item="getCountPage"
       :path-page="$route.path"
     />
   </main>
@@ -41,7 +41,7 @@ export default {
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
     }),
 
-    getPageCount() {
+    getCountPage() {
       const filter = this.$route.params.user
       const count = this.getFeedCount[filter] || 1
       const delim = paginator.index
