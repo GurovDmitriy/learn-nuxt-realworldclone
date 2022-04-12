@@ -2,10 +2,11 @@
   <div class="feed-list-item-header">
     <AppAuthor :data-item="getAuthor" class="feed-list-item-header__author" />
     <AppButtonIcon
-      :data-item="config.button"
+      :data-item="dataBtnLike"
+      :is-active="true"
       class="feed-list-item-header__button-icon"
       @clickBtn="emitToggleLike"
-      >{{ getCountLike }}</AppButtonIcon
+      >{{ 1 }}</AppButtonIcon
     >
   </div>
 </template>
@@ -17,17 +18,11 @@ export default {
       type: Object,
       required: true,
     },
-  },
 
-  data() {
-    return {
-      config: {
-        button: {
-          iconName: "heart-fill",
-          iconDesc: "heart",
-        },
-      },
-    }
+    dataBtnLike: {
+      type: Object,
+      required: true,
+    },
   },
 
   computed: {
@@ -46,10 +41,6 @@ export default {
         alt,
         placeholder,
       }
-    },
-
-    getCountLike() {
-      return this.dataItem.like ? this.dataItem.like.length : null
     },
   },
 
@@ -73,5 +64,13 @@ export default {
 .feed-list-item-header__author {
   max-width: 70%;
   margin-right: $space-m;
+}
+
+.feed-list-item-header__button-icon {
+  color: grey;
+
+  &--active {
+    color: red;
+  }
 }
 </style>

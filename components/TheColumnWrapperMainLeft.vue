@@ -7,27 +7,31 @@
     />
     <AppFeedListPlaceholder
       v-if="getIsLoadingFeedList"
-      :data-item="config.feedListPlaceholder"
+      :data-item="config.placeholderCount"
       class="column-wrapper-main-left__placeholder"
     />
     <AppRefresh
       v-if="getErrorsFeedList"
       class="column-wrapper-main-left__refresh"
-      @refreshData="fetchFeedList"
+      @clickBtn="fetchFeedList"
     />
     <AppFeedList
       v-if="getFeedList"
       :data-item="getFeedList"
+      :data-btn-like="getDataBtnLike"
       class="column-wrapper-main-left__feed-list"
       @toggleLike="toggleLike($event)"
+    />
+    <AppNoContent
+      v-if="getIsVisibleNoContent"
+      class="column-wrapper-main-left__no-content"
     />
     <AppPaginatorList
       v-if="getFeedCount"
       class="main__paginator-list"
-      :data-item="getCountPage"
+      :data-item="getItemPerPage"
       :path-page="$route.path"
     />
-    <!-- <AppNoContent v-else class="column-wrapper-main-left__no-content" /> -->
   </section>
 </template>
 
@@ -35,7 +39,7 @@
 import { mapState, mapGetters } from "vuex"
 import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
-import { getArrRange, isNotEmptyObj } from "~/helpers/utils"
+import { getArrRange, isNotEmptyArr, isNotEmptyObj } from "~/helpers/utils"
 import { paginator, placeholder } from "~/helpers/vars"
 
 export default {
@@ -44,7 +48,13 @@ export default {
       filterBar: [{ content: "Global Feed", path: "/" }],
 
       config: {
-        feedListPlaceholder: placeholder.index,
+        placeholderCount: placeholder.feedList.main,
+
+        btnLike: {
+          type: "button",
+          iconName: "heart-fill",
+          iconDesc: "heart",
+        },
       },
     }
   },
@@ -52,8 +62,10 @@ export default {
   computed: {
     ...mapState({
       getFeedList: ({ feedList }) => feedList.feedList,
-      getErrorsFeedList: ({ feedList }) => feedList.errors,
-      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
+      getIsLoadingFeedList: ({ feedList }) => feedList.isLoadingFeedList,
+      getErrorsFeedList: ({ feedList }) => feedList.errorsFeedList,
+
+      getIsLoadingToggleLike: ({ feedList }) => feedList.isLoadingToggleLike,
 
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
       getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
@@ -98,8 +110,8 @@ export default {
       return null
     },
 
-    getCountPage() {
-      const delim = paginator.index
+    getItemPerPage() {
+      const delim = paginator.feedList.main
       const countItem = this.getFeedCount[this.getFilter] || 1
       return getArrRange(1, Math.ceil(countItem / delim))
     },
@@ -111,6 +123,14 @@ export default {
         return this.$route.params.tag || "total"
       }
     },
+
+    getIsVisibleNoContent() {
+      return (
+        !isNotEmptyArr(this.getFeedList) &&
+        !this.getIsLoadingFeedList &&
+        !this.getIsLoadingFeedCount
+      )
+    },
   },
 
   methods: {
@@ -120,6 +140,7 @@ export default {
 
     async toggleLike(feedId) {
       if (!this.getIsLoggedIn) return this.$router.push({ path: "/login" })
+      if (this.getIsLoadingToggleLike) return
 
       const userId = this.getCurrentUser.id
       const index = this.getFeedList.findIndex((item) => item.id === feedId)
@@ -141,6 +162,15 @@ export default {
         data: { like: likeNew },
       })
     },
+
+    getDataBtnLike() {
+      const data = []
+      const configBtn = { ...this.config.btnLike, isActive: true }
+
+      this.getFeedList.forEach((item) => data.push(configBtn))
+
+      return data
+    },
   },
 }
 </script>
@@ -148,5 +178,9 @@ export default {
 <style lang="scss">
 .column-wrapper-main-left__feed-list {
   margin-bottom: $space-l;
+}
+
+.column-wrapper-main-left__refresh {
+  color: $var-color-default;
 }
 </style>

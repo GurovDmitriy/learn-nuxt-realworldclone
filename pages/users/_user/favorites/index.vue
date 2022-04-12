@@ -25,11 +25,12 @@ export default {
   async asyncData({ params, query, store }) {
     const userName = params.user
     const pageNum = query.page || 1
+    const itemPerPage = paginator.feedList.main
 
     const userPayload = `userName=${userName}`
     const user = await store.dispatch(actionTypesUser.fetchUser, userPayload)
 
-    const feedListPayload = `like_like=${user.id}&_page=${pageNum}&_limit=${paginator.index}`
+    const feedListPayload = `like_like=${user.id}&_page=${pageNum}&_limit=${itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),

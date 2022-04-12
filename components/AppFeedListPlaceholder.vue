@@ -16,7 +16,7 @@ export default {
     dataItem: {
       type: Number,
       required: false,
-      default: placeholder.index,
+      default: placeholder.feedList.main,
     },
   },
 }

@@ -1,7 +1,11 @@
 export const paginator = {
-  index: 5,
+  feedList: {
+    main: 5,
+  },
 }
 
 export const placeholder = {
-  index: 5,
+  feedList: {
+    main: 5,
+  },
 }

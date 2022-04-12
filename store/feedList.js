@@ -40,9 +40,8 @@ const mutations = {
     state.isLoadingFeedList = false
   },
 
-  [mutationTypes.toggleLikeFeedListStart](state, payload) {
+  [mutationTypes.toggleLikeFeedListStart](state) {
     state.isLoadingToggleLike = true
-    state.feedList[payload.indexFeed].like = null
     state.errorsToggleLike = null
   },
 
@@ -73,7 +72,7 @@ const actions = {
   },
 
   async [actionTypes.toggleLikeFeed]({ commit }, payload) {
-    commit(mutationTypes.toggleLikeFeedListStart, payload)
+    commit(mutationTypes.toggleLikeFeedListStart)
 
     try {
       const data = await this.$api.feed.toggleLikeFeed(payload)

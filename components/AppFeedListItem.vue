@@ -2,6 +2,7 @@
   <li class="feed-list-item">
     <AppFeedListItemHeader
       :data-item="dataItem"
+      :data-btn-like="dataBtnLike"
       class="feed-list-item__header"
       @toggleLike="emitToggleLike"
     />
@@ -20,6 +21,11 @@
 export default {
   props: {
     dataItem: {
+      type: Object,
+      required: true,
+    },
+
+    dataBtnLike: {
       type: Object,
       required: true,
     },

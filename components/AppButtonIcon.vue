@@ -1,5 +1,11 @@
 <template>
-  <button class="button-icon" :type="dataItem.type" @click="emitClickBtn">
+  <button
+    class="button-icon"
+    :class="getClassActive"
+    :type="dataItem.type"
+    :disabled="disabled"
+    @click="emitClickBtn"
+  >
     <SvgIcon
       class="button-icon__icon"
       :name="dataItem.iconName"
@@ -21,6 +27,26 @@ export default {
         iconDesc: "icon",
       }),
     },
+
+    isActive: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+
+  computed: {
+    getClassActive() {
+      return {
+        "button-icon--active": this.active,
+      }
+    },
   },
 
   methods: {
@@ -38,7 +64,7 @@ export default {
   display: block;
   padding: $space-xs $space-s;
 
-  color: $var-color-east-side;
+  color: $var-color-rum;
   line-height: 1;
 
   background: none;
@@ -47,6 +73,14 @@ export default {
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:disabled {
+    opacity: 50%;
+  }
+
+  &--active {
+    color: $var-color-east-side;
   }
 }
 
