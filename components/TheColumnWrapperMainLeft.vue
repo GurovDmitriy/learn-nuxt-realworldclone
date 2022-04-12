@@ -17,9 +17,7 @@
     />
     <AppFeedList
       v-if="getFeedList"
-      :data-item="getFeedList"
-      :data-btn-like="config.btnLike"
-      :is-active-btn-like="getIsActiveBtnLike"
+      :data-item="getDataFeedList"
       class="column-wrapper-main-left__feed-list"
       @toggleLike="toggleLike($event)"
     />
@@ -40,7 +38,12 @@
 import { mapState, mapGetters } from "vuex"
 import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
-import { getArrRange, isNotEmptyArr, isNotEmptyObj } from "~/helpers/utils"
+import {
+  getArrRange,
+  getStrKebabCase,
+  isNotEmptyArr,
+  isNotEmptyObj,
+} from "~/helpers/utils"
 import { paginator, placeholder } from "~/helpers/vars"
 
 export default {
@@ -50,12 +53,6 @@ export default {
 
       config: {
         placeholderCount: placeholder.feedList.main,
-
-        btnLike: {
-          type: "button",
-          iconName: "heart-fill",
-          iconDesc: "heart",
-        },
       },
     }
   },
@@ -65,9 +62,7 @@ export default {
       getFeedList: ({ feedList }) => feedList.feedList,
       getIsLoadingFeedList: ({ feedList }) => feedList.isLoadingFeedList,
       getErrorsFeedList: ({ feedList }) => feedList.errorsFeedList,
-
       getIsLoadingToggleLike: ({ feedList }) => feedList.isLoadingToggleLike,
-
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
       getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
       getErrorsFeedCount: ({ feedCount }) => feedCount.errors,
@@ -78,6 +73,7 @@ export default {
       getIsLoggedIn: getterTypesAuth.getIsLoggedIn,
     }),
 
+    // filterBar start
     getDataFilterBar() {
       const data = [...this.filterBar]
       setBars(this.getBarItemCurrentUser, this.getBarItemTag)
@@ -110,7 +106,71 @@ export default {
       }
       return null
     },
+    // filterBar end
 
+    // feedList start
+    getDataFeedList() {
+      const currentUserId = this.getCurrentUser ? this.getCurrentUser.id : null
+
+      const data = this.getFeedList.map((item) => {
+        const author = getAuthor(item)
+        const btnLike = getBtnLike(item)
+        const content = getContent(item)
+        const titleFeed = getStrKebabCase(item.title)
+        const pathFeed = `/users/${titleFeed}`
+
+        return {
+          feedId: item.id,
+          author,
+          btnLike,
+          content,
+          tags: item.tags,
+          pathFeed,
+        }
+      })
+
+      function getAuthor(item) {
+        const pathLink = `/users/${item.userName}`
+
+        return {
+          pathLink,
+          userName: item.userName,
+          image: item.image,
+          width: 38,
+          height: 38,
+          alt: item.userName,
+          placeholder: "placeholder-avatar.png",
+          time: item.time,
+        }
+      }
+
+      function getBtnLike(item) {
+        const count = item.like.length
+        const isActive =
+          item.like.findIndex((item) => item === currentUserId) !== -1
+
+        return {
+          like: item.like,
+          count,
+          isActive,
+          type: "button",
+          iconName: "heart-fill",
+          iconDesc: "heart",
+        }
+      }
+
+      function getContent(item) {
+        return {
+          title: item.title,
+          preview: item.preview,
+        }
+      }
+
+      return data
+    },
+    // feedList end
+
+    // paginator start
     getItemPerPage() {
       const delim = paginator.feedList.main
       const countItem = this.getFeedCount[this.getFilter] || 1
@@ -124,6 +184,7 @@ export default {
         return this.$route.params.tag || "total"
       }
     },
+    // paginator end
 
     getIsVisibleNoContent() {
       return (
@@ -131,15 +192,6 @@ export default {
         !this.getIsLoadingFeedList &&
         !this.getIsLoadingFeedCount
       )
-    },
-
-    getIsActiveBtnLike() {
-      const userId = this.getCurrentUser ? this.getCurrentUser.id : null
-
-      return this.getFeedList.map((item) => {
-        if (!userId) return false
-        return item.like.findIndex((item) => item === userId) !== -1
-      })
     },
   },
 

@@ -1,11 +1,9 @@
 <template>
   <ul class="feed-list">
     <AppFeedListItem
-      v-for="(item, index) in dataItem"
-      :key="item.id"
+      v-for="item in dataItem"
+      :key="item.feedId"
       :data-item="item"
-      :data-btn-like="dataBtnLike"
-      :is-active-btn-like="isActiveBtnLike[index]"
       class="feed-list__item"
       @toggleLike="emitToggleLike"
     />
@@ -20,32 +18,38 @@ export default {
       required: false,
       default: () => [
         {
-          id: 1,
-          image: "",
-          userName: "Unknown",
-          time: 1031974583,
-          like: [],
+          feedId: 1,
+
+          author: {
+            pathLink: "/",
+            userName: "Unknown",
+            image: "",
+            width: 38,
+            height: 38,
+            alt: "placeholder",
+            placeholder: "placeholder-avatar.png",
+            time: 1031974583,
+          },
+
+          btnLike: {
+            like: [],
+            count: 0,
+            isActive: false,
+            type: "button",
+            iconName: "heart-fill",
+            iconDesc: "heart",
+          },
+
+          content: {
+            title: "Nothing here yet...",
+            preview: "Nothing here yet...",
+          },
+
           tags: ["no-tags"],
-          title: "Nothing here yet...",
-          preview: "Nothing here yet...",
+
+          pathFeed: "/feed/Nothing-here-yet",
         },
       ],
-    },
-
-    dataBtnLike: {
-      type: Object,
-      required: false,
-      default: () => ({
-        type: "button",
-        iconName: "heart-fill",
-        iconDesc: "heart",
-      }),
-    },
-
-    isActiveBtnLike: {
-      type: Array,
-      required: false,
-      default: () => [false],
     },
   },
 

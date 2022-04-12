@@ -1,12 +1,15 @@
 <template>
   <div class="feed-list-item-header">
-    <AppAuthor :data-item="getAuthor" class="feed-list-item-header__author" />
+    <AppAuthor
+      :data-item="dataItem.author"
+      class="feed-list-item-header__author"
+    />
     <AppButtonIcon
-      :data-item="dataBtnLike"
-      :is-active="isActiveBtnLike"
+      :data-item="dataItem.btnLike"
+      :is-active="dataItem.btnLike.isActive"
       class="feed-list-item-header__button-icon"
       @clickBtn="emitToggleLike"
-      >{{ dataItem.like.length }}</AppButtonIcon
+      >{{ dataItem.btnLike.count }}</AppButtonIcon
     >
   </div>
 </template>
@@ -18,40 +21,11 @@ export default {
       type: Object,
       required: true,
     },
-
-    dataBtnLike: {
-      type: Object,
-      required: true,
-    },
-
-    isActiveBtnLike: {
-      type: Boolean,
-      required: true,
-    },
-  },
-
-  computed: {
-    getAuthor() {
-      const pathLink = `/users/${this.dataItem.userName}`
-      const width = 38
-      const height = 38
-      const placeholder = "placeholder-avatar.png"
-      const alt = this.dataItem.userName
-
-      return {
-        ...this.dataItem,
-        pathLink,
-        width,
-        height,
-        alt,
-        placeholder,
-      }
-    },
   },
 
   methods: {
     emitToggleLike() {
-      this.$emit("toggleLike", this.dataItem.id)
+      this.$emit("toggleLike", this.dataItem.feedId)
     },
   },
 }

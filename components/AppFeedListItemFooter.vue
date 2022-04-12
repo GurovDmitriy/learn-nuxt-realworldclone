@@ -2,7 +2,7 @@
   <div class="feed-list-item-footer">
     <NuxtLink
       :to="{
-        path: getPathFeed,
+        path: dataItem.pathFeed,
       }"
       class="feed-list-item-footer__read-more"
       >Read more...</NuxtLink
@@ -15,20 +15,11 @@
 </template>
 
 <script>
-import { getStrKebabCase } from "~/helpers/utils"
-
 export default {
   props: {
     dataItem: {
       type: Object,
       required: true,
-    },
-  },
-
-  computed: {
-    getPathFeed() {
-      const name = getStrKebabCase(this.dataItem.title)
-      return `/feed/${name}`
     },
   },
 }
