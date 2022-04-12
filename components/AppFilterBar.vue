@@ -1,10 +1,9 @@
 <template>
   <ul class="filter-bar">
     <AppFilterBarItem
-      v-for="(item, index) in dataItem"
+      v-for="item in dataItem"
       :key="item.content"
       :data-item="item"
-      :is-active="getIsActiveBar[index]"
       class="filter-bar__item"
     />
   </ul>
@@ -20,16 +19,9 @@ export default {
         {
           content: "Global Feed",
           path: "/",
+          isActive: false,
         },
       ],
-    },
-  },
-
-  computed: {
-    getIsActiveBar() {
-      return this.dataItem.map((item) => {
-        return this.$route.path === item.path
-      })
     },
   },
 }

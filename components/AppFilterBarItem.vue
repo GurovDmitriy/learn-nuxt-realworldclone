@@ -16,18 +16,12 @@ export default {
       type: Object,
       required: true,
     },
-
-    isActive: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
   },
 
   computed: {
     getClassActive() {
       return {
-        "filter-bar-item__link--active": this.isActive,
+        "filter-bar-item__link--active": this.dataItem.isActive,
       }
     },
   },

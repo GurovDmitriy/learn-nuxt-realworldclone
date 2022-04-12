@@ -7,7 +7,7 @@
     />
     <AppFeedListPlaceholder
       v-if="getIsLoadingFeedList"
-      :data-item="config.placeholderCount"
+      :data-item="placeholderCount"
       class="column-wrapper-main-left__placeholder"
     />
     <AppRefresh
@@ -50,10 +50,9 @@ export default {
   data() {
     return {
       filterBar: [{ content: "Global Feed", path: "/" }],
+      placeholderCount: placeholder.feedList.main,
 
-      config: {
-        placeholderCount: placeholder.feedList.main,
-      },
+      config: {},
     }
   },
 
@@ -75,14 +74,20 @@ export default {
 
     // filterBar start
     getDataFilterBar() {
-      const data = [...this.filterBar]
+      const bars = [...this.filterBar]
+
       setBars(this.getBarItemCurrentUser, this.getBarItemTag)
 
       function setBars(...args) {
         args.forEach((item) => {
-          if (item) data.push(item)
+          if (item) bars.push(item)
         })
       }
+
+      const data = bars.map((item) => {
+        item.isActive = this.$route.path === item.path
+        return item
+      })
 
       return data
     },

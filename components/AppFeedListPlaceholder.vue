@@ -9,14 +9,12 @@
 </template>
 
 <script>
-import { placeholder } from "~/helpers/vars"
-
 export default {
   props: {
     dataItem: {
       type: Number,
       required: false,
-      default: placeholder.feedList.main,
+      default: 10,
     },
   },
 }
