@@ -4,7 +4,8 @@
       v-for="(item, index) in dataItem"
       :key="item.id"
       :data-item="item"
-      :data-btn-like="dataBtnLike[index]"
+      :data-btn-like="dataBtnLike"
+      :is-active-btn-like="isActiveBtnLike[index]"
       class="feed-list__item"
       @toggleLike="emitToggleLike"
     />
@@ -32,16 +33,19 @@ export default {
     },
 
     dataBtnLike: {
+      type: Object,
+      required: false,
+      default: () => ({
+        type: "button",
+        iconName: "heart-fill",
+        iconDesc: "heart",
+      }),
+    },
+
+    isActiveBtnLike: {
       type: Array,
       required: false,
-      default: () => [
-        {
-          type: "button",
-          iconName: "heart-fill",
-          iconDesc: "heart",
-          isActive: true,
-        },
-      ],
+      default: () => [false],
     },
   },
 

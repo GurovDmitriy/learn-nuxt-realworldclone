@@ -3,10 +3,10 @@
     <AppAuthor :data-item="getAuthor" class="feed-list-item-header__author" />
     <AppButtonIcon
       :data-item="dataBtnLike"
-      :is-active="true"
+      :is-active="isActiveBtnLike"
       class="feed-list-item-header__button-icon"
       @clickBtn="emitToggleLike"
-      >{{ 1 }}</AppButtonIcon
+      >{{ dataItem.like.length }}</AppButtonIcon
     >
   </div>
 </template>
@@ -21,6 +21,11 @@ export default {
 
     dataBtnLike: {
       type: Object,
+      required: true,
+    },
+
+    isActiveBtnLike: {
+      type: Boolean,
       required: true,
     },
   },
@@ -64,13 +69,5 @@ export default {
 .feed-list-item-header__author {
   max-width: 70%;
   margin-right: $space-m;
-}
-
-.feed-list-item-header__button-icon {
-  color: grey;
-
-  &--active {
-    color: red;
-  }
 }
 </style>

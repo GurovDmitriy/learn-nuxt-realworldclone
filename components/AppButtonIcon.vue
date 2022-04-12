@@ -44,7 +44,7 @@ export default {
   computed: {
     getClassActive() {
       return {
-        "button-icon--active": this.active,
+        "button-icon--active": this.isActive,
       }
     },
   },

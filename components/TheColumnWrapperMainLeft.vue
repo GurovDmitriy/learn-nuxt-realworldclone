@@ -18,7 +18,8 @@
     <AppFeedList
       v-if="getFeedList"
       :data-item="getFeedList"
-      :data-btn-like="getDataBtnLike"
+      :data-btn-like="config.btnLike"
+      :is-active-btn-like="getIsActiveBtnLike"
       class="column-wrapper-main-left__feed-list"
       @toggleLike="toggleLike($event)"
     />
@@ -131,6 +132,15 @@ export default {
         !this.getIsLoadingFeedCount
       )
     },
+
+    getIsActiveBtnLike() {
+      const userId = this.getCurrentUser ? this.getCurrentUser.id : null
+
+      return this.getFeedList.map((item) => {
+        if (!userId) return false
+        return item.like.findIndex((item) => item === userId) !== -1
+      })
+    },
   },
 
   methods: {
@@ -140,7 +150,7 @@ export default {
 
     async toggleLike(feedId) {
       if (!this.getIsLoggedIn) return this.$router.push({ path: "/login" })
-      if (this.getIsLoadingToggleLike) return
+      if (this.getIsLoadingToggleLike) return false
 
       const userId = this.getCurrentUser.id
       const index = this.getFeedList.findIndex((item) => item.id === feedId)
@@ -161,15 +171,6 @@ export default {
         indexFeed: index,
         data: { like: likeNew },
       })
-    },
-
-    getDataBtnLike() {
-      const data = []
-      const configBtn = { ...this.config.btnLike, isActive: true }
-
-      this.getFeedList.forEach((item) => data.push(configBtn))
-
-      return data
     },
   },
 }

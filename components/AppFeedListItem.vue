@@ -3,6 +3,7 @@
     <AppFeedListItemHeader
       :data-item="dataItem"
       :data-btn-like="dataBtnLike"
+      :is-active-btn-like="isActiveBtnLike"
       class="feed-list-item__header"
       @toggleLike="emitToggleLike"
     />
@@ -27,6 +28,11 @@ export default {
 
     dataBtnLike: {
       type: Object,
+      required: true,
+    },
+
+    isActiveBtnLike: {
+      type: Boolean,
       required: true,
     },
   },
