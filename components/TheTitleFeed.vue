@@ -2,7 +2,11 @@
   <div class="title-feed">
     <template v-if="getIsVisibleTitleFeed">
       <h3 class="title-feed__caption">{{ getFeed.title }}</h3>
-      <AppAuthor :data-item="getDataAuthor" class="title-feed__author" />
+      <AppAuthor
+        v-if="getUser"
+        :data-item="getDataAuthor"
+        class="title-feed__author"
+      />
       <div v-if="getIsVisibleBtn" class="title-feed__box-btn">
         <AppButtonIcon
           :data-item="config.btn.delete"
@@ -69,21 +73,15 @@ export default {
 
     getDataAuthor() {
       const pathLink = `/users/${this.getUser.userName}`
-      const time = this.getFeed.time
-      const width = this.config.imgAuthor.width
-      const height = this.config.imgAuthor.height
-      const placeholder = this.config.imgAuthor.placeholder
-      const alt = this.getUser.userName
 
-      return {
-        ...this.getUser,
+      return Object.assign({}, this.getUser, {
         pathLink,
-        time,
-        width,
-        height,
-        alt,
-        placeholder,
-      }
+        time: this.getFeed.time,
+        width: this.config.imgAuthor.width,
+        height: this.config.imgAuthor.height,
+        alt: this.getUser.userName,
+        placeholder: this.config.imgAuthor.placeholder,
+      })
     },
 
     getIsOwnerFeed() {

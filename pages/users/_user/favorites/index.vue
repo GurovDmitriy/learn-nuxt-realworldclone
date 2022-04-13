@@ -27,9 +27,9 @@ export default {
     const itemPerPage = paginator.feedList.main
 
     const userPayload = `userName=${userName}`
-    const user = await store.dispatch(actionTypesUser.fetchUser, userPayload)
+    await store.dispatch(actionTypesUser.fetchUser, userPayload)
 
-    const feedListPayload = `like_like=${user.id}&_page=${pageNum}&_limit=${itemPerPage}`
+    const feedListPayload = `like_like=${store.state.user.user.id}&_page=${pageNum}&_limit=${itemPerPage}`
 
     await Promise.allSettled([
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),

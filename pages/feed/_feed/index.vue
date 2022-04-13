@@ -17,10 +17,9 @@ export default {
     const feedTitle = getStrFromKebabCase(params.feed)
 
     const feedPayload = `title=${feedTitle}`
-    const feed = await store.dispatch(actionTypesFeed.fetchFeed, feedPayload)
-    const userId = feed[0].userId
+    await store.dispatch(actionTypesFeed.fetchFeed, feedPayload)
 
-    const userPayload = `id=${userId}`
+    const userPayload = `id=${store.state.feed.feed.userId}`
     await store.dispatch(actionTypesUser.fetchUser, userPayload)
   },
 }

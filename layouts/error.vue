@@ -1,8 +1,8 @@
 <template>
   <div class="error">
     <p class="error__caption">Error</p>
-    <p class="error__message">{{ errorValid.message }}</p>
-    <p class="error__status">status code: {{ errorValid.statusCode }}</p>
+    <p class="error__message">{{ error.message }}</p>
+    <p class="error__status">status code: {{ error.statusCode }}</p>
   </div>
 </template>
 
@@ -12,16 +12,10 @@ export default {
     error: {
       type: Object,
       required: false,
-      default: () => ({}),
-    },
-  },
-
-  computed: {
-    errorValid() {
-      return {
-        message: this.error.message || "Error: unknown error",
-        statusCode: this.error.statusCode || "000",
-      }
+      default: () => ({
+        message: "Error: unknown error",
+        statusCode: "000",
+      }),
     },
   },
 }

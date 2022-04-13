@@ -18,7 +18,7 @@ export default {
       config: {
         imgAuthor: {
           width: 100,
-          height: 10,
+          height: 100,
           placeholder: "placeholder-avatar.png",
         },
       },
@@ -33,6 +33,8 @@ export default {
     }),
 
     getFullNameUser() {
+      if (!this.getUser) return "Loading..."
+
       const firstName = this.getUser.firstName
       const lastName = this.getUser.lastName
 
@@ -40,30 +42,18 @@ export default {
     },
 
     getDataImage() {
-      const image = this.getUser.image
-      const alt = this.getUser.userName
-      const width = this.config.imgAuthor.width
-      const height = this.config.imgAuthor.height
-      const placeholder = this.config.imgAuthor.placeholder
-
-      return {
-        image,
-        width,
-        height,
-        alt,
-        placeholder,
-      }
+      return Object.assign({}, this.getUser, {
+        width: this.config.imgAuthor.width,
+        height: this.config.imgAuthor.height,
+        alt: this.getUser.userName,
+        placeholder: this.config.imgAuthor.placeholder,
+      })
     },
 
     getIsVisibleTitleUser() {
-      return isNotEmptyObj(this.getUser)
-    },
-  },
-
-  methods: {
-    refreshData() {
-      // eslint-disable-next-line no-console
-      console.log("refresh")
+      return (
+        this.getUser && isNotEmptyObj(this.getUser) && !this.getIsLoadingUser
+      )
     },
   },
 }
