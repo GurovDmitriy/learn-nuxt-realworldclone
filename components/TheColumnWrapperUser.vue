@@ -22,7 +22,10 @@
       class="column-wrapper-user__feed-list"
       @toggleLike="toggleLike($event)"
     />
-    <AppPlaceholderContent v-else class="column-wrapper-user__no-content" />
+    <AppPlaceholderContent
+      v-if="getIsVisiblePlaceholderContent"
+      class="column-wrapper-main-left__no-content"
+    />
   </section>
 </template>
 
@@ -30,6 +33,7 @@
 import { mapState, mapGetters } from "vuex"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
 import CreateFeedList from "~/mixins/dataFeedList"
+import { isNotEmptyArr } from "~/helpers/utils"
 
 export default {
   mixins: [CreateFeedList],
@@ -74,6 +78,14 @@ export default {
 
         return item
       })
+    },
+
+    getIsVisiblePlaceholderContent() {
+      return (
+        !isNotEmptyArr(this.getFeedList) &&
+        !this.getIsLoadingFeedList &&
+        !this.getIsLoadingFeedCount
+      )
     },
   },
 }

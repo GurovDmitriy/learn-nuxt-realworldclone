@@ -29,7 +29,7 @@
 
 .column-wrapper-main__column--right {
   @media (min-width: $min-width-tablet) {
-    flex-grow: 1;
+    width: 30%;
   }
 }
 </style>

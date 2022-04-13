@@ -2,11 +2,7 @@
   <div class="title-feed">
     <template v-if="getIsVisibleTitleFeed">
       <h3 class="title-feed__caption">{{ getFeed.title }}</h3>
-      <AppAuthor
-        v-if="getUser"
-        :data-item="getDataAuthor"
-        class="title-feed__author"
-      />
+      <AppAuthor :data-item="getDataAuthor" class="title-feed__author" />
       <div v-if="getIsVisibleBtn" class="title-feed__box-btn">
         <AppButtonIcon
           :data-item="config.btn.delete"
@@ -28,6 +24,7 @@
 <script>
 import { mapState } from "vuex"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
+import { isNotEmptyObj } from "~/helpers/utils"
 
 export default {
   data() {
@@ -99,16 +96,11 @@ export default {
     },
 
     getIsVisibleTitleFeed() {
-      return this.getFeed && this.getUser
+      return isNotEmptyObj(this.getUser)
     },
   },
 
   methods: {
-    refreshData() {
-      // eslint-disable-next-line no-console
-      console.log("refresh")
-    },
-
     editFeed() {
       if (!this.getIsOwnerFeed) return false
 

@@ -115,6 +115,16 @@ export default {
     baseURL: "http://localhost:3005",
   },
 
+  // pageTransition: {
+  //   name: "page",
+  //   mode: "out-in",
+  // },
+
+  // layoutTransition: {
+  //   name: "layout",
+  //   mode: "out-in",
+  // },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 }

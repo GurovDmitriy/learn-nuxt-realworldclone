@@ -141,7 +141,7 @@ const actions = {
     commit(mutationTypes.setCurrentUserStart)
 
     try {
-      const data = await this.$api.auth.getUser(payload)
+      const data = await this.$api.user.getUser(payload)
 
       commit(mutationTypes.setCurrentUserSuccess, data)
       return data
@@ -156,6 +156,7 @@ const actions = {
 
     try {
       const data = await this.$api.auth.updateUser(payload)
+      delete data.password
 
       commit(mutationTypes.setCurrentUserSuccess, data)
       return data

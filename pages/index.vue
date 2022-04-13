@@ -12,6 +12,8 @@ import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
 
 export default {
+  // transition: "page",
+
   async asyncData({ query, store }) {
     const pageNum = query.page || 1
     const itemPerPage = paginator.feedList.main
@@ -43,4 +45,14 @@ export default {
     margin-bottom: 0;
   }
 }
+
+// .page-enter-active,
+// .page-leave-active {
+//   transition: opacity 0.5s;
+// }
+
+// .page-enter,
+// .page-leave-active {
+//   opacity: 0%;
+// }
 </style>
