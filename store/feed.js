@@ -93,7 +93,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setFeedFailure, err)
-      throw new Error(err)
+      throw new Error("error update feed")
     }
   },
 
@@ -106,7 +106,7 @@ const actions = {
       commit(mutationTypes.deleteFeedSuccess, data)
     } catch (err) {
       commit(mutationTypes.deleteFeedFailure, err)
-      throw new Error(err)
+      throw new Error("error delete feed")
     }
   },
 }

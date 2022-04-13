@@ -67,7 +67,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setFeedListFailure, err)
-      throw new Error(err)
+      throw new Error("error fetch feed list")
     }
   },
 
@@ -84,7 +84,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.toggleLikeFeedListFailure, err)
-      throw new Error(err)
+      throw new Error("error toggle like")
     }
   },
 }

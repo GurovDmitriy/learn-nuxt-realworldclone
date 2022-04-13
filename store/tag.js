@@ -43,7 +43,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setTagsPopularFailure, err)
-      throw new Error(err)
+      throw new Error("error fetch tags")
     }
   },
 }
