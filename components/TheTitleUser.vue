@@ -13,6 +13,18 @@ import { mapState } from "vuex"
 import { isNotEmptyObj } from "~/helpers/utils"
 
 export default {
+  data() {
+    return {
+      config: {
+        imgAuthor: {
+          width: 100,
+          height: 10,
+          placeholder: "placeholder-avatar.png",
+        },
+      },
+    }
+  },
+
   computed: {
     ...mapState({
       getUser: ({ user }) => user.user,
@@ -30,9 +42,9 @@ export default {
     getDataImage() {
       const image = this.getUser.image
       const alt = this.getUser.userName
-      const width = 100
-      const height = 100
-      const placeholder = "placeholder-avatar.png"
+      const width = this.config.imgAuthor.width
+      const height = this.config.imgAuthor.height
+      const placeholder = this.config.imgAuthor.placeholder
 
       return {
         image,

@@ -10,8 +10,9 @@
       :data-item="placeholderCount"
       class="column-wrapper-main-left__placeholder"
     />
-    <AppRefresh
+    <AppButtonCaption
       v-if="getErrorsFeedList"
+      :data-item="config.btn.refresh"
       class="column-wrapper-main-left__refresh"
       @clickBtn="fetchFeedList"
     />
@@ -21,7 +22,7 @@
       class="column-wrapper-main-left__feed-list"
       @toggleLike="toggleLike($event)"
     />
-    <AppNoContent
+    <AppPlaceholderContent
       v-if="getIsVisibleNoContent"
       class="column-wrapper-main-left__no-content"
     />
@@ -29,59 +30,30 @@
       v-if="getFeedCount"
       class="main__paginator-list"
       :data-item="getDataPaginator"
-      :path-page="$route.path"
     />
   </section>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex"
-import { actionTypes as actionTypesFeedList } from "~/store/feedList"
-import { getterTypes as getterTypesAuth } from "~/store/auth"
-import {
-  getArrRange,
-  getStrKebabCase,
-  isNotEmptyArr,
-  isNotEmptyObj,
-} from "~/helpers/utils"
-import { paginator, placeholder } from "~/helpers/vars"
+import { mapState } from "vuex"
+import CreateFeedList from "~/mixins/dataFeedList"
+import { getArrRange, isNotEmptyArr, isNotEmptyObj } from "~/helpers/utils"
+import { paginator } from "~/helpers/vars"
 
 export default {
+  mixins: [CreateFeedList],
+
   data() {
     return {
-      filterBar: [{ content: "Global Feed", path: "/" }],
-      placeholderCount: placeholder.feedList.main,
-
-      config: {
-        feedList: {
-          imgAuthor: {
-            width: 38,
-            height: 38,
-          },
-          btnLike: {
-            type: "button",
-            iconName: "heart-fill",
-            iconDesc: "heart",
-          },
-        },
-      },
+      filterBar: [{ content: "Global Feed", path: "/", isActive: false }],
     }
   },
 
   computed: {
     ...mapState({
-      getFeedList: ({ feedList }) => feedList.feedList,
-      getIsLoadingFeedList: ({ feedList }) => feedList.isLoadingFeedList,
-      getErrorsFeedList: ({ feedList }) => feedList.errorsFeedList,
-      getIsLoadingToggleLike: ({ feedList }) => feedList.isLoadingToggleLike,
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
       getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
       getErrorsFeedCount: ({ feedCount }) => feedCount.errors,
-    }),
-
-    ...mapGetters({
-      getCurrentUser: getterTypesAuth.getCurrentUser,
-      getIsLoggedIn: getterTypesAuth.getIsLoggedIn,
     }),
 
     // filterBar start
@@ -125,69 +97,6 @@ export default {
     },
     // filterBar end
 
-    // feedList start
-    getDataFeedList() {
-      const currentUserId = this.getCurrentUser ? this.getCurrentUser.id : null
-      const config = this.config
-
-      const data = this.getFeedList.map((item) => {
-        const author = getAuthor(item)
-        const btnLike = getBtnLike(item)
-        const content = getContent(item)
-        const titleFeed = getStrKebabCase(item.title)
-        const pathFeed = `/users/${titleFeed}`
-
-        return {
-          feedId: item.id,
-          author,
-          btnLike,
-          content,
-          tags: item.tags,
-          pathFeed,
-        }
-      })
-
-      function getAuthor(item) {
-        const pathLink = `/users/${item.userName}`
-
-        return {
-          pathLink,
-          userName: item.userName,
-          image: item.image,
-          width: config.feedList.imgAuthor.width,
-          height: config.feedList.imgAuthor.height,
-          alt: item.userName,
-          placeholder: "placeholder-avatar.png",
-          time: item.time,
-        }
-      }
-
-      function getBtnLike(item) {
-        const count = item.like.length
-        const isActive =
-          item.like.findIndex((item) => item === currentUserId) !== -1
-
-        return {
-          like: item.like,
-          count,
-          isActive,
-          type: config.feedList.btnLike.type,
-          iconName: config.feedList.btnLike.iconName,
-          iconDesc: config.feedList.btnLike.iconDesc,
-        }
-      }
-
-      function getContent(item) {
-        return {
-          title: item.title,
-          preview: item.preview,
-        }
-      }
-
-      return data
-    },
-    // feedList end
-
     // paginator start
     getDataPaginator() {
       const delim = paginator.feedList.main
@@ -208,7 +117,7 @@ export default {
 
         return {
           page: item,
-          pathPage: "/",
+          pathPage: this.$route.path,
           isActive,
         }
       })
@@ -229,37 +138,6 @@ export default {
         !this.getIsLoadingFeedList &&
         !this.getIsLoadingFeedCount
       )
-    },
-  },
-
-  methods: {
-    async fetchFeedList() {
-      await this.$store.dispatch(actionTypesFeedList.fetchFeedList)
-    },
-
-    async toggleLike(feedId) {
-      if (!this.getIsLoggedIn) return this.$router.push({ path: "/login" })
-      if (this.getIsLoadingToggleLike) return false
-
-      const userId = this.getCurrentUser.id
-      const index = this.getFeedList.findIndex((item) => item.id === feedId)
-      const like = this.getFeedList[index].like
-
-      const likeNew = getNewLike()
-
-      function getNewLike() {
-        if (like.findIndex((item) => item === userId) === -1) {
-          return [...like, userId]
-        } else {
-          return like.filter((item) => item !== userId)
-        }
-      }
-
-      await this.$store.dispatch(actionTypesFeedList.toggleLikeFeed, {
-        id: feedId,
-        indexFeed: index,
-        data: { like: likeNew },
-      })
     },
   },
 }

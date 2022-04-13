@@ -1,7 +1,9 @@
 <template>
   <div class="placeholder">
     <p class="placeholder__caption"><slot name="default">Page</slot></p>
-    <p class="placeholder__message">It's not all here...</p>
+    <p class="placeholder__message">
+      <slot name="message">It's not all here...</slot>
+    </p>
   </div>
 </template>
 

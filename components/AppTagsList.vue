@@ -2,7 +2,7 @@
   <ul class="tags-list">
     <AppTagsListItem
       v-for="item in dataItem"
-      :key="item"
+      :key="item.tag"
       :data-item="item"
       class="tags-list__tags-list-item"
     />
@@ -15,7 +15,12 @@ export default {
     dataItem: {
       type: Array,
       required: false,
-      default: () => ["no-tags"],
+      default: () => [
+        {
+          content: "no-tag",
+          path: "/tags/no-content",
+        },
+      ],
     },
   },
 }

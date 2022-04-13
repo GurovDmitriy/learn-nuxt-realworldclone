@@ -1,26 +1,28 @@
 <template>
   <div class="refresh">
-    <p class="refresh__error">Something went wrong</p>
+    <p class="refresh__error">{{ dataItem.message }}</p>
     <AppButtonIcon
-      :data-item="config.button"
+      :data-item="dataItem"
       class="refresh__button-icon"
       @clickBtn="emitClickBtn"
-      >Refresh</AppButtonIcon
+      >{{ dataItem.btnText }}</AppButtonIcon
     >
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      config: {
-        button: {
-          iconName: "arrow-clockwise",
-          iconDesc: "refresh",
-        },
-      },
-    }
+  props: {
+    dataItem: {
+      type: Object,
+      required: false,
+      default: () => ({
+        message: "Something went wrong",
+        btnText: "Refresh",
+        iconName: "arrow-clockwise",
+        iconDesc: "refresh",
+      }),
+    },
   },
 
   methods: {

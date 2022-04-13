@@ -1,10 +1,8 @@
 <template>
   <li class="tags-list-item">
-    <NuxtLink
-      :to="{ path: `/tags/${dataItem}` }"
-      class="tags-list-item__link"
-      >{{ dataItem }}</NuxtLink
-    >
+    <NuxtLink :to="{ path: dataItem.path }" class="tags-list-item__link">{{
+      dataItem.content
+    }}</NuxtLink>
   </li>
 </template>
 
@@ -14,10 +12,10 @@ import { isNotEmptyStr } from "~/helpers/utils"
 export default {
   props: {
     dataItem: {
-      type: String,
+      type: Object,
       required: true,
       validator: (value) => {
-        return isNotEmptyStr(value)
+        return isNotEmptyStr(value.content)
       },
     },
   },

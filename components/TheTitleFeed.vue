@@ -42,6 +42,12 @@ export default {
             iconDesc: "icon",
           },
         },
+
+        imgAuthor: {
+          width: 38,
+          height: 38,
+          placeholder: "placeholder-avatar.png",
+        },
       },
     }
   },
@@ -64,9 +70,9 @@ export default {
     getDataAuthor() {
       const pathLink = `/users/${this.getUser.userName}`
       const time = this.getFeed.time
-      const width = 38
-      const height = 38
-      const placeholder = "placeholder-avatar.png"
+      const width = this.config.imgAuthor.width
+      const height = this.config.imgAuthor.height
+      const placeholder = this.config.imgAuthor.placeholder
       const alt = this.getUser.userName
 
       return {

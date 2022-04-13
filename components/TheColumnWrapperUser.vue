@@ -2,64 +2,61 @@
   <section class="column-wrapper-user">
     <h3 class="column-wrapper-user__caption visually-hidden">User Feed List</h3>
     <AppFilterBar
-      :data-item="filterBar"
+      :data-item="getDataFilterBar"
       class="column-wrapper-user__filter-bar"
     />
     <AppFeedListPlaceholder
       v-if="getIsLoadingFeedList"
-      :data-item="config.feedListPlaceholder"
+      :data-item="placeholderCount"
       class="column-wrapper-user__placeholder"
     />
-    <AppRefresh
+    <AppButtonCaption
       v-if="getErrorsFeedList"
+      :data-item="config.btn.refresh"
       class="column-wrapper-user__refresh"
-      @refreshData="fetchFeedList"
+      @clickBtn="fetchFeedList"
     />
     <AppFeedList
       v-if="getFeedList"
-      :data-item="getFeedList"
+      :data-item="getDataFeedList"
       class="column-wrapper-user__feed-list"
+      @toggleLike="toggleLike($event)"
     />
-    <AppNoContent v-else class="column-wrapper-user__no-content" />
+    <AppPlaceholderContent v-else class="column-wrapper-user__no-content" />
   </section>
 </template>
 
 <script>
-import { mapState } from "vuex"
-import { actionTypes as actionTypesFeedList } from "~/store/feedList"
-import { placeholder } from "~/helpers/vars"
+import CreateFeedList from "~/mixins/dataFeedList"
 
 export default {
+  mixins: [CreateFeedList],
+
   data() {
     return {
       filterBar: [
         {
           content: "My Feed",
           path: `/users/${this.$route.params.user}`,
+          isActive: false,
         },
         {
           content: "Favorites Feed",
           path: `/users/${this.$route.params.user}/favorites`,
+          isActive: false,
         },
       ],
-
-      config: {
-        feedListPlaceholder: placeholder.index,
-      },
     }
   },
 
   computed: {
-    ...mapState({
-      getFeedList: ({ feedList }) => feedList.feedList,
-      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
-      getErrorsFeedList: ({ feedList }) => feedList.errors,
-    }),
-  },
+    getDataFilterBar() {
+      return this.filterBar.map((item) => {
+        const isActive = this.$route.path === item.path
+        item.isActive = isActive
 
-  methods: {
-    async fetchFeedList() {
-      await this.$store.dispatch(actionTypesFeedList.fetchFeedList)
+        return item
+      })
     },
   },
 }

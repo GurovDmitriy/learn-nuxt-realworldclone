@@ -7,14 +7,15 @@
         class="column-wrapper-main-right__loading"
         >Loading tags...</AppLoading
       >
-      <AppRefresh
+      <AppButtonCaption
         v-if="getErrorsTagsPopular"
+        :data-item="config.btn.refresh"
         class="column-wrapper-main-right__refresh"
-        @refreshData="fetchTags"
+        @clickBtn="fetchTags"
       />
       <AppTagsList
         v-if="getTagsPopular"
-        :data-item="getTagsPopular"
+        :data-item="getDataTagsPopular"
         class="column-wrapper-main-right__tags-list"
       />
     </div>
@@ -26,12 +27,38 @@ import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 
 export default {
+  data() {
+    return {
+      config: {
+        btn: {
+          refresh: {
+            message: "Something went wrong",
+            btnText: "Refresh",
+            iconName: "arrow-clockwise",
+            iconDesc: "refresh",
+          },
+        },
+      },
+    }
+  },
+
   computed: {
     ...mapState({
       getTagsPopular: ({ tag }) => tag.tagsPopular,
       getIsLoadingTagsPopular: ({ tag }) => tag.isLoading,
       getErrorsTagsPopular: ({ tag }) => tag.errors,
     }),
+
+    getDataTagsPopular() {
+      return this.getTagsPopular.map((item) => {
+        const path = `/tags/${item}`
+
+        return {
+          content: item,
+          path,
+        }
+      })
+    },
   },
 
   methods: {

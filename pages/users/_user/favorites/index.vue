@@ -5,21 +5,20 @@
     <AppPaginatorList
       v-if="getFeedCount"
       class="main__paginator-list"
-      :data-item="getCountPage"
-      :path-page="$route.path"
+      :data-item="getDataPaginator"
     />
   </main>
 </template>
 
 <script>
-import { mapState } from "vuex"
 import { actionTypes as actionTypesUser } from "~/store/user"
 import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
-import { getArrRange } from "~/helpers/utils"
 import { paginator } from "~/helpers/vars"
+import DataPaginator from "~/mixins/dataPaginator"
 
 export default {
+  mixins: [DataPaginator],
   layout: "user",
 
   async asyncData({ params, query, store }) {
@@ -36,21 +35,6 @@ export default {
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "like"),
     ])
-  },
-
-  computed: {
-    ...mapState({
-      getFeedCount: ({ feedCount }) => feedCount.feedCount,
-    }),
-
-    getCountPage() {
-      const filter = this.$route.params.user
-      const count = this.getFeedCount[filter] || 1
-      const delim = paginator.index
-      const pageCount = getArrRange(1, Math.ceil(count / delim))
-
-      return pageCount
-    },
   },
 
   watchQuery: ["page"],
