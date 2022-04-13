@@ -23,7 +23,7 @@
       @toggleLike="toggleLike($event)"
     />
     <AppPlaceholderContent
-      v-if="getIsVisibleNoContent"
+      v-if="getIsVisiblePlaceholderContent"
       class="column-wrapper-main-left__no-content"
     />
     <AppPaginatorList
@@ -53,8 +53,8 @@ export default {
   computed: {
     ...mapState({
       getFeedList: ({ feedList }) => feedList.feedList,
-      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
-      getErrorsFeedList: ({ feedList }) => feedList.errors,
+      getIsLoadingFeedList: ({ feedList }) => feedList.isLoadingFeedList,
+      getErrorsFeedList: ({ feedList }) => feedList.errorsFeedList,
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
       getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
       getErrorsFeedCount: ({ feedCount }) => feedCount.errors,
@@ -142,7 +142,7 @@ export default {
     },
     // paginator end
 
-    getIsVisibleNoContent() {
+    getIsVisiblePlaceholderContent() {
       return (
         !isNotEmptyArr(this.getFeedList) &&
         !this.getIsLoadingFeedList &&

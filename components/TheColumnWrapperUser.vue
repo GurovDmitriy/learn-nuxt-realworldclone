@@ -54,8 +54,8 @@ export default {
   computed: {
     ...mapState({
       getFeedList: ({ feedList }) => feedList.feedList,
-      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
-      getErrorsFeedList: ({ feedList }) => feedList.errors,
+      getIsLoadingFeedList: ({ feedList }) => feedList.isLoadingFeedList,
+      getErrorsFeedList: ({ feedList }) => feedList.errorsFeedList,
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
       getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
       getErrorsFeedCount: ({ feedCount }) => feedCount.errors,
