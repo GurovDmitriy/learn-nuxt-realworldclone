@@ -1,46 +1,33 @@
 <template>
   <ul class="paginator-list">
     <AppPaginatorListItem
-      v-for="(item, index) in dataItem"
-      :key="item"
+      v-for="item in dataItem"
+      :key="item.page"
       :data-item="item"
-      :path-page="pathPage"
-      :is-active="getIsActivePage[index]"
       class="paginator-list__item"
     />
   </ul>
 </template>
 
 <script>
-import { isNotEmptyArr, isNotEmptyObj } from "~/helpers/utils"
-
 export default {
   props: {
     dataItem: {
       type: Array,
       required: false,
-      default: () => [1],
-      validator: (value) => {
-        return isNotEmptyArr(value)
-      },
+      default: () => [
+        {
+          page: 1,
+          path: "/",
+          isActive: false,
+        },
+      ],
     },
 
     pathPage: {
       type: String,
       required: false,
       default: "/",
-    },
-  },
-
-  computed: {
-    getIsActivePage() {
-      const query = this.$route.query
-      const queryPage = this.$route.query.page
-
-      return this.dataItem.map((item, index) => {
-        if (index === 0 && !isNotEmptyObj(query)) return true
-        return queryPage === item || queryPage === 1
-      })
     },
   },
 }

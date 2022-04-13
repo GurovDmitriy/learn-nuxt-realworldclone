@@ -165,17 +165,17 @@ const actions = {
     }
   },
 
-  async [actionTypes.logout]({ commit }) {
-    await commit(mutationTypes.logoutStart)
+  [actionTypes.logout]({ commit }) {
+    commit(mutationTypes.logoutStart)
 
     try {
       removeItemCO(this.$cookies, "accessToken")
       removeItemCO(this.$cookies, "userId")
       setItemLS("credential", "")
 
-      await commit(mutationTypes.logoutSuccess)
+      commit(mutationTypes.logoutSuccess)
     } catch (err) {
-      await commit(mutationTypes.logoutFailure, err)
+      commit(mutationTypes.logoutFailure, err)
       throw new Error(err)
     }
   },

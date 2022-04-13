@@ -28,7 +28,7 @@
     <AppPaginatorList
       v-if="getFeedCount"
       class="main__paginator-list"
-      :data-item="getItemPerPage"
+      :data-item="getDataPaginator"
       :path-page="$route.path"
     />
   </section>
@@ -52,7 +52,19 @@ export default {
       filterBar: [{ content: "Global Feed", path: "/" }],
       placeholderCount: placeholder.feedList.main,
 
-      config: {},
+      config: {
+        feedList: {
+          imgAuthor: {
+            width: 38,
+            height: 38,
+          },
+          btnLike: {
+            type: "button",
+            iconName: "heart-fill",
+            iconDesc: "heart",
+          },
+        },
+      },
     }
   },
 
@@ -116,6 +128,7 @@ export default {
     // feedList start
     getDataFeedList() {
       const currentUserId = this.getCurrentUser ? this.getCurrentUser.id : null
+      const config = this.config
 
       const data = this.getFeedList.map((item) => {
         const author = getAuthor(item)
@@ -141,8 +154,8 @@ export default {
           pathLink,
           userName: item.userName,
           image: item.image,
-          width: 38,
-          height: 38,
+          width: config.feedList.imgAuthor.width,
+          height: config.feedList.imgAuthor.height,
           alt: item.userName,
           placeholder: "placeholder-avatar.png",
           time: item.time,
@@ -158,9 +171,9 @@ export default {
           like: item.like,
           count,
           isActive,
-          type: "button",
-          iconName: "heart-fill",
-          iconDesc: "heart",
+          type: config.feedList.btnLike.type,
+          iconName: config.feedList.btnLike.iconName,
+          iconDesc: config.feedList.btnLike.iconDesc,
         }
       }
 
@@ -176,10 +189,29 @@ export default {
     // feedList end
 
     // paginator start
-    getItemPerPage() {
+    getDataPaginator() {
       const delim = paginator.feedList.main
       const countItem = this.getFeedCount[this.getFilter] || 1
-      return getArrRange(1, Math.ceil(countItem / delim))
+      const countPages = getArrRange(1, Math.ceil(countItem / delim))
+
+      const query = this.$route.query
+      const queryPage = this.$route.query.page
+
+      return countPages.map((item, index) => {
+        let isActive = null
+
+        if (index === 0 && !isNotEmptyObj(query)) {
+          isActive = true
+        } else {
+          isActive = queryPage === item || queryPage === 1
+        }
+
+        return {
+          page: item,
+          pathPage: "/",
+          isActive,
+        }
+      })
     },
 
     getFilter() {
