@@ -71,6 +71,7 @@ export default {
         email: "",
         password: "",
         firstName: "",
+        role: "user",
       },
     }
   },
