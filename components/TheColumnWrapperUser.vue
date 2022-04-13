@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex"
+import { getterTypes as getterTypesAuth } from "~/store/auth"
 import CreateFeedList from "~/mixins/dataFeedList"
 
 export default {
@@ -50,6 +52,21 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      getFeedList: ({ feedList }) => feedList.feedList,
+      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
+      getErrorsFeedList: ({ feedList }) => feedList.errors,
+      getFeedCount: ({ feedCount }) => feedCount.feedCount,
+      getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
+      getErrorsFeedCount: ({ feedCount }) => feedCount.errors,
+      getIsLoadingToggleLike: ({ feedList }) => feedList.isLoadingToggleLike,
+    }),
+
+    ...mapGetters({
+      getCurrentUser: getterTypesAuth.getCurrentUser,
+      getIsLoggedIn: getterTypesAuth.getIsLoggedIn,
+    }),
+
     getDataFilterBar() {
       return this.filterBar.map((item) => {
         const isActive = this.$route.path === item.path

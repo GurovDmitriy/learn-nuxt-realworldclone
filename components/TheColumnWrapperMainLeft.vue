@@ -35,8 +35,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState, mapGetters } from "vuex"
 import CreateFeedList from "~/mixins/dataFeedList"
+import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { getArrRange, isNotEmptyArr, isNotEmptyObj } from "~/helpers/utils"
 import { paginator } from "~/helpers/vars"
 
@@ -51,9 +52,18 @@ export default {
 
   computed: {
     ...mapState({
+      getFeedList: ({ feedList }) => feedList.feedList,
+      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
+      getErrorsFeedList: ({ feedList }) => feedList.errors,
       getFeedCount: ({ feedCount }) => feedCount.feedCount,
       getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
       getErrorsFeedCount: ({ feedCount }) => feedCount.errors,
+      getIsLoadingToggleLike: ({ feedList }) => feedList.isLoadingToggleLike,
+    }),
+
+    ...mapGetters({
+      getCurrentUser: getterTypesAuth.getCurrentUser,
+      getIsLoggedIn: getterTypesAuth.getIsLoggedIn,
     }),
 
     // filterBar start

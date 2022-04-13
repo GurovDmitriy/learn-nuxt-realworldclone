@@ -1,5 +1,3 @@
-import { mapState, mapGetters } from "vuex"
-import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { getStrKebabCase } from "~/helpers/utils"
 import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { placeholder } from "~/helpers/vars"
@@ -35,18 +33,6 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      getFeedList: ({ feedList }) => feedList.feedList,
-      getIsLoadingFeedList: ({ feedList }) => feedList.isLoading,
-      getErrorsFeedList: ({ feedList }) => feedList.errors,
-      getIsLoadingToggleLike: ({ feedList }) => feedList.isLoadingToggleLike,
-    }),
-
-    ...mapGetters({
-      getCurrentUser: getterTypesAuth.getCurrentUser,
-      getIsLoggedIn: getterTypesAuth.getIsLoggedIn,
-    }),
-
     getDataFeedList() {
       const currentUserId = this.getCurrentUser ? this.getCurrentUser.id : null
       const config = this.config
