@@ -10,10 +10,15 @@
       class="main-user-favorites__paginator-list"
       :data-item="getDataPaginator"
     />
+    <AppPlaceholderPaginator
+      v-if="getIsLoadingFeedCount"
+      class="main__placeholder-paginator"
+    />
   </main>
 </template>
 
 <script>
+import { mapState } from "vuex"
 import { actionTypes as actionTypesUser } from "~/store/user"
 import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
@@ -38,6 +43,13 @@ export default {
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "like"),
     ])
+  },
+
+  computed: {
+    ...mapState({
+      getFeedCount: ({ feedCount }) => feedCount.feedCount,
+      getIsLoadingFeedCount: ({ feedCount }) => feedCount.isLoading,
+    }),
   },
 
   watchQuery: ["page"],

@@ -5,7 +5,7 @@
       :data-item="getDataFilterBar"
       class="column-wrapper-user__filter-bar"
     />
-    <AppFeedListPlaceholder
+    <AppPlaceholderFeedList
       v-if="getIsLoadingFeedList"
       :data-item="placeholderCount"
       class="column-wrapper-user__placeholder"

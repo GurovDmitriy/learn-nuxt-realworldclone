@@ -1,5 +1,9 @@
 <template>
   <div class="title-feed">
+    <AppPlaceholderFeedUser
+      v-if="getIsLoadingUser"
+      class="title-feed__placeholder"
+    />
     <template v-if="getIsVisibleTitleFeed">
       <h2 class="title-feed__caption">{{ getFeed.title }}</h2>
       <AppAuthor :data-item="getDataAuthor" class="title-feed__author" />

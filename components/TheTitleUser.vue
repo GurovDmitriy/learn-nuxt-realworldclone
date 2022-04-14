@@ -1,5 +1,9 @@
 <template>
   <div class="title-user">
+    <AppPlaceholderUser
+      v-if="getIsLoadingUser"
+      class="title-user__placeholder"
+    />
     <template v-if="getIsVisibleTitleUser">
       <AppImage class="title-user__img" :data-item="getDataImage" />
       <h2 class="title-user__username">{{ getUser.userName }}</h2>
@@ -87,20 +91,6 @@ export default {
   @include text-small;
 
   margin-bottom: $space-m;
-
-  color: $var-color-amethyst-smoke;
-  text-align: center;
-}
-
-.title-user__loading {
-  color: $var-color-amethyst-smoke;
-  text-align: center;
-}
-
-.title-user__error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 
   color: $var-color-amethyst-smoke;
   text-align: center;

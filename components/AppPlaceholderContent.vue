@@ -1,25 +1,27 @@
 <template>
-  <div class="no-content">
-    <p class="no-content__caption"><slot name="default">No content</slot></p>
-    <p class="no-content__message">
+  <div class="placeholder-content">
+    <p class="placeholder-content__caption">
+      <slot name="default">No content</slot>
+    </p>
+    <p class="placeholder-content__message">
       <slot name="message">nothing here yet...</slot>
     </p>
   </div>
 </template>
 
 <style lang="scss">
-.no-content {
+.placeholder-content {
   padding-top: $space-xl;
   padding-bottom: $space-xl;
 }
 
-.no-content__caption {
+.placeholder-content__caption {
   margin-bottom: $space-m;
 
   color: $var-color-default;
 }
 
-.no-content__message {
+.placeholder-content__message {
   @include text-small;
 
   margin-bottom: 0;

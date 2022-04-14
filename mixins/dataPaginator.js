@@ -1,13 +1,8 @@
-import { mapState } from "vuex"
 import { getArrRange, isNotEmptyObj } from "~/helpers/utils"
 import { paginator } from "~/helpers/vars"
 
 export default {
   computed: {
-    ...mapState({
-      getFeedCount: ({ feedCount }) => feedCount.feedCount,
-    }),
-
     getDataPaginator() {
       const filter = this.$route.params.user
       const countItem = this.getFeedCount[filter] || 1

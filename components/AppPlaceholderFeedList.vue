@@ -1,9 +1,9 @@
 <template>
-  <ul class="feed-list-placeholder">
-    <AppFeedListPlaceholderItem
+  <ul class="placeholder-feed-list">
+    <AppPlaceholderFeedListItem
       v-for="item in dataItem"
       :key="item"
-      class="feed-list-placeholder__item"
+      class="placeholder-feed-list__item"
     />
   </ul>
 </template>
@@ -21,9 +21,10 @@ export default {
 </script>
 
 <style lang="scss">
-.feed-list-placeholder {
+.placeholder-feed-list {
   display: block;
   margin: 0;
+  margin-bottom: $space-l;
   padding: 0;
 
   list-style: none;

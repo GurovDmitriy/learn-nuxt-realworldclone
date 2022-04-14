@@ -5,7 +5,7 @@
       :data-item="getDataFilterBar"
       class="column-wrapper-main-left__filter-bar"
     />
-    <AppFeedListPlaceholder
+    <AppPlaceholderFeedList
       v-if="getIsLoadingFeedList"
       :data-item="placeholderCount"
       class="column-wrapper-main-left__placeholder"
@@ -30,6 +30,10 @@
       v-if="getFeedCount"
       class="main__paginator-list"
       :data-item="getDataPaginator"
+    />
+    <AppPlaceholderPaginator
+      v-if="getIsLoadingFeedCount"
+      class="main__placeholder-paginator"
     />
   </section>
 </template>
