@@ -1,1 +1,1 @@
-# start-repository-nuxt
+# template-nuxt-realworldclone
