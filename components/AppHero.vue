@@ -6,6 +6,7 @@
 
 <style lang="scss">
 .hero {
+  margin-bottom: $space-l;
   padding-top: $space-l;
   padding-bottom: $space-l;
 

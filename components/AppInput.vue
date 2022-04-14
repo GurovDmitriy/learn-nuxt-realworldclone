@@ -37,7 +37,6 @@ export default {
       required: false,
       default: () => ({
         id: "",
-        value: "",
         name: "",
         type: "text",
         placeholder: "Placeholder",

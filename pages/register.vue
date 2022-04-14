@@ -1,13 +1,20 @@
 <template>
-  <main class="main">
-    <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheColumnWrapperRegister class="main__column-wrapper" />
+  <main class="main-register">
+    <h2 class="main-register__caption visually-hidden">Main Content</h2>
+    <TheColumnWrapperRegister class="main-register__column-wrapper" />
   </main>
 </template>
 
 <script>
 export default {
-  layout: "sign",
   middleware: ["guest"],
 }
 </script>
+
+<style lang="scss">
+.main-register {
+  @include container;
+
+  padding-bottom: $space-l;
+}
+</style>

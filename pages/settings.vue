@@ -1,23 +1,22 @@
 <template>
-  <main class="page-settings">
-    <h2 class="page-settings__caption">Your Settings</h2>
-    <TheFormSettings class="page-settings__form-settings" />
+  <main class="main-settings">
+    <h2 class="main-settings__caption">Your Settings</h2>
+    <TheFormSettings class="main-settings__form-settings" />
   </main>
 </template>
 
 <script>
 export default {
-  layout: "sign",
   middleware: ["auth"],
 }
 </script>
 
 <style lang="scss">
-.page-settings {
+.main-settings {
   @include container;
 }
 
-.page-settings__caption {
+.main-settings__caption {
   @include caption-h3;
 
   margin-bottom: $space-l;

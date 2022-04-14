@@ -1,23 +1,22 @@
 <template>
-  <main class="page-update">
-    <h2 class="page-update__caption">New Feed</h2>
-    <TheFormUpdate class="page-update__form-update" />
+  <main class="main-update">
+    <h2 class="main-update__caption">New Feed</h2>
+    <TheFormUpdate class="main-update__form-update" />
   </main>
 </template>
 
 <script>
 export default {
-  layout: "sign",
   middleware: ["auth", "update"],
 }
 </script>
 
 <style lang="scss">
-.page-update {
+.main-update {
   @include container;
 }
 
-.page-update__caption {
+.main-update__caption {
   @include caption-h3;
 
   margin-bottom: $space-l;

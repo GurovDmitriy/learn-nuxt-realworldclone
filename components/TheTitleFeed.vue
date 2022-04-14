@@ -1,7 +1,7 @@
 <template>
   <div class="title-feed">
     <template v-if="getIsVisibleTitleFeed">
-      <h3 class="title-feed__caption">{{ getFeed.title }}</h3>
+      <h2 class="title-feed__caption">{{ getFeed.title }}</h2>
       <AppAuthor :data-item="getDataAuthor" class="title-feed__author" />
       <div v-if="getIsVisibleBtn" class="title-feed__box-btn">
         <AppButtonIcon

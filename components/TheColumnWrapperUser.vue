@@ -90,3 +90,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.column-wrapper-user {
+  margin-bottom: $space-l;
+}
+</style>

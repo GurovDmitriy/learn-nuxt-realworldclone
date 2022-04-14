@@ -1,7 +1,10 @@
 <template>
-  <main class="main">
-    <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheColumnWrapperFeed class="main__column-wrapper" />
+  <main class="main-feed">
+    <AppHero class="main-feed__hero">
+      <TheTitleFeed class="main-feed__title-feed" />
+    </AppHero>
+    <h2 class="main-feed__caption visually-hidden">Main Content</h2>
+    <TheColumnWrapperFeed class="main-feed__column-wrapper-feed" />
   </main>
 </template>
 
@@ -11,8 +14,6 @@ import { actionTypes as actionTypesUser } from "~/store/user"
 import { getStrFromKebabCase } from "~/helpers/utils"
 
 export default {
-  layout: "feed",
-
   async asyncData({ params, store }) {
     const feedTitle = getStrFromKebabCase(params.feed)
 
@@ -26,14 +27,9 @@ export default {
 </script>
 
 <style lang="scss">
-.main {
+.main-feed {
   @include container;
 
-  padding-top: $space-l;
   padding-bottom: $space-l;
-}
-
-.main__column-wrapper {
-  margin-bottom: $space-l;
 }
 </style>

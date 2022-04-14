@@ -9,16 +9,21 @@
 
 <style lang="scss">
 .footer {
+  @include container;
+
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 
-  padding-top: $space-l;
-  padding-bottom: $space-l;
-
-  background-color: $var-color-amethyst-smoke;
+  padding: $space-l;
 }
 
 .footer__section {
   @include container;
+
+  flex-grow: 1;
+
+  background-color: $var-color-amethyst-smoke;
 }
 
 .footer__link {

@@ -9,7 +9,7 @@
 .column-wrapper-register__caption {
   @include caption-h3;
 
-  margin-bottom: $space-m;
+  margin-bottom: $space-l;
 
   text-align: center;
 }

@@ -1,7 +1,10 @@
 <template>
-  <main class="main">
-    <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheColumnWrapperMain class="main__column-wrapper" />
+  <main class="main-your">
+    <AppHero class="main-your__hero">
+      <TheTitle class="main-your__title" />
+    </AppHero>
+    <h2 class="main-your__caption visually-hidden">Main Content</h2>
+    <TheColumnWrapperMain class="main-your__column-wrapper" />
   </main>
 </template>
 
@@ -32,18 +35,9 @@ export default {
 </script>
 
 <style lang="scss">
-.main {
+.main-your {
   @include container;
 
-  padding-top: $space-l;
   padding-bottom: $space-l;
-}
-
-.main__column-wrapper {
-  margin-bottom: $space-l;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 </style>

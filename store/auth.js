@@ -13,6 +13,10 @@ export const mutationTypes = {
   setCurrentUserSuccess: "[auth] setCurrentUserSuccess",
   setCurrentUserFailure: "[auth] setCurrentUserFailure",
 
+  updateCurrentUserStart: "[auth] updateCurrentUserStart",
+  updateCurrentUserSuccess: "[auth] updateCurrentUserSuccess",
+  updateCurrentUserFailure: "[auth] updateCurrentUserFailure",
+
   logoutStart: "[auth] logoutStart",
   logoutSuccess: "[auth] logoutSuccess",
   logoutFailure: "[auth] logoutFailure",
@@ -36,7 +40,7 @@ export const state = () => ({
 
 const getters = {
   [getterTypes.getCurrentUser]: (state) => {
-    return state.currentUser || null
+    return state.currentUser
   },
 
   [getterTypes.getIsLoggedIn]: (state) => {
@@ -57,8 +61,9 @@ const mutations = {
   [mutationTypes.setCurrentUserStart](state) {
     state.isSubmitting = true
     state.isLoading = true
+    state.currentUser = {}
+    state.isLoggedIn = null
     state.errors = null
-    state.currentUser = null
   },
 
   [mutationTypes.setCurrentUserSuccess](state, payload) {
@@ -75,15 +80,40 @@ const mutations = {
     state.isLoading = false
   },
 
+  [mutationTypes.updateCurrentUserStart](state) {
+    state.isSubmitting = true
+    state.isLoading = true
+    state.currentUser = {}
+    state.isLoggedIn = true
+    state.errors = null
+  },
+
+  [mutationTypes.updateCurrentUserSuccess](state, payload) {
+    state.currentUser = payload
+    state.isLoggedIn = true
+    state.isSubmitting = false
+    state.isLoading = false
+  },
+
+  [mutationTypes.updateCurrentUserFailure](state, payload) {
+    state.errors = payload
+    state.isLoggedIn = false
+    state.isSubmitting = false
+    state.isLoading = false
+  },
+
   [mutationTypes.logoutStart](state) {
     state.isSubmitting = true
     state.isLoading = true
+    state.isLoggedIn = null
     state.errors = null
   },
 
   [mutationTypes.logoutSuccess](state) {
     state.currentUser = {}
     state.isLoggedIn = false
+    state.isSubmitting = false
+    state.isLoading = false
   },
 
   [mutationTypes.logoutFailure](state, payload) {
@@ -112,7 +142,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setCurrentUserFailure, err)
-      throw new Error("error register")
+      // throw new Error("error register")
     }
   },
 
@@ -133,7 +163,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setCurrentUserFailure, err)
-      throw new Error("error login")
+      // throw new Error("error login")
     }
   },
 
@@ -141,28 +171,28 @@ const actions = {
     commit(mutationTypes.setCurrentUserStart)
 
     try {
-      const data = await this.$api.user.getUser(payload)
+      const data = await this.$api.auth.getUser(payload)
 
       commit(mutationTypes.setCurrentUserSuccess, data)
       return data
     } catch (err) {
       commit(mutationTypes.setCurrentUserFailure, err)
-      throw new Error("error fetch current user")
+      // throw new Error("error fetch current user")
     }
   },
 
   async [actionTypes.updateCurrentUser]({ commit }, payload) {
-    commit(mutationTypes.setCurrentUserStart)
+    commit(mutationTypes.updateCurrentUserStart)
 
     try {
       const data = await this.$api.auth.updateUser(payload)
       delete data.password
 
-      commit(mutationTypes.setCurrentUserSuccess, data)
+      commit(mutationTypes.updateCurrentUserSuccess, data)
       return data
     } catch (err) {
-      commit(mutationTypes.setCurrentUserFailure, err)
-      throw new Error("error update current user")
+      commit(mutationTypes.updateCurrentUserFailure, err)
+      // throw new Error("error update current user")
     }
   },
 
@@ -177,15 +207,18 @@ const actions = {
       commit(mutationTypes.logoutSuccess)
     } catch (err) {
       commit(mutationTypes.logoutFailure, err)
-      throw new Error("error logout")
+      // throw new Error("error logout")
     }
   },
 
   async nuxtServerInit({ dispatch }) {
     const userId = this.$cookies.get("userId")
-    if (!userId) return
 
-    await dispatch(actionTypes.fetchCurrentUser, userId)
+    if (userId) {
+      await dispatch(actionTypes.fetchCurrentUser, userId)
+    } else {
+      await dispatch(actionTypes.logout)
+    }
   },
 }
 

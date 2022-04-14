@@ -1,10 +1,13 @@
 <template>
-  <main class="main">
-    <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheColumnWrapperUser class="main__column-wrapper" />
+  <main class="main-user">
+    <AppHero class="main-user__hero">
+      <TheTitleUser />
+    </AppHero>
+    <h2 class="main-user__caption visually-hidden">Main Content</h2>
+    <TheColumnWrapperUser class="main-user__column-wrapper-user" />
     <AppPaginatorList
       v-if="getFeedCount"
-      class="main__paginator-list"
+      class="main-user__paginator-list"
       :data-item="getDataPaginator"
     />
   </main>
@@ -41,14 +44,9 @@ export default {
 </script>
 
 <style lang="scss">
-.main {
+.main-user {
   @include container;
 
-  padding-top: $space-l;
   padding-bottom: $space-l;
-}
-
-.main__column-wrapper {
-  margin-bottom: $space-l;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="title-user">
     <template v-if="getIsVisibleTitleUser">
       <AppImage class="title-user__img" :data-item="getDataImage" />
-      <h3 class="title-user__username">{{ getUser.userName }}</h3>
+      <h2 class="title-user__username">{{ getUser.userName }}</h2>
       <p class="title-user__name">{{ getFullNameUser }}</p>
     </template>
   </div>

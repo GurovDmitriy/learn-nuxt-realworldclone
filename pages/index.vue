@@ -1,5 +1,8 @@
 <template>
   <main class="main">
+    <AppHero class="main__hero">
+      <TheTitle class="main__title" />
+    </AppHero>
     <h2 class="main__caption visually-hidden">Main Content</h2>
     <TheColumnWrapperMain class="main__column-wrapper" />
   </main>
@@ -12,8 +15,6 @@ import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
 
 export default {
-  // transition: "page",
-
   async asyncData({ query, store }) {
     const pageNum = query.page || 1
     const itemPerPage = paginator.feedList.main
@@ -34,25 +35,6 @@ export default {
 .main {
   @include container;
 
-  padding-top: $space-l;
   padding-bottom: $space-l;
 }
-
-.main__column-wrapper {
-  margin-bottom: $space-l;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-// .page-enter-active,
-// .page-leave-active {
-//   transition: opacity 0.5s;
-// }
-
-// .page-enter,
-// .page-leave-active {
-//   opacity: 0%;
-// }
 </style>

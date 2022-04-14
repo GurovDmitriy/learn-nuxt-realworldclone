@@ -4,11 +4,14 @@
     <div class="navbar__container">
       <AppLogo class="navbar__logo" />
       <AppBurger class="navbar__burger" @clickBtn="toggleMenu" />
-      <AppNavList
-        :data-item="getNavList"
-        :class="getClassActiveNavList"
-        class="navbar__nav-list"
-      />
+      <template v-if="getIsVisibleNavList">
+        <AppNavList
+          :data-item="getNavList"
+          :class="getClassActiveNavList"
+          class="navbar__nav-list"
+        />
+      </template>
+      <AppLoading v-else>Loading...</AppLoading>
     </div>
   </nav>
 </template>
@@ -63,7 +66,7 @@ export default {
     },
 
     getNavLinkUser() {
-      if (this.getCurrentUser) {
+      if (!this.getIsAnonymous && !this.getIsLoadingCurrentUser) {
         return {
           content: `${this.getCurrentUser.userName}`,
           path: `/users/${this.getCurrentUser.userName}`,
@@ -85,6 +88,11 @@ export default {
         "navbar__nav-list--active": this.isShowMenu,
       }
     },
+
+    getIsVisibleNavList() {
+      if (this.getIsLoadingCurrentUser && !this.getIsLoggedIn) return false
+      return true
+    },
   },
 
   methods: {
@@ -96,16 +104,11 @@ export default {
 </script>
 <style lang="scss">
 .navbar__container {
-  @include container;
-
   display: flex;
   flex-wrap: wrap;
   align-content: center;
   align-items: center;
   justify-content: space-between;
-
-  padding-top: $space-s;
-  padding-bottom: $space-s;
 }
 
 .navbar__burger {

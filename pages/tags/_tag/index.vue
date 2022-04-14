@@ -1,7 +1,10 @@
 <template>
-  <main class="main">
-    <h2 class="main__caption visually-hidden">Main Content</h2>
-    <TheColumnWrapperMain class="main__column-wrapper" />
+  <main class="main-tags">
+    <AppHero class="main-tags__hero">
+      <TheTitle class="main-tags__title" />
+    </AppHero>
+    <h2 class="main-tags__caption visually-hidden">Main Content</h2>
+    <TheColumnWrapperMain class="main-tags__column-wrapper-main" />
   </main>
 </template>
 
@@ -28,3 +31,11 @@ export default {
   watchQuery: ["page"],
 }
 </script>
+
+<style lang="scss">
+.main-tags {
+  @include container;
+
+  padding-bottom: $space-l;
+}
+</style>
