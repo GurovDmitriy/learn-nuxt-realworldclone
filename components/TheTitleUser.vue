@@ -55,9 +55,7 @@ export default {
     },
 
     getIsVisibleTitleUser() {
-      return (
-        this.getUser && isNotEmptyObj(this.getUser) && !this.getIsLoadingUser
-      )
+      return isNotEmptyObj(this.getUser) && !this.getIsLoadingUser
     },
   },
 }
