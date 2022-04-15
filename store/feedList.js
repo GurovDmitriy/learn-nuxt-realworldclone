@@ -84,7 +84,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.toggleLikeFeedListFailure, err)
-      throw new Error("error toggle like")
+      throw err
     }
   },
 }
