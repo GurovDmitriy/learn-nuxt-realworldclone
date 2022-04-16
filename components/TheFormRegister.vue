@@ -77,11 +77,11 @@ export default {
 
       field: {
         userName: "",
-        lastName: "",
-        firstName: "",
-        image: "",
         email: "",
         password: "",
+        firstName: "",
+        lastName: "",
+        image: "",
         role: "user",
       },
 
@@ -188,7 +188,17 @@ export default {
       this.errorsForm = data
     },
 
+    getIsValidForm() {
+      for (const key in this.field) {
+        this.setCheckField(key)
+      }
+
+      return !isNotEmptyObj(this.errorsForm)
+    },
+
     async register() {
+      if (!this.getIsValidForm()) return
+
       await this.$store.dispatch(actionTypesAuth.register, this.field)
       return this.$router.push({ path: "/" })
     },
