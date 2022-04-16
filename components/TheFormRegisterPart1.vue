@@ -59,6 +59,7 @@ export default {
             placeholder: "Username",
             id: "username-field",
             required: true,
+            maxlength: 100,
           },
 
           email: {
@@ -67,6 +68,7 @@ export default {
             placeholder: "Email",
             id: "email-field",
             required: true,
+            maxlength: 100,
           },
 
           password: {
@@ -75,6 +77,7 @@ export default {
             placeholder: "Password",
             id: "password-field",
             required: true,
+            maxlength: 100,
           },
         },
       },

@@ -13,6 +13,7 @@
       :data-item="config.input.firstName"
       :value="dataItem.firstName"
       @input="emitInputUser($event, 'firstName')"
+      @blur="emitBlurField('firstName')"
     />
     <label
       class="form-register-part-2__label visually-hidden"
@@ -24,6 +25,7 @@
       :data-item="config.input.lastName"
       :value="dataItem.lastName"
       @input="emitInputUser($event, 'lastName')"
+      @blur="emitBlurField('lastName')"
     />
     <label
       class="form-register-part-2__label visually-hidden"
@@ -35,6 +37,7 @@
       :data-item="config.input.image"
       :value="dataItem.image"
       @input="emitInputUser($event, 'image')"
+      @blur="emitBlurField('image')"
     />
   </fieldset>
 </template>
@@ -58,6 +61,7 @@ export default {
             placeholder: "First name",
             id: "firstname-field",
             required: true,
+            maxlength: 100,
           },
 
           lastName: {
@@ -66,6 +70,7 @@ export default {
             placeholder: "Last name",
             id: "lastname-field",
             required: true,
+            maxlength: 100,
           },
 
           image: {
@@ -74,6 +79,7 @@ export default {
             placeholder: "Avatar",
             id: "avatar-field",
             required: true,
+            maxlength: 100,
           },
         },
       },
@@ -83,6 +89,10 @@ export default {
   methods: {
     emitInputUser(value, nameField) {
       this.$emit("inputUser", { value, nameField })
+    },
+
+    emitBlurField(nameField) {
+      this.$emit("blurField", nameField)
     },
   },
 }

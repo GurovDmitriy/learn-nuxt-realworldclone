@@ -13,7 +13,7 @@
             :data-item="field"
             class="form-register__fieldset"
             @inputUser="setField"
-            @blurField="checkField"
+            @blurField="setCheckField"
           />
         </KeepAlive>
       </template>
@@ -78,10 +78,10 @@ export default {
       field: {
         userName: "",
         lastName: "",
+        firstName: "",
         image: "",
         email: "",
         password: "",
-        firstName: "",
         role: "user",
       },
 
@@ -134,16 +134,35 @@ export default {
       this.field[nameField] = value
     },
 
-    checkField(nameField) {
+    setCheckField(nameField) {
       const value = this.field[nameField]
       let messages = []
       let caption = ""
 
       switch (nameField) {
         case "userName":
-          messages = checkField.checkFieldUserName(value)
-          caption = forms.sign[nameField].message.caption
+          setData("checkFieldUserName")
           break
+        case "email":
+          setData("checkFieldEmail")
+          break
+        case "password":
+          setData("checkFieldPassword")
+          break
+        case "firstName":
+          setData("checkFieldFirstName")
+          break
+        case "lastName":
+          setData("checkFieldLastName")
+          break
+        case "image":
+          setData("checkFieldUrl")
+          break
+      }
+
+      function setData(nameMethod) {
+        messages = checkField[nameMethod](value)
+        caption = forms.sign[nameField].message.caption
       }
 
       this.setErrorsForm(nameField, caption, messages)

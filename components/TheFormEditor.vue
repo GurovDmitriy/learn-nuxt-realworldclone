@@ -82,7 +82,7 @@ export default {
             type: "text",
             placeholder: "Title",
             id: "title-field",
-            maxlength: 10,
+            maxlength: 100,
             required: true,
           },
 
@@ -91,7 +91,7 @@ export default {
             type: "text",
             placeholder: "About",
             id: "about-field",
-            maxlength: 20,
+            maxlength: 100,
             required: true,
           },
 
@@ -100,6 +100,7 @@ export default {
             placeholder: "Content",
             id: "content-field",
             required: true,
+            maxlength: 500,
           },
 
           tags: {
