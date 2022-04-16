@@ -1,45 +1,56 @@
 <template>
-  <AppForm
-    class="form-register"
-    :data-item="config.form"
-    @submitForm="register"
-  >
-    <template #default>
-      <KeepAlive>
-        <Component
-          :is="getActivePart"
-          :data-item="field"
-          class="form-register__fieldset"
-          @inputUser="setField"
+  <div>
+    <AppForm
+      class="form-register"
+      :data-item="config.form"
+      novalidate="true"
+      @submitForm="register"
+    >
+      <template #default>
+        <KeepAlive>
+          <Component
+            :is="getActivePart"
+            :data-item="field"
+            class="form-register__fieldset"
+            @inputUser="setField"
+            @blurField="checkField"
+          />
+        </KeepAlive>
+      </template>
+      <template #box-btn>
+        <AppFormErrors
+          v-if="getIsVisibleFormErrors"
+          :data-item="errorsForm"
+          class="form-register__errors"
         />
-      </KeepAlive>
-    </template>
-
-    <template #box-btn>
-      <div class="form-register__box-button">
-        <AppButton
-          v-if="getVisibleBtn.prev"
-          :data-item="config.btn.prev"
-          @clickBtn="setPartPrev"
-          >Prev</AppButton
-        >
-        <AppButton
-          v-if="getVisibleBtn.next"
-          :data-item="config.btn.next"
-          @clickBtn="setPartNext"
-          >Next</AppButton
-        >
-        <AppButton
-          v-if="getVisibleBtn.register"
-          :data-item="config.btn.register"
-          >Register</AppButton
-        >
-      </div>
-    </template>
-  </AppForm>
+        <div class="form-register__box-button">
+          <AppButton
+            v-if="getVisibleBtn.prev"
+            :data-item="config.btn.prev"
+            @clickBtn="setPartPrev"
+            >Prev</AppButton
+          >
+          <AppButton
+            v-if="getVisibleBtn.next"
+            :data-item="config.btn.next"
+            @clickBtn="setPartNext"
+            >Next</AppButton
+          >
+          <AppButton
+            v-if="getVisibleBtn.register"
+            :data-item="config.btn.register"
+            >Register</AppButton
+          >
+        </div>
+      </template>
+    </AppForm>
+  </div>
 </template>
 
 <script>
+import { getClone, isNotEmptyObj } from "~/helpers/utils"
+import { forms } from "~/helpers/vars"
+import checkField from "~/helpers/checkField"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
@@ -73,6 +84,8 @@ export default {
         firstName: "",
         role: "user",
       },
+
+      errorsForm: {},
     }
   },
 
@@ -99,6 +112,10 @@ export default {
         register,
       }
     },
+
+    getIsVisibleFormErrors() {
+      return isNotEmptyObj(this.errorsForm)
+    },
   },
 
   methods: {
@@ -115,6 +132,41 @@ export default {
 
     setField({ value, nameField }) {
       this.field[nameField] = value
+    },
+
+    checkField(nameField) {
+      const value = this.field[nameField]
+      let messages = []
+      let caption = ""
+
+      switch (nameField) {
+        case "userName":
+          messages = checkField.checkFieldUserName(value)
+          caption = forms.sign[nameField].message.caption
+          break
+      }
+
+      this.setErrorsForm(nameField, caption, messages)
+      if (!messages.length) this.removeErrorsForm(nameField)
+    },
+
+    setErrorsForm(nameField, caption, messages) {
+      const data = {}
+
+      data[nameField] = { caption: "", messages: [] }
+      data[nameField].caption = caption
+      data[nameField].messages = getClone(messages)
+
+      const errorsClone = getClone(this.errorsForm)
+
+      this.errorsForm = Object.assign({}, errorsClone, data)
+    },
+
+    removeErrorsForm(nameField) {
+      const data = getClone(this.errorsForm)
+      delete data[nameField]
+
+      this.errorsForm = data
     },
 
     async register() {

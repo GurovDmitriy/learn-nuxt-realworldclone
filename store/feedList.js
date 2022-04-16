@@ -67,7 +67,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setFeedListFailure, err)
-      throw new Error("error fetch feed list")
+      throw err
     }
   },
 

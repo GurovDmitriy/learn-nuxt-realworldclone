@@ -13,6 +13,7 @@
       :data-item="config.input.userName"
       :value="dataItem.userName"
       @input="emitInputUser($event, 'userName')"
+      @blur="emitBlurField('userName')"
     />
     <label class="form-register-part-1__label visually-hidden" for="email-field"
       >Email</label
@@ -22,6 +23,7 @@
       :data-item="config.input.email"
       :value="dataItem.email"
       @input="emitInputUser($event, 'email')"
+      @blur="emitBlurField('email')"
     />
     <label
       class="form-register-part-1__label visually-hidden"
@@ -33,6 +35,7 @@
       :data-item="config.input.password"
       :value="dataItem.password"
       @input="emitInputUser($event, 'password')"
+      @blur="emitBlurField('password')"
     />
   </fieldset>
 </template>
@@ -81,6 +84,10 @@ export default {
   methods: {
     emitInputUser(value, nameField) {
       this.$emit("inputUser", { value, nameField })
+    },
+
+    emitBlurField(nameField) {
+      this.$emit("blurField", nameField)
     },
   },
 }

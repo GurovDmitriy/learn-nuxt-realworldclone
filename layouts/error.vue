@@ -1,8 +1,9 @@
 <template>
   <div class="error">
     <p class="error__caption">Error</p>
+    <p class="error__status">{{ error.statusCode }}</p>
+    <p class="error__status-text">{{ error.response.statusText }}</p>
     <p class="error__message">{{ error.message }}</p>
-    <p class="error__status">status code: {{ error.statusCode }}</p>
   </div>
 </template>
 
@@ -48,6 +49,15 @@ export default {
 }
 
 .error__status {
+  @include text-small;
+
+  margin-bottom: 0;
+
+  color: $var-color-default;
+  text-align: center;
+}
+
+.error__status-text {
   @include text-small;
 
   margin-bottom: 0;

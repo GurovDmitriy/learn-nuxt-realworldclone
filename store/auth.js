@@ -142,7 +142,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setCurrentUserFailure, err)
-      // throw new Error("error register")
+      throw err
     }
   },
 
@@ -163,7 +163,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setCurrentUserFailure, err)
-      // throw new Error("error login")
+      throw err
     }
   },
 
@@ -177,7 +177,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.setCurrentUserFailure, err)
-      // throw new Error("error fetch current user")
+      throw err
     }
   },
 
@@ -192,7 +192,7 @@ const actions = {
       return data
     } catch (err) {
       commit(mutationTypes.updateCurrentUserFailure, err)
-      // throw new Error("error update current user")
+      throw err
     }
   },
 
@@ -207,7 +207,7 @@ const actions = {
       commit(mutationTypes.logoutSuccess)
     } catch (err) {
       commit(mutationTypes.logoutFailure, err)
-      // throw new Error("error logout")
+      throw err
     }
   },
 
