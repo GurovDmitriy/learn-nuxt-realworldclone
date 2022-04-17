@@ -2,6 +2,7 @@
   <AppForm
     class="form-settings"
     :data-item="config.form"
+    novalidate="true"
     @submitForm="updateSettings"
   >
     <template #default>
@@ -14,7 +15,7 @@
           v-model="field.image"
           class="form-settings__input form-settings__input--avatar"
           :data-item="config.input.image"
-          @blur="setCheckField('image')"
+          @blur="setCheckField('image', 'sign')"
         />
         <label class="form-settings__label visually-hidden" for="username-field"
           >Username</label
@@ -23,7 +24,7 @@
           v-model="field.userName"
           class="form-settings__input form-settings__input--username"
           :data-item="config.input.userName"
-          @blur="setCheckField('userName')"
+          @blur="setCheckField('userName', 'sign')"
         />
         <label class="form-settings__label visually-hidden" for="email-field"
           >Email</label
@@ -32,7 +33,7 @@
           v-model="field.email"
           class="form-settings__input form-settings__input--email"
           :data-item="config.input.email"
-          @blur="setCheckField('email')"
+          @blur="setCheckField('email', 'sign')"
         />
         <label class="form-settings__label visually-hidden" for="password-field"
           >Password</label
@@ -41,7 +42,7 @@
           v-model="field.password"
           class="form-settings__input form-settings__input--password"
           :data-item="config.input.password"
-          @blur="setCheckField('password')"
+          @blur="setCheckField('password', 'sign')"
         />
       </fieldset>
     </template>
@@ -157,6 +158,8 @@ export default {
     },
 
     async updateSettings() {
+      if (!this.getIsValidForm("sign")) return false
+
       await this.$store.dispatch(actionTypesAuth.updateCurrentUser, this.field)
       this.field.password = ""
     },

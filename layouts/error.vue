@@ -2,7 +2,9 @@
   <div class="error">
     <p class="error__caption">Error</p>
     <p class="error__status">{{ error.statusCode }}</p>
-    <!-- <p class="error__status-text">{{ error.response.statusText }}</p> -->
+    <p v-if="error.response.statusText" class="error__status-text">
+      {{ error.response.statusText }}
+    </p>
     <p class="error__message">{{ error.message }}</p>
   </div>
 </template>
