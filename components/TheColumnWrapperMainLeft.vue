@@ -5,22 +5,24 @@
       :data-item="getDataFilterBar"
       class="column-wrapper-main-left__filter-bar"
     />
-    <AppPlaceholderFeedList
-      v-if="getIsLoadingFeedList"
-      :data-item="placeholderCount"
-      class="column-wrapper-main-left__placeholder"
-    />
+    <Transition name="elements">
+      <AppFeedList
+        v-if="getFeedList"
+        :data-item="getDataFeedList"
+        class="column-wrapper-main-left__feed-list"
+        @toggleLike="toggleLike($event)"
+      />
+      <AppPlaceholderFeedList
+        v-if="getIsLoadingFeedList"
+        :data-item="placeholderCount"
+        class="column-wrapper-main-left__placeholder"
+      />
+    </Transition>
     <AppButtonCaption
       v-if="getErrorsFeedList"
       :data-item="config.btn.refresh"
       class="column-wrapper-main-left__refresh"
       @clickBtn="fetchFeedList"
-    />
-    <AppFeedList
-      v-if="getFeedList"
-      :data-item="getDataFeedList"
-      class="column-wrapper-main-left__feed-list"
-      @toggleLike="toggleLike($event)"
     />
     <AppPlaceholderContent
       v-if="getIsVisiblePlaceholderContent"
@@ -47,6 +49,11 @@ import { paginator } from "~/helpers/vars"
 
 export default {
   mixins: [CreateFeedList],
+
+  transitions: {
+    name: "elements",
+    mode: "out-in",
+  },
 
   data() {
     return {
