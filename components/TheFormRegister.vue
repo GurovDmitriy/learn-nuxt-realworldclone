@@ -13,7 +13,7 @@
             :data-item="field"
             class="form-register__fieldset"
             @inputUser="setField"
-            @blurField="setCheckField"
+            @blurField="setCheckField($event, 'sign')"
           />
         </KeepAlive>
       </template>
@@ -48,12 +48,12 @@
 </template>
 
 <script>
-import { getClone, isNotEmptyObj } from "~/helpers/utils"
-import { forms } from "~/helpers/vars"
-import checkField from "~/helpers/checkField"
+import FormValidation from "~/mixins/formValidation"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
+  mixins: [FormValidation],
+
   data() {
     return {
       config: {
@@ -84,8 +84,6 @@ export default {
         image: "",
         role: "user",
       },
-
-      errorsForm: {},
     }
   },
 
@@ -112,10 +110,6 @@ export default {
         register,
       }
     },
-
-    getIsVisibleFormErrors() {
-      return isNotEmptyObj(this.errorsForm)
-    },
   },
 
   methods: {
@@ -134,70 +128,8 @@ export default {
       this.field[nameField] = value
     },
 
-    setCheckField(nameField) {
-      const value = this.field[nameField]
-      let messages = []
-      let caption = ""
-
-      switch (nameField) {
-        case "userName":
-          setData("checkFieldUserName")
-          break
-        case "email":
-          setData("checkFieldEmail")
-          break
-        case "password":
-          setData("checkFieldPassword")
-          break
-        case "firstName":
-          setData("checkFieldFirstName")
-          break
-        case "lastName":
-          setData("checkFieldLastName")
-          break
-        case "image":
-          setData("checkFieldUrl")
-          break
-      }
-
-      function setData(nameMethod) {
-        messages = checkField[nameMethod](value)
-        caption = forms.sign[nameField].message.caption
-      }
-
-      this.setErrorsForm(nameField, caption, messages)
-      if (!messages.length) this.removeErrorsForm(nameField)
-    },
-
-    setErrorsForm(nameField, caption, messages) {
-      const data = {}
-
-      data[nameField] = { caption: "", messages: [] }
-      data[nameField].caption = caption
-      data[nameField].messages = getClone(messages)
-
-      const errorsClone = getClone(this.errorsForm)
-
-      this.errorsForm = Object.assign({}, errorsClone, data)
-    },
-
-    removeErrorsForm(nameField) {
-      const data = getClone(this.errorsForm)
-      delete data[nameField]
-
-      this.errorsForm = data
-    },
-
-    getIsValidForm() {
-      for (const key in this.field) {
-        this.setCheckField(key)
-      }
-
-      return !isNotEmptyObj(this.errorsForm)
-    },
-
     async register() {
-      if (!this.getIsValidForm()) return
+      if (!this.getIsValidForm("sign")) return false
 
       await this.$store.dispatch(actionTypesAuth.register, this.field)
       return this.$router.push({ path: "/" })

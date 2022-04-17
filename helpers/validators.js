@@ -29,6 +29,20 @@ function getCheckUrl(value, message) {
   return reg.test(value) === true ? false : message
 }
 
+function getCheckStrTag(value, message) {
+  const check = value.split(",").filter((item) => Number(item))
+
+  return check.length === 0 ? false : message
+}
+
+function getCheckRangeTag(value, min, max, message) {
+  const check = value
+    .split(",")
+    .filter((item) => item.length < min || item.length > max)
+
+  return check.length === 0 ? false : message
+}
+
 export default {
   getCheckRequired,
   getCheckStr,
@@ -36,4 +50,6 @@ export default {
   getCheckEmail,
   getCheckRange,
   getCheckUrl,
+  getCheckStrTag,
+  getCheckRangeTag,
 }

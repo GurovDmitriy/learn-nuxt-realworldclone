@@ -1,5 +1,10 @@
 <template>
-  <AppForm class="form-login" :data-item="config.form" @submitForm="login">
+  <AppForm
+    class="form-login"
+    :data-item="config.form"
+    novalidate="true"
+    @submitForm="login"
+  >
     <template #default>
       <fieldset class="form-login__fieldset">
         <legend class="form-login__legend visually-hidden">Login</legend>
@@ -10,6 +15,7 @@
           v-model="field.email"
           class="form-login__input form-login__input--email"
           :data-item="config.input.email"
+          @blur="setCheckField('email', 'sign')"
         />
         <label class="form-login__label visually-hidden" for="password-field"
           >Password</label
@@ -18,11 +24,17 @@
           v-model="field.password"
           class="form-login__input form-login__input--password"
           :data-item="config.input.password"
+          @blur="setCheckField('password', 'sign')"
         />
       </fieldset>
     </template>
 
     <template #box-btn>
+      <AppFormErrors
+        v-if="getIsVisibleFormErrors"
+        :data-item="errorsForm"
+        class="form-register__errors"
+      />
       <AppButton
         class="form-login__btn form-login__btn--login"
         :data-item="config.btn.login"
@@ -33,9 +45,12 @@
 </template>
 
 <script>
+import FormValidation from "~/mixins/formValidation"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
+  mixins: [FormValidation],
+
   data() {
     return {
       config: {
@@ -78,6 +93,8 @@ export default {
 
   methods: {
     async login() {
+      if (!this.getIsValidForm("sign")) return false
+
       await this.$store.dispatch(actionTypesAuth.login, this.field)
       return this.$router.push({ path: "/" })
     },

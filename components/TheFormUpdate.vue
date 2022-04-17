@@ -2,6 +2,7 @@
   <AppForm
     class="form-update"
     :data-item="config.form"
+    novalidate="true"
     @submitForm="updateFeed"
   >
     <template #default>
@@ -14,6 +15,7 @@
           v-model="field.title"
           class="form-update__input form-update__input--title"
           :data-item="config.input.title"
+          @blur="setCheckField('title', 'feed')"
         />
         <label class="form-update__label visually-hidden" for="about-field"
           >About</label
@@ -22,6 +24,7 @@
           v-model="field.preview"
           class="form-update__input form-update__input--about"
           :data-item="config.input.about"
+          @blur="setCheckField('preview', 'feed')"
         />
         <label class="form-update__label visually-hidden" for="tags-field"
           >Tags</label
@@ -30,16 +33,23 @@
           v-model="field.tags"
           class="form-update__input form-update__input--tags"
           :data-item="config.input.tags"
+          @blur="setCheckField('tags', 'feed')"
         />
         <AppInputTextarea
           v-model="field.content"
           class="form-update__input form-update__input--content"
           :data-item="config.input.content"
+          @blur="setCheckField('content', 'feed')"
         />
       </fieldset>
     </template>
 
     <template #box-btn>
+      <AppFormErrors
+        v-if="getIsVisibleFormErrors"
+        :data-item="errorsForm"
+        class="form-register__errors"
+      />
       <div class="form-update__box-btn">
         <AppButton
           class="form-update__btn form-update__btn--reset"
@@ -62,11 +72,12 @@ import { mapGetters, mapState } from "vuex"
 import { getStrKebabCase } from "~/helpers/utils"
 import FormCreateFeed from "~/mixins/formCreateFeed"
 import FormReset from "~/mixins/formReset"
+import FormValidation from "~/mixins/formValidation"
 import { getterTypes as getterTypesAuth } from "~/store/auth"
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 
 export default {
-  mixins: [FormCreateFeed, FormReset],
+  mixins: [FormCreateFeed, FormReset, FormValidation],
 
   data() {
     return {
@@ -144,6 +155,8 @@ export default {
 
   methods: {
     async updateFeed() {
+      if (!this.getIsValidForm("feed")) return false
+
       const field = this.field
       const fieldDefault = this.createFieldDefault()
       const tags = { tags: this.createTags() }

@@ -14,6 +14,7 @@
           v-model="field.image"
           class="form-settings__input form-settings__input--avatar"
           :data-item="config.input.image"
+          @blur="setCheckField('image')"
         />
         <label class="form-settings__label visually-hidden" for="username-field"
           >Username</label
@@ -22,6 +23,7 @@
           v-model="field.userName"
           class="form-settings__input form-settings__input--username"
           :data-item="config.input.userName"
+          @blur="setCheckField('userName')"
         />
         <label class="form-settings__label visually-hidden" for="email-field"
           >Email</label
@@ -30,6 +32,7 @@
           v-model="field.email"
           class="form-settings__input form-settings__input--email"
           :data-item="config.input.email"
+          @blur="setCheckField('email')"
         />
         <label class="form-settings__label visually-hidden" for="password-field"
           >Password</label
@@ -38,11 +41,17 @@
           v-model="field.password"
           class="form-settings__input form-settings__input--password"
           :data-item="config.input.password"
+          @blur="setCheckField('password')"
         />
       </fieldset>
     </template>
 
     <template #box-btn>
+      <AppFormErrors
+        v-if="getIsVisibleFormErrors"
+        :data-item="errorsForm"
+        class="form-register__errors"
+      />
       <div class="form-settings__box-btn">
         <AppButton
           class="form-settings__btn form-settings__btn--logout"
@@ -62,12 +71,15 @@
 
 <script>
 import { mapGetters } from "vuex"
+import FormValidation from "~/mixins/formValidation"
 import {
   getterTypes as getterTypesAuth,
   actionTypes as actionTypesAuth,
 } from "~/store/auth"
 
 export default {
+  mixins: [FormValidation],
+
   data() {
     return {
       config: {
