@@ -57,12 +57,14 @@
         <AppButton
           class="form-settings__btn form-settings__btn--logout"
           :data-item="config.btn.logout"
+          :disabled="getIsSubmittingForm"
           @clickBtn="logout"
           >Logout</AppButton
         >
         <AppButton
           class="form-settings__btn form-settings__btn--update"
           :data-item="config.btn.update"
+          :disabled="getIsSubmittingForm"
           >Update</AppButton
         >
       </div>
@@ -71,7 +73,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapState } from "vuex"
 import FormValidation from "~/mixins/formValidation"
 import {
   getterTypes as getterTypesAuth,
@@ -146,6 +148,10 @@ export default {
     ...mapGetters({
       getCurrentUser: getterTypesAuth.getCurrentUser,
     }),
+
+    ...mapState({
+      getIsSubmittingForm: ({ auth }) => auth.isSubmitting,
+    }),
   },
 
   mounted() {
@@ -159,12 +165,15 @@ export default {
 
     async updateSettings() {
       if (!this.getIsValidForm("sign")) return false
+      if (this.getIsSubmittingForm) return false
 
       await this.$store.dispatch(actionTypesAuth.updateCurrentUser, this.field)
       this.field.password = ""
     },
 
     async logout() {
+      if (this.getIsSubmittingForm) return false
+
       await this.$store.dispatch(actionTypesAuth.logout)
       return this.$router.push({ path: "/login" })
     },

@@ -5,6 +5,14 @@
       :data-item="getDataFilterBar"
       class="column-wrapper-user__filter-bar"
     />
+    <Transition name="elements">
+      <AppFeedList
+        v-if="getFeedList"
+        :data-item="getDataFeedList"
+        class="column-wrapper-user__feed-list"
+        @toggleLike="toggleLike($event)"
+      />
+    </Transition>
     <AppPlaceholderFeedList
       v-if="getIsLoadingFeedList"
       :data-item="placeholderCount"
@@ -15,12 +23,6 @@
       :data-item="config.btn.refresh"
       class="column-wrapper-user__refresh"
       @clickBtn="fetchFeedList"
-    />
-    <AppFeedList
-      v-if="getFeedList"
-      :data-item="getDataFeedList"
-      class="column-wrapper-user__feed-list"
-      @toggleLike="toggleLike($event)"
     />
     <AppPlaceholderContent
       v-if="getIsVisiblePlaceholderContent"
@@ -36,6 +38,11 @@ import CreateFeedList from "~/mixins/dataFeedList"
 import { isNotEmptyArr } from "~/helpers/utils"
 
 export default {
+  transitions: {
+    name: "elements",
+    mode: "out-in",
+  },
+
   mixins: [CreateFeedList],
 
   data() {

@@ -13,11 +13,13 @@
         class="column-wrapper-main-right__refresh"
         @clickBtn="fetchTags"
       />
-      <AppTagsList
-        v-if="getTagsPopular"
-        :data-item="getDataTagsPopular"
-        class="column-wrapper-main-right__tags-list"
-      />
+      <Transition name="elements">
+        <AppTagsList
+          v-if="getTagsPopular"
+          :data-item="getDataTagsPopular"
+          class="column-wrapper-main-right__tags-list"
+        />
+      </Transition>
     </div>
   </aside>
 </template>
@@ -27,6 +29,11 @@ import { mapState } from "vuex"
 import { actionTypes as actionTypesTag } from "~/store/tag"
 
 export default {
+  transitions: {
+    name: "elements",
+    mode: "out-in",
+  },
+
   data() {
     return {
       config: {

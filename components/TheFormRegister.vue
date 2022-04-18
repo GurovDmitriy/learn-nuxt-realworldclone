@@ -8,13 +8,15 @@
     >
       <template #default>
         <KeepAlive>
-          <Component
-            :is="getActivePart"
-            :data-item="field"
-            class="form-register__fieldset"
-            @inputUser="setField"
-            @blurField="setCheckField($event, 'sign')"
-          />
+          <Transition name="elements">
+            <Component
+              :is="getActivePart"
+              :data-item="field"
+              class="form-register__fieldset"
+              @inputUser="setField"
+              @blurField="setCheckField($event, 'sign')"
+            />
+          </Transition>
         </KeepAlive>
       </template>
       <template #box-btn>
@@ -27,18 +29,21 @@
           <AppButton
             v-if="getVisibleBtn.prev"
             :data-item="config.btn.prev"
+            :disabled="getIsSubmittingForm"
             @clickBtn="setPartPrev"
             >Prev</AppButton
           >
           <AppButton
             v-if="getVisibleBtn.next"
             :data-item="config.btn.next"
+            :disabled="getIsSubmittingForm"
             @clickBtn="setPartNext"
             >Next</AppButton
           >
           <AppButton
             v-if="getVisibleBtn.register"
             :data-item="config.btn.register"
+            :disabled="getIsSubmittingForm"
             >Register</AppButton
           >
         </div>
@@ -48,10 +53,16 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 import FormValidation from "~/mixins/formValidation"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
 export default {
+  transitions: {
+    name: "elements",
+    mode: "out-in",
+  },
+
   mixins: [FormValidation],
 
   data() {
@@ -88,6 +99,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      getIsSubmittingForm: ({ auth }) => auth.isSubmitting,
+    }),
+
     getActivePart() {
       const baseName = this.config.formPart.baseName
       const active = this.config.formPart.active
@@ -114,11 +129,15 @@ export default {
 
   methods: {
     setPartPrev() {
-      if (this.config.formPart.active === 0) return
+      if (this.getIsSubmittingForm) return false
+
+      if (this.config.formPart.active === 0) return false
       this.config.formPart.active -= 1
     },
 
     setPartNext() {
+      if (this.getIsSubmittingForm) return false
+
       if (this.config.formPart.active === this.config.formPart.list.length - 1)
         return
       this.config.formPart.active += 1
@@ -130,6 +149,7 @@ export default {
 
     async register() {
       if (!this.getIsValidForm("sign")) return false
+      if (this.getIsSubmittingForm) return false
 
       await this.$store.dispatch(actionTypesAuth.register, this.field)
       return this.$router.push({ path: "/" })

@@ -38,6 +38,7 @@
       <AppButton
         class="form-login__btn form-login__btn--login"
         :data-item="config.btn.login"
+        :disabled="getIsSubmittingForm"
         >Login</AppButton
       >
     </template>
@@ -45,6 +46,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 import FormValidation from "~/mixins/formValidation"
 import { actionTypes as actionTypesAuth } from "~/store/auth"
 
@@ -91,9 +93,16 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      getIsSubmittingForm: ({ auth }) => auth.isSubmitting,
+    }),
+  },
+
   methods: {
     async login() {
       if (!this.getIsValidForm("sign")) return false
+      if (this.getIsSubmittingForm) return false
 
       await this.$store.dispatch(actionTypesAuth.login, this.field)
       return this.$router.push({ path: "/" })

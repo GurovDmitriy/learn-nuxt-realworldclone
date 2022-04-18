@@ -78,10 +78,30 @@ p {
   margin-top: 0;
 }
 
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 0.2s;
+}
+
+.layout-enter,
+.layout-leave-active {
+  opacity: 0%;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.2s;
+}
+
+.page-enter,
+.page-leave-to {
+  opacity: 0%;
 }
 
 .elements-enter {

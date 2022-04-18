@@ -12,12 +12,12 @@
         class="column-wrapper-main-left__feed-list"
         @toggleLike="toggleLike($event)"
       />
-      <AppPlaceholderFeedList
-        v-if="getIsLoadingFeedList"
-        :data-item="placeholderCount"
-        class="column-wrapper-main-left__placeholder"
-      />
     </Transition>
+    <AppPlaceholderFeedList
+      v-if="getIsLoadingFeedList"
+      :data-item="placeholderCount"
+      class="column-wrapper-main-left__placeholder"
+    />
     <AppButtonCaption
       v-if="getErrorsFeedList"
       :data-item="config.btn.refresh"
@@ -28,11 +28,13 @@
       v-if="getIsVisiblePlaceholderContent"
       class="column-wrapper-main-left__no-content"
     />
-    <AppPaginatorList
-      v-if="getFeedCount"
-      class="main__paginator-list"
-      :data-item="getDataPaginator"
-    />
+    <Transition name="elements">
+      <AppPaginatorList
+        v-if="getFeedCount"
+        class="main__paginator-list"
+        :data-item="getDataPaginator"
+      />
+    </Transition>
     <AppPlaceholderPaginator
       v-if="getIsLoadingFeedCount"
       class="main__placeholder-paginator"

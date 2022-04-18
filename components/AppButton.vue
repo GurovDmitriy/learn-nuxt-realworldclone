@@ -1,5 +1,10 @@
 <template>
-  <button class="button" :type="dataItem.type" @click="emitClickBtn">
+  <button
+    class="button"
+    :type="dataItem.type"
+    :disabled="disabled"
+    @click="emitClickBtn"
+  >
     <slot name="default">Click</slot>
   </button>
 </template>
@@ -13,6 +18,12 @@ export default {
       default: () => ({
         type: "button",
       }),
+    },
+
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 
@@ -37,5 +48,9 @@ export default {
   border-radius: 4px;
 
   cursor: pointer;
+
+  &:disabled {
+    opacity: 50%;
+  }
 }
 </style>

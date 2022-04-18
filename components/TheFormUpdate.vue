@@ -54,12 +54,14 @@
         <AppButton
           class="form-update__btn form-update__btn--reset"
           :data-item="config.btn.reset"
+          :disabled="getIsSubmittingForm"
           @clickBtn="resetField"
           >Reset</AppButton
         >
         <AppButton
           class="form-update__btn form-update__btn--create"
           :data-item="config.btn.update"
+          :disabled="getIsSubmittingForm"
           >Update</AppButton
         >
       </div>
@@ -146,6 +148,7 @@ export default {
 
     ...mapState({
       getFeed: ({ feed }) => feed.feed,
+      getIsSubmittingForm: ({ auth }) => auth.isSubmitting,
     }),
   },
 
@@ -156,6 +159,7 @@ export default {
   methods: {
     async updateFeed() {
       if (!this.getIsValidForm("feed")) return false
+      if (this.getIsSubmittingForm) return false
 
       const field = this.field
       const fieldDefault = this.createFieldDefault()

@@ -18,38 +18,45 @@ export const actionTypes = {
 export const state = () => ({
   feed: {},
   isLoading: false,
+  isSubmitting: false,
   errors: null,
 })
 
 const mutations = {
   [mutationTypes.setFeedStart](state) {
     state.isLoading = true
+    state.isSubmitting = true
     state.feed = null
     state.errors = null
   },
 
   [mutationTypes.setFeedSuccess](state, payload) {
     state.feed = payload
+    state.isSubmitting = false
     state.isLoading = false
   },
 
   [mutationTypes.setFeedFailure](state, payload) {
     state.errors = payload
+    state.isSubmitting = false
     state.isLoading = false
   },
 
   [mutationTypes.deleteFeedStart](state) {
     state.isLoading = true
+    state.isSubmitting = true
     state.errors = null
   },
 
   [mutationTypes.deleteFeedSuccess](state) {
     state.feed = null
+    state.isSubmitting = false
     state.isLoading = false
   },
 
   [mutationTypes.deleteFeedFailure](state, payload) {
     state.errors = payload
+    state.isSubmitting = false
     state.isLoading = false
   },
 }

@@ -54,12 +54,14 @@
         <AppButton
           class="form-editor__btn form-editor__btn--reset"
           :data-item="config.btn.reset"
+          :disabled="getIsSubmittingForm"
           @clickBtn="resetField"
           >Reset</AppButton
         >
         <AppButton
           class="form-editor__btn form-editor__btn--create"
           :data-item="config.btn.create"
+          :disabled="getIsSubmittingForm"
           >Create</AppButton
         >
       </div>
@@ -68,7 +70,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapState } from "vuex"
 import { getStrKebabCase } from "~/helpers/utils"
 import FormCreateFeed from "~/mixins/formCreateFeed"
 import FormReset from "~/mixins/formReset"
@@ -143,11 +145,16 @@ export default {
     ...mapGetters({
       getCurrentUser: getterTypesAuth.getCurrentUser,
     }),
+
+    ...mapState({
+      getIsSubmittingForm: ({ feed }) => feed.isSubmitting,
+    }),
   },
 
   methods: {
     async createFeed() {
       if (!this.getIsValidForm("feed")) return false
+      if (this.getIsSubmittingForm) return false
 
       const field = this.field
       const fieldDefault = this.createFieldDefault()
