@@ -19,7 +19,7 @@
       class="column-wrapper-main-left__placeholder"
     />
     <AppButtonCaption
-      v-if="true"
+      v-if="getErrorsFeedList"
       :data-item="config.btn.refresh"
       class="column-wrapper-main-left__refresh"
       @clickBtn="fetchFeedList"

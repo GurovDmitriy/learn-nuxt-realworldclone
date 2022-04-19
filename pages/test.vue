@@ -9,20 +9,6 @@
 <script>
 export default {
   layout: "test",
-
-  fetch(context) {
-    if (process.server) {
-      const { req, res, beforeNuxtRender } = context
-
-      console.log(req, res, beforeNuxtRender)
-    }
-
-    if (process.client) {
-      const { from, nuxtState } = context
-
-      console.log(from, nuxtState)
-    }
-  },
 }
 </script>
 

@@ -2,6 +2,8 @@ export default {
   target: "server",
   ssr: true,
 
+  // serverMiddleware: ["~/server-middleware/logger"],
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: "RWC: %s",
