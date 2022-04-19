@@ -15,16 +15,20 @@ import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
 
 export default {
-  async asyncData({ query, store }) {
-    const pageNum = query.page || 1
-    const itemPerPage = paginator.feedList.main
-    const feedListPayload = `_page=${pageNum}&_limit=${itemPerPage}`
+  async asyncData({ query, store, error }) {
+    try {
+      const pageNum = query.page || 1
+      const itemPerPage = paginator.feedList.main
+      const feedListPayload = `_page=${pageNum}&_limit=${itemPerPage}`
 
-    await Promise.allSettled([
-      store.dispatch(actionTypesTag.fetchTagsPopular),
-      store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
-      store.dispatch(actionTypesFeedCount.fetchFeedCount, "total"),
-    ])
+      await Promise.allSettled([
+        store.dispatch(actionTypesTag.fetchTagsPopular),
+        store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
+        store.dispatch(actionTypesFeedCount.fetchFeedCount, "total"),
+      ])
+    } catch (err) {
+      error(err)
+    }
   },
 
   head() {

@@ -29,22 +29,26 @@ export default {
   mixins: [DataPaginator],
   layout: "user",
 
-  async asyncData({ params, query, store }) {
-    const userName = params.user
-    const pageNum = query.page || 1
-    const itemPerPage = paginator.feedList.main
+  async asyncData({ params, query, store, error }) {
+    try {
+      const userName = params.user
+      const pageNum = query.page || 1
+      const itemPerPage = paginator.feedList.main
 
-    const userPayload = `userName=${userName}`
-    const feedListPayload = `userName=${userName}&_page=${pageNum}&_limit=${itemPerPage}`
+      const userPayload = `userName=${userName}`
+      const feedListPayload = `userName=${userName}&_page=${pageNum}&_limit=${itemPerPage}`
 
-    await Promise.allSettled([
-      store.dispatch(actionTypesUser.fetchUser, userPayload),
-      store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
-      store.dispatch(actionTypesFeedCount.fetchFeedCount, "user"),
-    ])
+      await Promise.allSettled([
+        store.dispatch(actionTypesUser.fetchUser, userPayload),
+        store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
+        store.dispatch(actionTypesFeedCount.fetchFeedCount, "user"),
+      ])
 
-    return {
-      userName,
+      return {
+        userName,
+      }
+    } catch (err) {
+      error(err)
     }
   },
 

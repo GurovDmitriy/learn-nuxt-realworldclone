@@ -14,17 +14,21 @@ import { actionTypes as actionTypesUser } from "~/store/user"
 import { getStrFromKebabCase } from "~/helpers/utils"
 
 export default {
-  async asyncData({ params, store }) {
-    const feedTitle = getStrFromKebabCase(params.feed)
+  async asyncData({ params, store, error }) {
+    try {
+      const feedTitle = getStrFromKebabCase(params.feed)
 
-    const feedPayload = `title=${feedTitle}`
-    await store.dispatch(actionTypesFeed.fetchFeed, feedPayload)
+      const feedPayload = `title=${feedTitle}`
+      await store.dispatch(actionTypesFeed.fetchFeed, feedPayload)
 
-    const userPayload = `id=${store.state.feed.feed.userId}`
-    await store.dispatch(actionTypesUser.fetchUser, userPayload)
+      const userPayload = `id=${store.state.feed.feed.userId}`
+      await store.dispatch(actionTypesUser.fetchUser, userPayload)
 
-    return {
-      feedTitle,
+      return {
+        feedTitle,
+      }
+    } catch (err) {
+      error(err)
     }
   },
 
