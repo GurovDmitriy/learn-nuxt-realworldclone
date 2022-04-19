@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "Real World Clone",
+    titleTemplate: "RWC: %s",
     htmlAttrs: {
       lang: "en",
     },

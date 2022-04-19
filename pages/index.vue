@@ -27,6 +27,19 @@ export default {
     ])
   },
 
+  head() {
+    return {
+      title: "Home",
+      meta: [
+        {
+          name: "description",
+          content: "Template for learn Nuxt 2: Home Page",
+          hid: "description",
+        },
+      ],
+    }
+  },
+
   watchQuery: ["page"],
 }
 </script>

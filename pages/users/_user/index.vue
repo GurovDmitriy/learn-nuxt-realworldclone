@@ -42,6 +42,23 @@ export default {
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "user"),
     ])
+
+    return {
+      userName,
+    }
+  },
+
+  head() {
+    return {
+      title: `User ${this.userName}`,
+      meta: [
+        {
+          name: "description",
+          content: `Template for learn Nuxt 2: User ${this.userName}`,
+          hid: "description",
+        },
+      ],
+    }
   },
 
   computed: {

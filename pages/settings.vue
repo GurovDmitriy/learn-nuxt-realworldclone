@@ -8,6 +8,19 @@
 <script>
 export default {
   middleware: ["auth"],
+
+  head() {
+    return {
+      title: "Settings",
+      meta: [
+        {
+          name: "description",
+          content: "Template for learn Nuxt 2: Settings User",
+          hid: "description",
+        },
+      ],
+    }
+  },
 }
 </script>
 

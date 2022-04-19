@@ -43,6 +43,23 @@ export default {
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "like"),
     ])
+
+    return {
+      userName,
+    }
+  },
+
+  head() {
+    return {
+      title: `Favorites by ${this.userName}`,
+      meta: [
+        {
+          name: "description",
+          content: `Template for learn Nuxt 2: Favorites by ${this.userName}`,
+          hid: "description",
+        },
+      ],
+    }
   },
 
   computed: {

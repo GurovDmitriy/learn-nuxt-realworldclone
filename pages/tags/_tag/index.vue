@@ -26,6 +26,23 @@ export default {
       store.dispatch(actionTypesFeedList.fetchFeedList, feedListPayload),
       store.dispatch(actionTypesFeedCount.fetchFeedCount, "tag"),
     ])
+
+    return {
+      tag,
+    }
+  },
+
+  head() {
+    return {
+      title: `Tag ${this.tag}`,
+      meta: [
+        {
+          name: "description",
+          content: `Template for learn Nuxt 2: Tag ${this.tag}`,
+          hid: "description",
+        },
+      ],
+    }
   },
 
   watchQuery: ["page"],

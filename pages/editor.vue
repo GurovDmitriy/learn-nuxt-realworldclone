@@ -8,6 +8,19 @@
 <script>
 export default {
   middleware: ["auth"],
+
+  head() {
+    return {
+      title: "Editor",
+      meta: [
+        {
+          name: "description",
+          content: "Template for learn Nuxt 2: Create new Feed",
+          hid: "description",
+        },
+      ],
+    }
+  },
 }
 </script>
 

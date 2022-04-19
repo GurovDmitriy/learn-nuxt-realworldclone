@@ -22,6 +22,23 @@ export default {
 
     const userPayload = `id=${store.state.feed.feed.userId}`
     await store.dispatch(actionTypesUser.fetchUser, userPayload)
+
+    return {
+      feedTitle,
+    }
+  },
+
+  head() {
+    return {
+      title: `Feed ${this.feedTitle}`,
+      meta: [
+        {
+          name: "description",
+          content: `Template for learn Nuxt 2: Feed ${this.feedTitle}`,
+          hid: "description",
+        },
+      ],
+    }
   },
 }
 </script>
