@@ -95,6 +95,12 @@ export default {
       )
     },
   },
+
+  methods: {
+    fetchFeedList() {
+      this.$nuxt.refresh()
+    },
+  },
 }
 </script>
 

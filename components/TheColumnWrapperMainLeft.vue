@@ -19,7 +19,7 @@
       class="column-wrapper-main-left__placeholder"
     />
     <AppButtonCaption
-      v-if="getErrorsFeedList"
+      v-if="true"
       :data-item="config.btn.refresh"
       class="column-wrapper-main-left__refresh"
       @clickBtn="fetchFeedList"
@@ -161,6 +161,12 @@ export default {
         !this.getIsLoadingFeedList &&
         !this.getIsLoadingFeedCount
       )
+    },
+  },
+
+  methods: {
+    fetchFeedList() {
+      this.$nuxt.refresh()
     },
   },
 }

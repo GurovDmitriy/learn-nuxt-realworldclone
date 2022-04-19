@@ -26,7 +26,6 @@
 
 <script>
 import { mapState } from "vuex"
-import { actionTypes as actionTypesTag } from "~/store/tag"
 
 export default {
   transitions: {
@@ -69,8 +68,8 @@ export default {
   },
 
   methods: {
-    async fetchTags() {
-      await this.$store.dispatch(actionTypesTag.fetchTagsPopular)
+    fetchTags() {
+      this.$nuxt.refresh()
     },
   },
 }

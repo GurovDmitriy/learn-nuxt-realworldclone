@@ -14,21 +14,6 @@
 import { mapState } from "vuex"
 
 export default {
-  data() {
-    return {
-      config: {
-        btn: {
-          refresh: {
-            message: "Something went wrong",
-            btnText: "Refresh",
-            iconName: "arrow-clockwise",
-            iconDesc: "refresh",
-          },
-        },
-      },
-    }
-  },
-
   computed: {
     ...mapState({
       getFeed: ({ feed }) => feed.feed,
