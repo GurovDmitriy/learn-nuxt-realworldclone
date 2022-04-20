@@ -23,7 +23,7 @@ import { actionTypes as actionTypesUser } from "~/store/user"
 import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
-import { isNotEmptyObj } from "~/helpers/utils"
+import { getIsValidParamsUser } from "~/helpers/validateHook"
 import DataPaginator from "~/mixins/dataPaginator"
 
 export default {
@@ -31,14 +31,10 @@ export default {
   layout: "user",
 
   async validate({ params, store }) {
-    const reg = /^[0-9]+$/g
-    const onlyNum = reg.test(params.user)
-
     const userPayload = `userName=${params.user}`
     const user = await store.dispatch(actionTypesUser.fetchUser, userPayload)
-    const isExistUser = isNotEmptyObj(user)
 
-    return !onlyNum && isExistUser
+    return getIsValidParamsUser(params.user, user)
   },
 
   async asyncData({ params, query, store, error }) {

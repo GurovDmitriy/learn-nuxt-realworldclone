@@ -13,8 +13,21 @@ import { actionTypes as actionTypesTag } from "~/store/tag"
 import { actionTypes as actionTypesFeedList } from "~/store/feedList"
 import { actionTypes as actionTypesFeedCount } from "~/store/feedCount"
 import { paginator } from "~/helpers/vars"
+import { getIsValidParamsTag } from "~/helpers/validateHook"
 
 export default {
+  async validate({ params }) {
+    const res = await fetch(
+      `http://localhost:3005/feeds?tags_like=${params.tag}`,
+      {
+        method: "GET",
+      }
+    )
+    const data = await res.json()
+
+    return getIsValidParamsTag(params.tag, data)
+  },
+
   async asyncData({ params, query, store, error }) {
     try {
       const tag = params.tag

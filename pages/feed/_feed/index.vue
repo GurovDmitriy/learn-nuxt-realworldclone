@@ -12,8 +12,19 @@
 import { actionTypes as actionTypesFeed } from "~/store/feed"
 import { actionTypes as actionTypesUser } from "~/store/user"
 import { getStrFromKebabCase } from "~/helpers/utils"
+import { getIsValidParamsFeed } from "~/helpers/validateHook"
 
 export default {
+  async validate({ params }) {
+    const feed = getStrFromKebabCase(params.feed)
+    const res = await fetch(`http://localhost:3005/feeds?title_like=${feed}`, {
+      method: "GET",
+    })
+    const data = await res.json()
+
+    return getIsValidParamsFeed(feed, data)
+  },
+
   async asyncData({ params, store, error }) {
     try {
       const feedTitle = getStrFromKebabCase(params.feed)
