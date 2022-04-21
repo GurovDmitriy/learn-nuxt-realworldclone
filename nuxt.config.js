@@ -2,6 +2,17 @@ export default {
   target: "server",
   ssr: true,
 
+  loadingIndicator: {
+    name: "circle",
+    color: "#7c728d",
+    background: "white",
+  },
+
+  loading: {
+    color: "#7c728d",
+    height: "4px",
+  },
+
   // serverMiddleware: ["~/server-middleware/logger"],
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -20,30 +31,7 @@ export default {
       },
       { name: "format-detection", content: "telephone=no" },
     ],
-    link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      // {
-      //   rel: "preload",
-      //   href: "~/assets/fonts/OpenSans-Regular.woff2",
-      //   as: "font",
-      //   type: "font/woff2",
-      //   crossorigin: true,
-      // },
-      // {
-      //   rel: "preload",
-      //   href: "~/assets/fonts/OpenSans-Light.woff2",
-      //   as: "font",
-      //   type: "font/woff2",
-      //   crossorigin: true,
-      // },
-      // {
-      //   rel: "preload",
-      //   href: "~/assets/fonts/OpenSans-Bold.woff2",
-      //   as: "font",
-      //   type: "font/woff2",
-      //   crossorigin: true,
-      // },
-    ],
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -131,5 +119,23 @@ export default {
   // },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    postcss: {
+      // Add plugin names as key and arguments as value
+      // Install them before as dependencies with npm or yarn
+      plugins: {
+        // Disable a plugin by passing false as value
+        "postcss-url": false,
+        // "postcss-nested": {},
+        // "postcss-responsive-type": {},
+        // "postcss-hexrgba": {},
+      },
+      preset: {
+        // Change the postcss-preset-env settings
+        autoprefixer: {
+          grid: true,
+        },
+      },
+    },
+  },
 }

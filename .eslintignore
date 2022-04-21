@@ -143,3 +143,4 @@ sw.*
 ## eslint
 
 jsconfig.json
+**/app.html

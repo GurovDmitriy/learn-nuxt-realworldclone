@@ -143,3 +143,4 @@ sw.*
 ## prettier
 
 jsconfig.json
+**/app.html
