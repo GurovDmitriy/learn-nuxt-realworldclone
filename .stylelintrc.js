@@ -1,4 +1,5 @@
 module.exports = {
+  ignoreFiles: ["**/app.html"],
   extends: [
     "stylelint-config-rational-order",
     "stylelint-config-html",
