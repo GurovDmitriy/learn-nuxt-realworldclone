@@ -26,11 +26,11 @@ export default {
   text-decoration: none;
 
   &.nuxt-link-exact-active {
-    color: $var-color-east-side;
+    color: $var-color-main-brand;
   }
 
   &:hover {
-    color: $var-color-east-side;
+    color: $var-color-main-brand;
   }
 }
 </style>

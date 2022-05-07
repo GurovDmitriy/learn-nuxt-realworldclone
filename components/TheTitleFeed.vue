@@ -134,7 +134,7 @@ export default {
 
   margin-bottom: $space-s;
 
-  color: $var-color-amethyst-smoke;
+  color: $var-color-light-accent;
 }
 
 .title-feed__author {
@@ -142,11 +142,11 @@ export default {
 }
 
 .title-feed__author .author__name {
-  color: $var-color-amethyst-smoke;
+  color: $var-color-light-accent;
 }
 
 .title-feed__author .author__time-feed {
-  color: $var-color-amethyst-smoke;
+  color: $var-color-light-accent;
 }
 
 .title-feed__box-btn {
@@ -157,9 +157,9 @@ export default {
 .title-feed__btn {
   margin-right: $space-s;
 
-  color: $var-color-amethyst-smoke;
+  color: $var-color-light-accent;
 
-  border-color: $var-color-amethyst-smoke;
+  border-color: $var-color-light-accent;
 
   &:last-child {
     margin-right: 0;

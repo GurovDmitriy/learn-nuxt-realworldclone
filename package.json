@@ -7,7 +7,7 @@
     "build": "npm run lint && webpack --mode production",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "jsonserver": "json-server --watch ./data/db.js -m ./node_modules/json-server-auth -r routes.json",
+    "jsonserver": "json-server -p 3005 --watch ./server/db.js -m ./node_modules/json-server-auth -r ./server/routes.json",
     "lint": "npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier",
     "lint:eslint": "eslint --fix --ext \".vue,.js\" --ignore-path .eslintignore .",
     "lint:stylelint": "stylelint --fix \"**/*.{vue,css,less,scss,html}\" --ignore-path .stylelintignore",

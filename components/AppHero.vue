@@ -10,6 +10,6 @@
   padding-top: $space-l;
   padding-bottom: $space-l;
 
-  background-color: $var-color-east-side;
+  background-color: $var-color-main-brand;
 }
 </style>

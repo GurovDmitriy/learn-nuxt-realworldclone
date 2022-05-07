@@ -9,9 +9,9 @@ export function getIsValidParamsUser(value, data) {
 
 export function getIsValidParamsTag(value, data) {
   const onlyNum = getIsOnlyNum(value)
-  const isExistTag = isNotEmptyArr(data)
+  const checkTag = data.filter((t) => t === value)
 
-  return !onlyNum && isExistTag
+  return !onlyNum && isNotEmptyArr(checkTag)
 }
 
 export function getIsValidParamsFeed(value, data) {

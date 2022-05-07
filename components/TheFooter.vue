@@ -23,7 +23,7 @@
 
   flex-grow: 1;
 
-  background-color: $var-color-amethyst-smoke;
+  background-color: $var-color-light-accent;
 }
 
 .footer__link {

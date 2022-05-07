@@ -17,12 +17,9 @@ import { getIsValidParamsTag } from "~/helpers/validateHook"
 
 export default {
   async validate({ params }) {
-    const res = await fetch(
-      `http://localhost:3005/feeds?tags_like=${params.tag}`,
-      {
-        method: "GET",
-      }
-    )
+    const res = await fetch("http://localhost:3005/tags", {
+      method: "GET",
+    })
     const data = await res.json()
 
     return getIsValidParamsTag(params.tag, data)
