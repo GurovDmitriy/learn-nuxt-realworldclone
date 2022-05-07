@@ -16,9 +16,9 @@ export function getIsValidParamsTag(value, data) {
 
 export function getIsValidParamsFeed(value, data) {
   const onlyNum = getIsOnlyNum(value)
-  const isExistTag = isNotEmptyArr(data)
+  const isExistFeed = isNotEmptyArr(data)
 
-  return !onlyNum && isExistTag
+  return !onlyNum && isExistFeed
 }
 
 function getIsOnlyNum(value) {
